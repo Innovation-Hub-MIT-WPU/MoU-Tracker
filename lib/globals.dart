@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const APP_TITLE = "ParkShield";
+const APP_TITLE = "MOU Tracker";
 
 const APP_ICON = "assets/img/app_icon.png";
 
