@@ -14,13 +14,13 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  var imageFile;
-  final ImagePicker picker = ImagePicker();
-  late TextEditingController _nameController;
-  String name = "take from the firebase";
-  String position = "take from the firebase";
-  String email = "take from the firebase";
-  var myKey = GlobalKey<FormState>();
+  static var imageFile;
+  static final ImagePicker picker = ImagePicker();
+  static late TextEditingController _nameController;
+  static String name = "take from the firebase";
+  static String position = "take from the firebase";
+  static String email = "take from the firebase";
+  static var myKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         onPressed: () async {
                           final name = await openDialog();
                           if (name != null || name!.isNotEmpty)
-                            this.name = name;
+                            _ProfileTabState.name = name;
                         },
                         icon: Icon(Icons.edit),
                         label: Text("Edit")),
