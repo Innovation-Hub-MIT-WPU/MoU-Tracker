@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables
 
+import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -11,8 +13,12 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  var imageFile;
+  final ImagePicker picker = ImagePicker();
   late TextEditingController _nameController;
   String name = "take from the firebase";
+  String position = "take from the firebase";
+  String email = "take from the firebase";
   var myKey = GlobalKey<FormState>();
 
   @override
@@ -58,8 +64,8 @@ class _ProfileTabState extends State<ProfileTab> {
                   height: 20,
                 ),
                 text_display("Name:", name, 28),
-                text_display("Position:", "take from the firebase", 10),
-                text_display("Email:", "take from the firebase", 34),
+                text_display("Position:", position, 10),
+                text_display("Email:", email, 34),
                 SizedBox(
                   height: 10,
                 ),
@@ -103,8 +109,10 @@ class _ProfileTabState extends State<ProfileTab> {
       alignment: AlignmentDirectional.bottomEnd,
       children: [
         CircleAvatar(
-          //take image from firebase
-          backgroundImage: AssetImage(image_url),
+          //keep updating the image in firebase database
+          backgroundImage: imageFile == null
+              ? AssetImage(image_url)
+              : FileImage(File(imageFile.path)) as ImageProvider,
           radius: 90,
         ),
         ClipOval(
@@ -121,7 +129,9 @@ class _ProfileTabState extends State<ProfileTab> {
           right: 13.5,
           bottom: 12,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              bottomSheet();
+            },
             icon: Icon(
               Icons.camera_alt_outlined,
               size: 40,
@@ -182,5 +192,54 @@ class _ProfileTabState extends State<ProfileTab> {
         ),
       );
 
-  void editName(BuildContext context) {}
+  bottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 100.0,
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              children: [
+                Text(
+                  "Choose Profile Photo",
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton.icon(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        takePhoto(ImageSource.camera);
+                      },
+                      icon: Icon(Icons.camera),
+                      label: Text("Camera"),
+                    ),
+                    FlatButton.icon(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        takePhoto(ImageSource.gallery);
+                      },
+                      icon: Icon(Icons.image),
+                      label: Text("Gallery"),
+                    )
+                  ],
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await picker.getImage(source: source);
+    setState(() {
+      imageFile = pickedFile;
+    });
+  }
 }
