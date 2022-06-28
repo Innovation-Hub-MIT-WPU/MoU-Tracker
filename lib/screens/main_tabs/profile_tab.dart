@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables, unnecessary_cast
 
 import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -59,7 +60,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 SizedBox(
                   height: 20,
                 ),
-                profile_image("assets/images/logo.png"),
+                profile_image(DEFAULT_PROFILE_PICTURE),
                 SizedBox(
                   height: 20,
                 ),
@@ -93,7 +94,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       onPressed: () {},
                       child: Text(
                         "LOGOUT",
-                        style: TextStyle(color: hexStringToColor("7E7E7E")),
+                        style: Theme.of(context).textTheme.button,
                       )),
                 )
               ],
@@ -111,7 +112,7 @@ class _ProfileTabState extends State<ProfileTab> {
         CircleAvatar(
           //keep updating the image in firebase database
           backgroundImage: imageFile == null
-              ? AssetImage(image_url)
+              ? NetworkImage(image_url)
               : FileImage(File(imageFile.path)) as ImageProvider,
           radius: 90,
         ),
@@ -150,7 +151,7 @@ class _ProfileTabState extends State<ProfileTab> {
         children: [
           Text(
             heading,
-            style: TextStyle(fontSize: 20),
+            style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
             width: width,
