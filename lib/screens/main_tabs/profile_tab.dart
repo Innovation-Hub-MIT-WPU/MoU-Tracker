@@ -13,6 +13,7 @@ class ProfileTab extends StatefulWidget {
 class _ProfileTabState extends State<ProfileTab> {
   late TextEditingController _nameController;
   String name = "take from the firebase";
+  var myKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -82,6 +83,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: FlatButton(
+                      //need to connect
                       onPressed: () {},
                       child: Text(
                         "LOGOUT",
@@ -156,16 +158,29 @@ class _ProfileTabState extends State<ProfileTab> {
         context: context,
         builder: (context) => AlertDialog(
           title: Text("Enter your name"),
-          content: TextField(
-            controller: _nameController,
-            decoration: InputDecoration(hintText: "Enter your name"),
+          content: Form(
+            key: myKey,
+            child: TextFormField(
+              controller: _nameController,
+              decoration: InputDecoration(hintText: "Enter your name"),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Please enter a valid name";
+                }
+              },
+            ),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.of(context).pop(_nameController.text),
+              onPressed: () {
+                if (myKey.currentState?.validate() == true)
+                  Navigator.of(context).pop(_nameController.text);
+              },
               child: Text("Done"),
             )
           ],
         ),
       );
+
+  void editName(BuildContext context) {}
 }
