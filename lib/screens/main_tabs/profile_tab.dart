@@ -48,7 +48,7 @@ class _ProfileTabState extends State<ProfileTab> {
               children: [
                 Text(
                   "PROFILE",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: Theme.of(context).textTheme.headline3,
                 ),
                 Container(
                   width: 100,
@@ -158,7 +158,10 @@ class _ProfileTabState extends State<ProfileTab> {
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20,
+                fontFamily: Theme.of(context).textTheme.headline3?.fontFamily,
+                color: Colors.black),
           ),
         ],
       ),
