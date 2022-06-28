@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,21 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  late TextEditingController _nameController;
+  String name = "take from the firebase";
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +56,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 SizedBox(
                   height: 20,
                 ),
-                text_display("Name:", "take from the firebase", 28),
+                text_display("Name:", name, 28),
                 text_display("Position:", "take from the firebase", 10),
                 text_display("Email:", "take from the firebase", 34),
                 SizedBox(
@@ -52,7 +67,11 @@ class _ProfileTabState extends State<ProfileTab> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () async {
+                          final name = await openDialog();
+                          if (name != null || name!.isNotEmpty)
+                            this.name = name;
+                        },
                         icon: Icon(Icons.edit),
                         label: Text("Edit")),
                   ),
@@ -114,7 +133,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
   Padding text_display(String heading, String text, double width) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 10, 0, 0),
+      padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: Row(
         children: [
           Text(
@@ -132,4 +151,21 @@ class _ProfileTabState extends State<ProfileTab> {
       ),
     );
   }
+
+  Future<String?> openDialog() => showDialog<String>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Enter your name"),
+          content: TextField(
+            controller: _nameController,
+            decoration: InputDecoration(hintText: "Enter your name"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(_nameController.text),
+              child: Text("Done"),
+            )
+          ],
+        ),
+      );
 }
