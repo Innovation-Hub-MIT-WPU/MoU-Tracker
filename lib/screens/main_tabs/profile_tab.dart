@@ -10,10 +10,10 @@ class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
 
   @override
-  State<ProfileTab> createState() => _ProfileTabState();
+  State<ProfileTab> createState() => ProfileTabState();
 }
 
-class _ProfileTabState extends State<ProfileTab> {
+class ProfileTabState extends State<ProfileTab> {
   static var imageFile;
   static final ImagePicker picker = ImagePicker();
   static late TextEditingController _nameController;
@@ -42,7 +42,7 @@ class _ProfileTabState extends State<ProfileTab> {
         height: MediaQuery.of(context).size.height,
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-              20, MediaQuery.of(context).size.height * 0.15, 20, 0),
+              20, MediaQuery.of(context).size.height * 0.12, 20, 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -78,7 +78,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         onPressed: () async {
                           final name = await openDialog();
                           if (name != null || name!.isNotEmpty)
-                            _ProfileTabState.name = name;
+                            ProfileTabState.name = name;
                         },
                         icon: Icon(Icons.edit),
                         label: Text("Edit")),
@@ -87,16 +87,26 @@ class _ProfileTabState extends State<ProfileTab> {
                 SizedBox(
                   height: 50,
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FlatButton(
-                      //need to connect
-                      onPressed: () {},
-                      child: Text(
-                        "LOGOUT",
-                        style: Theme.of(context).textTheme.button,
-                      )),
-                )
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                      0, MediaQuery.of(context).size.height * 0.15, 0, 0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FlatButton(
+                        //need to connect
+                        onPressed: () {},
+                        child: Text(
+                          "LOGOUT",
+                          style: Theme.of(context).textTheme.button,
+                        )),
+                  ),
+                ),
+                TextButton.icon(
+                    onPressed: () async {
+                      Navigator.pushNamed(context, MyRoute.reportIssuesRoute);
+                    },
+                    icon: Icon(Icons.bug_report),
+                    label: Text("Report Isuues")),
               ],
             ),
           ),

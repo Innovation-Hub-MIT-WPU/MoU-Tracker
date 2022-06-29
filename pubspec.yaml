@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^1.18.0
   velocity_x: ^3.5.1
   image_picker: ^0.8.5+3
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
