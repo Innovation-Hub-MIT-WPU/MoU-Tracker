@@ -42,7 +42,7 @@ class ProfileTabState extends State<ProfileTab> {
         height: MediaQuery.of(context).size.height,
         child: Padding(
           padding: EdgeInsets.fromLTRB(
-              20, MediaQuery.of(context).size.height * 0.12, 20, 0),
+              20, MediaQuery.of(context).size.height * 0.08, 20, 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
