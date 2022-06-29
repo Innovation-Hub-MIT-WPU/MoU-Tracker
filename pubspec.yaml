@@ -38,6 +38,7 @@ dependencies:
   velocity_x: ^3.5.1
   image_picker: ^0.8.5+3
   fluttertoast: ^8.0.9
+  string_validator: ^0.3.0
 
 dev_dependencies:
   flutter_test:

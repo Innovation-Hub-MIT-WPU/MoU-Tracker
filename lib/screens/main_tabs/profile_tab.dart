@@ -5,6 +5,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:string_validator/string_validator.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -76,9 +77,12 @@ class ProfileTabState extends State<ProfileTab> {
                     alignment: Alignment.centerLeft,
                     child: TextButton.icon(
                         onPressed: () async {
-                          final name = await openDialog();
-                          if (name != null || name!.isNotEmpty)
-                            ProfileTabState.name = name;
+                          final Name = await openDialog();
+                          if (Name != null || Name!.isNotEmpty) {
+                            setState(() {
+                              name = Name;
+                            });
+                          }
                         },
                         icon: Icon(Icons.edit),
                         label: Text("Edit")),
@@ -188,7 +192,9 @@ class ProfileTabState extends State<ProfileTab> {
               controller: _nameController,
               decoration: InputDecoration(hintText: "Enter your name"),
               validator: (value) {
-                if (value!.isEmpty) {
+                if (value!.isEmpty ||
+                    value.contains(RegExp(r'[A-Z]', caseSensitive: false)) ==
+                        false) {
                   return "Please enter a valid name";
                 }
               },
