@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class MyRoute {
   static String profileRoute = "/profile";
+  static String reportIssuesRoute = "/reportIssues";
 }
 
 hexStringToColor(String hexColor) {

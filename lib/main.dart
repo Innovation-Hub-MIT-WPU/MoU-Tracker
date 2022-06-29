@@ -3,6 +3,7 @@
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
+import 'package:MouTracker/screens/report_bug/report_bug.dart';
 import 'package:flutter/material.dart';
 
 import 'package:MouTracker/globals.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
       initialRoute: MyRoute.profileRoute,
       routes: {
         MyRoute.profileRoute: (context) => ProfileTab(),
+        MyRoute.reportIssuesRoute: (context) => reportIssues(),
       },
     );
   }
