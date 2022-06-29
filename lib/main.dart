@@ -1,4 +1,5 @@
 // import 'package:MouTracker/widgets/drawer.dart';
+import 'package:MouTracker/screens/get_started/get_started_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:MouTracker/globals.dart';
@@ -12,7 +13,7 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    //options: DefaultFirebaseOptions.currentPlatform,
   );
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -45,9 +47,9 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
-        '/': (context) => ,
+        '/home': (context) => GetStartedPage(),
       },
     );
   }
