@@ -51,10 +51,11 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: MyRoute.profileRoute,
+      initialRoute: MyRoute.startPageRoute,
       routes: {
         MyRoute.profileRoute: (context) => ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => reportIssues(),
+        MyRoute.startPageRoute: (context) => Page1(),
       },
     );
   }
