@@ -62,36 +62,39 @@ class _SignUpState extends State<SignUp> {
       key: _formKey,
       child: Padding(
       padding: EdgeInsets.symmetric(horizontal: kFormHorizontal),
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: kFormSpacing),
-
-            nameFormElement("FIRST NAME", "", firstNameController),
-            SizedBox(height: kFormSpacing),
-
-            nameFormElement("LAST NAME", "", lastNameController),
-            SizedBox(height: kFormSpacing),
-
-            emailFormElement("EMAIL ADDRESS", "abc@gmail.com", emailController),
-            SizedBox(height: kFormSpacing),
-
-            formAndDropDown(text: "DESIGNATION", hintText: "Choose designation"),
-            //formElement("DESIGNATION", ""),
-            SizedBox(height: kFormSpacing),
-
-            passwordFormElement("PASSWORD", "", passwordController),
-            TextButton(
-              onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
-              child: const Text("Forgot Password?",
-                style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
-            ),
-
-            Center(
-              child: signupButton(),
-            ),
-          ],
+      child: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: kFormSpacing),
+      
+              nameFormElement("FIRST NAME", "", firstNameController),
+              SizedBox(height: kFormSpacing),
+      
+              nameFormElement("LAST NAME", "", lastNameController),
+              SizedBox(height: kFormSpacing),
+      
+              emailFormElement("EMAIL ADDRESS", "abc@gmail.com", emailController),
+              SizedBox(height: kFormSpacing),
+      
+              formAndDropDown(text: "DESIGNATION", hintText: "Choose designation"),
+              //formElement("DESIGNATION", ""),
+              SizedBox(height: kFormSpacing),
+      
+              passwordFormElement("PASSWORD", "", passwordController),
+              TextButton(
+                onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
+                child: const Text("Forgot Password?",
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+              ),
+      
+              Center(
+                child: signupButton(),
+              ),
+              SizedBox(height: 30,)
+            ],
+          ),
         ),
       ),
     ));
