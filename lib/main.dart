@@ -10,6 +10,8 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:MouTracker/services/Firebase/firebase_options.dart';
 import 'package:flutter/services.dart';
 
+import 'screens/get_started/splash_screen_animation.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -47,8 +49,9 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/home',
+      initialRoute: '/start',
       routes: {
+        '/start': (context) => AnimatedSplashScreenPage(),
         '/home': (context) => GetStartedPage(),
       },
     );
