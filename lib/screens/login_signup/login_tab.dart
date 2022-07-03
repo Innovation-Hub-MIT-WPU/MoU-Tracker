@@ -25,9 +25,12 @@ class _LogInState extends State<LogIn> {
   //editing controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController designationController = TextEditingController();
 
   //firebase
   final _auth = FirebaseAuth.instance;
+
+  String? designation;
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +70,14 @@ class _LogInState extends State<LogIn> {
             children: [
               SizedBox(height: kFormSpacing),
 
-              emailFormElement("EMAIL", "abc@gmail.com", emailController),
+              emailFormElement(emailController),
               SizedBox(height: kFormSpacing),
 
               //formElement("DESIGNATION", ""),
-              formAndDropDown(text: "DESIGNATION", hintText: "Choose designation"),
+              formAndDropDown(designationController: designationController, designation: designation,),
               SizedBox(height: kFormSpacing),
 
-              passwordFormElement("PASSWORD", "password", passwordController),
+              passwordFormElement(passwordController),
               TextButton(
                   onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
                   child: const Text("Forgot Password?",

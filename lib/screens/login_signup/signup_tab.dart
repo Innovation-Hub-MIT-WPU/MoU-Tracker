@@ -26,10 +26,12 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController designationController = TextEditingController();
 
   //firebase
   final _auth = FirebaseAuth.instance;
 
+  String? designation;
 
   @override
   Widget build(BuildContext context) {
@@ -69,20 +71,20 @@ class _SignUpState extends State<SignUp> {
             children: [
               SizedBox(height: kFormSpacing),
       
-              nameFormElement("FIRST NAME", "", firstNameController),
+              nameFormElement("FIRST NAME", firstNameController),
               SizedBox(height: kFormSpacing),
       
-              nameFormElement("LAST NAME", "", lastNameController),
+              nameFormElement("LAST NAME", lastNameController),
               SizedBox(height: kFormSpacing),
       
-              emailFormElement("EMAIL ADDRESS", "abc@gmail.com", emailController),
+              emailFormElement(emailController),
               SizedBox(height: kFormSpacing),
       
-              formAndDropDown(text: "DESIGNATION", hintText: "Choose designation"),
+              formAndDropDown(designationController: designationController, designation: designation,),
               //formElement("DESIGNATION", ""),
               SizedBox(height: kFormSpacing),
       
-              passwordFormElement("PASSWORD", "", passwordController),
+              passwordFormElement(passwordController),
               TextButton(
                 onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
                 child: const Text("Forgot Password?",
@@ -125,6 +127,7 @@ class _SignUpState extends State<SignUp> {
     userModel.userid = user.uid;
     userModel.firstName = firstNameController.text;
     userModel.lastName = lastNameController.text;
+    userModel.designation = designationController.text;
 
     await firebaseFirestore
       .collection("users")
