@@ -1,4 +1,9 @@
 // import 'package:MouTracker/widgets/drawer.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
+import 'package:MouTracker/screens/report_bug/report_bug.dart';
 import 'package:flutter/material.dart';
 
 import 'package:MouTracker/globals.dart';
@@ -11,9 +16,9 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -28,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -45,9 +51,11 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
+      initialRoute: MyRoute.startPageRoute,
       routes: {
-        '/': (context) => ,
+        MyRoute.profileRoute: (context) => ProfileTab(),
+        MyRoute.reportIssuesRoute: (context) => reportIssues(),
+        MyRoute.startPageRoute: (context) => Page1(),
       },
     );
   }
