@@ -5,6 +5,7 @@ class MyRoute {
   static String profileRoute = "/profile";
   static String reportIssuesRoute = "/reportIssues";
   static String startPageRoute = "/startPage";
+  static String statsPageRoute = "/statsPage";
 }
 
 hexStringToColor(String hexColor) {

@@ -3,7 +3,9 @@
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
-import 'package:MouTracker/screens/main_tabs/stats.dart';
+
+import 'package:MouTracker/screens/main_tabs/stats_page.dart';
+
 import 'package:MouTracker/screens/report_bug/report_bug.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var statsPageRoute;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: APP_TITLE,
@@ -52,11 +55,12 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: MyRoute.startPageRoute,
+      initialRoute: MyRoute.statsPageRoute,
       routes: {
         MyRoute.profileRoute: (context) => ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => reportIssues(),
         MyRoute.startPageRoute: (context) => Page1(),
+        MyRoute.statsPageRoute: (context) => StatsPage(),
       },
     );
   }
