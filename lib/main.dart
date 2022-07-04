@@ -3,7 +3,9 @@
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
+
 import 'package:MouTracker/screens/main_tabs/stats_page.dart';
+
 import 'package:MouTracker/screens/report_bug/report_bug.dart';
 import 'package:flutter/material.dart';
 
