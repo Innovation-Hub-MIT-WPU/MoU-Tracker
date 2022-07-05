@@ -17,7 +17,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
   //form key
   final _formKey = GlobalKey<FormState>();
 
@@ -35,90 +34,102 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-
-    Widget signupButton(){
+    Widget signupButton() {
       return SizedBox(
         width: 125,
         height: 35,
         child: ElevatedButton(
-          onPressed: (){
+          onPressed: () {
             signupFunction(emailController.text, passwordController.text);
           },
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(AppColors.buttonYellow),
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))
-              )
-            )
-          ),
-          child: Text("SIGN UP", textAlign: TextAlign.center, style: TextStyle(
-            fontSize: 16,
-            color: Colors.white,
-          )),
+              backgroundColor:
+                  MaterialStateProperty.all(AppColors.buttonYellow),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))))),
+          child: Text("SIGN UP",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              )),
         ),
       );
     }
 
     return Form(
-      key: _formKey,
-      child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: kFormHorizontal),
-      child: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: kFormSpacing),
-      
-              nameFormElement("FIRST NAME", firstNameController),
-              SizedBox(height: kFormSpacing),
-      
-              nameFormElement("LAST NAME", lastNameController),
-              SizedBox(height: kFormSpacing),
-      
-              emailFormElement(emailController),
-              SizedBox(height: kFormSpacing),
-      
-              FormAndDropDown(designationController: designationController, designation: designation,),
-              SizedBox(height: kFormSpacing),
-      
-              passwordFormElement(passwordController),
-              TextButton(
-                onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
-                child: const Text("Forgot Password?",
-                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: kFormHorizontal),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: kFormSpacing),
+                  nameFormElement("FIRST NAME", firstNameController),
+                  SizedBox(height: kFormSpacing),
+                  nameFormElement("LAST NAME", lastNameController),
+                  SizedBox(height: kFormSpacing),
+                  emailFormElement(emailController),
+                  SizedBox(height: kFormSpacing),
+                  FormAndDropDown(
+                    designationController: designationController,
+                    designation: designation,
+                  ),
+                  SizedBox(height: kFormSpacing),
+                  passwordFormElement(passwordController),
+                  TextButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          "Forgot password",
+                          textAlign: TextAlign.center,
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        width: 200,
+                        duration: Duration(milliseconds: 1000),
+                        shape: StadiumBorder(),
+                      ));
+                    },
+                    child: const Text("Forgot Password?",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                  Center(
+                    child: signupButton(),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  )
+                ],
               ),
-      
-              Center(
-                child: signupButton(),
-              ),
-              SizedBox(height: 30,)
-            ],
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 
   void signupFunction(String email, String password) async {
-    if(_formKey.currentState!.validate()){
-      await _auth.createUserWithEmailAndPassword(email: email, password: password)
-        .then( (value) => postDetailsToFirestore())
-        .catchError((e){
-          Fluttertoast.showToast(msg: e!.message);
-        });
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => postDetailsToFirestore())
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
     }
   }
-  postDetailsToFirestore() async {
 
+  postDetailsToFirestore() async {
     //calling firestore
     //calling user model
     //sending these values
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
-    
+
     UserModel userModel = UserModel();
 
     //writing all the values
@@ -129,13 +140,16 @@ class _SignUpState extends State<SignUp> {
     userModel.designation = designationController.text;
 
     await firebaseFirestore
-      .collection("users")
-      .doc(user.uid)
-      .set(userModel.toMap());
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully !");
 
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => EmptyPage(previousPageName: "Sign up tab")), (route) => false);
-
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EmptyPage(previousPageName: "Sign up tab")),
+        (route) => false);
   }
 }

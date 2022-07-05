@@ -18,9 +18,9 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: kBgClr2,
+    statusBarColor: Colors.transparent,
   ));
 
   runApp(const MyApp());
