@@ -1,20 +1,20 @@
 // import 'package:MouTracker/widgets/drawer.dart';
 // import 'package:MouTracker/screens/login_register/login_register_page.dart';
 // import 'package:MouTracker/screens/splash/splash.dart';
-import 'package:flutter/material.dart';
 import '/screens/mou_details/mou_details_page.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/globals.dart';
+import 'common_utils/utils.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main(){
+  // WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+    statusBarColor: kBgClr2,
   ));
 
   runApp(const MyApp());
