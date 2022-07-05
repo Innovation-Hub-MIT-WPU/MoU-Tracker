@@ -4,10 +4,10 @@ import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../common_utils/utils.dart';
 import '../services/Firebase/fireauth/model.dart';
 
+//designations array used in DropDownButtonFormField items
 var _designations = [
   'Initiator',
   'SPOC',
@@ -17,17 +17,18 @@ var _designations = [
   'Dean',
   'Vice Chancellor'
 ];
-
-class formAndDropDown extends StatefulWidget {
+//A widget using DropDropDownButtonFormField to give dropdown for var _designations
+///A widget to create DropDownButtonFormField
+class FormAndDropDown extends StatefulWidget {
 
   String? designation;
   TextEditingController designationController;
-  formAndDropDown({Key? key, required this.designationController, required this.designation}) : super(key: key);
+  FormAndDropDown({Key? key, required this.designationController, required this.designation}) : super(key: key);
 
   @override
-  State<formAndDropDown> createState() => _formAndDropDownState();
+  State<FormAndDropDown> createState() => _FormAndDropDownState();
 }
-class _formAndDropDownState extends State<formAndDropDown> {
+class _FormAndDropDownState extends State<FormAndDropDown> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,6 +78,8 @@ class _formAndDropDownState extends State<formAndDropDown> {
     );
   }
 }
+//for each _designation element, we are mapping it to 'buildMenuItem' function and then converting to List:
+//" items: _designations.map(buildMenuItem).toList()  "
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
   value: item,
   child: Padding(
@@ -87,7 +90,7 @@ DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
 
 //----------------------------------------
 
-//form field for email validation
+///form field for email validation
 Widget emailFormElement(TextEditingController emailController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +137,7 @@ Widget emailFormElement(TextEditingController emailController) {
     ],
   );
 }
-//form field for password validation
+///form field for password validation
 Widget passwordFormElement(TextEditingController passwordController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,7 +182,7 @@ Widget passwordFormElement(TextEditingController passwordController) {
     ],
   );
 }
-//form field for names (first name, last name)
+///form field for names (first name, last name)
 Widget nameFormElement(String text, TextEditingController nameController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,9 +227,9 @@ Widget nameFormElement(String text, TextEditingController nameController) {
   );
 }
 
+//----------------------------------------
 
-///---------------------------- Temporary page to navigate to, from any button
-
+//Temporary page to navigate to, from any button
 class EmptyPage extends StatefulWidget {
 
   String previousPageName;
@@ -281,8 +284,8 @@ class _EmptyPageState extends State<EmptyPage> {
 
 //----------------------------------------
 
-//Button widget: used in 'Get Started' + 'Sign in/Sign up' screens
-Widget AppButton(String text, Widget newRoute, BuildContext context, {Color textColor = Colors.white, double buttonWidth = 125, double buttonHeight = 35, double fontSize = 16} ){
+//Button widget: used in 'Get Started' screen
+Widget appButton(String text, Widget newRoute, BuildContext context, {Color textColor = Colors.white, double buttonWidth = 125, double buttonHeight = 35, double fontSize = 16} ){
   return SizedBox(
       width: buttonWidth,
       height: buttonHeight,
@@ -308,7 +311,7 @@ Widget AppButton(String text, Widget newRoute, BuildContext context, {Color text
 
 //----------------------------------------
 
-//A text footer -> 'Privacy policy . TOC . Content Policy' : used in 'Get Started' + 'Sign in/Sign up' screens
+///A text footer -> 'Privacy policy . TOC . Content Policy'
 Widget footer(BuildContext context){
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,

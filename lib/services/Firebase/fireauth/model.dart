@@ -1,5 +1,3 @@
-import 'package:MouTracker/common_widgets/login_signup_widgets.dart';
-
 class UserModel {
 
   String? userid;

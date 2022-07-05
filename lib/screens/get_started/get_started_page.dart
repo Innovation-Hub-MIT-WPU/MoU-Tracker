@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +25,9 @@ class _GetStartedPageState extends State<GetStartedPage> {
           children: [
 
             //APP_ICON header
-            Container(padding: EdgeInsets.only(top: 292.5),child: Center(child: Text("MOU Tracker", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36,)))),
+            Container(padding: EdgeInsets.only(top: 292.5),child: Center(child: Text(APP_TITLE, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36,)))),
 
-            //Logo aligned to screen's center
+            //APP_LOGO aligned to screen's center
             SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Center(child: Image.asset('assets/images/app_icon.png', height: 100, width: 100,)),
@@ -47,7 +48,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                       Text("Welcome to MOU Tracker !", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white,)),
                       SizedBox(height: 30,),
                       //'Get Started' button
-                      AppButton("Get started", LogInSignUpPage(), context, fontSize: 24, buttonWidth: 315, buttonHeight: 58),
+                      appButton("Get started", LogInSignUpPage(), context, fontSize: 24, buttonWidth: 315, buttonHeight: 58),
                       SizedBox(height: 40,),
                       //'Privacy policy . TOC . Content Policy'
                       footer(context)

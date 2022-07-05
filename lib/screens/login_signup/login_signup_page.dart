@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-/* Authentication page - Login & sign-up
-* Custom Tab bar - Container + rounded border
-* */
-
+import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 
 import '../../common_utils/utils.dart';
@@ -19,9 +16,12 @@ class LogInSignUpPage extends StatefulWidget {
 }
 
 class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProviderStateMixin {
+
   late TabController _tabController;
+
   @override
   void initState() {
+    //initializing tab controller
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -33,7 +33,7 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
         centerTitle: true,
-        title: Text("MOU TRACKER", style: TextStyle(fontSize: 36, fontWeight: FontWeight.w300, color: Colors.white,)),
+        title: Text(APP_TITLE, style: TextStyle(fontSize: 36, fontWeight: FontWeight.w300, color: Colors.white,)),
         backgroundColor: AppColors.darkBlue,
         elevation: 0.0,
       ),

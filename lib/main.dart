@@ -10,7 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:MouTracker/services/Firebase/firebase_options.dart';
 import 'package:flutter/services.dart';
 
-import 'screens/get_started/splash_screen_animation.dart';
+import 'screens/get_started/splash_screen_animation_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

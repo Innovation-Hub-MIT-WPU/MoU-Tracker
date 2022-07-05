@@ -80,8 +80,7 @@ class _SignUpState extends State<SignUp> {
               emailFormElement(emailController),
               SizedBox(height: kFormSpacing),
       
-              formAndDropDown(designationController: designationController, designation: designation,),
-              //formElement("DESIGNATION", ""),
+              FormAndDropDown(designationController: designationController, designation: designation,),
               SizedBox(height: kFormSpacing),
       
               passwordFormElement(passwordController),

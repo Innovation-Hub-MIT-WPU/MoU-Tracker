@@ -35,13 +35,12 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
 
-    Widget loginButton({Color textColor = Colors.white, double buttonWidth = 125, double buttonHeight = 35, double fontSize = 16} ){
+    Widget loginButton(){
       return SizedBox(
-        width: buttonWidth,
-        height: buttonHeight,
+        width: 125,
+        height: 35,
         child: ElevatedButton(
           onPressed: (){
-            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => newRoute));
             logInFunction(emailController.text, passwordController.text);
           },
           style: ButtonStyle(
@@ -53,8 +52,8 @@ class _LogInState extends State<LogIn> {
             )
           ),
           child: Text("LOG IN", textAlign: TextAlign.center, style: TextStyle(
-            fontSize: fontSize,
-            color: textColor,
+            fontSize: 16,
+            color: Colors.white,
           )), 
         ),
       );
@@ -74,7 +73,7 @@ class _LogInState extends State<LogIn> {
               SizedBox(height: kFormSpacing),
 
               //formElement("DESIGNATION", ""),
-              formAndDropDown(designationController: designationController, designation: designation,),
+              FormAndDropDown(designationController: designationController, designation: designation,),
               SizedBox(height: kFormSpacing),
 
               passwordFormElement(passwordController),
@@ -95,6 +94,8 @@ class _LogInState extends State<LogIn> {
     );
   }
 
+  ///Checks if form key is validated
+  ///Logs the user in using firebase authentication
   void logInFunction(String email, String password) async {
     if(_formKey.currentState!.validate()){
       //if login is successful then display toast else display error toast
