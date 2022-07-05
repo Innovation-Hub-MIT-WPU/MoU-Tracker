@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mou_tracker/screens/skeleton/notifications/notifications_list.dart';
-import 'package:mou_tracker/screens/skeleton/notifications/notifications_tab_bar.dart';
+import '/screens/notifications/notifications_list.dart';
+import '/screens/notifications/notifications_tab_bar.dart';
 
-Widget tabview(TabController _tabController) {
+Widget tabview(TabController tabController) {
   return TabBarView(
-    controller: _tabController,
+    controller: tabController,
     children: [
       // first tab bar view widget
       makeOnTrack(),
@@ -78,8 +77,8 @@ ListTile makeListTile(onTrack onTrack) => ListTile(
               ),
               child: Row(
                 children: [
-                  Icon(Icons.calendar_today_outlined),
-                  SizedBox(
+                  const Icon(Icons.calendar_today_outlined),
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(onTrack.date.toString(),

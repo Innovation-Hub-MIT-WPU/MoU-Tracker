@@ -47,3 +47,12 @@ List<String> months = [
   "Nov",
   "Dec"
 ];
+
+
+//App colors
+class AppColors {
+
+  static const Color darkBlue = Color(0xFF2D376E);
+  static const Color buttonYellow = Color(0xFFF2C32C);
+
+}

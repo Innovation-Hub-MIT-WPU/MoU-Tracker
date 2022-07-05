@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mou_tracker/screens/skeleton/notifications/notifications_list.dart';
-import 'package:mou_tracker/screens/skeleton/notifications/notifications_tab.dart';
-import 'package:mou_tracker/screens/skeleton/notifications/notifications_tab_view.dart';
+import '/screens/notifications/notifications_list.dart';
+import '/screens/notifications/notifications_tab.dart';
+import '/screens/notifications/notifications_tab_view.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);
