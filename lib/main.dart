@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
+      initialRoute: '/start',
       routes: {
         '/': (_) => const Details(),
         '/start': (context) => const AnimatedSplashScreenPage(),
