@@ -1,4 +1,4 @@
-import 'package:MouTracker/common_widgets/MyBottomNavBar.dart';
+import 'package:MouTracker/common_widgets/my_bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 import 'Tabs/Delayed/Delayed.dart';

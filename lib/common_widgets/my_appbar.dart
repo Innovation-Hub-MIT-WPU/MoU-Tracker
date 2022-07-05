@@ -8,12 +8,12 @@ class MyAppBar extends StatelessWidget {
     return Container(
       color: Colors.pink,
       height: 135,
-      child: CustomScrollView(slivers: [
+      child: const CustomScrollView(slivers: [
         SliverAppBar(
           flexibleSpace: FlexibleSpaceBar(
             centerTitle: true,
             title: Padding(
-              padding: const EdgeInsets.only(bottom: 8),
+              padding: EdgeInsets.only(bottom: 8),
               child: Text(
                 'CREATE MOU',
                 style: TextStyle(color: Colors.white, fontSize: 24),

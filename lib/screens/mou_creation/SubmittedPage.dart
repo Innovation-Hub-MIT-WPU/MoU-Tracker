@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common_widgets/CreatedLogo.dart';
-import '../../common_widgets/MyBottomNavBar.dart';
+import '../../common_widgets/my_bottom_navbar.dart';
 
 class SubmittedPage extends StatefulWidget {
   const SubmittedPage({Key? key}) : super(key: key);

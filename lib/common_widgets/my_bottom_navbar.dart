@@ -12,7 +12,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.09,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xff2D376E),
       ),
       child: Row(
