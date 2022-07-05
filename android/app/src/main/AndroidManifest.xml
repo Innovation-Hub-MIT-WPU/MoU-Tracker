@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mitwpu.mou_tracker">
+    package="com.example.mou_tracker">
    <application
         android:label="mou_tracker"
         android:name="${applicationName}"

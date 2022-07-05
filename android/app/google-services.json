@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "653997491238",
+    "project_id": "mou-tracker-fed9c",
+    "storage_bucket": "mou-tracker-fed9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653997491238:android:8319af7fb7ee536107d2e7",
+        "android_client_info": {
+          "package_name": "com.example.mou_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653997491238-62ks1thmlf0uaglpfadd81rsjqtjfe26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZDS9bnWEcWalK-PMcTvuX5trxo54imdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653997491238-62ks1thmlf0uaglpfadd81rsjqtjfe26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
