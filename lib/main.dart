@@ -1,19 +1,24 @@
 // import 'package:MouTracker/widgets/drawer.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
+import 'package:MouTracker/screens/main_tabs/report_bug.dart';
+import 'package:MouTracker/screens/main_tabs/stats_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:MouTracker/globals.dart';
 // import 'package:MouTracker/screens/login_register/login_register_page.dart';
 // import 'package:MouTracker/screens/splash/splash.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:MouTracker/services/Firebase/firebase_options.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -23,11 +28,11 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -45,9 +50,12 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/',
+      initialRoute: MyRoute.startPageRoute,
       routes: {
-        '/': (context) => ,
+        MyRoute.profileRoute: (context) => ProfileTab(),
+        MyRoute.reportIssuesRoute: (context) => reportIssues(),
+        MyRoute.statsPageRoute: (context) => StatsPage(),
+        MyRoute.startPageRoute: (context) => Page1(),
       },
     );
   }
