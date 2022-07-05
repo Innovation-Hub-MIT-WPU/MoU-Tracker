@@ -1,4 +1,7 @@
 // import 'package:MouTracker/widgets/drawer.dart';
+import 'package:MouTracker/screens/Approval%20Screens/ApprovalsPage.dart';
+import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
+import 'package:MouTracker/screens/mou_creation/SubmittedPage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:MouTracker/globals.dart';
@@ -9,16 +12,20 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:MouTracker/services/Firebase/firebase_options.dart';
 import 'package:flutter/services.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
-  runApp(const MyApp());
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+//   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+//     statusBarColor: Colors.transparent,
+//   ));
+//   runApp(const MyApp());
+// }
+
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +54,9 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => ,
+        '/': (context) => CreateForm(),
+        '/submitted': (context) => SubmittedPage(),
+        '/approvals': (context) => ApprovalsPage(),
       },
     );
   }
