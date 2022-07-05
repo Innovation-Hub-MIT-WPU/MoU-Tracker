@@ -19,9 +19,9 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var statsPageRoute;
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
