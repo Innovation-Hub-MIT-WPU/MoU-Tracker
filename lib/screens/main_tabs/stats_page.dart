@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
@@ -23,6 +24,11 @@ class StatsPageState extends State<StatsPage> {
     _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
   }
+
+  final List<ChartData> chartData = [
+    ChartData('David', 12.5, Colors.black),
+    ChartData('Steve', 100 - 12.5, hexStringToColor("C4C4C4")),
+  ];
 
   List<SalesData> getChartData() {
     final List<SalesData> chartData = [
@@ -53,6 +59,15 @@ class StatsPageState extends State<StatsPage> {
                 width: MediaQuery.of(context).size.width,
                 child: lineChart(),
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.03),
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: MediaQuery.of(context).size.width,
+                child: approvalRate(),
+              ),
             )
           ],
         ),
@@ -78,6 +93,20 @@ class StatsPageState extends State<StatsPage> {
           preferredSize:
               Size.fromHeight(MediaQuery.of(context).size.height * 0.1)),
       centerTitle: true,
+    );
+  }
+
+  Widget approvalRate() {
+    return SfCircularChart(
+      backgroundColor: hexStringToColor("EDF9FF"),
+      title: ChartTitle(text: "Aprroval Rate"),
+      series: <CircularSeries>[
+        DoughnutSeries<ChartData, String>(
+            dataSource: chartData,
+            pointColorMapper: (ChartData data, _) => data.color,
+            xValueMapper: (ChartData data, _) => data.x,
+            yValueMapper: (ChartData data, _) => data.y)
+      ],
     );
   }
 
@@ -110,4 +139,11 @@ class SalesData {
   SalesData(this.year, this.sales);
   final double year;
   final double sales;
+}
+
+class ChartData {
+  ChartData(this.x, this.y, this.color);
+  final String x;
+  final double y;
+  final Color color;
 }
