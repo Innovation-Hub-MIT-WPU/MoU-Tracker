@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types
+// ignore_for_file: prefer_const_constructors, camel_case_types, must_be_immutable
 
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
