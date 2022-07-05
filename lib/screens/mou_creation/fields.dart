@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mou_tracker/screens/create_mou_page/create.dart';
-
-import '../../models/create_mou_backend.dart';
-import '../../services/upload_service.dart';
+import '/screens/mou_creation/create.dart';
+import '/classes/create_mou_backend.dart';
+import '/services/Firebase/firestore/upload_service.dart';
 
 Widget fields(String text, String hintText) {
   return Column(
@@ -52,6 +51,8 @@ Widget title(String text) {
 Widget button1(Future Function() pickfile) {
   return FlatButton(
     onPressed: () => pickfile(),
+    autofocus: true,
+    color: const Color(0xFF64C636),
     child: const SizedBox(
       height: 40,
       width: 400,
@@ -59,8 +60,6 @@ Widget button1(Future Function() pickfile) {
         child: Text("Select file"),
       ),
     ),
-    autofocus: true,
-    color: const Color(0xFF64C636),
   );
 }
 

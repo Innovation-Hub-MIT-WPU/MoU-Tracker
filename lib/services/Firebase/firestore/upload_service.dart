@@ -1,10 +1,10 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import '../screens/create_mou_page/create.dart';
+import '/screens/mou_creation/create.dart';
 import 'dart:io' as io;
 
 class FirebaseApi {
-  static var downloadUrl = null;
+  static var downloadUrl;
   static Future fileUpload() async {
     if (CreateMouState.file == null) {
       print("not done");
@@ -80,10 +80,10 @@ Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
 
           return Text(
             '$percentage %',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           );
         } else {
-          return Text("Uploading...");
+          return const Text("Uploading...");
         }
       },
     );
@@ -103,7 +103,7 @@ class FirebaseFile {
 Widget buildFile(BuildContext context, FirebaseFile file) => ListTile(
     title: Text(
       file.name,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
         decoration: TextDecoration.underline,
         color: Colors.blue,
