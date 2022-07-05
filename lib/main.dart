@@ -1,23 +1,22 @@
 // import 'package:MouTracker/widgets/drawer.dart';
-import 'package:flutter/material.dart';
-
-import 'package:MouTracker/globals.dart';
 // import 'package:MouTracker/screens/login_register/login_register_page.dart';
 // import 'package:MouTracker/screens/splash/splash.dart';
-
+import 'package:flutter/material.dart';
+import '/screens/mou_details/mou_details_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:MouTracker/services/Firebase/firebase_options.dart';
 import 'package:flutter/services.dart';
+import '/globals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  await Firebase.initializeApp();
+
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+
   runApp(const MyApp());
 }
 
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => ,
+        '/': (_) => const Details(),
       },
     );
   }
