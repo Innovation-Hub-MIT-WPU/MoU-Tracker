@@ -1,3 +1,4 @@
+
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -72,3 +73,4 @@ class _Page1State extends State<Page1> {
     );
   }
 }
+
