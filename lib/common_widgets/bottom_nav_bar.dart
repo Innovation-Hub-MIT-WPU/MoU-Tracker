@@ -21,9 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: _widgetList.elementAt(curr),
-        bottomNavigationBar: _bottomNavbar(curr));
+    return _bottomNavbar(curr);
   }
 
   void _onItemTapped(int index) {
@@ -31,33 +29,35 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _bottomNavbar(int curr) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType
-          .fixed, // the shifting animation overrides any color we put on the nav bar, so removed the animation.
-      backgroundColor: kBgClr2,
-      unselectedItemColor: Colors.grey,
-      selectedItemColor: Colors.white,
-      iconSize: 30,
-      items: const [
-        BottomNavigationBarItem(
-          label: "",
-          icon: ImageIcon(AssetImage("assets/checkBox.png")),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Icon(Icons.notifications),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: ImageIcon(AssetImage("assets/notepad.png")),
-        ),
-        BottomNavigationBarItem(
-          label: "",
-          icon: Icon(Icons.person_outlined),
-        ),
-      ],
-      currentIndex: curr,
-      onTap: _onItemTapped,
+    return Center(
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType
+            .fixed, // the shifting animation overrides any color we put on the nav bar, so removed the animation.
+        backgroundColor: kBgClr2,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.white,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(AssetImage("assets/checkBox.png")),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: Icon(Icons.notifications),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: ImageIcon(AssetImage("assets/notepad.png")),
+          ),
+          BottomNavigationBarItem(
+            label: "",
+            icon: Icon(Icons.person_outlined),
+          ),
+        ],
+        currentIndex: curr,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

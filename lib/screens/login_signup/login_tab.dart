@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../home/home_screen.dart';
 import '/common_utils/utils.dart';
 import '/common_widgets/login_signup_widgets.dart';
 
@@ -98,7 +99,7 @@ class _LogInState extends State<LogIn> {
       await _auth.signInWithEmailAndPassword(email: email, password: password)
         .then((userid) => {
           Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => EmptyPage(previousPageName: "Log in tab"),))
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => HomePage()))
         }).catchError( (e) {
           Fluttertoast.showToast(msg: e!.message);
         });

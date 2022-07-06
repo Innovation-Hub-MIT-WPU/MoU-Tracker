@@ -31,7 +31,7 @@ class _CreateFormState extends State<CreateForm> {
               //   painter: CurvePainter(),
               // ),
               Container(
-                color: Color(0xff2D376E),
+                color: const Color(0xff2D376E),
                 height: MediaQuery.of(context).size.height * 0.2 - 30,
               ),
               Form(
@@ -42,7 +42,7 @@ class _CreateFormState extends State<CreateForm> {
                     const SizedBox(height: 60),
                     const Text(
                       'CREATE MOU',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           fontSize: 40),
@@ -56,7 +56,7 @@ class _CreateFormState extends State<CreateForm> {
                     _buildField4(),
                     _buildField5(),
                     _buildField6(),
-                    Center(
+                    const Center(
                         child: Text(
                       'Submit MoU 3 Pager',
                       style: TextStyle(fontSize: 22),
@@ -64,21 +64,21 @@ class _CreateFormState extends State<CreateForm> {
                     Container(
                       height: 60,
                       width: 300,
-                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                       child: ElevatedButton(
                         onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(const Color(0xff64C636)),
+                          elevation: MaterialStateProperty.all(5),
+                        ),
                         child: Text(
                           'Choose File',
                           style: TextStyle(fontSize: 20),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xff64C636)),
-                          elevation: MaterialStateProperty.all(5),
-                        ),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     SizedBox(
                       height: 50,
                       width: 200,
@@ -90,16 +90,16 @@ class _CreateFormState extends State<CreateForm> {
                           _formKey.currentState!.save();
                           Navigator.pushNamed(context, '/submitted');
                         },
-                        child: Text(
-                          'DONE',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.white),
                             elevation: MaterialStateProperty.all(0),
                             side: MaterialStateProperty.all(
-                                BorderSide(color: Colors.black, width: 2))),
+                                const BorderSide(color: Colors.black, width: 2))),
+                        child: Text(
+                          'DONE',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -127,6 +127,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field1 = value!;
@@ -147,6 +148,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field2 = value!;
@@ -167,6 +169,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field3 = value!;
@@ -187,6 +190,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field4 = value!;
@@ -207,6 +211,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field5 = value!;
@@ -227,6 +232,7 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
+          return null;
         },
         onSaved: (value) {
           _field6 = value!;
@@ -256,7 +262,7 @@ class CurvePainter extends CustomPainter {
 
     var paint = Paint();
     // Color myBlue = Color(0xff2D376E);
-    Color myBlue = Color(0xff023E8A);
+    Color myBlue = const Color(0xff023E8A);
     paint.color = myBlue;
     paint.style = PaintingStyle.fill; // Change this to fill
 
@@ -272,7 +278,7 @@ class CurvePainter extends CustomPainter {
 
     // layer 2
     var paint2 = Paint();
-    paint2.color = Color(0xff03045E);
+    paint2.color = const Color(0xff03045E);
     paint2.style = PaintingStyle.fill; // Change this to fill
 
     var path2 = Path();

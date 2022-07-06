@@ -1,4 +1,3 @@
-import 'package:MouTracker/common_widgets/my_bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
 import 'Tabs/Delayed/Delayed.dart';
@@ -42,21 +41,6 @@ class ApprovalsPageState extends State<ApprovalsPage>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: const MyBottomNavBar(),
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   centerTitle: true,
-        //   title: const Text(
-        //     "Approvals",
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        //   actions: const [
-        //     Padding(
-        //       padding: EdgeInsets.all(16.0),
-        //       child: Icon(Icons.search, color: Colors.black),
-        //     ),
-        //   ],
-        // ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -69,7 +53,7 @@ class ApprovalsPageState extends State<ApprovalsPage>
                       color: const Color(0xff2D376E),
                       // padding: EdgeInsets.only(bottom: 20),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.1,
+                      height: MediaQuery.of(context).size.height * 0.07,
                       child: const Text(
                         'Approvals',
                         style: TextStyle(fontSize: 24, color: Colors.white),

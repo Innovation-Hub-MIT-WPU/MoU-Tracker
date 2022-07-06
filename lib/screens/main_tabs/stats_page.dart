@@ -1,10 +1,9 @@
 // ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
-
-import '../../common_utils/bottom_nav_util.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -83,12 +82,12 @@ class StatsPageState extends State<StatsPage> {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: Theme.of(context).textTheme.headline2!.fontFamily,
-                fontSize: Theme.of(context).textTheme.headline3!.fontSize,
+                fontSize: Theme.of(context).textTheme.headline4!.fontSize,
               ),
             ),
           ),
           preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.1)),
+              Size.fromHeight(MediaQuery.of(context).size.height * 0.02)),
       centerTitle: true,
     );
   }

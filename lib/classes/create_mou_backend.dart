@@ -10,8 +10,9 @@ class CreationDetails {
   }
 
   static Future addData() async {
-    final mou = FirebaseFirestore.instance.collection('MOUs').doc();
+    final mou = FirebaseFirestore.instance.collection('mou').doc();
 
     await mou.set(quantities);
   }
 }
+

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-
-
 // Padding & spacing values -> Modify Later Using media query
 // Values are kept const for now since setState has to be called for changing variable values
 // Change to variables later
@@ -48,11 +44,23 @@ List<String> months = [
   "Dec"
 ];
 
-
 //App colors
 class AppColors {
-
   static const Color darkBlue = Color(0xFF2D376E);
   static const Color buttonYellow = Color(0xFFF2C32C);
+}
 
+class MyRoute {
+  static String profileRoute = "/profile";
+  static String reportIssuesRoute = "/reportIssues";
+  static String startPageRoute = "/startPage";
+  static String statsPageRoute = "/statsPage";
+}
+
+hexStringToColor(String hexColor) {
+  hexColor = hexColor.toUpperCase().replaceAll("#", "");
+  if (hexColor.length == 6) {
+    hexColor = "FF$hexColor";
+  }
+  return Color(int.parse(hexColor, radix: 16));
 }

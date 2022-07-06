@@ -42,6 +42,7 @@ class _MyCardState extends State<MyCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Navigator.pushNamed(context, '/mou_details');
         print('Tapped card {${widget.index}}');
       },
       child: Container(

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../../common_widgets/CreatedLogo.dart';
-import '../../common_widgets/my_bottom_navbar.dart';
 
 class SubmittedPage extends StatefulWidget {
   const SubmittedPage({Key? key}) : super(key: key);
@@ -13,24 +11,23 @@ class SubmittedPage extends StatefulWidget {
 class _SubmittedPageState extends State<SubmittedPage> {
   @override
   Widget build(BuildContext context) {
-    final title = 'CREATE MOU';
+    const title = 'CREATE MOU';
 
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: MyBottomNavBar(),
           body: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
                 snap: false,
                 pinned: false,
                 floating: false,
-                flexibleSpace: FlexibleSpaceBar(
+                flexibleSpace: const FlexibleSpaceBar(
                   centerTitle: true,
                   title: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "$title",
-                      style: const TextStyle(
+                      title,
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                       ), //TextStyle
@@ -53,7 +50,7 @@ class _SubmittedPageState extends State<SubmittedPage> {
                       const SizedBox(height: 30),
                       _text2(),
                       const SizedBox(height: 50),
-                      TrackButton(),
+                      const TrackButton(),
                     ],
                   ),
                 ),
@@ -112,7 +109,7 @@ class _TrackButtonState extends State<TrackButton> {
     return InkWell(
       onTap: () {
         print('Inkwell Tap Registered');
-        Navigator.pushNamed(context, '/approvals');
+        Navigator.pushNamed(context, '/home');
       },
       splashColor: Colors.teal,
       borderRadius: BorderRadius.circular(10),

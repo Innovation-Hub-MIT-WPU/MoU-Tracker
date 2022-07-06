@@ -1,16 +1,15 @@
-import 'package:MouTracker/common_utils/bottom_nav_util.dart';
+import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
+import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
+import 'package:MouTracker/screens/mou_creation/SubmittedPage.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
 import 'package:MouTracker/screens/main_tabs/report_bug.dart';
 import 'package:MouTracker/screens/main_tabs/stats_page.dart';
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import '/screens/get_started/get_started_page.dart';
-import '/screens/get_started/splash_screen_animation_page.dart';
-
-import '/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'common_utils/utils.dart';
+import 'screens/home/home_screen.dart';
 import '/globals.dart';
 
 void main() async {
@@ -20,7 +19,7 @@ void main() async {
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+    statusBarColor: kBgClr2,
   ));
 
   runApp(const MyApp());
@@ -50,15 +49,16 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/start',
+      initialRoute: '/home',
       routes: {
-        '/': (_) => const Details(),
+        '/submitted' : (_) => const SubmittedPage(),
+        '/create_mou' : (_) => const CreateForm(),
+        '/mou_details': (_) => const Details(),
         '/start': (context) => const AnimatedSplashScreenPage(),
-        '/home': (context) => const GetStartedPage(),
+        '/home': (context) => const HomePage(),
         MyRoute.profileRoute: (context) => const ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => const reportIssues(),
         MyRoute.statsPageRoute: (context) => const StatsPage(),
-        MyRoute.startPageRoute: (context) => const Page1(),
       },
     );
   }

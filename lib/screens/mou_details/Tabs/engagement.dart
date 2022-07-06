@@ -69,7 +69,7 @@ class _EngagementTabState extends State<EngagementTab> {
   TextButton _buildTextButton(String buttonTxt) {
     return TextButton(
       onPressed: () {},
-      child: Text(buttonTxt),
+      child: Text(buttonTxt,style : const TextStyle()),
     );
   }
 }

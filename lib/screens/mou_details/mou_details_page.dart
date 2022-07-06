@@ -107,7 +107,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       padding: const EdgeInsets.symmetric(
           horizontal: kTabBarHorizontal, vertical: kTabBarVertical),
       child: Container(
-        height: 45,
+        height: MediaQuery.of(context).size.height * 0.06,
         decoration: BoxDecoration(
           border: Border.all(width: kBorderWidth, color: Colors.white),
           color: Colors.white,
@@ -123,6 +123,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
     return TabBar(
         labelPadding: const EdgeInsets.all(2),
         controller: _tabController,
+        unselectedLabelColor: Colors.grey,
         indicator:
             const BoxDecoration(), // Keep empty, This Tab bar doesnt have indicator
         tabs: [

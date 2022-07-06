@@ -4,8 +4,6 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
 
-import '../../common_utils/bottom_nav_util.dart';
-
 class reportIssues extends StatefulWidget {
   const reportIssues({Key? key}) : super(key: key);
 
