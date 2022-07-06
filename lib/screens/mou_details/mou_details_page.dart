@@ -95,7 +95,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
     return Container(
       decoration: BoxDecoration(
         color: _tabIndex == i ? colors[_tabIndex] : Colors.transparent,
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       ),
       child: Center(child: Text(title)),
     );
@@ -111,7 +111,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         decoration: BoxDecoration(
           border: Border.all(width: kBorderWidth, color: Colors.white),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(15.0),
         ),
         child: _buildTabBar(),
       ),

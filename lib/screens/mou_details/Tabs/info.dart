@@ -55,7 +55,7 @@ class _InfoTabState extends State<InfoTab> {
             child: Text(mou.desc,
                 softWrap: true,
                 textAlign: TextAlign.center,
-                style: subtitleStyle()),
+                style: normalStyle()),
           ),
           
           Text("Date", style: subtitleStyle()),
@@ -93,7 +93,7 @@ class _InfoTabState extends State<InfoTab> {
 // Card to download MOU's PDF file
   ListTile _fileDownload() {
     return ListTile(
-      title: const Text("file_name.pdf", style: TextStyle(fontSize: 14)),
+      title: const Text("file_name.pdf", style: TextStyle(fontSize: 16, color: Colors.black)),
       subtitle: const Text("10.0 MB", style: TextStyle(fontSize: 12)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 25),
@@ -106,14 +106,14 @@ class _InfoTabState extends State<InfoTab> {
   }
 
   TextStyle titleStyle() {
-    return const TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
+    return const TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
   }
 
   TextStyle normalStyle() {
-    return const TextStyle(fontSize: 14);
+    return const TextStyle(fontSize: 14, fontWeight : FontWeight.w400);
   }
 
   TextStyle subtitleStyle() {
-    return const TextStyle(fontSize: 14);
+    return const TextStyle(fontSize: 14, fontWeight : FontWeight.w500);
   }
 }

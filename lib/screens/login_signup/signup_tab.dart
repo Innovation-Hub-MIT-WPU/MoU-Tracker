@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
 
+import 'package:MouTracker/screens/home/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -146,10 +147,6 @@ class _SignUpState extends State<SignUp> {
 
     Fluttertoast.showToast(msg: "Account created successfully !");
 
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => EmptyPage(previousPageName: "Sign up tab")),
-        (route) => false);
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => HomePage()));
   }
 }
