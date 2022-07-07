@@ -36,6 +36,9 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
 
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
 
     Widget signupButton() {
       return SizedBox(
@@ -69,14 +72,14 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: kFormSpacing),
-                  nameFormElement("FIRST NAME", firstNameController),
-                  SizedBox(height: kFormSpacing),
-                  nameFormElement("LAST NAME", lastNameController),
-                  SizedBox(height: kFormSpacing),
-                  emailFormElement(emailController),
-                  SizedBox(height: kFormSpacing),
-                  passwordFormElement(passwordController),
+                  SizedBox(height: screenHeight*0.024),
+                  nameFormElement("FIRST NAME", firstNameController, screenHeight, screenWidth),
+                  SizedBox(height: screenHeight*0.024),
+                  nameFormElement("LAST NAME", lastNameController, screenHeight, screenWidth),
+                  SizedBox(height: screenHeight*0.024),
+                  emailFormElement(emailController, screenWidth, screenHeight),
+                  SizedBox(height: screenHeight*0.024),
+                  passwordFormElement(passwordController, screenWidth, screenHeight),
                   TextButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -99,13 +102,15 @@ class _SignUpState extends State<SignUp> {
                   FormAndDropDown(
                     designationController: designationController,
                     designation: designation,
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
                   ),
-                  SizedBox(height: kFormSpacing),
+                  SizedBox(height: screenHeight*0.024),
                   Center(
                     child: signupButton(),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: screenHeight*0.024,
                   )
                 ],
               ),

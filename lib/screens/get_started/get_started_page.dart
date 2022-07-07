@@ -20,13 +20,17 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
         body: SingleChildScrollView(
       child: Stack(
         children: [
           //APP_ICON header
           Container(
-              padding: EdgeInsets.only(top: 292.5),
+              padding: EdgeInsets.only(top: screenHeight*0.36),
               child: Center(
                   child: Text(APP_TITLE,
                       style: TextStyle(
@@ -48,7 +52,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           //blue part
           Align(
             child: Padding(
-              padding: const EdgeInsets.only(top: 585),
+              padding: EdgeInsets.only(top: screenHeight*0.72),
               child: Container(
                 width: double.infinity,
                 height: 227,
@@ -68,13 +72,12 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     height: 30,
                   ),
                   //'Get Started' button
-                  appButton("Get started", LogInSignUpPage(), context,
-                      fontSize: 24, buttonWidth: 315, buttonHeight: 58),
+                  appButton("Get started", LogInSignUpPage(), context),
                   SizedBox(
-                    height: 40,
+                    height: 50,
                   ),
                   //'Privacy policy . TOC . Content Policy'
-                  footer(context)
+                  footer(context, screenWidth)
                 ]),
               ),
             ),
