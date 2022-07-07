@@ -28,6 +28,21 @@ const Color kTabBarBlue = Color(0xff00a9ce);
 // List Tile color
 const Color kTileClr = Color(0xffedf9ff);
 
+//TextStyles
+
+// Used in Mou details - Info tab
+TextStyle titleStyle() {
+  return const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+}
+
+TextStyle normalStyle() {
+  return const TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
+}
+
+TextStyle subtitleStyle() {
+  return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+}
+
 //misc
 List<String> months = [
   "Jan",

@@ -1,7 +1,7 @@
 import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
-import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
-import 'package:MouTracker/screens/mou_creation/SubmittedPage.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
+import 'package:MouTracker/screens/mou_creation/SubmittedPage.dart';
+import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
 import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
 import 'package:MouTracker/screens/main_tabs/report_bug.dart';
 import 'package:MouTracker/screens/main_tabs/stats_page.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/start',
+      initialRoute: '/home',
       routes: {
         '/submitted' : (_) => const SubmittedPage(),
         '/create_mou' : (_) => const CreateForm(),

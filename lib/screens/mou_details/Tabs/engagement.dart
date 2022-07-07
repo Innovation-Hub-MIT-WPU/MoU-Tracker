@@ -27,13 +27,16 @@ class _EngagementTabState extends State<EngagementTab> {
   ];
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Expanded(
           child: ListView.separated(
-              itemBuilder: (_, i) => _buildActivityTile(activities[i]),
+              itemBuilder: (_, i) =>
+                  _buildActivityTile(activities[i], screenWidth, screenHeight),
               separatorBuilder: (_, i) =>
-                  const SizedBox(height: 12), // Use dynamic height here
+                  SizedBox(height: screenHeight*0.015), // Use dynamic height here
               itemCount: activities.length),
         )
       ],
@@ -41,13 +44,15 @@ class _EngagementTabState extends State<EngagementTab> {
   }
 
   // Widget to build the List tile for a single activity
-  Widget _buildActivityTile(Activity activity) {
+  Widget _buildActivityTile(
+      Activity activity, double screenWidth, double screenHeight) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.03, vertical: screenHeight * 0.01),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           color: kTileClr,
         ),
         child: ListTile(
