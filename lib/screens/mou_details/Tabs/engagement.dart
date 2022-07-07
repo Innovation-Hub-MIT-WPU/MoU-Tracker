@@ -19,7 +19,7 @@ class _EngagementTabState extends State<EngagementTab> {
     Activity(
         name: "Placement",
         desc: "Lorem ipsum dolor sit amet, consectetur",
-        status: false),
+        status: true),
     Activity(
         name: "Workshop",
         desc: "Lorem ipsum dolor sit amet, consectetur",
@@ -32,7 +32,8 @@ class _EngagementTabState extends State<EngagementTab> {
         Expanded(
           child: ListView.separated(
               itemBuilder: (_, i) => _buildActivityTile(activities[i]),
-              separatorBuilder: (_, i) => const SizedBox(height: 12), // Use dynamic height here
+              separatorBuilder: (_, i) =>
+                  const SizedBox(height: 12), // Use dynamic height here
               itemCount: activities.length),
         )
       ],
@@ -54,8 +55,10 @@ class _EngagementTabState extends State<EngagementTab> {
               ? const Icon(Icons
                   .check_box_outlined) // tick check box only on completed activities
               : const Icon(Icons.check_box_outline_blank),
-          title: Text(activity.name),
-          subtitle: Text(activity.desc),
+          title: Text(activity.name,
+              style: const TextStyle(color: Colors.black, fontSize: 18)),
+          subtitle: Text(activity.desc,
+              style: const TextStyle(color: Colors.grey, fontSize: 14)),
           trailing: activity.status == true
               ? _buildTextButton("View")
               : null, // view button is only for completed activities
@@ -69,7 +72,8 @@ class _EngagementTabState extends State<EngagementTab> {
   TextButton _buildTextButton(String buttonTxt) {
     return TextButton(
       onPressed: () {},
-      child: Text(buttonTxt,style : const TextStyle()),
+      child: Text(buttonTxt,
+          style: const TextStyle(color: Colors.black, fontSize: 15)),
     );
   }
 }
