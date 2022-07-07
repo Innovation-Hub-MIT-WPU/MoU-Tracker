@@ -1,4 +1,3 @@
-
 import 'package:MouTracker/screens/notifications/notifications_list.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -18,69 +17,89 @@ class _TrackTabState extends State<TrackTab> {
   int _currentStep = 0;
   StepperType stepperType = StepperType.vertical;
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-
-      body:  Container(
+    return Scaffold(
+      body: Container(
         child: Column(
           children: [
             Expanded(
               child: Theme(
                 data: Theme.of(context).copyWith(
-          colorScheme: ColorScheme.light(primary: Colors.green)
-        ),
+                    colorScheme: ColorScheme.light(primary: Colors.green)),
                 child: Stepper(
                   type: stepperType,
                   physics: ScrollPhysics(),
                   currentStep: _currentStep,
                   onStepTapped: (step) => tapped(step),
-                  onStepContinue:  continued,
+                  onStepContinue: continued,
                   onStepCancel: cancel,
                   steps: <Step>[
                     Step(
-                      state: _currentStep > 0 ? StepState.complete : StepState.indexed,
-                      title: new Text('Completed the MoU', style: TextStyle(color: Colors. black),),
-                      content: Text(""),
-
-                      isActive: _currentStep >= 0,
-
-                    ),
-                    Step(
-                      state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-                      title: new Text('Sent for Approval', style: TextStyle(color: Colors. black),),
+                      state: _currentStep > 0
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Completed the MoU',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       content: Text(""),
                       isActive: _currentStep >= 0,
-
                     ),
                     Step(
-                      state: _currentStep > 2 ? StepState.complete : StepState.indexed,
-                      title: new Text('Approved by Head', style: TextStyle(color: Colors. black),),
-                      content: Text(" "),
-                      isActive:_currentStep >= 0,
-
+                      state: _currentStep > 1
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Sent for Approval',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      content: Text(""),
+                      isActive: _currentStep >= 0,
                     ),
                     Step(
-                      state: _currentStep > 3 ? StepState.complete : StepState.indexed,
-                      title: new Text('Approved by Directors', style: TextStyle(color: Colors. black),),
+                      state: _currentStep > 2
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Approved by Head',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       content: Text(" "),
-                      isActive:_currentStep >= 0,
-
+                      isActive: _currentStep >= 0,
                     ),
                     Step(
-                      state: _currentStep > 4 ? StepState.complete : StepState.indexed,
-                      title: new Text('Approved by CEO', style: TextStyle(color: Colors. black),),
+                      state: _currentStep > 3
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Approved by Directors',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       content: Text(" "),
-                      isActive:_currentStep >= 0,
-
+                      isActive: _currentStep >= 0,
                     ),
                     Step(
-                      state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-                      title: new Text('Process Completed', style: TextStyle(color: Colors. black),),
+                      state: _currentStep > 4
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Approved by CEO',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       content: Text(" "),
-                      isActive:_currentStep >= 0,
-
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 5
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: new Text(
+                        'Process Completed',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      content: Text(" "),
+                      isActive: _currentStep >= 0,
                     ),
                   ],
                 ),
@@ -89,26 +108,18 @@ class _TrackTabState extends State<TrackTab> {
           ],
         ),
       ),
-
-
     );
   }
 
-
-  tapped(int step){
+  tapped(int step) {
     setState(() => _currentStep = step);
   }
 
-  continued(){
-    _currentStep < 6 ?
-    setState(() => _currentStep += 1): null;
+  continued() {
+    _currentStep < 6 ? setState(() => _currentStep += 1) : null;
   }
+
   cancel() {
-    _currentStep > 0 ?
-    setState(() => _currentStep -= 1) : null;
+    _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
   }
-
-
-
-
 }

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class onTrack {
   String title;
   String description;
-  DateTime date;
+  String date;
 
   onTrack({required this.title, required this.description, required this.date});
 }
@@ -11,7 +11,7 @@ class onTrack {
 class delayed {
   String title;
   String description;
-  DateTime date;
+  String date;
 
   delayed({required this.title, required this.description, required this.date});
 }
@@ -19,12 +19,16 @@ class delayed {
 List getonTracksList() {
   return [
     onTrack(
-        title: "MOU-1",
-        date: DateTime.now(),
+        title: "MOU-3",
+        date: "30 Aug 2022",
         description: "lore  You should see a circular....."),
     onTrack(
-        title: "MOU-2",
-        date: DateTime.now(),
+        title: "MOU-4",
+        date: "1 Sept 2022",
+        description: "We provide best services in the world...."),
+    onTrack(
+        title: "MOU-6",
+        date: "31 Dec 2022",
         description: "We provide best services in the world...."),
   ];
 }
@@ -32,13 +36,13 @@ List getonTracksList() {
 List getdelayedList() {
   return [
     onTrack(
-        title: "MOU-3",
-        date: DateTime.now(),
+        title: "MOU-2",
+        date: "1 july 2022",
         description:
             "We provide best services in the world.rave suffered alteration in some ..."),
     onTrack(
-        title: "MOU-4",
-        date: DateTime.now(),
+        title: "MOU-1",
+        date: "15 july 2022",
         description:
             "We provide best services in  of Lorem Ipsum avhave suffered alteration in some ..."),
   ];

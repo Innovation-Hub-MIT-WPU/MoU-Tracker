@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/start',
       routes: {
-        '/submitted' : (_) => const SubmittedPage(),
-        '/create_mou' : (_) => const CreateForm(),
+        '/submitted': (_) => const SubmittedPage(),
+        '/create_mou': (_) => const CreateForm(),
         '/mou_details': (_) => const Details(),
         '/start': (context) => const AnimatedSplashScreenPage(),
         '/home': (context) => const HomePage(),

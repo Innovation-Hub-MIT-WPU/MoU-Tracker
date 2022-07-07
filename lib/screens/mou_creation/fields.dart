@@ -1,5 +1,5 @@
+import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
 import 'package:flutter/material.dart';
-import '/screens/mou_creation/create.dart';
 import '/classes/create_mou_backend.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 
@@ -86,8 +86,8 @@ Widget dialog(BuildContext cnt) {
     ),
     contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
     children: <Widget>[
-      CreateMouState.task != null
-          ? buildUploadStatus(CreateMouState.task!)
+      CreateFormState.task != null
+          ? buildUploadStatus(CreateFormState.task!)
           : const Text(
               "You haven't selected any file",
               style: TextStyle(color: Colors.white),
@@ -102,7 +102,7 @@ Widget dialog(BuildContext cnt) {
             onPressed: () {
               // CreationDetails.mapping(FirebaseApi.downloadUrl, "downloadLink");
               // CreationDetails.addData();
-              Navigator.of(cnt).pushNamed('/create_mou');
+              Navigator.of(cnt).pushReplacementNamed('/submitted');
             },
             child: const Text(
               "Next",
