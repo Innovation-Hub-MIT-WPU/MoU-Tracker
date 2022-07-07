@@ -166,7 +166,7 @@ Widget passwordFormElement(TextEditingController passwordController) {
         onSaved: (value) {
           passwordController.text = value!;
         },
-        textInputAction: TextInputAction.done,
+        textInputAction: TextInputAction.next,
         cursorColor: AppColors.buttonYellow,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10),
