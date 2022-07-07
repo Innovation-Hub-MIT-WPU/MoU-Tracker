@@ -12,7 +12,6 @@ class Notifications extends StatefulWidget {
 
 class NotificationsState extends State<Notifications>
     with SingleTickerProviderStateMixin {
-
   late TabController _tabController;
   int index = 0;
   static late List ontracklist;
@@ -41,12 +40,10 @@ class NotificationsState extends State<Notifications>
     _tabController.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar(_tabController, index),
+      appBar: appbar(_tabController, index, context),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -55,7 +52,7 @@ class NotificationsState extends State<Notifications>
               // onChanged: (value) => _runFilter(value),
               decoration: InputDecoration(
                 contentPadding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
                 hintText: "Search",
                 suffixIcon: const Icon(Icons.search),
                 // prefix: Icon(Icons.search),
