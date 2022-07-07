@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
-Widget tabs(TabController _tabController, int index) {
+import '../../common_utils/utils.dart';
+
+Widget tabs(TabController _tabController, int index, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+    padding: const EdgeInsets.fromLTRB(45, 10, 45, 20),
     child: Column(
       children: [
         // give the tab bar a height [can change hheight to preferred height]
         Container(
-          height: 40,
-          width: 300,
+          // height: 40,
+          // width: 300,
+          height: MediaQuery.of(context).size.height * 0.0565,
+          width: MediaQuery.of(context).size.width * 0.75,
+
           decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: Colors.white,
             borderRadius: BorderRadius.circular(
               15.0,
             ),
@@ -29,7 +34,9 @@ Widget tabs(TabController _tabController, int index) {
                   : const Color(0xFFCD364E),
             ),
             labelColor: Colors.white,
-            unselectedLabelColor: Colors.black,
+            labelStyle:
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            unselectedLabelColor: Colors.black.withOpacity(0.25),
             tabs: const [
               // first tab [you can add an icon using the icon property]
               Tab(
@@ -49,12 +56,13 @@ Widget tabs(TabController _tabController, int index) {
   );
 }
 
-PreferredSizeWidget appbar(TabController _tabController, int index) {
+PreferredSizeWidget appbar(
+    TabController _tabController, int index, BuildContext context) {
   return AppBar(
     backgroundColor: Color(0xFF2D376E),
     bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
-        child: tabs(_tabController, index)),
+        child: tabs(_tabController, index, context)),
     title: const Padding(
       padding: EdgeInsets.only(
         top: 35,
@@ -62,7 +70,8 @@ PreferredSizeWidget appbar(TabController _tabController, int index) {
       child: Center(
         child: Text(
           'Notifications',
-          style: TextStyle(fontSize: 27, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: 24, color: Colors.white, fontWeight: FontWeight.w400),
         ),
       ),
     ),
