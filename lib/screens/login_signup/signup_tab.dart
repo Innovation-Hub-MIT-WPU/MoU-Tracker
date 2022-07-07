@@ -35,6 +35,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+
+
     Widget signupButton() {
       return SizedBox(
         width: 125,
@@ -74,11 +76,6 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(height: kFormSpacing),
                   emailFormElement(emailController),
                   SizedBox(height: kFormSpacing),
-                  FormAndDropDown(
-                    designationController: designationController,
-                    designation: designation,
-                  ),
-                  SizedBox(height: kFormSpacing),
                   passwordFormElement(passwordController),
                   TextButton(
                     onPressed: () {
@@ -99,6 +96,11 @@ class _SignUpState extends State<SignUp> {
                             fontSize: 12,
                             fontWeight: FontWeight.w400)),
                   ),
+                  FormAndDropDown(
+                    designationController: designationController,
+                    designation: designation,
+                  ),
+                  SizedBox(height: kFormSpacing),
                   Center(
                     child: signupButton(),
                   ),

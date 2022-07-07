@@ -29,7 +29,6 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
         centerTitle: true,
@@ -67,7 +66,7 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.only(bottom: 10, top: 10),
             child: footer(context),
           )
         ],

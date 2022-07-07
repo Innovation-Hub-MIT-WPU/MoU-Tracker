@@ -60,31 +60,33 @@ class _LogInState extends State<LogIn> {
       key: _formKey,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: kFormHorizontal),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: kFormSpacing),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: kFormSpacing),
+        
+                emailFormElement(emailController),
+                SizedBox(height: kFormSpacing),
 
-              emailFormElement(emailController),
-              SizedBox(height: kFormSpacing),
+                passwordFormElement(passwordController),
+                TextButton(
+                    onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
+                    child: const Text("Forgot Password?",
+                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
+                ),
+                //SizedBox(height: kFormSpacing),
+        
+                //formElement("DESIGNATION", ""),
+                FormAndDropDown(designationController: designationController, designation: designation,),
+                SizedBox(height: kFormSpacing),
 
-              //formElement("DESIGNATION", ""),
-              FormAndDropDown(designationController: designationController, designation: designation,),
-              SizedBox(height: kFormSpacing),
-
-              passwordFormElement(passwordController),
-              TextButton(
-                  onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
-                  child: const Text("Forgot Password?",
-                      style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400)),
-              ),
-              SizedBox(height: kFormSpacing),
-
-              Center(
-                child: loginButton(),
-              ),
-            ],
+                Center(
+                  child: loginButton(),
+                ),
+              ],
+            ),
           ),
         ),
       ),

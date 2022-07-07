@@ -1,16 +1,23 @@
+import '/services/Firebase/firestore/upload_service.dart';
+import 'fields.dart';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' as io;
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
 
   @override
-  State<CreateForm> createState() => _CreateFormState();
+  State<CreateForm> createState() => CreateFormState();
 }
 
-class _CreateFormState extends State<CreateForm> {
+class CreateFormState extends State<CreateForm> {
   // for identification and validation of the form
   final _formKey = GlobalKey<FormState>();
-
+  static UploadTask? task;
+  static io.File? file;
   String _field1 = '';
   String _field2 = '';
   String _field3 = '';
@@ -31,7 +38,7 @@ class _CreateFormState extends State<CreateForm> {
               //   painter: CurvePainter(),
               // ),
               Container(
-                color: const Color(0xff2D376E),
+                color: Color(0xff2D376E),
                 height: MediaQuery.of(context).size.height * 0.2 - 30,
               ),
               Form(
@@ -42,7 +49,7 @@ class _CreateFormState extends State<CreateForm> {
                     const SizedBox(height: 60),
                     const Text(
                       'CREATE MOU',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           fontSize: 40),
@@ -56,29 +63,31 @@ class _CreateFormState extends State<CreateForm> {
                     _buildField4(),
                     _buildField5(),
                     _buildField6(),
-                    const Center(
-                        child: Text(
-                      'Submit MoU 3 Pager',
-                      style: TextStyle(fontSize: 22),
-                    )),
+                    Center(
+                      child: Text(file == null
+                          ? "no file selected"
+                          : file!.path.split('/').last),
+                    ),
                     Container(
                       height: 60,
                       width: 300,
-                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                       child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(const Color(0xff64C636)),
-                          elevation: MaterialStateProperty.all(5),
-                        ),
+                        onPressed: () {
+                          pickFile();
+                        },
                         child: Text(
                           'Choose File',
                           style: TextStyle(fontSize: 20),
                         ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xff64C636)),
+                          elevation: MaterialStateProperty.all(5),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                     SizedBox(
                       height: 50,
                       width: 200,
@@ -88,18 +97,24 @@ class _CreateFormState extends State<CreateForm> {
                           //   return;
                           // }
                           _formKey.currentState!.save();
-                          Navigator.pushNamed(context, '/submitted');
+                          FirebaseApi.fileUpload();
+                          showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return dialog(context);
+                              });
                         },
+                        child: Text(
+                          'DONE',
+                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        ),
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.white),
                             elevation: MaterialStateProperty.all(0),
                             side: MaterialStateProperty.all(
-                                const BorderSide(color: Colors.black, width: 2))),
-                        child: Text(
-                          'DONE',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
-                        ),
+                                BorderSide(color: Colors.black, width: 2))),
                       ),
                     ),
                     const SizedBox(
@@ -115,6 +130,20 @@ class _CreateFormState extends State<CreateForm> {
     ));
   }
 
+  Future pickFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if (result == null) {
+      print("result null");
+      return;
+    } else {
+      final filepath = result.files.single.path!;
+
+      setState(() {
+        file = io.File(filepath);
+      });
+    }
+  }
+
   Widget _buildField1() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(50, 15, 40, 15),
@@ -127,7 +156,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field1 = value!;
@@ -148,7 +176,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field2 = value!;
@@ -169,7 +196,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field3 = value!;
@@ -190,7 +216,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field4 = value!;
@@ -211,7 +236,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field5 = value!;
@@ -232,7 +256,6 @@ class _CreateFormState extends State<CreateForm> {
           if (value!.isEmpty) {
             return 'Field is required.';
           }
-          return null;
         },
         onSaved: (value) {
           _field6 = value!;
@@ -262,7 +285,7 @@ class CurvePainter extends CustomPainter {
 
     var paint = Paint();
     // Color myBlue = Color(0xff2D376E);
-    Color myBlue = const Color(0xff023E8A);
+    Color myBlue = Color(0xff023E8A);
     paint.color = myBlue;
     paint.style = PaintingStyle.fill; // Change this to fill
 
@@ -278,7 +301,7 @@ class CurvePainter extends CustomPainter {
 
     // layer 2
     var paint2 = Paint();
-    paint2.color = const Color(0xff03045E);
+    paint2.color = Color(0xff03045E);
     paint2.style = PaintingStyle.fill; // Change this to fill
 
     var path2 = Path();

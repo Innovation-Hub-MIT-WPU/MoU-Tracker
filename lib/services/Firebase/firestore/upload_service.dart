@@ -1,21 +1,21 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import '/screens/mou_creation/create.dart';
+import '../../../screens/mou_creation/CreateForm.dart';
 import 'dart:io' as io;
 
 class FirebaseApi {
   static var downloadUrl;
   static Future fileUpload() async {
-    if (CreateMouState.file == null) {
+    if (CreateFormState.file == null) {
       print("not done");
       return;
     } else {
-      String filename = (CreateMouState.file!.path).split('/').last;
+      String filename = (CreateFormState.file!.path).split('/').last;
       final location = 'mou1/$filename';
 
-      CreateMouState.task =
-          FirebaseApi.uploadTask(location, CreateMouState.file!);
-      final snapshot = await CreateMouState.task!.whenComplete(() {});
+      CreateFormState.task =
+          FirebaseApi.uploadTask(location, CreateFormState.file!);
+      final snapshot = await CreateFormState.task!.whenComplete(() {});
       downloadUrl = await snapshot.ref.getDownloadURL();
       print("done");
     }

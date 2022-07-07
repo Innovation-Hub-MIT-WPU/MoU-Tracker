@@ -1,4 +1,6 @@
+import 'package:MouTracker/screens/notifications/notifications_list.dart';
 import 'package:flutter/material.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class TrackTab extends StatefulWidget {
   const TrackTab({Key? key}) : super(key: key);
@@ -12,141 +14,112 @@ class _TrackTabState extends State<TrackTab> {
     return MediaQuery.of(context).size;
   }
 
+  int _currentStep = 0;
+  StepperType stepperType = StepperType.vertical;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          //Header Container
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            alignment: Alignment.center,
-            child: RichText(
-              text: const TextSpan(
-                text: 'STATUS: ',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: 'IN FOR APPROVAL',
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal, fontSize: 18)),
-                ],
-              ),
-            ),
-          ),
-
-          //Body Container
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15,
-                        vertical: 11,
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                    colorScheme: const ColorScheme.light(primary: Colors.green)),
+                child: Stepper(
+                  type: stepperType,
+                  physics: const ScrollPhysics(),
+                  currentStep: _currentStep,
+                  onStepTapped: (step) => tapped(step),
+                  onStepContinue: continued,
+                  onStepCancel: cancel,
+                  steps: <Step>[
+                    Step(
+                      state: _currentStep > 0
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text(
+                        'Completed the MoU',
+                        style: const TextStyle(color: Colors.black),
                       ),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Stack(children: <Widget>[
-                              Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 11.0),
-                                  height: 335,
-                                  child: ListView(
-                                    children: const [
-                                      ListTile(
-                                          leading: Icon(Icons.check_circle,
-                                              color: Colors.green),
-                                          title: Text('Approved By CEO')),
-                                      ListTile(
-                                          leading: Icon(Icons.check_circle,
-                                              color: Colors.green),
-                                          title: Text('Approved by Directors')),
-                                      ListTile(
-                                          leading: Icon(Icons.check_circle,
-                                              color: Colors.green),
-                                          title: Text('Approved by Head')),
-                                      ListTile(
-                                          leading: Icon(Icons.check_circle,
-                                              color: Colors.green),
-                                          title: Text('Sent for Approval')),
-                                      ListTile(
-                                          leading: Icon(Icons.check_circle,
-                                              color: Colors.green),
-                                          title: Text('Completed the MOU')),
-                                    ],
-                                  ))
-                            ])
-                          ])),
-
-                  //TextField nearly at bottom
-                ],
+                      content: const Text(""),
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 1
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: const Text(
+                        'Sent for Approval',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      content: const Text(""),
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 2
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: const Text(
+                        'Approved by Head',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      content: const Text(" "),
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 3
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text(
+                        'Approved by Directors',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      content: const Text(" "),
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 4
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: Text(
+                        'Approved by CEO',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      content: const Text(" "),
+                      isActive: _currentStep >= 0,
+                    ),
+                    Step(
+                      state: _currentStep > 5
+                          ? StepState.complete
+                          : StepState.indexed,
+                      title: const Text(
+                        'Process Completed',
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      content: const Text(" "),
+                      isActive: _currentStep >= 0,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-
-          Container(
-              child: Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Container(
-                          alignment: Alignment.center,
-                          color: Colors.green,
-                          height: 55,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: const [
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ))
-                            ],
-                          )
-                          //BoxDecoration
-                          ), //Container
-                    ), //Flexible
-                    const SizedBox(
-                      width: 10,
-                    ), //SizedBox
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
-                      child: Container(
-                          color: Colors.red,
-                          height: 55,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: const [
-                              Icon(Icons.cancel, color: Colors.white, size: 30)
-                            ],
-                          )
-
-                          //BoxDecoration
-                          ), //Container
-                    ) //Flexible
-                  ],
-                ), //Row
-                //Flexible//Row
-              ],
-            ), //Column
-          ) //Padding
-              ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  tapped(int step) {
+    setState(() => _currentStep = step);
+  }
+
+  continued() {
+    _currentStep < 6 ? setState(() => _currentStep += 1) : null;
+  }
+
+  cancel() {
+    _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
   }
 }
