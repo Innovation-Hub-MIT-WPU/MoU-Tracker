@@ -1,4 +1,4 @@
-import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
+import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:flutter/material.dart';
 import '/classes/create_mou_backend.dart';
 import '/services/Firebase/firestore/upload_service.dart';
@@ -49,10 +49,11 @@ Widget title(String text) {
 }
 
 Widget button1(Future Function() pickfile) {
-  return FlatButton(
+  return TextButton(
     onPressed: () => pickfile(),
     autofocus: true,
-    color: const Color(0xFF64C636),
+    style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(const Color(0xFF64C636))),
     child: const SizedBox(
       height: 40,
       width: 400,

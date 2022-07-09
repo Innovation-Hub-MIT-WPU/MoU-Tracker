@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '/screens/notifications/notifications_list.dart';
-import '/screens/notifications/notifications_tab.dart';
-import '/screens/notifications/notifications_tab_view.dart';
+import 'notifications_page_utils/notifications_list.dart';
+import 'notifications_page_utils/notifications_tab.dart';
+import 'notifications_page_utils/notifications_tab_view.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({Key? key}) : super(key: key);

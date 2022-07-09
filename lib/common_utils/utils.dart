@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 // Values are kept const for now since setState has to be called for changing variable values
 // Change to variables later
 
-const double kDefaultHorizontal = 12.0;
-const double kDefaultVertical = 8.0;
+// const double kDefaultHorizontal = 12.0;
+// const double kDefaultVertical = 8.0;
 
 const double kFormHorizontal = 26.0;
 const double kFormSpacing = 20.0;
-const double kTabBarHorizontal = 16.0;
-const double kTabBarVertical = 18.0;
+// const double kTabBarHorizontal = 16.0;
+// const double kTabBarVertical = 18.0;
 
 const double kBorderWidth = 1.5;
 

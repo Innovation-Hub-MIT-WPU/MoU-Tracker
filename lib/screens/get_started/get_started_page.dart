@@ -5,8 +5,8 @@ import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../common_utils/utils.dart';
-import '../../common_widgets/login_signup_widgets.dart';
+import '/common_utils/utils.dart';
+import '../login_signup/auth_page_utlis/login_signup_widgets.dart';
 
 class GetStartedPage extends StatefulWidget {
   const GetStartedPage({Key? key}) : super(key: key);
@@ -20,7 +20,6 @@ class GetStartedPage extends StatefulWidget {
 class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
-
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -30,7 +29,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
         children: [
           //APP_ICON header
           Container(
-              padding: EdgeInsets.only(top: screenHeight*0.36),
+              padding: EdgeInsets.only(top: screenHeight * 0.36),
               child: Center(
                   child: Text(APP_TITLE,
                       style: TextStyle(
@@ -52,7 +51,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           //blue part
           Align(
             child: Padding(
-              padding: EdgeInsets.only(top: screenHeight*0.72),
+              padding: EdgeInsets.only(top: screenHeight * 0.72),
               child: Container(
                 width: double.infinity,
                 height: 227,

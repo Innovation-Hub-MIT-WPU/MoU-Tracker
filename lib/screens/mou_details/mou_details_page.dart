@@ -44,31 +44,31 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kBgClr2,
-        centerTitle: true,
-        title: const Text(
-          "Tracking",
-          style: TextStyle(color: Colors.white),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-                color: Colors.white),
+    double screenWidth = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kBgClr2,
+          centerTitle: true,
+          title: const Text(
+            "Tracking",
+            style: TextStyle(color: Colors.white),
           ),
-        ],
-        // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
-        bottom: PreferredSize(
-            preferredSize: Size.fromHeight(screenHeight * 0.1),
-            child: _customTabBar()),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: kTabBarVertical),
-        child: Column(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.search),
+                  color: Colors.white),
+            ),
+          ],
+          // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
+          bottom: PreferredSize(
+              preferredSize: Size.fromHeight(screenHeight * 0.1),
+              child: _customTabBar(screenWidth, screenHeight)),
+        ),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -103,16 +103,19 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   }
 
   // Function to make rounded tab bar
-  Padding _customTabBar() {
+  Widget _customTabBar(double screenWidth, double screenHeight) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: kTabBarHorizontal, vertical: kTabBarVertical),
+      padding: EdgeInsets.only(
+        left: screenWidth * 0.1,
+        right: screenWidth * 0.1,
+        bottom: screenHeight * 0.03,
+      ),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.06,
+        height: MediaQuery.of(context).size.height * 0.065,
         decoration: BoxDecoration(
           border: Border.all(width: kBorderWidth, color: Colors.white),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(18.0),
         ),
         child: _buildTabBar(),
       ),

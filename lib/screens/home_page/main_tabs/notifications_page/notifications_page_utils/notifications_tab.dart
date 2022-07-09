@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../common_utils/utils.dart';
-
 Widget tabs(TabController _tabController, int index, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(45, 10, 45, 20),

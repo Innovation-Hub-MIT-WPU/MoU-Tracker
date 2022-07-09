@@ -1,4 +1,3 @@
-import 'package:MouTracker/screens/notifications/notifications_list.dart';
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -26,7 +25,8 @@ class _TrackTabState extends State<TrackTab> {
             Expanded(
               child: Theme(
                 data: Theme.of(context).copyWith(
-                    colorScheme: const ColorScheme.light(primary: Colors.green)),
+                    colorScheme:
+                        const ColorScheme.light(primary: Colors.green)),
                 child: Stepper(
                   type: stepperType,
                   physics: const ScrollPhysics(),

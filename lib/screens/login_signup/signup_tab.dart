@@ -1,13 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
 
-import 'package:MouTracker/screens/home/home_screen.dart';
+import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../common_utils/utils.dart';
-import '../../common_widgets/login_signup_widgets.dart';
+import 'auth_page_utlis/login_signup_widgets.dart';
 import '../../services/Firebase/fireauth/model.dart';
 
 class SignUp extends StatefulWidget {
@@ -35,10 +35,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-
 
     Widget signupButton() {
       return SizedBox(
@@ -72,14 +70,17 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: screenHeight*0.024),
-                  nameFormElement("FIRST NAME", firstNameController, screenHeight, screenWidth),
-                  SizedBox(height: screenHeight*0.024),
-                  nameFormElement("LAST NAME", lastNameController, screenHeight, screenWidth),
-                  SizedBox(height: screenHeight*0.024),
+                  SizedBox(height: screenHeight * 0.024),
+                  nameFormElement("FIRST NAME", firstNameController,
+                      screenHeight, screenWidth),
+                  SizedBox(height: screenHeight * 0.024),
+                  nameFormElement("LAST NAME", lastNameController, screenHeight,
+                      screenWidth),
+                  SizedBox(height: screenHeight * 0.024),
                   emailFormElement(emailController, screenWidth, screenHeight),
-                  SizedBox(height: screenHeight*0.024),
-                  passwordFormElement(passwordController, screenWidth, screenHeight),
+                  SizedBox(height: screenHeight * 0.024),
+                  passwordFormElement(
+                      passwordController, screenWidth, screenHeight),
                   TextButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -105,12 +106,12 @@ class _SignUpState extends State<SignUp> {
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
                   ),
-                  SizedBox(height: screenHeight*0.024),
+                  SizedBox(height: screenHeight * 0.024),
                   Center(
                     child: signupButton(),
                   ),
                   SizedBox(
-                    height: screenHeight*0.024,
+                    height: screenHeight * 0.024,
                   )
                 ],
               ),
@@ -154,6 +155,7 @@ class _SignUpState extends State<SignUp> {
 
     Fluttertoast.showToast(msg: "Account created successfully !");
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) => HomePage()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
   }
 }

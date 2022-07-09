@@ -6,7 +6,6 @@ import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
 

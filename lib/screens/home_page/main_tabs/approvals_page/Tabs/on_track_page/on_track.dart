@@ -1,17 +1,16 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard2.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard3.dart';
 import 'package:flutter/material.dart';
 
-import '../On Track/Card View Types/MyCard3.dart';
-import '../On Track/Card View Types/MyCard2.dart';
-import '../On Track/Card View Types/MyCard.dart';
-
-class DelayedTab extends StatefulWidget {
-  const DelayedTab({Key? key}) : super(key: key);
+class OnTrackTab extends StatefulWidget {
+  const OnTrackTab({Key? key}) : super(key: key);
 
   @override
-  _DelayedTabState createState() => _DelayedTabState();
+  _OnTrackTabState createState() => _OnTrackTabState();
 }
 
-class _DelayedTabState extends State<DelayedTab> {
+class _OnTrackTabState extends State<OnTrackTab> {
   final List DocName = ['MoU 1', 'MoU 2', 'MoU 3'];
   final List AuthName = ['Bob', 'Adam', 'Greg'];
   final List Amount = [10000, 100000, 1000000];
@@ -90,9 +89,7 @@ class _DelayedTabState extends State<DelayedTab> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context,'/create_mou');
-        },
+        onPressed: () => Navigator.pushNamed(context, '/create_mou'),
         backgroundColor: const Color(0xff64C636),
         child: const Icon(
           Icons.add,
@@ -106,18 +103,18 @@ class _DelayedTabState extends State<DelayedTab> {
 Widget _BuildListType1() {
   return ListView.builder(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    itemCount: _DelayedTabState().DocName.length,
+    itemCount: _OnTrackTabState().DocName.length,
     itemBuilder: (context, index) {
       return MyCard(
-        docName: _DelayedTabState().DocName[index],
-        authName: _DelayedTabState().AuthName[index],
-        amount: _DelayedTabState().Amount[index],
-        description: _DelayedTabState().Description[index],
-        date: _DelayedTabState().DueDate[index],
+        docName: _OnTrackTabState().DocName[index],
+        authName: _OnTrackTabState().AuthName[index],
+        amount: _OnTrackTabState().Amount[index],
+        description: _OnTrackTabState().Description[index],
+        date: _OnTrackTabState().DueDate[index],
         index: index,
         isApproved: index % 2 == 0
-            ? _DelayedTabState().isApproved
-            : !_DelayedTabState().isApproved,
+            ? _OnTrackTabState().isApproved
+            : !_OnTrackTabState().isApproved,
       );
     },
   );
@@ -126,18 +123,18 @@ Widget _BuildListType1() {
 Widget _BuildListType2() {
   return ListView.builder(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    itemCount: _DelayedTabState().DocName.length,
+    itemCount: _OnTrackTabState().DocName.length,
     itemBuilder: (context, index) {
       return MyCard2(
-        docName: _DelayedTabState().DocName[index],
-        authName: _DelayedTabState().AuthName[index],
-        amount: _DelayedTabState().Amount[index],
-        description: _DelayedTabState().Description[index],
-        date: _DelayedTabState().DueDate[index],
+        docName: _OnTrackTabState().DocName[index],
+        authName: _OnTrackTabState().AuthName[index],
+        amount: _OnTrackTabState().Amount[index],
+        description: _OnTrackTabState().Description[index],
+        date: _OnTrackTabState().DueDate[index],
         index: index,
         isApproved: index % 2 == 0
-            ? _DelayedTabState().isApproved
-            : !_DelayedTabState().isApproved,
+            ? _OnTrackTabState().isApproved
+            : !_OnTrackTabState().isApproved,
       );
     },
   );
@@ -146,18 +143,18 @@ Widget _BuildListType2() {
 Widget _BuildListType3() {
   return ListView.builder(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    itemCount: _DelayedTabState().DocName.length,
+    itemCount: _OnTrackTabState().DocName.length,
     itemBuilder: (context, index) {
       return MyCard3(
-        docName: _DelayedTabState().DocName[index],
-        authName: _DelayedTabState().AuthName[index],
-        amount: _DelayedTabState().Amount[index],
-        description: _DelayedTabState().Description[index],
-        date: _DelayedTabState().DueDate[index],
+        docName: _OnTrackTabState().DocName[index],
+        authName: _OnTrackTabState().AuthName[index],
+        amount: _OnTrackTabState().Amount[index],
+        description: _OnTrackTabState().Description[index],
+        date: _OnTrackTabState().DueDate[index],
         index: index,
         isApproved: index % 2 == 0
-            ? _DelayedTabState().isApproved
-            : !_DelayedTabState().isApproved,
+            ? _OnTrackTabState().isApproved
+            : !_OnTrackTabState().isApproved,
       );
     },
   );

@@ -1,7 +1,6 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/delayed_page/delayed.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/on_track.dart';
 import 'package:flutter/material.dart';
-
-import 'Tabs/Delayed/Delayed.dart';
-import 'Tabs/On Track/OnTrack.dart';
 
 class ApprovalsPage extends StatefulWidget {
   const ApprovalsPage({Key? key}) : super(key: key);

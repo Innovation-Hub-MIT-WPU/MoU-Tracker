@@ -1,8 +1,9 @@
-import 'package:MouTracker/screens/main_tabs/ApprovalsPage.dart';
-import 'package:MouTracker/screens/notifications/notifications_tab_bar.dart';
-import '../main_tabs/profile_tab.dart';
-import '../main_tabs/stats_page.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
+
+import 'main_tabs/notifications_page/notifications_tab_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

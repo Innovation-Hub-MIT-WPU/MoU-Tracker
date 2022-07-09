@@ -1,6 +1,6 @@
+import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:flutter/material.dart';
-import '/screens/notifications/notifications_list.dart';
-import '/screens/notifications/notifications_tab_bar.dart';
+import 'notifications_list.dart';
 
 Widget tabview(TabController tabController) {
   return TabBarView(

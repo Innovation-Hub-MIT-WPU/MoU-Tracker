@@ -1,15 +1,15 @@
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
+import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
-import 'package:MouTracker/screens/mou_creation/SubmittedPage.dart';
-import 'package:MouTracker/screens/mou_creation/CreateForm.dart';
-import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
-import 'package:MouTracker/screens/main_tabs/report_bug.dart';
-import 'package:MouTracker/screens/main_tabs/stats_page.dart';
+import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
+import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/home/home_screen.dart';
 import '/globals.dart';
 
 void main() async {
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         '/start': (context) => const AnimatedSplashScreenPage(),
         '/home': (context) => const HomePage(),
         MyRoute.profileRoute: (context) => const ProfileTab(),
-        MyRoute.reportIssuesRoute: (context) => const reportIssues(),
+        MyRoute.reportIssuesRoute: (context) => const ReportIssues(),
         MyRoute.statsPageRoute: (context) => const StatsPage(),
       },
     );

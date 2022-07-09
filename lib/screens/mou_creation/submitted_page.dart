@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../common_widgets/CreatedLogo.dart';
+import 'creation_page_utils/created_logo.dart';
 
 class SubmittedPage extends StatefulWidget {
   const SubmittedPage({Key? key}) : super(key: key);
@@ -16,47 +16,47 @@ class _SubmittedPageState extends State<SubmittedPage> {
     return SafeArea(
       child: Scaffold(
           body: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                snap: false,
-                pinned: false,
-                floating: false,
-                flexibleSpace: const FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ), //TextStyle
-                    ),
-                  ), //Text
-                ), //FlexibleSpaceBar
-                expandedHeight: MediaQuery.of(context).size.height * 0.2 - 30,
-                backgroundColor: const Color(0xff2D376E),
-              ), //SliverAppBar
-              SliverToBoxAdapter(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 40),
-                      const CreatedLogo(),
-                      const SizedBox(height: 10),
-                      _text0(),
-                      _text1(),
-                      const SizedBox(height: 30),
-                      _text2(),
-                      const SizedBox(height: 50),
-                      const TrackButton(),
-                    ],
-                  ),
+        slivers: <Widget>[
+          SliverAppBar(
+            snap: false,
+            pinned: false,
+            floating: false,
+            flexibleSpace: const FlexibleSpaceBar(
+              centerTitle: true,
+              title: Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ), //TextStyle
                 ),
-              )
-            ], //<Widget>[]
-          ) //CustonScrollView
+              ), //Text
+            ), //FlexibleSpaceBar
+            expandedHeight: MediaQuery.of(context).size.height * 0.2 - 30,
+            backgroundColor: const Color(0xff2D376E),
+          ), //SliverAppBar
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 40),
+                  const CreatedLogo(),
+                  const SizedBox(height: 10),
+                  _text0(),
+                  _text1(),
+                  const SizedBox(height: 30),
+                  _text2(),
+                  const SizedBox(height: 50),
+                  const TrackButton(),
+                ],
+              ),
+            ),
+          )
+        ], //<Widget>[]
+      ) //CustonScrollView
           ),
     );
   }

@@ -1,6 +1,5 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
-
-import '../../../BuildBottomSheet.dart';
 
 class MyCard2 extends StatelessWidget {
   final String docName;

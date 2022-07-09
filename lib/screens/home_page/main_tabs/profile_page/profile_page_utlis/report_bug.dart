@@ -1,17 +1,17 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
 
-class reportIssues extends StatefulWidget {
-  const reportIssues({Key? key}) : super(key: key);
+class ReportIssues extends StatefulWidget {
+  const ReportIssues({Key? key}) : super(key: key);
 
   @override
-  State<reportIssues> createState() => _reportIssuesState();
+  State<ReportIssues> createState() => _ReportIssuesState();
 }
 
-class _reportIssuesState extends State<reportIssues> {
+class _ReportIssuesState extends State<ReportIssues> {
   static var reportKey = GlobalKey<FormState>();
   static late TextEditingController _issueController;
   static late String issue;
