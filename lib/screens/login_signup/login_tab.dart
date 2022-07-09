@@ -32,6 +32,9 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
 
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     Widget loginButton(){
       return SizedBox(
         width: 125,
@@ -59,18 +62,18 @@ class _LogInState extends State<LogIn> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: kFormHorizontal),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth*0.066),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: kFormSpacing),
+                SizedBox(height: screenHeight*0.024),
         
-                emailFormElement(emailController),
-                SizedBox(height: kFormSpacing),
+                emailFormElement(emailController, screenWidth, screenHeight),
+                SizedBox(height: screenHeight*0.024),
 
-                passwordFormElement(passwordController),
+                passwordFormElement(passwordController, screenHeight, screenWidth),
                 TextButton(
                     onPressed: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Forgot password", textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),));},
                     child: const Text("Forgot Password?",
@@ -79,8 +82,8 @@ class _LogInState extends State<LogIn> {
                 //SizedBox(height: kFormSpacing),
         
                 //formElement("DESIGNATION", ""),
-                FormAndDropDown(designationController: designationController, designation: designation,),
-                SizedBox(height: kFormSpacing),
+                FormAndDropDown(designationController: designationController, designation: designation,screenHeight: screenHeight, screenWidth: screenWidth,),
+                SizedBox(height: screenHeight*0.024),
 
                 Center(
                   child: loginButton(),

@@ -44,7 +44,7 @@ Container makeCard(onTrack onTrack) => Container(
       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFEDF9FF),
+          color: Colors.lightBlueAccent.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
         ),
         child: makeListTile(onTrack),
@@ -62,28 +62,43 @@ ListTile makeListTile(onTrack onTrack) => ListTile(
             onTrack.title,
             // onTrack["MOU NAME"],
             style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
           ),
           Padding(
               padding: const EdgeInsets.only(
                 top: 10.0,
               ),
-              child: Text(onTrack.description,
-                  // onTrack["Description"],
-                  style: const TextStyle(color: Colors.black))),
+              child: Text(
+                onTrack.description,
+                // onTrack["Description"],
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black.withOpacity(0.6)),
+              )),
           Padding(
               padding: const EdgeInsets.only(
                 top: 10.0,
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.calendar_today_outlined),
+                  const Icon(
+                    Icons.calendar_today_outlined,
+                    size: 18,
+                    color: Colors.black,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(onTrack.date.toString(),
-                      // (onTrack["Due Date"] as Timestamp).toDate().toString(),
-                      style: const TextStyle(color: Colors.black)),
+                  Text(
+                    onTrack.date.toString(),
+                    // (onTrack["Due Date"] as Timestamp).toDate().toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               )),
         ],

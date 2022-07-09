@@ -23,7 +23,8 @@ class FormAndDropDown extends StatefulWidget {
 
   String? designation;
   TextEditingController designationController;
-  FormAndDropDown({Key? key, required this.designationController, required this.designation}) : super(key: key);
+  double screenHeight, screenWidth;
+  FormAndDropDown({Key? key, required this.designationController, required this.designation, required this.screenHeight, required this.screenWidth}) : super(key: key);
 
   @override
   State<FormAndDropDown> createState() => _FormAndDropDownState();
@@ -31,15 +32,19 @@ class FormAndDropDown extends StatefulWidget {
 class _FormAndDropDownState extends State<FormAndDropDown> {
   @override
   Widget build(BuildContext context) {
+
+    double screenHeight = widget.screenHeight;
+    double screenWidth = widget.screenWidth;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("DESIGNATION", style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16), ),
+        Text("DESIGNATION", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16), ),
         SizedBox(height: kFormSpacing / 2),
         Container(
           decoration: BoxDecoration(
             //border: Border.all(color: Colors.white, width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(4.0))
+            borderRadius: BorderRadius.all(Radius.circular(4))
           ),
           child: DropdownButtonFormField(
             hint: Text("Select a designation", style: TextStyle(color: Colors.white.withOpacity(0.5)),),
@@ -83,7 +88,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
   value: item,
   child: Padding(
-    padding: const EdgeInsets.all(10),
+    padding: EdgeInsets.all(10),
     child: Text(item, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black)),
   ),
 );
@@ -91,7 +96,7 @@ DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
 //----------------------------------------
 
 ///form field for email validation
-Widget emailFormElement(TextEditingController emailController) {
+Widget emailFormElement(TextEditingController emailController, double screenHeight, double screenWidth) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -138,7 +143,7 @@ Widget emailFormElement(TextEditingController emailController) {
   );
 }
 ///form field for password validation
-Widget passwordFormElement(TextEditingController passwordController) {
+Widget passwordFormElement(TextEditingController passwordController, double screenHeight, double screenWidth ){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -183,7 +188,7 @@ Widget passwordFormElement(TextEditingController passwordController) {
   );
 }
 ///form field for names (first name, last name)
-Widget nameFormElement(String text, TextEditingController nameController) {
+Widget nameFormElement(String text, TextEditingController nameController, double screenHeight, double screenWidth) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -220,7 +225,7 @@ Widget nameFormElement(String text, TextEditingController nameController) {
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: kBorderWidth))
-        ),
+          ),
         textInputAction: TextInputAction.next,
       ),
     ],
@@ -285,10 +290,11 @@ class _EmptyPageState extends State<EmptyPage> {
 //----------------------------------------
 
 //Button widget: used in 'Get Started' screen
-Widget appButton(String text, Widget newRoute, BuildContext context, {Color textColor = Colors.white, double buttonWidth = 125, double buttonHeight = 35, double fontSize = 16} ){
+Widget appButton(String text, Widget newRoute, BuildContext context){
+
   return SizedBox(
-      width: buttonWidth,
-      height: buttonHeight,
+      width: 315,
+      height: 58,
       child: ElevatedButton(
         onPressed: (){
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => newRoute));
@@ -302,8 +308,8 @@ Widget appButton(String text, Widget newRoute, BuildContext context, {Color text
           )
         ),
         child: Text(text, textAlign: TextAlign.center, style: TextStyle(
-          fontSize: fontSize,
-          color: textColor,
+          fontSize: 24,
+          color: Colors.white,
         )), 
       ),
     );
@@ -312,7 +318,7 @@ Widget appButton(String text, Widget newRoute, BuildContext context, {Color text
 //----------------------------------------
 
 ///A text footer -> 'Privacy policy . TOC . Content Policy'
-Widget footer(BuildContext context){
+Widget footer(BuildContext context, double screenWidth){
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [

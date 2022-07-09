@@ -28,6 +28,10 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
@@ -39,9 +43,9 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: kTabBarHorizontal,vertical: kTabBarVertical),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth*0.04,vertical: screenHeight*0.022),
             child: Container(
-              height: 45,
+              height: screenHeight*0.05,
               decoration: BoxDecoration(
                 color: AppColors.darkBlue,
               ),
@@ -67,7 +71,7 @@ class _LogInSignUpPageState extends State<LogInSignUpPage> with SingleTickerProv
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10, top: 10),
-            child: footer(context),
+            child: footer(context, screenWidth),
           )
         ],
       ),
