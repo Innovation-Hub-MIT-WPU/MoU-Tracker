@@ -56,10 +56,6 @@ class _EngagementTabState extends State<EngagementTab> {
           color: kTileClr,
         ),
         child: ListTile(
-          leading: activity.status == true
-              ? const Icon(Icons
-                  .check_box_outlined) // tick check box only on completed activities
-              : const Icon(Icons.check_box_outline_blank),
           title: Text(activity.name,
               style: const TextStyle(color: Colors.black, fontSize: 18)),
           subtitle: Text(activity.desc,

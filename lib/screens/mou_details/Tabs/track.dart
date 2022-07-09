@@ -39,9 +39,9 @@ class _TrackTabState extends State<TrackTab> {
                       state: _currentStep > 0
                           ? StepState.complete
                           : StepState.indexed,
-                      title: Text(
+                      title: const Text(
                         'Completed the MoU',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(""),
                       isActive: _currentStep >= 0,
@@ -52,7 +52,7 @@ class _TrackTabState extends State<TrackTab> {
                           : StepState.indexed,
                       title: const Text(
                         'Sent for Approval',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(""),
                       isActive: _currentStep >= 0,
@@ -63,7 +63,7 @@ class _TrackTabState extends State<TrackTab> {
                           : StepState.indexed,
                       title: const Text(
                         'Approved by Head',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(" "),
                       isActive: _currentStep >= 0,
@@ -72,9 +72,9 @@ class _TrackTabState extends State<TrackTab> {
                       state: _currentStep > 3
                           ? StepState.complete
                           : StepState.indexed,
-                      title: Text(
+                      title: const Text(
                         'Approved by Directors',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(" "),
                       isActive: _currentStep >= 0,
@@ -83,9 +83,9 @@ class _TrackTabState extends State<TrackTab> {
                       state: _currentStep > 4
                           ? StepState.complete
                           : StepState.indexed,
-                      title: Text(
+                      title: const Text(
                         'Approved by CEO',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(" "),
                       isActive: _currentStep >= 0,
@@ -96,7 +96,7 @@ class _TrackTabState extends State<TrackTab> {
                           : StepState.indexed,
                       title: const Text(
                         'Process Completed',
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black),
                       ),
                       content: const Text(" "),
                       isActive: _currentStep >= 0,
