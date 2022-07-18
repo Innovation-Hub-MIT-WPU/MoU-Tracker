@@ -24,6 +24,13 @@ class CreateFormState extends State<CreateForm> {
   String _field4 = '';
   String _field5 = '';
   String _field6 = '';
+  @override
+  void initState() {
+    // TODO: implement initState
+    file = null;
+    task = null;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +103,7 @@ class CreateFormState extends State<CreateForm> {
                           // if (!_formKey.currentState!.validate()) {
                           //   return;
                           // }
-                          _formKey.currentState!.save();
+                          // _formKey.currentState!.save();
                           FirebaseApi.fileUpload();
                           showDialog(
                               barrierDismissible: false,

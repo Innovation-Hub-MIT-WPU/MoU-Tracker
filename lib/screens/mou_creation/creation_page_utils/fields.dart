@@ -103,6 +103,8 @@ Widget dialog(BuildContext cnt) {
             onPressed: () {
               // CreationDetails.mapping(FirebaseApi.downloadUrl, "downloadLink");
               // CreationDetails.addData();
+
+              Navigator.pop(cnt);
               Navigator.of(cnt).pushReplacementNamed('/submitted');
             },
             child: const Text(

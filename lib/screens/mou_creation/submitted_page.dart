@@ -109,7 +109,7 @@ class _TrackButtonState extends State<TrackButton> {
     return InkWell(
       onTap: () {
         print('Inkwell Tap Registered');
-        Navigator.pushNamed(context, '/home');
+        Navigator.of(context).pushReplacementNamed('/home');
       },
       splashColor: Colors.teal,
       borderRadius: BorderRadius.circular(10),
