@@ -57,6 +57,7 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
 PreferredSizeWidget appbar(
     TabController _tabController, int index, BuildContext context) {
   return AppBar(
+    automaticallyImplyLeading: false,
     backgroundColor: Color(0xFF2D376E),
     bottom: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
