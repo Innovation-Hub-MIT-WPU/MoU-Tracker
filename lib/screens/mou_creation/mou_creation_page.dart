@@ -88,17 +88,17 @@ class CreateFormState extends State<CreateForm> {
                           width: 300,
                           padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                           child: ElevatedButton(
-                            onPressed: () {
-                              pickFile();
+                            onPressed: () async {
+                              await pickFile();
                             },
-                            child: Text(
-                              'Choose File',
-                              style: TextStyle(fontSize: 20),
-                            ),
                             style: ButtonStyle(
                               backgroundColor:
                                   MaterialStateProperty.all(Color(0xff64C636)),
                               elevation: MaterialStateProperty.all(5),
+                            ),
+                            child: const Text(
+                              'Choose File',
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -148,7 +148,7 @@ class CreateFormState extends State<CreateForm> {
     );
   }
 
-  Future pickFile() async {
+  Future<void> pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) {
       print("result null");
