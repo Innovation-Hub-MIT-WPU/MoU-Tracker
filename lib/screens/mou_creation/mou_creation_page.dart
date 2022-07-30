@@ -34,107 +34,118 @@ class CreateFormState extends State<CreateForm> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
-        child: Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(children: [
-              // CustomPaint(
-              //   size: const Size(400, 400),
-              //   painter: CurvePainter(),
-              // ),
-              Container(
-                color: Color(0xff2D376E),
-                height: MediaQuery.of(context).size.height * 0.2 - 30,
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 60),
-                    const Text(
-                      'CREATE MOU',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 40),
-                    ),
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    _buildField1(),
-                    _buildField2(),
-                    _buildField3(),
-                    _buildField4(),
-                    _buildField5(),
-                    _buildField6(),
-                    Center(
-                      child: Text(file == null
-                          ? "no file selected"
-                          : file!.path.split('/').last),
-                    ),
-                    Container(
-                      height: 60,
-                      width: 300,
-                      padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          pickFile();
-                        },
-                        child: Text(
-                          'Choose File',
-                          style: TextStyle(fontSize: 20),
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: screenHeight / 8,
+          backgroundColor: const Color(0xff2D376E),
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_rounded),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: const Text(
+            'CREATE MOU',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40),
+          ),
+          centerTitle: true,
+        ),
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overscroll) {
+            overscroll.disallowIndicator();
+            return true;
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Stack(children: [
+                  // CustomPaint(
+                  //   size: const Size(400, 400),
+                  //   painter: CurvePainter(),
+                  // ),
+
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildField1(),
+                        _buildField2(),
+                        _buildField3(),
+                        _buildField4(),
+                        _buildField5(),
+                        _buildField6(),
+                        Center(
+                          child: Text(file == null
+                              ? "no file selected"
+                              : file!.path.split('/').last),
                         ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xff64C636)),
-                          elevation: MaterialStateProperty.all(5),
+                        Container(
+                          height: 60,
+                          width: 300,
+                          padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              pickFile();
+                            },
+                            child: Text(
+                              'Choose File',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Color(0xff64C636)),
+                              elevation: MaterialStateProperty.all(5),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    SizedBox(
-                      height: 50,
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // if (!_formKey.currentState!.validate()) {
-                          //   return;
-                          // }
-                          // _formKey.currentState!.save();
-                          FirebaseApi.fileUpload();
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return dialog(context);
-                              });
-                        },
-                        child: Text(
-                          'DONE',
-                          style: TextStyle(fontSize: 20, color: Colors.black),
+                        SizedBox(height: 20),
+                        SizedBox(
+                          height: 50,
+                          width: 200,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // if (!_formKey.currentState!.validate()) {
+                              //   return;
+                              // }
+                              // _formKey.currentState!.save();
+                              FirebaseApi.fileUpload();
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return dialog(context);
+                                  });
+                            },
+                            child: Text(
+                              'DONE',
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
+                                elevation: MaterialStateProperty.all(0),
+                                side: MaterialStateProperty.all(
+                                    BorderSide(color: Colors.black, width: 2))),
+                          ),
                         ),
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            elevation: MaterialStateProperty.all(0),
-                            side: MaterialStateProperty.all(
-                                BorderSide(color: Colors.black, width: 2))),
-                      ),
+                        const SizedBox(
+                          height: 35,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      height: 35,
-                    ),
-                  ],
-                ),
-              ),
-            ]),
-          ],
+                  ),
+                ]),
+              ],
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 
   Future pickFile() async {
