@@ -42,31 +42,33 @@ class NotificationsState extends State<Notifications>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar(_tabController, index, context),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              // onChanged: (value) => _runFilter(value),
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
-                hintText: "Search",
-                suffixIcon: const Icon(Icons.search),
-                // prefix: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: appbar(_tabController, index, context),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              TextField(
+                // onChanged: (value) => _runFilter(value),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 15),
+                  hintText: "Search",
+                  suffixIcon: const Icon(Icons.search),
+                  // prefix: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: const BorderSide(),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(child: tabview(_tabController)),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(child: tabview(_tabController)),
+            ],
+          ),
         ),
       ),
     );

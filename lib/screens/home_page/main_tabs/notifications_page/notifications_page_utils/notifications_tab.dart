@@ -5,7 +5,6 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
     padding: const EdgeInsets.fromLTRB(45, 10, 45, 20),
     child: Column(
       children: [
-        // give the tab bar a height [can change hheight to preferred height]
         Container(
           // height: 40,
           // width: 300,
@@ -21,8 +20,6 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
           child: TabBar(
             padding: const EdgeInsets.all(3),
             controller: _tabController,
-            // give the indicator a decoration (color and border radius)
-
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 15.0,
@@ -36,19 +33,15 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
                 const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.black.withOpacity(0.25),
             tabs: const [
-              // first tab [you can add an icon using the icon property]
               Tab(
                 text: 'On Track',
               ),
-
-              // second tab [you can add an icon using the icon property]
               Tab(
                 text: 'Delayed',
               ),
             ],
           ),
         ),
-        // tab bar view here
       ],
     ),
   );
@@ -60,7 +53,8 @@ PreferredSizeWidget appbar(
     automaticallyImplyLeading: false,
     backgroundColor: Color(0xFF2D376E),
     bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
         child: tabs(_tabController, index, context)),
     title: const Padding(
       padding: EdgeInsets.only(
