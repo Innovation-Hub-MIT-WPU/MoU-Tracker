@@ -1,23 +1,51 @@
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
 
-class MyCard2 extends StatelessWidget {
-  final String docName;
-  final String authName;
-  final int amount;
-  final String description;
-  final date;
-  final int index;
-  bool isApproved;
+import '../../../../../../../classes/mou.dart';
+import '../../../../../../../common_utils/utils.dart';
 
-  MyCard2(
-      {required this.docName,
-      required this.authName,
-      required this.amount,
-      required this.description,
-      required this.date,
-      required this.index,
-      required this.isApproved});
+class MyCard2 extends StatefulWidget {
+  // final String docName;
+  // final String authName;
+  // final int amount;
+  // final String description;
+  // final date;
+  final int index;
+  // bool isApproved;
+
+  MyCard2({
+    //   required this.docName,
+    // required this.authName,
+    // required this.amount,
+    // required this.description,
+    // required this.date,
+    required this.index,
+    // required this.isApproved
+  });
+
+  @override
+  State<MyCard2> createState() => _MyCard2State();
+}
+
+class _MyCard2State extends State<MyCard2> {
+  int k = 0;
+  late MOU mou;
+  @override
+  void initState() {
+    k = widget.index;
+    mou = MOU(
+      docName: DocName[k],
+      authName: AuthName[k],
+      amount: Amount[k],
+      description: Description[k],
+      day: 22,
+      month: months[k],
+      year: 2022,
+      index: 0,
+      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+    ); //
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +57,7 @@ class MyCard2 extends StatelessWidget {
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         context: context,
-        builder: (context) => BuildBottomSheet(
-          docName: docName,
-          authName: authName,
-          amount: amount,
-          description: description,
-          date: date,
-          index: index,
-          isApproved: index % 2 == 0 ? isApproved : !isApproved,
-        ),
+        builder: (context) => BuildBottomSheet(index: widget.index),
       ),
       child: Container(
         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -60,7 +80,7 @@ class MyCard2 extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             Text(
-              docName,
+              mou.docName,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             // SizedBox(height: 6),
@@ -79,7 +99,7 @@ class MyCard2 extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
-                    'Before $date',
+                    'Before ${mou.day} ${mou.month}, ${mou.year}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -92,9 +112,7 @@ class MyCard2 extends StatelessWidget {
             Container(
               height: 45,
               decoration: BoxDecoration(
-                color: isApproved
-                    ? const Color(0XFFCD364E)
-                    : const Color(0XFF64C636),
+                color: mou.isApproved ? kCardRed : kTabBarGreen,
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15)),
@@ -110,7 +128,7 @@ class MyCard2 extends StatelessWidget {
                         color: Colors.white),
                   ),
                   Text(
-                    !isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                    !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],

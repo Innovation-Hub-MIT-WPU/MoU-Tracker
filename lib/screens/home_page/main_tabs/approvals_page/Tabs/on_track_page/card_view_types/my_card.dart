@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
 
-class MyCard extends StatefulWidget {
-  final String docName;
-  final String authName;
-  final int amount;
-  final String description;
-  final date;
-  final int index;
-  bool isApproved;
+import '../../../../../../../classes/mou.dart';
+import '../../../../../../../common_utils/utils.dart';
 
-  MyCard(
-      {required this.docName,
-      required this.authName,
-      required this.amount,
-      required this.description,
-      required this.date,
-      required this.index,
-      required this.isApproved});
+class MyCard extends StatefulWidget {
+  // final String docName;
+  // final String authName;
+  // final int amount;
+  // final String description;
+  // final date;
+  final int index;
+  // bool isApproved;
+  //
+  MyCard({
+    //     required this.docName,
+    //     required this.authName,
+    //     required this.amount,
+    //     required this.description,
+    //     required this.date,
+    required this.index,
+    //     required this.isApproved
+  });
 
   @override
   State<MyCard> createState() => _MyCardState();
 }
 
 class _MyCardState extends State<MyCard> {
-  DateTime selectedDate = DateTime.now();
+  // DateTime selectedDate = DateTime.now();
 
   // Future<void> _selectDate(BuildContext context) async {
   //   final DateTime? picked = await showDatePicker(
@@ -37,19 +41,41 @@ class _MyCardState extends State<MyCard> {
   //     });
   //   }
   // }
+  int k = 0;
+  late MOU mou;
+  @override
+  void initState() {
+    k = widget.index;
+    mou = MOU(
+      docName: DocName[k],
+      authName: AuthName[k],
+      amount: Amount[k],
+      description: Description[k],
+      day: 22,
+      month: months[k],
+      year: 2022,
+      index: 0,
+      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+    ); //
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/mou_details');
-        print('Tapped card {${widget.index}}');
+        // print('Tapped card {${widget.index}}');
+        print('Tapped card ${mou.index}');
       },
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+        margin: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
         // index % 2 == 0 ? Colors.teal : Colors.pink
-        height: 255,
-        width: MediaQuery.of(context).size.width,
+        height: screenHeight * 0.3,
+        width: screenWidth,
         decoration: BoxDecoration(
           color: Colors.lightBlueAccent.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15),
@@ -64,23 +90,23 @@ class _MyCardState extends State<MyCard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.01),
             Text(
-              widget.docName,
+              mou.docName,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            const SizedBox(height: 6),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
             Text(
-              'No. ${widget.index}           ${widget.authName}',
+              'No. ${mou.index}           ${mou.authName}',
               style: const TextStyle(fontSize: 12),
             ),
-            const SizedBox(height: 4),
+            // const SizedBox(height: 4),
             Container(
               width: 120,
               height: 25,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: widget.isApproved
+                color: mou.isApproved
                     ? const Color(0XFFCD364E)
                     : const Color(0XFF64C636),
                 borderRadius: BorderRadius.circular(15),
@@ -95,7 +121,7 @@ class _MyCardState extends State<MyCard> {
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Text(
-                      '${widget.amount}',
+                      '${mou.amount}',
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
@@ -105,7 +131,7 @@ class _MyCardState extends State<MyCard> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
               child: Text(
-                widget.description,
+                mou.description,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16,
@@ -128,7 +154,7 @@ class _MyCardState extends State<MyCard> {
                   child:
                       // Text("${selectedDate.toLocal()}".split(' ')[0]),
                       Text(
-                    'Before ${widget.date}',
+                    'Before ${mou.day}/ ${mou.month} / ${mou.year} ',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -142,9 +168,7 @@ class _MyCardState extends State<MyCard> {
             Container(
               height: 45,
               decoration: BoxDecoration(
-                color: widget.isApproved
-                    ? const Color(0XFFCD364E)
-                    : const Color(0XFF64C636),
+                color: mou.isApproved ? kCardRed : kTabBarGreen,
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15)),
@@ -160,7 +184,7 @@ class _MyCardState extends State<MyCard> {
                         color: Colors.white),
                   ),
                   Text(
-                    !widget.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                    !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],

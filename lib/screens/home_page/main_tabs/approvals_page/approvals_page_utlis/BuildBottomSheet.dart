@@ -1,22 +1,50 @@
 import 'package:flutter/material.dart';
 
-class BuildBottomSheet extends StatelessWidget {
-  final String docName;
-  final String authName;
-  final int amount;
-  final String description;
-  final date;
-  final int index;
-  bool isApproved;
+import '../../../../../classes/mou.dart';
+import '../../../../../common_utils/utils.dart';
 
-  BuildBottomSheet(
-      {required this.docName,
-      required this.authName,
-      required this.amount,
-      required this.description,
-      required this.date,
-      required this.index,
-      required this.isApproved});
+class BuildBottomSheet extends StatefulWidget {
+  // final String docName;
+  // final String authName;
+  // final int amount;
+  // final String description;
+  // final date;
+  final int index;
+  // bool isApproved;
+
+  BuildBottomSheet({
+    //   required this.docName,
+    // required this.authName,
+    // required this.amount,
+    // required this.description,
+    // required this.date,
+    required this.index,
+    // required this.isApproved
+  });
+
+  @override
+  State<BuildBottomSheet> createState() => _BuildBottomSheetState();
+}
+
+class _BuildBottomSheetState extends State<BuildBottomSheet> {
+  int k = 0;
+  late MOU mou;
+  @override
+  void initState() {
+    k = widget.index;
+    mou = MOU(
+      docName: DocName[k],
+      authName: AuthName[k],
+      amount: Amount[k],
+      description: Description[k],
+      day: 22,
+      month: months[k],
+      year: 2022,
+      index: 0,
+      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+    ); //
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +80,15 @@ class BuildBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 5),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Color(0XFF64C636),
+                color: mou.isApproved ? const Color(0XFFCD364E) : kTabBarGreen,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                docName,
-                style: const TextStyle(
+                mou.docName,
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
-                  color: Colors.black,
+                  color: mou.isApproved ? Colors.white : Colors.black,
                 ),
               ),
             ),
@@ -71,7 +99,7 @@ class BuildBottomSheet extends StatelessWidget {
 
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20),
@@ -83,7 +111,7 @@ class BuildBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: Text(
-                description,
+                mou.description,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -97,7 +125,7 @@ class BuildBottomSheet extends StatelessWidget {
           // Amount
           Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Container(
@@ -105,7 +133,7 @@ class BuildBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: Text(
-                'Amount : ₹ $amount',
+                'Amount : ₹ ${mou.amount}',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -119,7 +147,7 @@ class BuildBottomSheet extends StatelessWidget {
           // Author
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(20),
@@ -131,7 +159,7 @@ class BuildBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: Text(
-                'Author : $authName',
+                'Author : ${mou.authName}',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,

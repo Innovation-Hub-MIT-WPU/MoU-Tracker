@@ -24,6 +24,7 @@ const Color kBgClr2 = Color(0xff2d376e);
 const Color kTabBarGreen = Color(0xff64c636);
 const Color kTabBarYellow = Color(0xfff2c32c);
 const Color kTabBarBlue = Color(0xff00a9ce);
+const Color kCardRed = Color(0XFFCD364E);
 
 // List Tile color
 const Color kTileClr = Color(0xffedf9ff);
@@ -58,6 +59,62 @@ List<String> months = [
   "Nov",
   "Dec"
 ];
+
+final List DocName = [
+  'MoU 1',
+  'MoU 2',
+  'MoU 3',
+  'MoU 4',
+  'MoU 5',
+  'MoU 6',
+  'MoU 7',
+  'MoU 8'
+];
+final List AuthName = [
+  'Bob',
+  'Adam',
+  'Greg',
+  'Chris',
+  'Max',
+  'Jordan',
+  'Spencer',
+  'Mark'
+];
+final List Amount = [
+  10000,
+  100000,
+  1000000,
+  109999,
+  10000,
+  100000,
+  1000000,
+  109999
+];
+final List Description = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere '
+      'aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere '
+      'aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere '
+      'aliquam ex a auctor.. ',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere '
+      'aliquam ex a auctor.. ',
+];
+final List DueDate = [
+  '2 Feb, 2022',
+  '2 Mar, 2022',
+  '2 Apr, 2022',
+  '2 May, 2022',
+  '2 Jun, 2022',
+  '2 Jul, 2022',
+  '2 Aug, 2022',
+  '2 Sep, 2022',
+];
+bool isApproved = true;
 
 //App colors
 class AppColors {

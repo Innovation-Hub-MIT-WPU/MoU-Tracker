@@ -14,14 +14,16 @@ class InfoTab extends StatefulWidget {
 class _InfoTabState extends State<InfoTab> {
   // Setup a Provider stream here to get MOU data from firestore
   MOU mou = MOU(
-      title: "MOU 1",
-      desc:
-          '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam posuere aliquam ex a auctor..''',
-      day: 2,
-      month: months[1],
-      year: 2022,
-      amount:
-          10000); // This is just Dummy data, there are more fields in the actual MOU collection
+    docName: DocName[0],
+    authName: AuthName[0],
+    amount: Amount[0],
+    description: Description[0],
+    day: 22,
+    month: months[1],
+    year: 2022,
+    index: 0,
+    isApproved: isApproved,
+  ); // This is just Dummy data, there are more fields in the actual MOU collection
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -38,7 +40,7 @@ class _InfoTabState extends State<InfoTab> {
           Text("Information", style: titleStyle()),
           _buildDivider(screenWidth, screenHeight),
           Text("Title", style: subtitleStyle()),
-          _displayText(mou.title, screenHeight, titleStyle()),
+          _displayText(mou.docName, screenHeight, titleStyle()),
           Text("Description", style: subtitleStyle()),
           _writeDesc(screenWidth, screenHeight),
           Text("Date", style: subtitleStyle()),
@@ -62,7 +64,7 @@ class _InfoTabState extends State<InfoTab> {
           left: screenWidth * 0.09,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
-      child: Text(mou.desc,
+      child: Text(mou.description,
           softWrap: true, textAlign: TextAlign.center, style: normalStyle()),
     );
   }
