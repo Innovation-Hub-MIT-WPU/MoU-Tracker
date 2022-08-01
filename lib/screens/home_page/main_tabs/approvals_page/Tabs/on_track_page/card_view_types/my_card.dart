@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../../classes/mou.dart';
+import '../../../../../../../common_utils/screen_arguments.dart';
 import '../../../../../../../common_utils/utils.dart';
+import '../../../../../../mou_details/mou_details_page.dart';
 
 class MyCard extends StatefulWidget {
   // final String docName;
@@ -49,12 +51,13 @@ class _MyCardState extends State<MyCard> {
     mou = MOU(
       docName: DocName[k],
       authName: AuthName[k],
+      companyName: CompanyName[k],
       amount: Amount[k],
       description: Description[k],
       day: 22,
       month: months[k],
       year: 2022,
-      index: 0,
+      index: k,
       isApproved: k % 2 == 0 ? isApproved : !isApproved,
     ); //
     super.initState();
@@ -66,8 +69,13 @@ class _MyCardState extends State<MyCard> {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/mou_details');
+        // Navigator.pushNamed(context, '/mou_details');
         // print('Tapped card {${widget.index}}');
+        Navigator.pushNamed(
+          context,
+          Details.routeName,
+          arguments: ScreenArguments(k),
+        );
         print('Tapped card ${mou.index}');
       },
       child: Container(
@@ -88,7 +96,7 @@ class _MyCardState extends State<MyCard> {
           ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: screenHeight * 0.01),
             Text(
@@ -97,7 +105,7 @@ class _MyCardState extends State<MyCard> {
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
             Text(
-              'No. ${mou.index}           ${mou.authName}',
+              'No. ${mou.index}           ${mou.authName}             ${mou.companyName}',
               style: const TextStyle(fontSize: 12),
             ),
             // const SizedBox(height: 4),
@@ -106,9 +114,7 @@ class _MyCardState extends State<MyCard> {
               height: 25,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: mou.isApproved
-                    ? const Color(0XFFCD364E)
-                    : const Color(0XFF64C636),
+                color: mou.isApproved ? kCardRed : kTabBarGreen,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
@@ -164,30 +170,33 @@ class _MyCardState extends State<MyCard> {
               ],
             ),
             // ),
-            const SizedBox(height: 6),
-            Container(
-              height: 45,
-              decoration: BoxDecoration(
-                color: mou.isApproved ? kCardRed : kTabBarGreen,
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'STATUS : ',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  Text(
-                    !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ],
+            SizedBox(height: screenHeight * 0.01),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: screenHeight * 0.06,
+                decoration: BoxDecoration(
+                  color: mou.isApproved ? kCardRed : kTabBarGreen,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'STATUS : ',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    Text(
+                      !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

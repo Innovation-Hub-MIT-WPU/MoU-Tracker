@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="MOU class created - other minor changes and optimizations done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/carousel.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/carousel.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/classes/mou.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/classes/mou.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/common_utils/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/common_utils/utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/delayed_page/delayed.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/delayed_page/delayed.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_2.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_3.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_2.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_3.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/on_track.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/on_track.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page_utils/BuildBottomSheet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_creation/mou_creation_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_creation/mou_creation_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_details/mou_details_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_details/mou_details_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="local_akshit" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2CfDTHDIuwc4WUYB7yx6bIHV2iY" />
@@ -51,6 +59,11 @@
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\91836\StudioProjects\MoU-Temp-00\lib\screens\home_page\main_tabs\approvals_page\approvals_page_utlis" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
@@ -66,6 +79,14 @@
       <option name="presentableId" value="Default" />
       <updated>1659184751940</updated>
     </task>
+    <task id="LOCAL-00001" summary="MOU class created - other minor changes and optimizations done">
+      <created>1659303165261</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659303165261</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -79,5 +100,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="MOU class created - other minor changes and optimizations done" />
+    <option name="LAST_COMMIT_MESSAGE" value="MOU class created - other minor changes and optimizations done" />
   </component>
 </project>

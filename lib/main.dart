@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
-        '/mou_details': (_) => const Details(),
+        // '/mou_details': (_) => const Details(),
+        Details.routeName: (context) => const Details(),
         '/start': (context) => const AnimatedSplashScreenPage(),
         '/home': (context) => const HomePage(),
         MyRoute.profileRoute: (context) => const ProfileTab(),

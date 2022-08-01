@@ -1,4 +1,5 @@
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utlis/BuildBottomSheet.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
+    '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../classes/mou.dart';
@@ -36,12 +37,13 @@ class _MyCard3State extends State<MyCard3> {
     mou = MOU(
       docName: DocName[k],
       authName: AuthName[k],
+      companyName: CompanyName[k],
       amount: Amount[k],
       description: Description[k],
       day: 22,
       month: months[k],
       year: 2022,
-      index: 0,
+      index: k,
       isApproved: k % 2 == 0 ? isApproved : !isApproved,
     ); //
     super.initState();
@@ -82,7 +84,7 @@ class _MyCard3State extends State<MyCard3> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                mou.docName,
+                '${mou.docName}  ',
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),

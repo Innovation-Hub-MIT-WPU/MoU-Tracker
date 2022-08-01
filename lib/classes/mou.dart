@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MOU {
   final String docName;
   final String authName;
+  final String companyName;
   final int amount;
   final String description;
   final int day;
@@ -14,6 +15,7 @@ class MOU {
   MOU(
       {required this.docName,
       required this.authName,
+      required this.companyName,
       required this.amount,
       required this.description,
       required this.day,

@@ -3,6 +3,8 @@ import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_tr
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_3.dart';
 import 'package:flutter/material.dart';
 
+import '../../approvals_page_utils/list_builders.dart';
+
 class OnTrackTab extends StatefulWidget {
   const OnTrackTab({Key? key}) : super(key: key);
 
@@ -20,10 +22,10 @@ class _OnTrackTabState extends State<OnTrackTab> {
         children: [
           // dropdownvalue == "Type A" ? _BuildListType1() : _BuildListType2(),
           dropdownvalue == "Type A"
-              ? _buildListType1()
+              ? buildListType1()
               : dropdownvalue == "Type B"
-                  ? _buildListType2()
-                  : _buildListType3(),
+                  ? buildListType2()
+                  : buildListType3(),
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: DropdownButton<String>(
@@ -84,36 +86,36 @@ class _OnTrackTabState extends State<OnTrackTab> {
     );
   }
 }
-
-Widget _buildListType1() {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    // physics: const PageScrollPhysics(),
-    itemCount: 8,
-    itemBuilder: (context, index) {
-      return MyCard(index: index);
-    },
-  );
-}
-
-Widget _buildListType2() {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    // physics: const PageScrollPhysics(),
-    itemCount: 8,
-    itemBuilder: (context, index) {
-      return MyCard2(index: index);
-    },
-  );
-}
-
-Widget _buildListType3() {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    // physics: const PageScrollPhysics(),
-    itemCount: 8,
-    itemBuilder: (context, index) {
-      return MyCard3(index: index);
-    },
-  );
-}
+//
+// Widget _buildListType1() {
+//   return ListView.builder(
+//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+//     // physics: const PageScrollPhysics(),
+//     itemCount: 8,
+//     itemBuilder: (context, index) {
+//       return MyCard(index: index);
+//     },
+//   );
+// }
+//
+// Widget _buildListType2() {
+//   return ListView.builder(
+//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+//     // physics: const PageScrollPhysics(),
+//     itemCount: 8,
+//     itemBuilder: (context, index) {
+//       return MyCard2(index: index);
+//     },
+//   );
+// }
+//
+// Widget _buildListType3() {
+//   return ListView.builder(
+//     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+//     // physics: const PageScrollPhysics(),
+//     itemCount: 8,
+//     itemBuilder: (context, index) {
+//       return MyCard3(index: index);
+//     },
+//   );
+// }

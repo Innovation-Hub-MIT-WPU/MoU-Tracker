@@ -1,3 +1,4 @@
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 
 import 'package:flutter/material.dart';
@@ -66,7 +67,8 @@ Widget dialog(BuildContext cnt) {
           padding: EdgeInsets.only(right: 8.0),
           child: Icon(
             Icons.error,
-            color: Color(0xFFF2C32C),
+            // color: Color(0xFFF2C32C),
+            color: kCardRed,
           ),
         ),
         Flexible(
@@ -91,7 +93,8 @@ Widget dialog(BuildContext cnt) {
           TextButton(
             style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(const Color(0xFFF2C32C))),
+                    // MaterialStateProperty.all(const Color(0xFFF2C32C))),
+                    MaterialStateProperty.all(kCardRed)),
             onPressed: () {
               // CreationDetails.mapping(FirebaseApi.downloadUrl, "downloadLink");
               // CreationDetails.addData();
@@ -110,7 +113,7 @@ Widget dialog(BuildContext cnt) {
   );
 }
 
-Widget doneButton(BuildContext context) {
+Widget doneButton(BuildContext context, formKey) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -120,10 +123,10 @@ Widget doneButton(BuildContext context) {
       width: MediaQuery.of(context).size.width * 0.4,
       child: ElevatedButton(
         onPressed: () {
-          // if (!_formKey.currentState!.validate()) {
-          //   return;
-          // }
-          // _formKey.currentState!.save();
+          if (!formKey.currentState!.validate()) {
+            return;
+          }
+          formKey.currentState!.save();
           FirebaseApi.fileUpload();
           showDialog(
               barrierDismissible: false,

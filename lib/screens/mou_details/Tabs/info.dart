@@ -4,7 +4,9 @@ import '/common_utils/utils.dart';
 import '/classes/mou.dart';
 
 class InfoTab extends StatefulWidget {
-  const InfoTab({Key? key}) : super(key: key);
+  final int index;
+
+  const InfoTab({Key? key, required this.index}) : super(key: key);
 
   @override
   _InfoTabState createState() => _InfoTabState();
@@ -12,18 +14,28 @@ class InfoTab extends StatefulWidget {
 
 // todo - Remove the constant Padding values
 class _InfoTabState extends State<InfoTab> {
+  int k = 0;
+  late MOU mou;
   // Setup a Provider stream here to get MOU data from firestore
-  MOU mou = MOU(
-    docName: DocName[0],
-    authName: AuthName[0],
-    amount: Amount[0],
-    description: Description[0],
-    day: 22,
-    month: months[1],
-    year: 2022,
-    index: 0,
-    isApproved: isApproved,
-  ); // This is just Dummy data, there are more fields in the actual MOU collection
+  @override
+  void initState() {
+    k = widget.index;
+    mou = MOU(
+      docName: DocName[k],
+      authName: AuthName[k],
+      companyName: CompanyName[k],
+      amount: Amount[k],
+      description: Description[k],
+      day: 22,
+      month: months[k],
+      year: 2022,
+      index: 0,
+      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+    );
+    super.initState();
+  }
+
+  // This is just Dummy data, there are more fields in the actual MOU collection
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -44,7 +56,8 @@ class _InfoTabState extends State<InfoTab> {
           Text("Description", style: subtitleStyle()),
           _writeDesc(screenWidth, screenHeight),
           Text("Date", style: subtitleStyle()),
-          _displayText(date, screenHeight, normalStyle()),
+          _displayText('${mou.day} ${mou.month}, ${mou.year}', screenHeight,
+              normalStyle()),
           Text("Required Amount", style: subtitleStyle()),
           Text("₹ ${mou.amount}", style: normalStyle()),
           _buildDivider(screenWidth, screenHeight),

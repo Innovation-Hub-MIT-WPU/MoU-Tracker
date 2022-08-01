@@ -36,6 +36,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
       docName: DocName[k],
       authName: AuthName[k],
       amount: Amount[k],
+      companyName: CompanyName[k],
       description: Description[k],
       day: 22,
       month: months[k],
@@ -84,7 +85,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                mou.docName,
+                '${mou.docName}  ${mou.companyName}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,

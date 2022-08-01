@@ -70,6 +70,17 @@ final List DocName = [
   'MoU 7',
   'MoU 8'
 ];
+
+final List CompanyName = [
+  'Company 1',
+  'Company 2',
+  'Company 3',
+  'Company 4',
+  'Company 5',
+  'Company 6',
+  'Company 7',
+  'Company 8'
+];
 final List AuthName = [
   'Bob',
   'Adam',

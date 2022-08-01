@@ -72,7 +72,7 @@ class CreateFormState extends State<CreateForm> {
                     buildField6(),
                     fileName(),
                     chooseFileButton(context, pickFile),
-                    doneButton(context)
+                    doneButton(context, _formKey)
                   ],
                 ),
               ),

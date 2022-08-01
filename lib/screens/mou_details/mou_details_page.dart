@@ -1,3 +1,4 @@
+import '../../common_utils/screen_arguments.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
@@ -14,6 +15,7 @@ import '/screens/mou_details/Tabs/engagement.dart';
 
 class Details extends StatefulWidget {
   const Details({Key? key}) : super(key: key);
+  static const routeName = '/mou_details';
 
   @override
   _DetailsState createState() => _DetailsState();
@@ -22,7 +24,7 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _tabIndex = 0;
-
+  int cardIndex = 0;
   List colors = [
     kTabBarGreen,
     kTabBarYellow,
@@ -36,6 +38,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         setState(() {
           _tabIndex = _tabController
               .index; // change tabIndex everything Tab is switched
+          print(_tabIndex);
         });
       });
     super.initState();
@@ -43,6 +46,12 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute
+    // settings and cast them as ScreenArguments.
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
+    cardIndex = args.index;
+
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -74,10 +83,10 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const [
-                  InfoTab(),
-                  EngagementTab(),
-                  TrackTab(),
+                children: [
+                  InfoTab(index: cardIndex),
+                  const EngagementTab(),
+                  const TrackTab(),
                 ],
               ),
             ),
