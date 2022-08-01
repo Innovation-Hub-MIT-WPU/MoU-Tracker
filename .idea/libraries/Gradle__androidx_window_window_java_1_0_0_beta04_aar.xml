@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.window:window-java:1.0.0-beta04@aar" type="AndroidModuleLibraryType">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/25866ef12e9fc5e7ad5e2cefca825597/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/25866ef12e9fc5e7ad5e2cefca825597/transformed/jetified-window-java-1.0.0-beta04/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

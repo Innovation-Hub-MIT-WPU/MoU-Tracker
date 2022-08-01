@@ -1,0 +1,1064 @@
+Index: lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\n\r\nclass MyCard extends StatefulWidget {\r\n  final String docName;\r\n  final String authName;\r\n  final int amount;\r\n  final String description;\r\n  final date;\r\n  final int index;\r\n  bool isApproved;\r\n\r\n  MyCard(\r\n      {required this.docName,\r\n      required this.authName,\r\n      required this.amount,\r\n      required this.description,\r\n      required this.date,\r\n      required this.index,\r\n      required this.isApproved});\r\n\r\n  @override\r\n  State<MyCard> createState() => _MyCardState();\r\n}\r\n\r\nclass _MyCardState extends State<MyCard> {\r\n  DateTime selectedDate = DateTime.now();\r\n\r\n  // Future<void> _selectDate(BuildContext context) async {\r\n  //   final DateTime? picked = await showDatePicker(\r\n  //       context: context,\r\n  //       initialDate: selectedDate,\r\n  //       firstDate: DateTime(2015, 8),\r\n  //       lastDate: DateTime(2101));\r\n  //   if (picked != null && picked != selectedDate) {\r\n  //     setState(() {\r\n  //       selectedDate = picked;\r\n  //     });\r\n  //   }\r\n  // }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return GestureDetector(\r\n      onTap: () {\r\n        Navigator.pushNamed(context, '/mou_details');\r\n        print('Tapped card {${widget.index}}');\r\n      },\r\n      child: Container(\r\n        margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),\r\n        // index % 2 == 0 ? Colors.teal : Colors.pink\r\n        height: 255,\r\n        width: MediaQuery.of(context).size.width,\r\n        decoration: BoxDecoration(\r\n          color: Colors.lightBlueAccent.withOpacity(0.2),\r\n          borderRadius: BorderRadius.circular(15),\r\n          boxShadow: [\r\n            BoxShadow(\r\n                color: Colors.grey.withOpacity(0.2),\r\n                spreadRadius: 4,\r\n                blurRadius: 7,\r\n                offset: const Offset(0, 3)),\r\n          ],\r\n        ),\r\n        child: Column(\r\n          mainAxisAlignment: MainAxisAlignment.spaceEvenly,\r\n          children: [\r\n            const SizedBox(height: 10),\r\n            Text(\r\n              widget.docName,\r\n              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),\r\n            ),\r\n            const SizedBox(height: 6),\r\n            Text(\r\n              'No. ${widget.index}           ${widget.authName}',\r\n              style: const TextStyle(fontSize: 12),\r\n            ),\r\n            const SizedBox(height: 4),\r\n            Container(\r\n              width: 120,\r\n              height: 25,\r\n              alignment: Alignment.center,\r\n              decoration: BoxDecoration(\r\n                color: widget.isApproved\r\n                    ? const Color(0XFFCD364E)\r\n                    : const Color(0XFF64C636),\r\n                borderRadius: BorderRadius.circular(15),\r\n              ),\r\n              child: Row(\r\n                mainAxisAlignment: MainAxisAlignment.spaceEvenly,\r\n                children: [\r\n                  const Text(\r\n                    '₹',\r\n                    style: TextStyle(fontSize: 18, color: Colors.white),\r\n                  ),\r\n                  Padding(\r\n                    padding: const EdgeInsets.only(right: 15),\r\n                    child: Text(\r\n                      '${widget.amount}',\r\n                      style: const TextStyle(fontSize: 18, color: Colors.white),\r\n                    ),\r\n                  ),\r\n                ],\r\n              ),\r\n            ),\r\n            Padding(\r\n              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),\r\n              child: Text(\r\n                widget.description,\r\n                textAlign: TextAlign.center,\r\n                style: TextStyle(\r\n                    fontSize: 16,\r\n                    fontWeight: FontWeight.w400,\r\n                    color: Colors.black.withOpacity(0.6)),\r\n              ),\r\n            ),\r\n            // GestureDetector(\r\n            // onTap: () => _selectDate(context),\r\n            // child:\r\n            Row(\r\n              mainAxisAlignment: MainAxisAlignment.center,\r\n              children: [\r\n                const Icon(\r\n                  Icons.calendar_today_outlined,\r\n                  size: 18,\r\n                ),\r\n                Padding(\r\n                  padding: const EdgeInsets.symmetric(horizontal: 5),\r\n                  child:\r\n                      // Text(\"${selectedDate.toLocal()}\".split(' ')[0]),\r\n                      Text(\r\n                    'Before ${widget.date}',\r\n                    style: const TextStyle(\r\n                      fontWeight: FontWeight.w500,\r\n                      fontSize: 16,\r\n                    ),\r\n                  ),\r\n                ),\r\n              ],\r\n            ),\r\n            // ),\r\n            const SizedBox(height: 6),\r\n            Container(\r\n              height: 45,\r\n              decoration: BoxDecoration(\r\n                color: widget.isApproved\r\n                    ? const Color(0XFFCD364E)\r\n                    : const Color(0XFF64C636),\r\n                borderRadius: const BorderRadius.only(\r\n                    bottomLeft: Radius.circular(15),\r\n                    bottomRight: Radius.circular(15)),\r\n              ),\r\n              child: Row(\r\n                mainAxisAlignment: MainAxisAlignment.center,\r\n                children: [\r\n                  const Text(\r\n                    'STATUS : ',\r\n                    style: TextStyle(\r\n                        fontSize: 16,\r\n                        fontWeight: FontWeight.bold,\r\n                        color: Colors.white),\r\n                  ),\r\n                  Text(\r\n                    !widget.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',\r\n                    style: const TextStyle(fontSize: 16, color: Colors.white),\r\n                  ),\r\n                ],\r\n              ),\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart b/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart
+--- a/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart	(date 1659186083692)
+@@ -23,7 +23,7 @@
+ }
+ 
+ class _MyCardState extends State<MyCard> {
+-  DateTime selectedDate = DateTime.now();
++  // DateTime selectedDate = DateTime.now();
+ 
+   // Future<void> _selectDate(BuildContext context) async {
+   //   final DateTime? picked = await showDatePicker(
+@@ -46,9 +46,11 @@
+         print('Tapped card {${widget.index}}');
+       },
+       child: Container(
+-        margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
++        margin: EdgeInsets.symmetric(
++            horizontal: MediaQuery.of(context).size.width * 0.05,
++            vertical: MediaQuery.of(context).size.height * 0.02),
+         // index % 2 == 0 ? Colors.teal : Colors.pink
+-        height: 255,
++        height: MediaQuery.of(context).size.height * 0.3,
+         width: MediaQuery.of(context).size.width,
+         decoration: BoxDecoration(
+           color: Colors.lightBlueAccent.withOpacity(0.2),
+@@ -64,17 +66,17 @@
+         child: Column(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+-            const SizedBox(height: 10),
++            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+             Text(
+               widget.docName,
+               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+             ),
+-            const SizedBox(height: 6),
++            // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
+             Text(
+               'No. ${widget.index}           ${widget.authName}',
+               style: const TextStyle(fontSize: 12),
+             ),
+-            const SizedBox(height: 4),
++            // const SizedBox(height: 4),
+             Container(
+               width: 120,
+               height: 25,
+Index: .idea/runConfigurations/main_dart.xml
+===================================================================
+diff --git a/.idea/runConfigurations/main_dart.xml b/.idea/runConfigurations/main_dart.xml
+deleted file mode 100644
+--- a/.idea/runConfigurations/main_dart.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ /dev/null	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
+@@ -1,6 +0,0 @@
+-<component name="ProjectRunConfigurationManager">
+-  <configuration default="false" name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+-    <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+-    <method />
+-  </configuration>
+-</component>
+\ No newline at end of file
+Index: .idea/libraries/KotlinJavaRuntime.xml
+===================================================================
+diff --git a/.idea/libraries/KotlinJavaRuntime.xml b/.idea/libraries/KotlinJavaRuntime.xml
+deleted file mode 100644
+--- a/.idea/libraries/KotlinJavaRuntime.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ /dev/null	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
+@@ -1,15 +0,0 @@
+-<component name="libraryTable">
+-  <library name="KotlinJavaRuntime">
+-    <CLASSES>
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib.jar!/" />
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-reflect.jar!/" />
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test.jar!/" />
+-    </CLASSES>
+-    <JAVADOC />
+-    <SOURCES>
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/" />
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-reflect-sources.jar!/" />
+-      <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test-sources.jar!/" />
+-    </SOURCES>
+-  </library>
+-</component>
+Index: android/.idea/.name
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/android/.idea/.name b/android/.idea/.name
+deleted file mode 100644
+--- a/android/.idea/.name	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ /dev/null	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
+@@ -1,1 +0,0 @@
+-_android
+\ No newline at end of file
+Index: .idea/libraries/Flutter_Plugins.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Flutter Plugins\" type=\"FlutterPluginsLibraryType\">\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Flutter_Plugins.xml b/.idea/libraries/Flutter_Plugins.xml
+--- a/.idea/libraries/Flutter_Plugins.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/libraries/Flutter_Plugins.xml	(date 1659184755079)
+@@ -1,8 +1,21 @@
+ <component name="libraryTable">
+   <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
+     <CLASSES>
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/printing-5.9.2" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-10.3.1" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.19" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.19" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-3.2.19" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_ios-0.8.5+6" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.4.1" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-4.6.1" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.2.1" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_android-0.8.5+1" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.8" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.5+3" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.19.1" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: .idea/libraries/Dart_Packages.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Dart Packages\" type=\"DartPackagesLibraryType\">\r\n    <properties>\r\n      <option name=\"packageNameToDirsMap\">\r\n        <entry key=\"async\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.8.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"boolean_selector\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"characters\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.2.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"charcode\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/charcode-1.3.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"clock\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/clock-1.1.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"collection\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/collection-1.16.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"cupertino_icons\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"fake_async\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"firebase_core_web\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../../../../src/flutter/packages/flutter/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_lints\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_test\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../../../../src/flutter/packages/flutter_test/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"flutter_web_plugins\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../../../../src/flutter/packages/flutter_web_plugins/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"js\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/js-0.6.4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"lints\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/lints-2.0.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"matcher\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.11/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"material_color_utilities\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"meta\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/meta-1.7.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"path\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path-1.8.1/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"plugin_platform_interface\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"sky_engine\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$PROJECT_DIR$/../../../../src/flutter/bin/cache/pkg/sky_engine/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"source_span\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/source_span-1.8.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"stack_trace\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"stream_channel\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"string_scanner\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"term_glyph\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"test_api\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/test_api-0.4.9/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n        <entry key=\"vector_math\">\r\n          <value>\r\n            <list>\r\n              <option value=\"$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib\" />\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </option>\r\n    </properties>\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.8.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.2.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/charcode-1.3.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/clock-1.1.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/collection-1.16.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/js-0.6.4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/lints-2.0.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.11/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/meta-1.7.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path-1.8.1/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/source_span-1.8.2/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/test_api-0.4.9/lib\" />\r\n      <root url=\"file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/pkg/sky_engine/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter_test/lib\" />\r\n      <root url=\"file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter_web_plugins/lib\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Dart_Packages.xml b/.idea/libraries/Dart_Packages.xml
+--- a/.idea/libraries/Dart_Packages.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/libraries/Dart_Packages.xml	(date 1659184755068)
+@@ -2,80 +2,206 @@
+   <library name="Dart Packages" type="DartPackagesLibraryType">
+     <properties>
+       <option name="packageNameToDirsMap">
++        <entry key="animated_splash_screen">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/animated_splash_screen-1.3.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="archive">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.1/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="async">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="barcode">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/barcode-2.2.1/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="boolean_selector">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="characters">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="charcode">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/charcode-1.3.1/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.3.1/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="clock">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="cloud_firestore">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.2.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="cloud_firestore_platform_interface">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.5.10/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="cloud_firestore_web">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.19/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="collection">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="cross_file">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.3+1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="crypto">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="cupertino_icons">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="equatable">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.3/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="fake_async">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="ffi">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.2.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="file_picker">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-4.6.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_auth">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.4.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_auth_platform_interface">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_platform_interface-6.3.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_auth_web">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.19/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="firebase_core">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="firebase_core_platform_interface">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="firebase_core_web">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_storage">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-10.3.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_storage_platform_interface">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.1.10/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="firebase_storage_web">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-3.2.19/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="fl_chart">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.55.0/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -89,7 +215,14 @@
+         <entry key="flutter_lints">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="flutter_plugin_android_lifecycle">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -107,52 +240,178 @@
+             </list>
+           </value>
+         </entry>
++        <entry key="fluttertoast">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="http">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="http_parser">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.2.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image_picker">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.5+3/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image_picker_android">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_android-0.8.5+1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image_picker_for_web">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.8/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image_picker_ios">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_ios-0.8.5+6/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="image_picker_platform_interface">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.5.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="intl">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib" />
++            </list>
++          </value>
++        </entry>
+         <entry key="js">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="lints">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="matcher">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="material_color_utilities">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="meta">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/meta-1.7.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="nested">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="page_transition">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/page_transition-2.0.9/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="path">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="path_parsing">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-1.0.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="pdf">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/pdf-3.8.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="petitparser">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.0.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="plugin_platform_interface">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="printing">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/printing-5.9.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="provider">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="qr">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1/lib" />
+             </list>
+           </value>
+         </entry>
+@@ -166,81 +425,174 @@
+         <entry key="source_span">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/source_span-1.8.2/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.2/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="stack_trace">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="stream_channel">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="string_scanner">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="string_validator">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/string_validator-0.3.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="syncfusion_flutter_charts">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-20.2.36/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="syncfusion_flutter_core">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.36/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="term_glyph">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="test_api">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/test_api-0.4.9/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.9/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="timeline_tile">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/timeline_tile-2.0.0/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="typed_data">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.3.1/lib" />
+             </list>
+           </value>
+         </entry>
+         <entry key="vector_math">
+           <value>
+             <list>
+-              <option value="$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib" />
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="win32">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.6.1/lib" />
++            </list>
++          </value>
++        </entry>
++        <entry key="xml">
++          <value>
++            <list>
++              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/xml-6.1.0/lib" />
+             </list>
+           </value>
+         </entry>
+       </option>
+     </properties>
+     <CLASSES>
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/charcode-1.3.1/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/meta-1.7.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/source_span-1.8.2/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/test_api-0.4.9/lib" />
+-      <root url="file://$USER_HOME$/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/animated_splash_screen-1.3.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/barcode-2.2.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.3.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore-3.2.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_platform_interface-5.5.10/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cloud_firestore_web-2.6.19/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.3+1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.3/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.3.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/ffi-1.2.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-4.6.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-3.4.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_platform_interface-6.3.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-3.3.19/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-1.19.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.4.3/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.6.6/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage-10.3.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.1.10/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-3.2.19/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fl_chart-0.55.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-2.0.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.9/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image-3.2.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.5+3/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_android-0.8.5+1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.8/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_ios-0.8.5+6/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.5.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/material_color_utilities-0.1.4/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/page_transition-2.0.9/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path_parsing-1.0.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/pdf-3.8.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.0.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/plugin_platform_interface-2.1.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/printing-5.9.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.3/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/qr-3.0.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/string_validator-0.3.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-20.2.36/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.36/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.9/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/timeline_tile-2.0.0/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.3.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.6.1/lib" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/xml-6.1.0/lib" />
+       <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/pkg/sky_engine/lib" />
+       <root url="file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter/lib" />
+       <root url="file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter_test/lib" />
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"FileEditorManager\">\r\n    <leaf>\r\n      <file leaf-file-name=\"main.dart\" pinned=\"false\" current-in-tab=\"true\">\r\n        <entry file=\"file://$PROJECT_DIR$/lib/main.dart\">\r\n          <provider selected=\"true\" editor-type-id=\"text-editor\">\r\n            <state relative-caret-position=\"0\">\r\n              <caret line=\"0\" column=\"0\" lean-forward=\"false\" selection-start-line=\"0\" selection-start-column=\"0\" selection-end-line=\"0\" selection-end-column=\"0\" />\r\n            </state>\r\n          </provider>\r\n        </entry>\r\n      </file>\r\n    </leaf>\r\n  </component>\r\n  <component name=\"ToolWindowManager\">\r\n    <editor active=\"true\" />\r\n    <layout>\r\n      <window_info id=\"Project\" active=\"false\" anchor=\"left\" auto_hide=\"false\" internal_type=\"DOCKED\" type=\"DOCKED\" visible=\"true\" show_stripe_button=\"true\" weight=\"0.25\" sideWeight=\"0.5\" order=\"0\" side_tool=\"false\" content_ui=\"combo\" />\r\n    </layout>\r\n  </component>\r\n  <component name=\"ProjectView\">\r\n    <navigator currentView=\"ProjectPane\" proportions=\"\" version=\"1\">\r\n    </navigator>\r\n    <panes>\r\n      <pane id=\"ProjectPane\">\r\n        <option name=\"show-excluded-files\" value=\"false\" />\r\n      </pane>\r\n    </panes>\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"dart.analysis.tool.window.force.activate\" value=\"true\" />\r\n    <property name=\"show.migrate.to.gradle.popup\" value=\"false\" />\r\n  </component>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/workspace.xml	(date 1659185464871)
+@@ -1,36 +1,62 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="FileEditorManager">
+-    <leaf>
+-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
+-        <entry file="file://$PROJECT_DIR$/lib/main.dart">
+-          <provider selected="true" editor-type-id="text-editor">
+-            <state relative-caret-position="0">
+-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+-            </state>
+-          </provider>
+-        </entry>
+-      </file>
+-    </leaf>
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="NONE" />
++  </component>
++  <component name="ChangeListManager">
++    <list default="true" id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/android/.idea/jarRepositories.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/android/.idea/.name" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/MyCard.dart" afterDir="false" />
++    </list>
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+-  <component name="ToolWindowManager">
+-    <editor active="true" />
+-    <layout>
+-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+-    </layout>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectView">
+-    <navigator currentView="ProjectPane" proportions="" version="1">
+-    </navigator>
+-    <panes>
+-      <pane id="ProjectPane">
+-        <option name="show-excluded-files" value="false" />
+-      </pane>
+-    </panes>
++  <component name="ProjectId" id="2CfDTHDIuwc4WUYB7yx6bIHV2iY" />
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+-    <property name="dart.analysis.tool.window.force.activate" value="true" />
++    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
++    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
++    <property name="cidr.known.project.marker" value="true" />
++    <property name="dart.analysis.tool.window.visible" value="false" />
++    <property name="io.flutter.reload.alreadyRun" value="true" />
++    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+     <property name="show.migrate.to.gradle.popup" value="false" />
+   </component>
+-</project>
++  <component name="RunManager">
++    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
++      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
++      <method v="2" />
++    </configuration>
++  </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="" />
++      <created>1659184751940</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1659184751940</updated>
++    </task>
++    <servers />
++  </component>
++</project>
+\ No newline at end of file
+Index: android/.idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/android/.idea/jarRepositories.xml b/android/.idea/jarRepositories.xml
+new file mode 100644
+--- /dev/null	(date 1659184209930)
++++ b/android/.idea/jarRepositories.xml	(date 1659184209930)
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="RemoteRepositoriesConfiguration">
++    <remote-repository>
++      <option name="id" value="central" />
++      <option name="name" value="Maven Central repository" />
++      <option name="url" value="https://repo1.maven.org/maven2" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="jboss.community" />
++      <option name="name" value="JBoss Community repository" />
++      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="MavenRepo" />
++      <option name="name" value="MavenRepo" />
++      <option name="url" value="https://repo.maven.apache.org/maven2/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="Google7" />
++      <option name="name" value="Google7" />
++      <option name="url" value="https://dl.google.com/dl/android/maven2/" />
++    </remote-repository>
++    <remote-repository>
++      <option name="id" value="maven" />
++      <option name="name" value="maven" />
++      <option name="url" value="https://storage.googleapis.com/download.flutter.io" />
++    </remote-repository>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/vcs.xml	(date 1659184755099)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/libraries/Dart_SDK.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Dart SDK\">\r\n    <CLASSES>\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/async\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/collection\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/convert\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/core\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/developer\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/html\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/io\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/isolate\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/math\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/mirrors\" />\r\n      <root url=\"file://c:\\flutter/bin/cache/dart-sdk/lib/typed_data\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/libraries/Dart_SDK.xml b/.idea/libraries/Dart_SDK.xml
+--- a/.idea/libraries/Dart_SDK.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/libraries/Dart_SDK.xml	(date 1659184752186)
+@@ -1,17 +1,25 @@
+ <component name="libraryTable">
+   <library name="Dart SDK">
+     <CLASSES>
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/async" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/collection" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/convert" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/core" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/developer" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/html" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/io" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/isolate" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/math" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/mirrors" />
+-      <root url="file://c:\flutter/bin/cache/dart-sdk/lib/typed_data" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/async" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/cli" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/collection" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/convert" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/core" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/developer" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/ffi" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/html" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/indexed_db" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/io" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/isolate" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/js" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/js_util" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/math" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/mirrors" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/svg" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/typed_data" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/web_audio" />
++      <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/dart-sdk/lib/web_gl" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: .flutter-plugins
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># This is a generated file; do not edit or check into version control.\r\ncloud_firestore=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.4.2\\\\\r\ncloud_firestore_web=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore_web-2.8.2\\\\\r\nfile_picker=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\\r\nfirebase_auth=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.6.1\\\\\r\nfirebase_auth_web=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth_web-4.2.1\\\\\r\nfirebase_core=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.20.0\\\\\r\nfirebase_core_web=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core_web-1.7.1\\\\\r\nfirebase_storage=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.4\\\\\r\nfirebase_storage_web=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage_web-3.3.2\\\\\r\nflutter_plugin_android_lifecycle=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\flutter_plugin_android_lifecycle-2.0.7\\\\\r\nfluttertoast=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\\r\nimage_picker=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker-0.8.5+3\\\\\r\nimage_picker_android=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_android-0.8.5+1\\\\\r\nimage_picker_for_web=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_for_web-2.1.8\\\\\r\nimage_picker_ios=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_ios-0.8.5+6\\\\\r\nprinting=c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.flutter-plugins b/.flutter-plugins
+--- a/.flutter-plugins	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.flutter-plugins	(date 1659184998041)
+@@ -1,17 +1,17 @@
+ # This is a generated file; do not edit or check into version control.
+-cloud_firestore=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-3.4.2\\
+-cloud_firestore_web=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-2.8.2\\
+-file_picker=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\file_picker-4.6.1\\
+-firebase_auth=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-3.6.1\\
+-firebase_auth_web=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-4.2.1\\
+-firebase_core=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.20.0\\
+-firebase_core_web=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.7.1\\
+-firebase_storage=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage-10.3.4\\
+-firebase_storage_web=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage_web-3.3.2\\
+-flutter_plugin_android_lifecycle=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-2.0.7\\
+-fluttertoast=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.9\\
+-image_picker=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.8.5+3\\
+-image_picker_android=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_android-0.8.5+1\\
+-image_picker_for_web=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_for_web-2.1.8\\
+-image_picker_ios=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_ios-0.8.5+6\\
+-printing=c:\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\printing-5.9.2\\
++cloud_firestore=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore-3.2.1\\
++cloud_firestore_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\cloud_firestore_web-2.6.19\\
++file_picker=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\file_picker-4.6.1\\
++firebase_auth=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth-3.4.1\\
++firebase_auth_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_auth_web-3.3.19\\
++firebase_core=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core-1.19.1\\
++firebase_core_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_core_web-1.6.6\\
++firebase_storage=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage-10.3.1\\
++firebase_storage_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\firebase_storage_web-3.2.19\\
++flutter_plugin_android_lifecycle=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\flutter_plugin_android_lifecycle-2.0.6\\
++fluttertoast=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\fluttertoast-8.0.9\\
++image_picker=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker-0.8.5+3\\
++image_picker_android=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_android-0.8.5+1\\
++image_picker_for_web=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_for_web-2.1.8\\
++image_picker_ios=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\image_picker_ios-0.8.5+6\\
++printing=C:\\src\\flutter\\.pub-cache\\hosted\\pub.dartlang.org\\printing-5.9.2\\
+Index: .flutter-plugins-dependencies
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\"info\":\"This is a generated file; do not edit or check into version control.\",\"plugins\":{\"ios\":[{\"name\":\"cloud_firestore\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\cloud_firestore-3.4.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"file_picker\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\file_picker-4.6.1\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"firebase_auth\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_auth-3.6.1\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"firebase_core\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_core-1.20.0\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"firebase_storage\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_storage-10.3.4\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"fluttertoast\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\fluttertoast-8.0.9\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"image_picker_ios\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\image_picker_ios-0.8.5+6\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[]}],\"android\":[{\"name\":\"cloud_firestore\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\cloud_firestore-3.4.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"file_picker\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\file_picker-4.6.1\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"flutter_plugin_android_lifecycle\"]},{\"name\":\"firebase_auth\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_auth-3.6.1\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"firebase_core\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_core-1.20.0\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"firebase_storage\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_storage-10.3.4\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"flutter_plugin_android_lifecycle\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\flutter_plugin_android_lifecycle-2.0.7\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"fluttertoast\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\fluttertoast-8.0.9\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"image_picker_android\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\image_picker_android-0.8.5+1\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"flutter_plugin_android_lifecycle\"]},{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[]}],\"macos\":[{\"name\":\"cloud_firestore\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\cloud_firestore-3.4.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"firebase_auth\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_auth-3.6.1\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"firebase_core\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_core-1.20.0\\\\\\\\\",\"native_build\":true,\"dependencies\":[]},{\"name\":\"firebase_storage\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_storage-10.3.4\\\\\\\\\",\"native_build\":true,\"dependencies\":[\"firebase_core\"]},{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[]}],\"linux\":[{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[]}],\"windows\":[{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"native_build\":true,\"dependencies\":[]}],\"web\":[{\"name\":\"cloud_firestore_web\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\cloud_firestore_web-2.8.2\\\\\\\\\",\"dependencies\":[\"firebase_core_web\"]},{\"name\":\"file_picker\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\file_picker-4.6.1\\\\\\\\\",\"dependencies\":[]},{\"name\":\"firebase_auth_web\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_auth_web-4.2.1\\\\\\\\\",\"dependencies\":[\"firebase_core_web\"]},{\"name\":\"firebase_core_web\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_core_web-1.7.1\\\\\\\\\",\"dependencies\":[]},{\"name\":\"firebase_storage_web\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\firebase_storage_web-3.3.2\\\\\\\\\",\"dependencies\":[\"firebase_core_web\"]},{\"name\":\"fluttertoast\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\fluttertoast-8.0.9\\\\\\\\\",\"dependencies\":[]},{\"name\":\"image_picker_for_web\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\image_picker_for_web-2.1.8\\\\\\\\\",\"dependencies\":[]},{\"name\":\"printing\",\"path\":\"c:\\\\\\\\flutter\\\\\\\\.pub-cache\\\\\\\\hosted\\\\\\\\pub.dartlang.org\\\\\\\\printing-5.9.2\\\\\\\\\",\"dependencies\":[]}]},\"dependencyGraph\":[{\"name\":\"cloud_firestore\",\"dependencies\":[\"cloud_firestore_web\",\"firebase_core\"]},{\"name\":\"cloud_firestore_web\",\"dependencies\":[\"firebase_core\",\"firebase_core_web\"]},{\"name\":\"file_picker\",\"dependencies\":[\"flutter_plugin_android_lifecycle\"]},{\"name\":\"firebase_auth\",\"dependencies\":[\"firebase_auth_web\",\"firebase_core\"]},{\"name\":\"firebase_auth_web\",\"dependencies\":[\"firebase_core\",\"firebase_core_web\"]},{\"name\":\"firebase_core\",\"dependencies\":[\"firebase_core_web\"]},{\"name\":\"firebase_core_web\",\"dependencies\":[]},{\"name\":\"firebase_storage\",\"dependencies\":[\"firebase_core\",\"firebase_storage_web\"]},{\"name\":\"firebase_storage_web\",\"dependencies\":[\"firebase_core\",\"firebase_core_web\"]},{\"name\":\"flutter_plugin_android_lifecycle\",\"dependencies\":[]},{\"name\":\"fluttertoast\",\"dependencies\":[]},{\"name\":\"image_picker\",\"dependencies\":[\"image_picker_android\",\"image_picker_for_web\",\"image_picker_ios\"]},{\"name\":\"image_picker_android\",\"dependencies\":[\"flutter_plugin_android_lifecycle\"]},{\"name\":\"image_picker_for_web\",\"dependencies\":[]},{\"name\":\"image_picker_ios\",\"dependencies\":[]},{\"name\":\"printing\",\"dependencies\":[]}],\"date_created\":\"2022-07-30 16:57:55.229357\",\"version\":\"3.0.3\"}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.flutter-plugins-dependencies b/.flutter-plugins-dependencies
+--- a/.flutter-plugins-dependencies	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.flutter-plugins-dependencies	(date 1659184998052)
+@@ -1,1 +1,1 @@
+-{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.4.2\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"file_picker","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.6.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.20.0\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"fluttertoast","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","native_build":true,"dependencies":[]},{"name":"image_picker_ios","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_ios-0.8.5+6\\\\","native_build":true,"dependencies":[]},{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.4.2\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"file_picker","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"firebase_auth","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.6.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.20.0\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"flutter_plugin_android_lifecycle","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\flutter_plugin_android_lifecycle-2.0.7\\\\","native_build":true,"dependencies":[]},{"name":"fluttertoast","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","native_build":true,"dependencies":[]},{"name":"image_picker_android","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_android-0.8.5+1\\\\","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.4.2\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.6.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.20.0\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.4\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"linux":[{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"windows":[{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore_web-2.8.2\\\\","dependencies":["firebase_core_web"]},{"name":"file_picker","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","dependencies":[]},{"name":"firebase_auth_web","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth_web-4.2.1\\\\","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core_web-1.7.1\\\\","dependencies":[]},{"name":"firebase_storage_web","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage_web-3.3.2\\\\","dependencies":["firebase_core_web"]},{"name":"fluttertoast","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","dependencies":[]},{"name":"image_picker_for_web","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_for_web-2.1.8\\\\","dependencies":[]},{"name":"printing","path":"c:\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"file_picker","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"firebase_storage","dependencies":["firebase_core","firebase_storage_web"]},{"name":"firebase_storage_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"flutter_plugin_android_lifecycle","dependencies":[]},{"name":"fluttertoast","dependencies":[]},{"name":"image_picker","dependencies":["image_picker_android","image_picker_for_web","image_picker_ios"]},{"name":"image_picker_android","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"image_picker_for_web","dependencies":[]},{"name":"image_picker_ios","dependencies":[]},{"name":"printing","dependencies":[]}],"date_created":"2022-07-30 16:57:55.229357","version":"3.0.3"}
+\ No newline at end of file
++{"info":"This is a generated file; do not edit or check into version control.","plugins":{"ios":[{"name":"cloud_firestore","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.2.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"file_picker","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_auth","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.4.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.19.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"fluttertoast","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","native_build":true,"dependencies":[]},{"name":"image_picker_ios","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_ios-0.8.5+6\\\\","native_build":true,"dependencies":[]},{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"android":[{"name":"cloud_firestore","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.2.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"file_picker","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"firebase_auth","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.4.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.19.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"flutter_plugin_android_lifecycle","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\flutter_plugin_android_lifecycle-2.0.6\\\\","native_build":true,"dependencies":[]},{"name":"fluttertoast","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","native_build":true,"dependencies":[]},{"name":"image_picker_android","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_android-0.8.5+1\\\\","native_build":true,"dependencies":["flutter_plugin_android_lifecycle"]},{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"macos":[{"name":"cloud_firestore","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore-3.2.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_auth","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth-3.4.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"firebase_core","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core-1.19.1\\\\","native_build":true,"dependencies":[]},{"name":"firebase_storage","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage-10.3.1\\\\","native_build":true,"dependencies":["firebase_core"]},{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"linux":[{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"windows":[{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","native_build":true,"dependencies":[]}],"web":[{"name":"cloud_firestore_web","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\cloud_firestore_web-2.6.19\\\\","dependencies":["firebase_core_web"]},{"name":"file_picker","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\file_picker-4.6.1\\\\","dependencies":[]},{"name":"firebase_auth_web","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_auth_web-3.3.19\\\\","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_core_web-1.6.6\\\\","dependencies":[]},{"name":"firebase_storage_web","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\firebase_storage_web-3.2.19\\\\","dependencies":["firebase_core_web"]},{"name":"fluttertoast","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\fluttertoast-8.0.9\\\\","dependencies":[]},{"name":"image_picker_for_web","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\image_picker_for_web-2.1.8\\\\","dependencies":[]},{"name":"printing","path":"C:\\\\src\\\\flutter\\\\.pub-cache\\\\hosted\\\\pub.dartlang.org\\\\printing-5.9.2\\\\","dependencies":[]}]},"dependencyGraph":[{"name":"cloud_firestore","dependencies":["cloud_firestore_web","firebase_core"]},{"name":"cloud_firestore_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"file_picker","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"firebase_auth","dependencies":["firebase_auth_web","firebase_core"]},{"name":"firebase_auth_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"firebase_core","dependencies":["firebase_core_web"]},{"name":"firebase_core_web","dependencies":[]},{"name":"firebase_storage","dependencies":["firebase_core","firebase_storage_web"]},{"name":"firebase_storage_web","dependencies":["firebase_core","firebase_core_web"]},{"name":"flutter_plugin_android_lifecycle","dependencies":[]},{"name":"fluttertoast","dependencies":[]},{"name":"image_picker","dependencies":["image_picker_android","image_picker_for_web","image_picker_ios"]},{"name":"image_picker_android","dependencies":["flutter_plugin_android_lifecycle"]},{"name":"image_picker_for_web","dependencies":[]},{"name":"image_picker_ios","dependencies":[]},{"name":"printing","dependencies":[]}],"date_created":"2022-07-30 18:13:18.049232","version":"3.0.3"}
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/mou_tracker.iml\" filepath=\"$PROJECT_DIR$/mou_tracker.iml\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/android/mou_tracker_android.iml\" filepath=\"$PROJECT_DIR$/android/mou_tracker_android.iml\" />\r\n    </modules>\r\n  </component>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+--- a/.idea/modules.xml	(revision ebd8558ca8bfcfec605739c4ed7edd22e46f120f)
++++ b/.idea/modules.xml	(date 1659184752171)
+@@ -2,8 +2,7 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/mou_tracker.iml" filepath="$PROJECT_DIR$/mou_tracker.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/android/mou_tracker_android.iml" filepath="$PROJECT_DIR$/android/mou_tracker_android.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/MoU-Temp-00.iml" filepath="$PROJECT_DIR$/.idea/MoU-Temp-00.iml" />
+     </modules>
+   </component>
+-</project>
++</project>
+\ No newline at end of file
