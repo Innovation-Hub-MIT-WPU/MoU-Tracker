@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/mou.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseService {
@@ -13,7 +14,7 @@ class DataBaseService {
   */
   // String uid; // user id of every user. -> required addition - same person can have multiple designations so store them all.
   // DataBaseService({required this.uid});
-  String? uid; 
+  String? uid;
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
@@ -47,9 +48,24 @@ class DataBaseService {
     });
   }
 
-  Stream<QuerySnapshot> get mouData {
-    print(mou.snapshots());
-    return mou.snapshots();
+  List<MOU> _mouListFromDB(snapshot) {
+    return snapshot.docs.map((doc) {
+      return MOU(
+        docName: snapshot.doc['name'],
+        authName: "",
+        amount: doc['amount'],
+        description: doc['desc'],
+        day: 2,
+        month: "",
+        year: 2002,
+        index: 0,
+        isApproved: false,
+      );
+    }).toList();
+  }
+
+  Stream<List<MOU>> get mouData {
+    return mou.snapshots().map(_mouListFromDB);
   }
 
   Stream<DocumentSnapshot> get userData {
