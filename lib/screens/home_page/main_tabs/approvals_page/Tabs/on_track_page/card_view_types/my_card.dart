@@ -6,22 +6,9 @@ import '../../../../../../../common_utils/utils.dart';
 import '../../../../../../mou_details/mou_details_page.dart';
 
 class MyCard extends StatefulWidget {
-  // final String docName;
-  // final String authName;
-  // final int amount;
-  // final String description;
-  // final date;
   final int index;
-  // bool isApproved;
-  //
-  const MyCard({
-    //     required this.docName,
-    //     required this.authName,
-    //     required this.amount,
-    //     required this.description,
-    //     required this.date,
+  MyCard({
     required this.index,
-    //     required this.isApproved
   });
 
   @override
@@ -29,20 +16,6 @@ class MyCard extends StatefulWidget {
 }
 
 class _MyCardState extends State<MyCard> {
-  // DateTime selectedDate = DateTime.now();
-
-  // Future<void> _selectDate(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedDate,
-  //       firstDate: DateTime(2015, 8),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null && picked != selectedDate) {
-  //     setState(() {
-  //       selectedDate = picked;
-  //     });
-  //   }
-  // }
   int k = 0;
   late MOU mou;
   @override
@@ -76,7 +49,7 @@ class _MyCardState extends State<MyCard> {
           Details.routeName,
           arguments: ScreenArguments(k),
         );
-        print('Tapped card ${mou.index}');
+        // print('Tapped card ${mou.index}');
       },
       child: Container(
         margin: EdgeInsets.symmetric(

@@ -3,7 +3,7 @@ import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 
-DataBaseService db = DataBaseService();
+// DataBaseService db = DataBaseService();
 
 Widget appbar(BuildContext context) {
   return AppBar(

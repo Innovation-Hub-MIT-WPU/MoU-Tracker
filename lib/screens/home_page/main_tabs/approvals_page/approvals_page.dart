@@ -1,3 +1,4 @@
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/delayed_page/delayed.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/on_track.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class ApprovalsPageState extends State<ApprovalsPage>
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    indicatorColor = const Color(0xff64C636);
+    indicatorColor = kTabBarGreen;
   }
 
   @override
@@ -38,6 +39,8 @@ class ApprovalsPageState extends State<ApprovalsPage>
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -51,17 +54,21 @@ class ApprovalsPageState extends State<ApprovalsPage>
                       alignment: Alignment.bottomCenter,
                       color: const Color(0xff2D376E),
                       // padding: EdgeInsets.only(bottom: 20),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: screenWidth,
+                      height: screenHeight * 0.07,
                       child: const Text(
                         'Approvals',
                         style: TextStyle(fontSize: 24, color: Colors.white),
                       )),
                   Container(
                     color: const Color(0xff2D376E),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    padding: const EdgeInsets.fromLTRB(45, 10, 45, 18),
+                    width: screenWidth,
+                    height: screenHeight * 0.1,
+                    padding: EdgeInsets.fromLTRB(
+                        screenWidth * 0.125,
+                        screenHeight * 0.010,
+                        screenWidth * 0.125,
+                        screenHeight * 0.02),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),

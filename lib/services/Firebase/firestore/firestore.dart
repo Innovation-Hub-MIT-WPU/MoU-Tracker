@@ -60,6 +60,7 @@ class DataBaseService {
         year: 2002,
         index: 0,
         isApproved: false,
+        companyName: '',
       );
     }).toList();
   }
