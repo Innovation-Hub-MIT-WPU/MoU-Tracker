@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../classes/mou.dart';
-import '../../../../../../../common_utils/utils.dart';
+import '/classes/mou.dart';
+import '/common_utils/utils.dart';
 
 class MyCard extends StatefulWidget {
   // final String docName;
@@ -12,7 +12,7 @@ class MyCard extends StatefulWidget {
   final int index;
   // bool isApproved;
   //
-  MyCard({
+  const MyCard({
     //     required this.docName,
     //     required this.authName,
     //     required this.amount,

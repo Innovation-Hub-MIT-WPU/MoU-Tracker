@@ -90,7 +90,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   // Function to build a single tab for tab bar
   /* Note -
       TabBar widget also has a color property, but Its using the updated value of index unless we hot reload.
-      Color change only works between 2 colors I guess.
+      Color change only works between 2 colors I guess. - Fixed
   */
   Widget _buildTab(String title, int i) {
     return Container(
@@ -98,7 +98,11 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         color: _tabIndex == i ? colors[_tabIndex] : Colors.transparent,
         borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       ),
-      child: Center(child: Text(title)),
+      child: Center(
+          child: Text(
+        title,
+        style: const TextStyle(fontSize: 16),
+      )),
     );
   }
 
@@ -131,9 +135,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         indicator:
             const BoxDecoration(), // Keep empty, This Tab bar doesnt have indicator
         tabs: [
-          _buildTab('INFO', 0), // index is for color in the list
-          _buildTab('ENGAGEMENT', 1),
-          _buildTab('TRACK', 2),
+          _buildTab('Info', 0), // index is for color in the list
+          _buildTab('Engagement', 1),
+          _buildTab('Track', 2),
         ],
         labelStyle: _labelStyle(Colors.white),
         unselectedLabelStyle: _labelStyle(Colors.grey));
