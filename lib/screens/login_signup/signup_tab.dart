@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
+  //Send Data to Firebase
   //editing controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

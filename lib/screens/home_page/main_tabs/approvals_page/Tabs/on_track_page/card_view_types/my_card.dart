@@ -14,7 +14,7 @@ class MyCard extends StatefulWidget {
   final int index;
   // bool isApproved;
   //
-  MyCard({
+  const MyCard({
     //     required this.docName,
     //     required this.authName,
     //     required this.amount,

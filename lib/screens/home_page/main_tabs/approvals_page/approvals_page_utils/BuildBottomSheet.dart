@@ -12,7 +12,7 @@ class BuildBottomSheet extends StatefulWidget {
   final int index;
   // bool isApproved;
 
-  BuildBottomSheet({
+  const BuildBottomSheet({
     //   required this.docName,
     // required this.authName,
     // required this.amount,

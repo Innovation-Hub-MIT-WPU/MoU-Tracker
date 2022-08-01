@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
-
 class MOU {
   final String docName;
   final String authName;
   final String companyName;
   final int amount;
+  final String docName;
+  final String? authName;
   final String description;
   final int day;
   final String month;
   final int year;
-  final int index;
   bool isApproved;
+  final int? index;
 
   MOU(
       {required this.docName,

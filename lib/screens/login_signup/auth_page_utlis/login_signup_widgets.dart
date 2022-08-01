@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, must_be_immutable
 
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,10 +38,10 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("DESIGNATION", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16), ),
-        SizedBox(height: kFormSpacing / 2),
+        const Text("DESIGNATION", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16), ),
+        const SizedBox(height: kFormSpacing / 2),
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             //border: Border.all(color: Colors.white, width: 1),
             borderRadius: BorderRadius.all(Radius.circular(4))
           ),
@@ -51,7 +50,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
             value: widget.designation,
             selectedItemBuilder: (_){
               return _designations.map( (e) => Container(
-                child:  Text(e, textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18, color: Colors.white))
+                child:  Text(e, textAlign: TextAlign.start,style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 18, color: Colors.white))
               )).toList();
             },
             isExpanded: true,
@@ -68,7 +67,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
               } 
               return null;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               contentPadding: EdgeInsets.all(10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
@@ -88,8 +87,8 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
   value: item,
   child: Padding(
-    padding: EdgeInsets.all(10),
-    child: Text(item, style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black)),
+    padding: const EdgeInsets.all(10),
+    child: Text(item, style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black)),
   ),
 );
 
@@ -100,14 +99,14 @@ Widget emailFormElement(TextEditingController emailController, double screenHeig
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
+      const Text(
         "EMAIL",
         style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
+            TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
-      SizedBox(height: kFormSpacing / 2),
+      const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         autofocus: false,
         onSaved: (value) {
           emailController.text = value!;
@@ -126,12 +125,12 @@ Widget emailFormElement(TextEditingController emailController, double screenHeig
         decoration: InputDecoration(
           hintText: "abc@gmail.com",
           hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
-          contentPadding: EdgeInsets.all(10),
-          enabledBorder: OutlineInputBorder(
+          contentPadding: const EdgeInsets.all(10),
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.buttonYellow, width: kBorderWidth),
           ),
         ),
@@ -147,14 +146,14 @@ Widget passwordFormElement(TextEditingController passwordController, double scre
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
+      const Text(
         "PASSWORD",
         style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
+            TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
-      SizedBox(height: kFormSpacing / 2),
+      const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         autofocus: false,
         controller: passwordController,
         obscureText: true,
@@ -173,7 +172,7 @@ Widget passwordFormElement(TextEditingController passwordController, double scre
         },
         textInputAction: TextInputAction.next,
         cursorColor: AppColors.buttonYellow,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
@@ -197,9 +196,9 @@ Widget nameFormElement(String text, TextEditingController nameController, double
         style:
             const TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
-      SizedBox(height: kFormSpacing / 2),
+      const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         autofocus: false,
         controller: nameController,
         validator: (value){
@@ -216,7 +215,7 @@ Widget nameFormElement(String text, TextEditingController nameController, double
           nameController.text = value!;
         },
         cursorColor: AppColors.buttonYellow,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           contentPadding: EdgeInsets.all(10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
@@ -273,7 +272,7 @@ class _EmptyPageState extends State<EmptyPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Navigated from '${widget.previousPageName}' to here :))\nName: ${loggedInUser.firstName} ${loggedInUser.lastName}\nEmail: ${loggedInUser.email}\nDesignatoin: ${loggedInUser.designation}"),
-            ActionChip(label: Text("LOG OUT"), onPressed: (){
+            ActionChip(label: const Text("LOG OUT"), onPressed: (){
               logout(context);
             })
           ],
@@ -283,7 +282,7 @@ class _EmptyPageState extends State<EmptyPage> {
   }
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LogInSignUpPage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LogInSignUpPage()));
   }
 }
 
@@ -302,12 +301,12 @@ Widget appButton(String text, Widget newRoute, BuildContext context){
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(AppColors.buttonYellow),
           shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(
+            const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))
             )
           )
         ),
-        child: Text(text, textAlign: TextAlign.center, style: TextStyle(
+        child: Text(text, textAlign: TextAlign.center, style: const TextStyle(
           fontSize: 24,
           color: Colors.white,
         )), 
@@ -323,13 +322,13 @@ Widget footer(BuildContext context, double screenWidth){
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       footerText("Privacy Policy", context),
-      SizedBox(width: 20,),
-      Icon(Icons.circle, size: 6, color: Colors.white,),
-      SizedBox(width: 20,),
+      const SizedBox(width: 20,),
+      const Icon(Icons.circle, size: 6, color: Colors.white,),
+      const SizedBox(width: 20,),
       footerText("TOS", context),
-      SizedBox(width: 20,),
-      Icon(Icons.circle, size: 6, color: Colors.white),
-      SizedBox(width: 20,),
+      const SizedBox(width: 20,),
+      const Icon(Icons.circle, size: 6, color: Colors.white),
+      const SizedBox(width: 20,),
       footerText("Content Policy", context),
     ],
   );
@@ -338,9 +337,9 @@ Widget footer(BuildContext context, double screenWidth){
 Widget footerText(String text, BuildContext context) {
   return InkWell(
     onTap: () { ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(text, textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: Duration(milliseconds: 1000) , shape: StadiumBorder(),
+          content: Text(text, textAlign: TextAlign.center,), behavior: SnackBarBehavior.floating, width: 200, duration: const Duration(milliseconds: 1000) , shape: const StadiumBorder(),
         ));
     },
-    child: Text(text, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white,))
+    child: Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white,))
   );
 }
