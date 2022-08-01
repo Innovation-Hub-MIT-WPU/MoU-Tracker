@@ -17,7 +17,7 @@ class StatsPage extends StatefulWidget {
 
 class StatsPageState extends State<StatsPage> {
   static late GlobalKey<SfCartesianChartState> cartesianChartKey1;
-  // static late GlobalKey<SfCartesianChartState> cartesianChartKey2;
+  static late GlobalKey<SfCartesianChartState> cartesianChartKey2;
   static late GlobalKey<SfCartesianChartState> cartesianChartKey3;
   late List<SalesData> _chartData1;
   late List<ChartData> _chartData2;
@@ -27,7 +27,7 @@ class StatsPageState extends State<StatsPage> {
   void initState() {
     // Timer.periodic(Duration(days: 30), updateDataSource);
     cartesianChartKey1 = GlobalKey();
-    // cartesianChartKey2 = GlobalKey();
+    cartesianChartKey2 = GlobalKey();
     cartesianChartKey3 = GlobalKey();
     _chartData1 = getChartData1();
     _chartData2 = getChartData2();
@@ -118,15 +118,15 @@ class StatsPageState extends State<StatsPage> {
                 child: lineChart(),
               ),
             ),
-            // Padding(
-            //   padding: EdgeInsets.only(
-            //       top: MediaQuery.of(context).size.height * 0.03),
-            //   child: SizedBox(
-            //     height: MediaQuery.of(context).size.height * 0.35,
-            //     width: MediaQuery.of(context).size.width,
-                // child: approvalRate(),
-            //   ),
-            // )
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.03),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.35,
+                width: MediaQuery.of(context).size.width,
+                child: approvalRate(),
+              ),
+            )
           ],
         ),
       ),
@@ -154,36 +154,36 @@ class StatsPageState extends State<StatsPage> {
     );
   }
 
-  // Widget approvalRate() {
-  //   return SfCircularChart(
-  //     key: cartesianChartKey2,
-  //     backgroundColor: hexStringToColor("EDF9FF"),
-  //     title: ChartTitle(
-  //         text: "Approval Rate",
-  //         textStyle: TextStyle(fontWeight: FontWeight.bold)),
-  //     annotations: <CircularChartAnnotation>[
-  //       CircularChartAnnotation(
-  //         widget: Container(
-  //           child: const Text(
-  //             '12.5%',
-  //             style: TextStyle(
-  //                 color: Color.fromRGBO(0, 0, 0, 0.5),
-  //                 fontSize: 25,
-  //                 fontWeight: FontWeight.bold),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //     series: <CircularSeries>[
-  //       DoughnutSeries<ChartData, String>(
-  //           strokeWidth: 1,
-  //           dataSource: _chartData2,
-  //           pointColorMapper: (ChartData data, _) => data.color,
-  //           xValueMapper: (ChartData data, _) => data.x,
-  //           yValueMapper: (ChartData data, _) => data.y)
-  //     ],
-  //   );
-  // }
+  Widget approvalRate() {
+    return SfCircularChart(
+      key: cartesianChartKey2,
+      backgroundColor: hexStringToColor("EDF9FF"),
+      title: ChartTitle(
+          text: "Approval Rate",
+          textStyle: TextStyle(fontWeight: FontWeight.bold)),
+      annotations: <CircularChartAnnotation>[
+        CircularChartAnnotation(
+          widget: Container(
+            child: const Text(
+              '12.5%',
+              style: TextStyle(
+                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ],
+      series: <CircularSeries>[
+        DoughnutSeries<ChartData, String>(
+            strokeWidth: 1,
+            dataSource: _chartData2,
+            pointColorMapper: (ChartData data, _) => data.color,
+            xValueMapper: (ChartData data, _) => data.x,
+            yValueMapper: (ChartData data, _) => data.y)
+      ],
+    );
+  }
 
   SfCartesianChart lineChart() {
     return SfCartesianChart(
@@ -261,12 +261,13 @@ class SavePDFState extends State<SavePDF> {
     final Uint8List imageBytes1 =
         bytes1!.buffer.asUint8List(bytes1.offsetInBytes, bytes1.lengthInBytes);
 
-    // final ui.Image data2 = await (StatsPageState.cartesianChartKey1.currentState as dynamic)
-    //     .toImage(pixelRatio: 3.0);
-    // final ByteData? bytes2 =
-    //     await data2.toByteData(format: ui.ImageByteFormat.png);
-    // final Uint8List imageBytes2 =
-    //     bytes2!.buffer.asUint8List(bytes2.offsetInBytes, bytes2.lengthInBytes);
+    final ui.Image data2 =
+        await (StatsPageState.cartesianChartKey1.currentState as dynamic)
+            .toImage(pixelRatio: 3.0);
+    final ByteData? bytes2 =
+        await data2.toByteData(format: ui.ImageByteFormat.png);
+    final Uint8List imageBytes2 =
+        bytes2!.buffer.asUint8List(bytes2.offsetInBytes, bytes2.lengthInBytes);
 
     final doc = pw.Document();
 
@@ -274,7 +275,7 @@ class SavePDFState extends State<SavePDF> {
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
-          return buildPrintableData(imageBytes1);
+          return buildPrintableData(imageBytes1, imageBytes2);
         },
       ),
     );
@@ -287,9 +288,9 @@ class SavePDFState extends State<SavePDF> {
         ));
   }
 
-  buildPrintableData(Uint8List imageBytes1) {
+  buildPrintableData(Uint8List imageBytes1, Uint8List imageBytes2) {
     final image1 = pw.MemoryImage(imageBytes1);
-    // final image2 = pw.MemoryImage(imageBytes2);
+    final image2 = pw.MemoryImage(imageBytes2);
     return pw.Wrap(
       alignment: pw.WrapAlignment.center,
       crossAxisAlignment: pw.WrapCrossAlignment.start,
@@ -305,16 +306,16 @@ class SavePDFState extends State<SavePDF> {
             ),
           ),
         ),
-        // pw.Container(
-        //   width: MediaQuery.of(context).size.width * 1.25,
-        //   height: 350,
-        //   decoration: pw.BoxDecoration(
-        //     image: pw.DecorationImage(
-        //       fit: pw.BoxFit.fill,
-        //       image: image2,
-        //     ),
-        //   ),
-        // ),
+        pw.Container(
+          width: MediaQuery.of(context).size.width * 1.25,
+          height: 350,
+          decoration: pw.BoxDecoration(
+            image: pw.DecorationImage(
+              fit: pw.BoxFit.fill,
+              image: image2,
+            ),
+          ),
+        ),
       ],
     );
   }

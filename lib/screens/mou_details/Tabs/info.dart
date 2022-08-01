@@ -44,32 +44,6 @@ class _InfoTabState extends State<InfoTab> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     String date = "${mou.day} ${mou.month} ${mou.year}";
-    // return Padding(
-    //   padding: EdgeInsets.only(
-    //       top: screenHeight * 0.06,
-    //       left: screenWidth * 0.02,
-    //       right: screenWidth * 0.02),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       Text("Information", style: titleStyle()),
-    //       _buildDivider(screenWidth, screenHeight),
-    //       Text("Title", style: subtitleStyle()),
-    //       _displayText(mou.docName, screenHeight, titleStyle()),
-    //       Text("Description", style: subtitleStyle()),
-    //       _writeDesc(screenWidth, screenHeight),
-    //       Text("Date", style: subtitleStyle()),
-    //       _displayText('${mou.day} ${mou.month}, ${mou.year}', screenHeight,
-    //           normalStyle()),
-    //       Text("Required Amount", style: subtitleStyle()),
-    //       Text("₹ ${mou.amount}", style: normalStyle()),
-    //       _buildDivider(screenWidth, screenHeight),
-    //       Padding(
-    //         padding: EdgeInsets.symmetric(
-    //             horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
-    //         child: _fileDownload(),
-    //       )
-    //     ],
     return StreamProvider.value(
       initialData: null,
       value: db.mouData,

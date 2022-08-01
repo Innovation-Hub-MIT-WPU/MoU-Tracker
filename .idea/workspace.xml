@@ -9,17 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="• Updated MOU model&#10;• Field Passing Checked&#10;• Named Routing with Argument Passing&#10;• Cards changed">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/classes/mou.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/classes/mou.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/approvals_page/approvals_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/Firebase/firestore/firestore.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/Firebase/firestore/firestore.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/carousel.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/carousel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/stats_page/stats_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/stats_page/stats_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
