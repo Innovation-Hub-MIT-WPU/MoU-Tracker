@@ -26,14 +26,18 @@ Widget buildField1() {
           ]),
       child: TextFormField(
         decoration: const InputDecoration(
-            labelText: 'Field 1',
+            labelText: 'Name',
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
             )),
         validator: (value) {
           if (value!.isEmpty) {
             return 'Field is required.';
+          } else {
+            name = value;
+            print(name);
           }
+          return null;
         },
         onSaved: (value) {
           CreateFormState.field1 = value!;
@@ -64,13 +68,16 @@ Widget buildField2() {
           ]),
       child: TextFormField(
         decoration: const InputDecoration(
-            labelText: 'Field 2',
+            labelText: 'Description',
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)))),
         validator: (value) {
           if (value!.isEmpty) {
             return 'Field is required.';
+          } else {
+            description = value;
           }
+          return null;
         },
         onSaved: (value) {
           CreateFormState.field2 = value!;
@@ -101,13 +108,16 @@ Widget buildField3() {
           ]),
       child: TextFormField(
         decoration: const InputDecoration(
-            labelText: 'Field 3',
+            labelText: 'Ammount',
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)))),
         validator: (value) {
           if (value!.isEmpty) {
             return 'Field is required.';
+          } else {
+            amount = int.parse(value);
           }
+          return null;
         },
         onSaved: (value) {
           CreateFormState.field3 = value!;
@@ -138,13 +148,16 @@ Widget buildField4() {
           ]),
       child: TextFormField(
         decoration: const InputDecoration(
-            labelText: 'Field 4',
+            labelText: 'ID',
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)))),
         validator: (value) {
           if (value!.isEmpty) {
             return 'Field is required.';
+          } else {
+            id = int.parse(value);
           }
+          return null;
         },
         onSaved: (value) {
           CreateFormState.field4 = value!;
