@@ -36,6 +36,7 @@ class CreateFormState extends State<CreateForm> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: Color(0XFFEFF3F6),
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height / 8,
         backgroundColor: const Color(0xff2D376E),

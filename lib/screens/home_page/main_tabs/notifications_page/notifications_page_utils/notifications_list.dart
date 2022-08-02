@@ -21,16 +21,26 @@ List getonTracksList() {
     onTrack(
         title: "MOU-3",
         date: "30 Aug 2022",
-        description: "lore  You should see a circular....."),
+        description:
+            "Legal and Binding Agreement. This Agreement is legal and binding between the Parties as stated above."),
     onTrack(
         title: "MOU-4",
         date: "1 Sept 2022",
+        description: "We provide best services in the world..."),
+    onTrack(
+        title: "MOU-5",
+        date: "1 Sept 2022",
         description:
-            "We provide best services in  of Lorem Ipsum avhave  in some ..."),
+            "The Parties each represent that they have the authority to enter into this Agreement....."),
     onTrack(
         title: "MOU-6",
+        date: "1 Sept 2022",
+        description: "We provide best services in the world..."),
+    onTrack(
+        title: "MOU-7",
         date: "31 Dec 2022",
-        description: "We provide best services in the world...."),
+        description:
+            "This Agreement may be entered into and is legal and binding both in the United States and throughout Europe."),
   ];
 }
 
@@ -43,9 +53,19 @@ List getdelayedList() {
             "We provide best services in the world.rave suffered alteration in some ..."),
     onTrack(
         title: "MOU-1",
+        date: "1 july 2022",
+        description:
+            "The Parties each represent that they have the authority to enter into this Agreement....."),
+    onTrack(
+        title: "MOU-8",
+        date: "1 july 2022",
+        description:
+            "This Agreement may be entered into and is legal and binding both in the United States and throughout Europe."),
+    onTrack(
+        title: "MOU-9",
         date: "15 july 2022",
         description:
-            "We provide best services in  of Lorem Ipsum avhave suffered alteration in some ..."),
+            "Legal and Binding Agreement. This Agreement is legal and binding between the Parties as stated above."),
   ];
 }
 

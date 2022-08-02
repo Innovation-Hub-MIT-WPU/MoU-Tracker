@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 Widget tabs(TabController _tabController, int index, BuildContext context) {
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
   return Padding(
-    padding: const EdgeInsets.fromLTRB(45, 10, 45, 20),
+    padding:
+    EdgeInsets.fromLTRB(width / 10, height / 60, width / 10, height / 40),
     child: Column(
       children: [
         Container(
@@ -30,7 +33,7 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
             ),
             labelColor: Colors.white,
             labelStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             unselectedLabelColor: Colors.black.withOpacity(0.25),
             tabs: const [
               Tab(
@@ -54,7 +57,7 @@ PreferredSizeWidget appbar(
     backgroundColor: Color(0xFF2D376E),
     bottom: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
+        Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
         child: tabs(_tabController, index, context)),
     title: const Padding(
       padding: EdgeInsets.only(

@@ -27,20 +27,21 @@ Widget appbar(BuildContext context) {
 Widget fileName() {
   return Center(
     child: Text(CreateFormState.file == null
-        ? "no file selected"
+        ? "No File Selected"
         : CreateFormState.file!.path.split('/').last),
   );
 }
 
 Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
+  double width = MediaQuery.of(context).size.width;
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
       // height: 60,
       // width: 300,
       height: MediaQuery.of(context).size.height * 0.08,
-      width: MediaQuery.of(context).size.width * 0.75,
-      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+      width: width * 0.75,
+      padding: EdgeInsets.fromLTRB(width / 40, width / 40, 0, 0),
       child: ElevatedButton(
         onPressed: () {
           pickFile();
@@ -93,8 +94,7 @@ Widget dialog(BuildContext cnt) {
           TextButton(
             style: ButtonStyle(
                 backgroundColor:
-                    // MaterialStateProperty.all(const Color(0xFFF2C32C))),
-                    MaterialStateProperty.all(kCardRed)),
+                    MaterialStateProperty.all(const Color(0xFFF2C32C))),
             onPressed: () {
               // CreationDetails.mapping(FirebaseApi.downloadUrl, "downloadLink");
               // CreationDetails.addData();
@@ -140,13 +140,14 @@ Widget doneButton(BuildContext context, formKey) {
           // db.updateMouData(name, description, id, false);
         },
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            elevation: MaterialStateProperty.all(0),
-            side: MaterialStateProperty.all(
-                const BorderSide(color: Colors.black, width: 2))),
+          backgroundColor:
+              MaterialStateProperty.all(Color.fromARGB(255, 55, 65, 122)),
+          elevation: MaterialStateProperty.all(5),
+        ),
         child: const Text(
           'DONE',
-          style: TextStyle(fontSize: 20, color: Colors.black),
+          style: TextStyle(
+              fontSize: 20, color: Color.fromARGB(255, 216, 216, 216)),
         ),
       ),
     ),

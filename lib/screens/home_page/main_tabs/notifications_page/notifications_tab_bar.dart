@@ -42,6 +42,8 @@ class NotificationsState extends State<Notifications>
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         appBar: appbar(_tabController, index, context),
@@ -49,24 +51,12 @@ class NotificationsState extends State<Notifications>
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              TextField(
-                // onChanged: (value) => _runFilter(value),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 15),
-                  hintText: "Search",
-                  suffixIcon: const Icon(Icons.search),
-                  // prefix: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(),
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: searchBox(screenHeight, screenWidth),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(child: tabview(_tabController)),
+              Expanded(
+                  child: tabview(_tabController, screenHeight, screenWidth)),
             ],
           ),
         ),

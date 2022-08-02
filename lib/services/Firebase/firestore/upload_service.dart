@@ -30,44 +30,6 @@ class FirebaseApi {
     }
     return null;
   }
-
-  // static Future<List<FirebaseFile>> listAll(String path) async {
-  //   final ref = FirebaseStorage.instance.ref(path);
-  //   final result = await ref.listAll();
-  //   final url = await getlink(result.items);
-  //   return url
-  //       .asMap()
-  //       .map((index, url) {
-  //         final ref = result.items[index];
-  //         final name = ref.name;
-  //         final file = FirebaseFile(ref: ref, name: name, url: url);
-  //         return MapEntry(index, file);
-  //       })
-  //       .values
-  //       .toList();
-  // }
-
-  static Future<List<String>> getlink(List<Reference> ref) =>
-      Future.wait(ref.map((ref) => ref.getDownloadURL()).toList());
-
-  static Future download(Reference ref) async {
-    try {
-      final io.Directory systemTempDir = io.Directory.systemTemp;
-      final io.File tempFile =
-          io.File('/storage/emulated/0/Download/temp${ref.name}');
-      if (tempFile.existsSync()) await tempFile.delete();
-
-      await ref.writeToFile(tempFile);
-
-      print('${systemTempDir.path}/temp${ref.name}'
-          // 'Success!\n Downloaded ${ref.name} \n from bucket: ${ref.bucket}\n '
-          // 'at path: ${ref.fullPath} \n'
-          // 'Wrote "${ref.fullPath}" to tmp-${ref.name}',
-          );
-    } catch (e) {
-      print(e);
-    }
-  }
 }
 
 Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
@@ -87,28 +49,3 @@ Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
         }
       },
     );
-
-class FirebaseFile {
-  final Reference ref;
-  final String name;
-  final String url;
-
-  const FirebaseFile({
-    required this.ref,
-    required this.name,
-    required this.url,
-  });
-}
-
-Widget buildFile(BuildContext context, FirebaseFile file) => ListTile(
-    title: Text(
-      file.name,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        decoration: TextDecoration.underline,
-        color: Colors.blue,
-      ),
-    ),
-    onTap: () async {
-      await FirebaseApi.download(file.ref);
-    });
