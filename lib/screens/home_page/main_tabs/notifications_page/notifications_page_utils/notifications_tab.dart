@@ -1,3 +1,5 @@
+import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 
 Widget tabs(TabController _tabController, int index, BuildContext context) {
@@ -5,17 +7,17 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
   double width = MediaQuery.of(context).size.width;
   return Padding(
     padding:
-    EdgeInsets.fromLTRB(width / 10, height / 60, width / 10, height / 40),
+        EdgeInsets.fromLTRB(width / 10, height / 60, width / 10, height / 40),
     child: Column(
       children: [
         Container(
           // height: 40,
           // width: 300,
-          height: MediaQuery.of(context).size.height * 0.0565,
-          width: MediaQuery.of(context).size.width * 0.75,
+          height: MediaQuery.of(context).size.height * 0.060,
+          width: MediaQuery.of(context).size.width * 0.73,
 
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: kBgClr1,
             borderRadius: BorderRadius.circular(
               15.0,
             ),
@@ -25,16 +27,14 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
             controller: _tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(
-                15.0,
+                12.0,
               ),
-              color: index == 0
-                  ? const Color(0xFF64C636)
-                  : const Color(0xFFCD364E),
+              color: index == 0 ? kTabBarGreen : kTabBarRed,
             ),
-            labelColor: Colors.white,
+            labelColor: kBgClr1,
             labelStyle:
-            const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            unselectedLabelColor: Colors.black.withOpacity(0.25),
+                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            unselectedLabelColor: black.withOpacity(0.25),
             tabs: const [
               Tab(
                 text: 'On Track',
@@ -54,20 +54,22 @@ PreferredSizeWidget appbar(
     TabController _tabController, int index, BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor: Color(0xFF2D376E),
+    backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:
-        Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
         child: tabs(_tabController, index, context)),
-    title: const Padding(
+    title: Padding(
       padding: EdgeInsets.only(
-        top: 35,
+        top: MediaQuery.of(context).size.height / 30,
       ),
       child: Center(
         child: Text(
           'Notifications',
           style: TextStyle(
-              fontSize: 24, color: Colors.white, fontWeight: FontWeight.w400),
+              fontSize: MediaQuery.of(context).size.width / 15,
+              color: kBgClr1,
+              fontWeight: FontWeight.w400),
         ),
       ),
     ),
