@@ -6,6 +6,7 @@ class DataBaseService {
   // Structure -
   /* 
       Mou collection 
+
         |_ Document -> MOU
               |_ Mou details
                  Activity collection

@@ -17,6 +17,9 @@ class _OnTrackTabState extends State<OnTrackTab> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -75,10 +78,12 @@ class _OnTrackTabState extends State<OnTrackTab> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.pushNamed(context, '/create_mou'),
         backgroundColor: const Color(0xff64C636),
-        child: const Icon(
+        label:
+            Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
+        icon: const Icon(
           Icons.add,
           size: 50,
         ),
