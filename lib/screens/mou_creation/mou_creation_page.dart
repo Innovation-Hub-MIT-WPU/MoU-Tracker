@@ -1,11 +1,10 @@
+import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
+import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
 import 'package:file_picker/file_picker.dart';
 
-import 'creation_page_utils/create_mou_widgets.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' as io;
-
-import 'creation_page_utils/fields.dart';
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
@@ -16,15 +15,17 @@ class CreateForm extends StatefulWidget {
 
 class CreateFormState extends State<CreateForm> {
   // for identification and validation of the form
-  final _formKey = GlobalKey<FormState>();
-  static UploadTask? task;
+
+  TextEditingController idController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController docNameController = TextEditingController();
+  TextEditingController authNameController = TextEditingController();
+  TextEditingController companyNameController = TextEditingController();
+
+  String docName = "";
   static io.File? file;
-  static String field1 = '';
-  static String field2 = '';
-  static String field3 = '';
-  static String field4 = '';
-  static String field5 = '';
-  static String field6 = '';
+  static UploadTask? task;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     file = null;
@@ -36,7 +37,7 @@ class CreateFormState extends State<CreateForm> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: Color(0XFFEFF3F6),
+      backgroundColor: const Color(0XFFEFF3F6),
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height / 8,
         backgroundColor: const Color(0xff2D376E),
@@ -65,15 +66,32 @@ class CreateFormState extends State<CreateForm> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildField1(),
-                    buildField2(),
-                    buildField3(),
-                    buildField4(),
-                    buildField5(),
-                    buildField6(),
+                    CreateMouField(
+                        hintText: 'Document Name',
+                        textInputType: TextInputType.text,
+                        textEditingController: docNameController),
+                    CreateMouField(
+                        hintText: 'Company Name',
+                        textInputType: TextInputType.text,
+                        textEditingController: companyNameController),
+                    CreateMouField(
+                        hintText: 'Description',
+                        textInputType: TextInputType.text,
+                        textEditingController: descController),
+                    CreateMouField(
+                        hintText: 'MOU Id',
+                        textInputType: TextInputType.text,
+                        textEditingController: idController),
                     fileName(),
                     chooseFileButton(context, pickFile),
-                    doneButton(context, _formKey)
+                    doneButton(
+                      context: context,
+                      formKey: _formKey,
+                      docName: docNameController.text,
+                      companyName: companyNameController.text,
+                      id: idController.text,
+                      desc: descController.text,
+                    )
                   ],
                 ),
               ),

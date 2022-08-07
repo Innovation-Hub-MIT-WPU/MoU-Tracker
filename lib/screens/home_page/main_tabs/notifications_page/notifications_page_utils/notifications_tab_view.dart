@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'notifications_list.dart';

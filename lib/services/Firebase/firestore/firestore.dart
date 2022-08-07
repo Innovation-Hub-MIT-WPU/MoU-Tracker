@@ -12,13 +12,12 @@ class DataBaseService {
                     |_ Activity docs
                           |_ Activity details
   */
-  // String uid; // user id of every user. -> required addition - same person can have multiple designations so store them all.
-  // DataBaseService({required this.uid});
-  String? uid;
+
+  final db = FirebaseFirestore.instance;
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference mou = FirebaseFirestore.instance.collection('MOUs');
+  final CollectionReference mou = FirebaseFirestore.instance.collection('mou');
   final CollectionReference activity =
       FirebaseFirestore.instance.collection('activity');
 
@@ -30,22 +29,35 @@ class DataBaseService {
     });
   }
 
-  Future addUserDetails(String name, String designation) async {
-    await mou
-        .doc(name)
-        .collection('userDetails')
-        .doc()
-        .set({'name': name, 'designation': designation});
-  }
+  // Future addUserDetails(String name, String designation) async {
+  //   await mou
+  //       .doc(name)
+  //       .collection('userDetails')
+  //       .doc()
+  //       .set({'name': name, 'designation': designation});
+  // }
 
-  Future updateMouData(
-      String name, String desc, int id, bool isApproved) async {
-    return await mou.doc(name).set({
-      'name': name,
-      'desc': desc,
-      'id': id,
-      'status': isApproved,
-    });
+  Future<bool> updateMouData({
+    required String id,
+    required String desc,
+    required String docName,
+    required String companyName,
+    required bool isApproved,
+  }) async {
+    try {
+      await db.collection('mou').add({
+        'id': id,
+        'desc': desc,
+        'doc-name': docName,
+        'company-name': companyName,
+        'status': isApproved,
+      });
+      print("Mou data updated successfully");
+      return true;
+    } catch (err) {
+      print("error - $err");
+      return false;
+    }
   }
 
   List<MOU> _mouListFromDB(snapshot) {

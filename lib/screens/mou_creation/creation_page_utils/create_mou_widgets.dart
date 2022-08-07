@@ -1,9 +1,10 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 
-// DataBaseService db = DataBaseService();
+DataBaseService db = DataBaseService();
 
 Widget appbar(BuildContext context) {
   return AppBar(
@@ -113,7 +114,14 @@ Widget dialog(BuildContext cnt) {
   );
 }
 
-Widget doneButton(BuildContext context, formKey) {
+Widget doneButton({
+  required BuildContext context,
+  required formKey,
+  required String id,
+  required String desc,
+  required String docName,
+  required String companyName,
+}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
@@ -122,26 +130,39 @@ Widget doneButton(BuildContext context, formKey) {
       height: MediaQuery.of(context).size.height * 0.065,
       width: MediaQuery.of(context).size.width * 0.4,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (!formKey.currentState!.validate()) {
             return;
           }
           formKey.currentState!.save();
-          FirebaseApi.fileUpload();
-          showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (BuildContext context) {
-                return dialog(context);
-              });
-          // print(name);
-          // print(description);
-          // print(id);
-          // db.updateMouData(name, description, id, false);
+          print("$docName, $companyName, $desc, $id");
+          try {
+            bool res = await db.updateMouData(
+                id: id,
+                desc: desc,
+                docName: docName,
+                companyName: companyName,
+                isApproved: false);
+
+            if (res == true) {
+              FirebaseApi.fileUpload();
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return dialog(context);
+                  });
+            }
+            else {
+              print("error in updateMouData");
+            }
+          } catch (err) {
+            print("Error occurred - $err");
+          }
         },
         style: ButtonStyle(
           backgroundColor:
-              MaterialStateProperty.all(Color.fromARGB(255, 55, 65, 122)),
+              MaterialStateProperty.all(const Color.fromARGB(255, 55, 65, 122)),
           elevation: MaterialStateProperty.all(5),
         ),
         child: const Text(
