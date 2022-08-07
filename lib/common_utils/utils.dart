@@ -22,9 +22,14 @@ const Color kBgClr2 = Color(0xff2d376e);
 
 // Tab bar
 const Color kTabBarGreen = Color(0xff64c636);
+const Color kTabBarRed = Color(0xFFCD364E);
 const Color kTabBarYellow = Color(0xfff2c32c);
 const Color kTabBarBlue = Color(0xff00a9ce);
 const Color kCardRed = Color(0XFFCD364E);
+const Color notiCardColor1 = Colors.lightBlueAccent;
+const Color notiCardColor2 = Color.fromARGB(255, 137, 197, 247);
+const Color notiShadow1 = Colors.grey;
+const Color black = Colors.black;
 
 // List Tile color
 const Color kTileClr = Color(0xffedf9ff);

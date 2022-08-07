@@ -17,7 +17,7 @@ class StatsPage extends StatefulWidget {
 
 class StatsPageState extends State<StatsPage> {
   static late GlobalKey<SfCartesianChartState> cartesianChartKey1;
-  static late GlobalKey<SfCartesianChartState> cartesianChartKey2;
+  static late GlobalKey<SfCircularChartState> cartesianChartKey2;
   static late GlobalKey<SfCartesianChartState> cartesianChartKey3;
   late List<SalesData> _chartData1;
   late List<ChartData> _chartData2;
@@ -262,7 +262,7 @@ class SavePDFState extends State<SavePDF> {
         bytes1!.buffer.asUint8List(bytes1.offsetInBytes, bytes1.lengthInBytes);
 
     final ui.Image data2 =
-        await (StatsPageState.cartesianChartKey1.currentState as dynamic)
+        await (StatsPageState.cartesianChartKey2.currentState)!
             .toImage(pixelRatio: 3.0);
     final ByteData? bytes2 =
         await data2.toByteData(format: ui.ImageByteFormat.png);
@@ -298,7 +298,7 @@ class SavePDFState extends State<SavePDF> {
       children: [
         pw.Container(
           width: MediaQuery.of(context).size.width * 1.25,
-          height: 500,
+          height: 300,
           decoration: pw.BoxDecoration(
             image: pw.DecorationImage(
               fit: pw.BoxFit.fill,
@@ -308,7 +308,7 @@ class SavePDFState extends State<SavePDF> {
         ),
         pw.Container(
           width: MediaQuery.of(context).size.width * 1.25,
-          height: 350,
+          height: 300,
           decoration: pw.BoxDecoration(
             image: pw.DecorationImage(
               fit: pw.BoxFit.fill,

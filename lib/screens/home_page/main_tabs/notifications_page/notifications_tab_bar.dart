@@ -48,11 +48,11 @@ class NotificationsState extends State<Notifications>
       child: Scaffold(
         appBar: appbar(_tabController, index, context),
         body: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(screenWidth / 30),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(screenWidth / 50),
                 child: searchBox(screenHeight, screenWidth),
               ),
               Expanded(
