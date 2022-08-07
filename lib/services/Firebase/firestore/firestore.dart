@@ -37,7 +37,7 @@ class DataBaseService {
   //       .set({'name': name, 'designation': designation});
   // }
 
-  Future<bool> updateMouData({
+  Future updateMouData({
     required String id,
     required String desc,
     required String docName,
@@ -52,11 +52,8 @@ class DataBaseService {
         'company-name': companyName,
         'status': isApproved,
       });
-      print("Mou data updated successfully");
-      return true;
     } catch (err) {
       print("error - $err");
-      return false;
     }
   }
 

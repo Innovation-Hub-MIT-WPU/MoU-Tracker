@@ -135,27 +135,22 @@ Widget doneButton({
             return;
           }
           formKey.currentState!.save();
-          print("$docName, $companyName, $desc, $id");
           try {
-            bool res = await db.updateMouData(
+            await db.updateMouData(
                 id: id,
                 desc: desc,
                 docName: docName,
                 companyName: companyName,
                 isApproved: false);
 
-            if (res == true) {
-              FirebaseApi.fileUpload();
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return dialog(context);
-                  });
-            }
-            else {
-              print("error in updateMouData");
-            }
+            // If text field uploading is successful, Move to File uploading
+            FirebaseApi.fileUpload();
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (BuildContext context) {
+                  return dialog(context);
+                });
           } catch (err) {
             print("Error occurred - $err");
           }
