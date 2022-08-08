@@ -1,6 +1,3 @@
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_2.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/card_view_types/my_card_3.dart';
 import 'package:flutter/material.dart';
 
 import '../../approvals_page_utils/list_builders.dart';
