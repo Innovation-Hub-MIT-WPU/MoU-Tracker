@@ -7,7 +7,7 @@ import '../../../../../../mou_details/mou_details_page.dart';
 
 class MyCard extends StatefulWidget {
   final int index;
-  MyCard({
+  const MyCard({
     required this.index,
   });
 
