@@ -62,7 +62,10 @@ class _HomePageState extends State<HomePage>
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: TabBarView(controller: _tabController, children: _widgetList),
+      body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _tabController,
+          children: _widgetList),
       bottomNavigationBar: CustomNavigationBar(
         backgroundColor: COLOR_THEME['primary']!,
         currentIndex: _bottomNavIndex,

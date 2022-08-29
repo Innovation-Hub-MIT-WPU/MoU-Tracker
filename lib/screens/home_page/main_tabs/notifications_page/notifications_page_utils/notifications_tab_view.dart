@@ -1,4 +1,3 @@
-
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -140,20 +139,3 @@ Column makeListTile(onTrack onTrack, double height, double width) =>
       ],
     );
 // );
-
-Widget searchBox(double height, double width) {
-  return TextField(
-    // onChanged: (value) => _runFilter(value),
-    decoration: InputDecoration(
-      contentPadding:
-          EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 20),
-      hintText: "Search",
-      suffixIcon: const Icon(Icons.search),
-      // prefix: Icon(Icons.search),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.0),
-        borderSide: const BorderSide(),
-      ),
-    ),
-  );
-}

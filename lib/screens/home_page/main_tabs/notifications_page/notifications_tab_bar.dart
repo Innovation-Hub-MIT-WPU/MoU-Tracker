@@ -63,4 +63,50 @@ class NotificationsState extends State<Notifications>
       ),
     );
   }
+
+  Widget searchBox(double height, double width) {
+    return TextField(
+      onChanged: (value) => _runFilter(value),
+      decoration: InputDecoration(
+        contentPadding:
+            EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 20),
+        hintText: "Search",
+        suffixIcon: const Icon(Icons.search),
+        // prefix: Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: const BorderSide(),
+        ),
+      ),
+    );
+  }
+
+  _runFilter(String value) {
+    final search1 = getonTracksList().where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.description.toString().toLowerCase();
+      final q = value.toLowerCase();
+      if (name.contains(q)) {
+        return name.contains(q);
+      } else {
+        return desc.contains(q);
+      }
+    }).toList();
+    setState(() {
+      ontracklist = search1;
+    });
+    final search2 = getdelayedList().where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.description.toString().toLowerCase();
+      final q = value.toLowerCase();
+      if (name.contains(q)) {
+        return name.contains(q);
+      } else {
+        return desc.contains(q);
+      }
+    }).toList();
+    setState(() {
+      delayedlist = search2;
+    });
+  }
 }
