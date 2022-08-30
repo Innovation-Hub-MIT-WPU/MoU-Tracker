@@ -79,34 +79,10 @@ class _MyCardState extends State<MyCard> {
             // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
             Text(
               'No. ${mou.index}           ${mou.authName}             ${mou.companyName}',
-              style: const TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 15),
             ),
             // const SizedBox(height: 4),
-            Container(
-              width: 120,
-              height: 25,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: mou.isApproved ? kCardRed : kTabBarGreen,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text(
-                    '₹',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: Text(
-                      '${mou.amount}',
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
               child: Text(
@@ -124,7 +100,7 @@ class _MyCardState extends State<MyCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.calendar_today_outlined,
                   size: 18,
                 ),
@@ -133,7 +109,7 @@ class _MyCardState extends State<MyCard> {
                   child:
                       // Text("${selectedDate.toLocal()}".split(' ')[0]),
                       Text(
-                    'Before ${mou.day}/ ${mou.month} / ${mou.year} ',
+                    'Before ${mou.day}/${mou.month}/${mou.year} ',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,

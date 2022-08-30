@@ -48,6 +48,7 @@ dependencies:
   printing: ^5.9.1
   custom_navigation_bar: ^0.8.2
   firebase_auth: ^3.6.2
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:

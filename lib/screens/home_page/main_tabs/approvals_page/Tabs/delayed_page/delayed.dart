@@ -15,6 +15,7 @@ class _DelayedTabState extends State<DelayedTab> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
@@ -73,12 +74,12 @@ class _DelayedTabState extends State<DelayedTab> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/create_mou');
-        },
-        backgroundColor: const Color(0xff64C636),
-        child: const Icon(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => Navigator.pushNamed(context, '/create_mou'),
+        backgroundColor: const Color(0xff2D376E),
+        label:
+        Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
+        icon: const Icon(
           Icons.add,
           size: 50,
         ),

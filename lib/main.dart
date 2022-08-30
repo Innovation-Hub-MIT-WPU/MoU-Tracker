@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/start',
+      initialRoute: '/home',
       routes: {
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),

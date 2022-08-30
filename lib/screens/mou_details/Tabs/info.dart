@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '/common_utils/utils.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 import '/classes/mou.dart';
 
@@ -36,7 +39,7 @@ class _InfoTabState extends State<InfoTab> {
     );
     super.initState();
   }
-
+  final Uri _url = Uri.parse('https://flutter.dev');
   // This is just Dummy data, there are more fields in the actual MOU collection
   @override
   Widget build(BuildContext context) {
@@ -59,8 +62,19 @@ class _InfoTabState extends State<InfoTab> {
           _writeDesc(screenWidth, screenHeight),
           Text("Date", style: subtitleStyle()),
           _displayText(date, screenHeight, normalStyle()),
-          Text("Required Amount", style: subtitleStyle()),
-          Text("₹ ${mou.amount}", style: normalStyle()),
+          ElevatedButton(
+            onPressed: () async {
+              final Uri _url = Uri.parse('https://flutter.dev');
+              if (await canLaunchUrl(_url)) {
+                await launchUrl(_url);
+              }
+            },
+            child: Text("Company Website",
+                style: TextStyle(color: Colors.white, fontSize: 17)),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.green),
+            ),
+          ),
           _buildDivider(screenWidth, screenHeight),
           Padding(
             padding: EdgeInsets.symmetric(
@@ -70,6 +84,12 @@ class _InfoTabState extends State<InfoTab> {
         ],
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
   }
 
   Padding _writeDesc(double screenWidth, double screenHeight) {

@@ -77,7 +77,7 @@ class _OnTrackTabState extends State<OnTrackTab> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => Navigator.pushNamed(context, '/create_mou'),
-        backgroundColor: const Color(0xff64C636),
+        backgroundColor: const Color(0xff2D376E),
         label:
             Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
         icon: const Icon(
