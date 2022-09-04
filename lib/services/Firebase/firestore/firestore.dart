@@ -61,16 +61,18 @@ class DataBaseService {
   List<MOU> _mouListFromDB(snapshot) {
     return snapshot.docs.map((doc) {
       return MOU(
-        docName: snapshot.doc['name'],
-        authName: "",
-        amount: doc['amount'],
-        description: doc['desc'],
+        docName: snapshot.doc['doc-name'],
+        description: doc['description'],
+        companyName: doc['company-name'],
+        isApproved: doc['status'],
+
+        //
         day: 2,
-        month: "",
+        authName: "",
+        month: "march",
         year: 2002,
         index: 0,
-        isApproved: false,
-        companyName: '',
+        amount: 0,
       );
     }).toList();
   }

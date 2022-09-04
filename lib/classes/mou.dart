@@ -6,8 +6,8 @@ class MOU {
   // final String docName;
   // final String? authName;
   final String description;
-  final int day;
   final String month;
+  final int day;
   final int year;
   bool isApproved;
   final int? index;

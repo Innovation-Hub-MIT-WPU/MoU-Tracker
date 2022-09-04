@@ -1,11 +1,8 @@
+import '/classes/mou.dart';
+import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '/common_utils/utils.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-
-import '/classes/mou.dart';
 
 class InfoTab extends StatefulWidget {
   final int index;
@@ -16,7 +13,6 @@ class InfoTab extends StatefulWidget {
   _InfoTabState createState() => _InfoTabState();
 }
 
-// todo - Remove the constant Padding values
 class _InfoTabState extends State<InfoTab> {
   int k = 0;
   late MOU mou;
@@ -39,6 +35,7 @@ class _InfoTabState extends State<InfoTab> {
     );
     super.initState();
   }
+
   final Uri _url = Uri.parse('https://flutter.dev');
   // This is just Dummy data, there are more fields in the actual MOU collection
   @override
@@ -64,16 +61,16 @@ class _InfoTabState extends State<InfoTab> {
           _displayText(date, screenHeight, normalStyle()),
           ElevatedButton(
             onPressed: () async {
-              final Uri _url = Uri.parse('https://flutter.dev');
-              if (await canLaunchUrl(_url)) {
-                await launchUrl(_url);
+              final Uri url = Uri.parse('https://flutter.dev');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
               }
             },
-            child: Text("Company Website",
-                style: TextStyle(color: Colors.white, fontSize: 17)),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.green),
             ),
+            child: const Text("Company Website",
+                style: TextStyle(color: Colors.white, fontSize: 17)),
           ),
           _buildDivider(screenWidth, screenHeight),
           Padding(
