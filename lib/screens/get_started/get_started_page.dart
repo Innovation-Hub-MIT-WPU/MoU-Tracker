@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:MouTracker/globals.dart';
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '/common_utils/utils.dart';
 import '../login_signup/auth_page_utlis/login_signup_widgets.dart';
@@ -72,7 +70,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     height: 30,
                   ),
                   //'Get Started' button
-                  appButton("Get started", HomePage(), context),
+                  appButton("Get started", LogInSignUpPage(), context),
                   SizedBox(
                     height: 50,
                   ),

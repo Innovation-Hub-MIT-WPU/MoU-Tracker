@@ -6,8 +6,9 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 
 class InfoTab extends StatefulWidget {
   final int index;
-
-  const InfoTab({Key? key, required this.index}) : super(key: key);
+  final MOU mou;
+  const InfoTab({Key? key, required this.index, required this.mou})
+      : super(key: key);
 
   @override
   _InfoTabState createState() => _InfoTabState();
@@ -15,24 +16,22 @@ class InfoTab extends StatefulWidget {
 
 class _InfoTabState extends State<InfoTab> {
   int k = 0;
-  late MOU mou;
   DataBaseService db = DataBaseService();
   // Setup a Provider stream here to get MOU data from firestore
   @override
   void initState() {
     k = widget.index;
-    mou = MOU(
-      docName: DocName[k],
-      authName: AuthName[k],
-      companyName: CompanyName[k],
-      amount: Amount[k],
-      description: Description[k],
-      day: 22,
-      month: months[k],
-      year: 2022,
-      index: 0,
-      isApproved: k % 2 == 0 ? isApproved : !isApproved,
-    );
+    // mou = MOU(
+    //   docName: DocName[k],
+    //   authName: AuthName[k],
+    //   companyName: CompanyName[k],
+    //   description: Description[k],
+    //   day: 22,
+    //   month: months[k],
+    //   year: 2022,
+    //   index: 0,
+    //   isApproved: k % 2 == 0 ? isApproved : !isApproved,
+    // );
     super.initState();
   }
 
@@ -42,7 +41,7 @@ class _InfoTabState extends State<InfoTab> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    String date = "${mou.day} ${mou.month} ${mou.year}";
+    String date = "${widget.mou.day} ${widget.mou.month} ${widget.mou.year}";
     return Padding(
       padding: EdgeInsets.only(
           top: screenHeight * 0.06,
@@ -54,7 +53,7 @@ class _InfoTabState extends State<InfoTab> {
           Text("Information", style: titleStyle()),
           _buildDivider(screenWidth, screenHeight),
           Text("Title", style: subtitleStyle()),
-          _displayText(mou.docName, screenHeight, titleStyle()),
+          _displayText(widget.mou.docName, screenHeight, titleStyle()),
           Text("Description", style: subtitleStyle()),
           _writeDesc(screenWidth, screenHeight),
           Text("Date", style: subtitleStyle()),
@@ -95,7 +94,7 @@ class _InfoTabState extends State<InfoTab> {
           left: screenWidth * 0.09,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
-      child: Text(mou.description,
+      child: Text(widget.mou.description,
           softWrap: true, textAlign: TextAlign.center, style: normalStyle()),
     );
   }

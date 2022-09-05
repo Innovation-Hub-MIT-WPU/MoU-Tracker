@@ -1,4 +1,3 @@
-import 'package:MouTracker/classes/mou.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseService {
@@ -18,7 +17,8 @@ class DataBaseService {
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference mou = FirebaseFirestore.instance.collection('mou');
+  late final CollectionReference mou =
+      FirebaseFirestore.instance.collection('mou');
   final CollectionReference activity =
       FirebaseFirestore.instance.collection('activity');
 
@@ -58,27 +58,17 @@ class DataBaseService {
     }
   }
 
-  List<MOU> _mouListFromDB(snapshot) {
+  List _getMouList(snapshot) {
     return snapshot.docs.map((doc) {
-      return MOU(
-        docName: snapshot.doc['doc-name'],
-        description: doc['description'],
-        companyName: doc['company-name'],
-        isApproved: doc['status'],
-
-        //
-        day: 2,
-        authName: "",
-        month: "march",
-        year: 2002,
-        index: 0,
-        amount: 0,
-      );
+      return doc.data();
     }).toList();
   }
 
-  Stream<List<MOU>> get mouData {
-    return mou.snapshots().map(_mouListFromDB);
+  Stream<List> getmouData() {
+    Stream<List> mouList = mou.snapshots().map(_getMouList);
+    // snapshot -> list of documents containing mou-data
+    // mouList
+    return mouList;
   }
 
   Stream<DocumentSnapshot> get userData {

@@ -1,4 +1,5 @@
-import '../../common_utils/screen_arguments.dart';
+import 'package:MouTracker/classes/mou.dart';
+
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
@@ -14,7 +15,8 @@ import '/screens/mou_details/Tabs/engagement.dart';
 */
 
 class Details extends StatefulWidget {
-  const Details({Key? key}) : super(key: key);
+  final MOU mou;
+  const Details({Key? key, required this.mou}) : super(key: key);
   static const routeName = '/mou_details';
 
   @override
@@ -38,7 +40,6 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         setState(() {
           _tabIndex = _tabController
               .index; // change tabIndex everything Tab is switched
-          print(_tabIndex);
         });
       });
     super.initState();
@@ -48,9 +49,6 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
-    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-
-    cardIndex = args.index;
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
@@ -84,7 +82,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  InfoTab(index: cardIndex),
+                  InfoTab(index: cardIndex, mou: widget.mou),
                   const EngagementTab(),
                   const TrackTab(),
                 ],

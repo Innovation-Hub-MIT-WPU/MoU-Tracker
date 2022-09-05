@@ -1,6 +1,5 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/delayed_page/delayed.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/on_track_page/on_track.dart';
 import 'package:flutter/material.dart';
 
 class ApprovalsPage extends StatefulWidget {
@@ -105,8 +104,8 @@ class ApprovalsPageState extends State<ApprovalsPage>
               child: TabBarView(
                 controller: _tabController,
                 children: const [
-                  OnTrackTab(),
-                  DelayedTab(),
+                  MouStatusTab(due: "On Track"),
+                  MouStatusTab(due: "Delayed"),
                 ],
               ),
             ),

@@ -3,7 +3,6 @@ import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
@@ -54,8 +53,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
-        // '/mou_details': (_) => const Details(),
-        Details.routeName: (context) => const Details(),
         '/start': (context) => const AnimatedSplashScreenPage(),
         '/home': (context) => const HomePage(),
         MyRoute.profileRoute: (context) => const ProfileTab(),

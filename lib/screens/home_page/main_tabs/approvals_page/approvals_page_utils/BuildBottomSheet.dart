@@ -4,22 +4,11 @@ import '../../../../../classes/mou.dart';
 import '../../../../../common_utils/utils.dart';
 
 class BuildBottomSheet extends StatefulWidget {
-  // final String docName;
-  // final String authName;
-  // final int amount;
-  // final String description;
-  // final date;
   final int index;
   // bool isApproved;
 
   const BuildBottomSheet({
-    //   required this.docName,
-    // required this.authName,
-    // required this.amount,
-    // required this.description,
-    // required this.date,
     required this.index,
-    // required this.isApproved
   });
 
   @override
@@ -35,7 +24,6 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
     mou = MOU(
       docName: DocName[k],
       authName: AuthName[k],
-      amount: Amount[k],
       companyName: CompanyName[k],
       description: Description[k],
       day: 22,
@@ -133,10 +121,10 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
-              child: Text(
-                'Amount : ₹ ${mou.amount}',
+              child: const Text(
+                'Amount : ₹ 10000',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.black,
