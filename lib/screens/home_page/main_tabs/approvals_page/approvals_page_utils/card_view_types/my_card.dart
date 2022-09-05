@@ -24,13 +24,13 @@ class _MyCardState extends State<MyCard> {
     k = widget.index;
     mou = MOU(
       docName: widget.mouList[k]['doc-name'],
-      authName: AuthName[k],
+      authName: "",
       companyName: widget.mouList[k]['company-name'],
       description: widget.mouList[k]['description'],
       day: 22,
-      month: months[k],
+      month: "Sept",
       year: 2022,
-      index: k,
+      index: 0,
       isApproved: widget.mouList[k]['status'],
     ); //
     super.initState();

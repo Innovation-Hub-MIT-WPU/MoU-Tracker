@@ -15,4 +15,3 @@ class CreationDetails {
     await mou.set(quantities);
   }
 }
-

@@ -6,21 +6,23 @@ import '../../../../../../../classes/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
 
 class MyCard2 extends StatefulWidget {
+  final int index;
+  final List<dynamic> mouList;
   // final String docName;
   // final String authName;
   // final int amount;
   // final String description;
   // final date;
-  final int index;
   // bool isApproved;
 
   const MyCard2({
+    required this.mouList,
+    required this.index,
     //   required this.docName,
     // required this.authName,
     // required this.amount,
     // required this.description,
     // required this.date,
-    required this.index,
     // required this.isApproved
   });
 
@@ -35,15 +37,15 @@ class _MyCard2State extends State<MyCard2> {
   void initState() {
     k = widget.index;
     mou = MOU(
-      docName: DocName[k],
-      authName: AuthName[k],
-      companyName: CompanyName[k],
-      description: Description[k],
+      docName: widget.mouList[k]['doc-name'],
+      authName: "",
+      companyName: widget.mouList[k]['company-name'],
+      description: widget.mouList[k]['description'],
       day: 22,
-      month: months[k],
+      month: "Sept",
       year: 2022,
-      index: k,
-      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+      index: 0,
+      isApproved: widget.mouList[k]['status'],
     ); //
     super.initState();
   }
@@ -113,7 +115,7 @@ class _MyCard2State extends State<MyCard2> {
             Container(
               height: 45,
               decoration: BoxDecoration(
-                color: mou.isApproved ? kCardRed : kTabBarGreen,
+                color: mou.isApproved ? kTabBarGreen : kCardRed,
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15)),
@@ -129,7 +131,7 @@ class _MyCard2State extends State<MyCard2> {
                         color: Colors.white),
                   ),
                   Text(
-                    !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                    mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],

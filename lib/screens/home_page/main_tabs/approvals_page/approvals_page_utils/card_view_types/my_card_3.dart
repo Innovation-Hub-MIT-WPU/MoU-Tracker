@@ -12,6 +12,7 @@ class MyCard3 extends StatefulWidget {
   // final String description;
   // final date;
   final int index;
+  final List mouList;
   // bool isApproved;
 
   const MyCard3({
@@ -21,6 +22,7 @@ class MyCard3 extends StatefulWidget {
     // required this.description,
     // required this.date,
     required this.index,
+    required this.mouList,
     // required this.isApproved
   });
 
@@ -35,15 +37,15 @@ class _MyCard3State extends State<MyCard3> {
   void initState() {
     k = widget.index;
     mou = MOU(
-      docName: DocName[k],
-      authName: AuthName[k],
-      companyName: CompanyName[k],
-      description: Description[k],
+      docName: widget.mouList[k]['doc-name'],
+      authName: "",
+      companyName: widget.mouList[k]['company-name'],
+      description: widget.mouList[k]['description'],
       day: 22,
-      month: months[k],
+      month: "Sept",
       year: 2022,
-      index: k,
-      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+      index: 0,
+      isApproved: widget.mouList[k]['status'],
     ); //
     super.initState();
   }

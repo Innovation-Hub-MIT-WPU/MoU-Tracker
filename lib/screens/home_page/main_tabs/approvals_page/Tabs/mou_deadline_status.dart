@@ -19,8 +19,8 @@ class _MouStatusTabState extends State<MouStatusTab> {
       stream: DataBaseService().getmouData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           List<dynamic> mouList = snapshot.data as List<dynamic>;
+          print(mouList);
           return mouCards(mouList);
         } else {
           return const Scaffold(

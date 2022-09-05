@@ -21,7 +21,6 @@ class CreateFormState extends State<CreateForm> {
   TextEditingController authNameController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
 
-  String docName = "";
   static io.File? file;
   static UploadTask? task;
   final _formKey = GlobalKey<FormState>();
@@ -112,5 +111,15 @@ class CreateFormState extends State<CreateForm> {
         file = io.File(filepath);
       });
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    docNameController.dispose();
+    companyNameController.dispose();
+    idController.dispose();
+    descController.dispose();
+    super.dispose();
   }
 }

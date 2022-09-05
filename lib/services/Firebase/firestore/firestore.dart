@@ -25,7 +25,7 @@ class DataBaseService {
   Future updateActivityData(String name, String desc, bool isApproved) async {
     return await activity.doc(name).set({
       'name': name,
-      'desc': desc,
+      'description': desc,
       'status': isApproved,
     });
   }
@@ -48,7 +48,7 @@ class DataBaseService {
     try {
       await db.collection('mou').add({
         'id': id,
-        'desc': desc,
+        'description': desc,
         'doc-name': docName,
         'company-name': companyName,
         'status': isApproved,
