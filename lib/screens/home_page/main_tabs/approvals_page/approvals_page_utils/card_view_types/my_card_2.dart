@@ -38,7 +38,6 @@ class _MyCard2State extends State<MyCard2> {
       docName: DocName[k],
       authName: AuthName[k],
       companyName: CompanyName[k],
-      amount: Amount[k],
       description: Description[k],
       day: 22,
       month: months[k],

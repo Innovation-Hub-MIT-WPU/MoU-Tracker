@@ -1,30 +1,44 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/list_builders.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
-import '../../approvals_page_utils/list_builders.dart';
 
-class DelayedTab extends StatefulWidget {
-  const DelayedTab({Key? key}) : super(key: key);
+class MouStatusTab extends StatefulWidget {
+  final String due;
+  const MouStatusTab({required this.due, Key? key}) : super(key: key);
 
   @override
-  _DelayedTabState createState() => _DelayedTabState();
+  _MouStatusTabState createState() => _MouStatusTabState();
 }
 
-class _DelayedTabState extends State<DelayedTab> {
-  bool isApproved = true;
-
+class _MouStatusTabState extends State<MouStatusTab> {
   String dropdownvalue = "Type A";
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: DataBaseService().getmouData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          print(snapshot.data);
+          List<dynamic> mouList = snapshot.data as List<dynamic>;
+          return mouCards(mouList);
+        } else {
+          return const Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
+        }
+      },
+    );
+  }
+
+  Widget mouCards(List<dynamic> mouList) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
-          // dropdownvalue == "Type A" ? _BuildListType1() : _BuildListType2(),
-          dropdownvalue == "Type A"
-              ? buildListType1()
-              : dropdownvalue == "Type B"
-                  ? buildListType2()
-                  : buildListType3(),
+          buildList(mouList, dropdownvalue),
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: DropdownButton<String>(
@@ -36,18 +50,7 @@ class _DelayedTabState extends State<DelayedTab> {
               autofocus: true,
               borderRadius: BorderRadius.circular(20),
               dropdownColor: Colors.white,
-
-              // icon: Image.asset(
-              //   'assets/images/carousel.png',
-              //   width: 15,
-              // ),
-              // value: dropdownvalue,
-              hint:
-                  // Text(
-                  //   ' Views',
-                  //   style: TextStyle(fontSize: 12),
-                  // ),
-                  Row(
+              hint: Row(
                 children: [
                   Image.asset(
                     'assets/images/carousel.png',
@@ -78,7 +81,7 @@ class _DelayedTabState extends State<DelayedTab> {
         onPressed: () => Navigator.pushNamed(context, '/create_mou'),
         backgroundColor: const Color(0xff2D376E),
         label:
-        Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
+            Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
         icon: const Icon(
           Icons.add,
           size: 50,

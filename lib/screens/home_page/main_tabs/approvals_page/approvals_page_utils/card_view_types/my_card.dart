@@ -1,15 +1,16 @@
+import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../../classes/mou.dart';
-import '../../../../../../../common_utils/screen_arguments.dart';
-import '../../../../../../../common_utils/utils.dart';
-import '../../../../../../mou_details/mou_details_page.dart';
-
 class MyCard extends StatefulWidget {
+  final List<dynamic> mouList;
   final int index;
   const MyCard({
+    required this.mouList,
     required this.index,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MyCard> createState() => _MyCardState();
@@ -22,16 +23,15 @@ class _MyCardState extends State<MyCard> {
   void initState() {
     k = widget.index;
     mou = MOU(
-      docName: DocName[k],
+      docName: widget.mouList[k]['doc-name'],
       authName: AuthName[k],
-      companyName: CompanyName[k],
-      amount: Amount[k],
-      description: Description[k],
+      companyName: widget.mouList[k]['company-name'],
+      description: widget.mouList[k]['description'],
       day: 22,
       month: months[k],
       year: 2022,
       index: k,
-      isApproved: k % 2 == 0 ? isApproved : !isApproved,
+      isApproved: widget.mouList[k]['status'],
     ); //
     super.initState();
   }
@@ -44,11 +44,8 @@ class _MyCardState extends State<MyCard> {
       onTap: () {
         // Navigator.pushNamed(context, '/mou_details');
         // print('Tapped card {${widget.index}}');
-        Navigator.pushNamed(
-          context,
-          Details.routeName,
-          arguments: ScreenArguments(k),
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Details(mou: mou)));
         // print('Tapped card ${mou.index}');
       },
       child: Container(
@@ -100,7 +97,7 @@ class _MyCardState extends State<MyCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                const Icon(
                   Icons.calendar_today_outlined,
                   size: 18,
                 ),
@@ -125,7 +122,7 @@ class _MyCardState extends State<MyCard> {
               child: Container(
                 height: screenHeight * 0.06,
                 decoration: BoxDecoration(
-                  color: mou.isApproved ? kCardRed : kTabBarGreen,
+                  color: mou.isApproved ? kTabBarGreen : kCardRed,
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15)),
@@ -141,7 +138,7 @@ class _MyCardState extends State<MyCard> {
                           color: Colors.white),
                     ),
                     Text(
-                      !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                      mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                       style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ],

@@ -1,37 +1,21 @@
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_2.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_3.dart';
 import 'package:flutter/material.dart';
 
-import '../Tabs/on_track_page/card_view_types/my_card.dart';
-import '../Tabs/on_track_page/card_view_types/my_card_2.dart';
-import '../Tabs/on_track_page/card_view_types/my_card_3.dart';
-
-Widget buildListType1() {
+Widget buildList(List<dynamic> mouList, String type) {
   return ListView.builder(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
     // physics: const PageScrollPhysics(),
-    itemCount: 8,
+    itemCount: mouList.length,
     itemBuilder: (context, index) {
-      return MyCard(index: index);
-    },
-  );
-}
-
-Widget buildListType2() {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    itemCount: 8,
-    itemBuilder: (context, index) {
-      return MyCard2(index: index);
-    },
-  );
-}
-
-Widget buildListType3() {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-    itemCount: 8,
-    // _DelayedTabState().DocName.length,
-    itemBuilder: (context, index) {
-      return MyCard3(index: index);
+      if (type == "Type A") {
+        return MyCard(index: index, mouList: mouList);
+      } else if (type == "Type B") {
+        return MyCard2(index: index);
+      } else {
+        return MyCard3(index: index);
+      }
     },
   );
 }

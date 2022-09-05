@@ -14,7 +14,7 @@ class MyCard3 extends StatefulWidget {
   final int index;
   // bool isApproved;
 
-  MyCard3({
+  const MyCard3({
     //   required this.docName,
     // required this.authName,
     // required this.amount,
@@ -38,7 +38,6 @@ class _MyCard3State extends State<MyCard3> {
       docName: DocName[k],
       authName: AuthName[k],
       companyName: CompanyName[k],
-      amount: Amount[k],
       description: Description[k],
       day: 22,
       month: months[k],
