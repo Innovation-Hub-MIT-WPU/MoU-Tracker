@@ -1,10 +1,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
-import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
-
-DataBaseService db = DataBaseService();
 
 Widget appbar(BuildContext context) {
   return AppBar(
@@ -111,61 +108,5 @@ Widget dialog(BuildContext cnt) {
         ],
       )
     ],
-  );
-}
-
-Widget doneButton({
-  required BuildContext context,
-  required formKey,
-  required String id,
-  required String desc,
-  required String docName,
-  required String companyName,
-}) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SizedBox(
-      // height: 50,
-      // width: 200,
-      height: MediaQuery.of(context).size.height * 0.065,
-      width: MediaQuery.of(context).size.width * 0.4,
-      child: ElevatedButton(
-        onPressed: () async {
-          if (!formKey.currentState!.validate()) {
-            return;
-          }
-          formKey.currentState!.save();
-          try {
-            await db.updateMouData(
-                id: id,
-                desc: desc,
-                docName: docName,
-                companyName: companyName,
-                isApproved: false);
-
-            // If text field uploading is successful, Move to File uploading
-            FirebaseApi.fileUpload();
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) {
-                  return dialog(context);
-                });
-          } catch (err) {
-            print("Error occurred - $err");
-          }
-        },
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all(const Color.fromARGB(255, 55, 65, 122)),
-          elevation: MaterialStateProperty.all(5),
-        ),
-        child: const Text(
-          'DONE',
-          style: TextStyle(
-              fontSize: 20, color: Color.fromARGB(255, 216, 216, 216)),
-        ),
-      ),
-    ),
   );
 }

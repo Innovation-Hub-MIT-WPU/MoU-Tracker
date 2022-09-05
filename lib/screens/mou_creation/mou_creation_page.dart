@@ -1,5 +1,7 @@
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -82,14 +84,7 @@ class CreateFormState extends State<CreateForm> {
                         textEditingController: idController),
                     fileName(),
                     chooseFileButton(context, pickFile),
-                    doneButton(
-                      context: context,
-                      formKey: _formKey,
-                      docName: docNameController.text,
-                      companyName: companyNameController.text,
-                      id: idController.text,
-                      desc: descController.text,
-                    )
+                    doneButton(),
                   ],
                 ),
               ),
@@ -98,6 +93,60 @@ class CreateFormState extends State<CreateForm> {
         ),
       ),
     ));
+  }
+
+  Widget doneButton() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        // height: 50,
+        // width: 200,
+        height: MediaQuery.of(context).size.height * 0.065,
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: ElevatedButton(
+          onPressed: () async {
+            if (!_formKey.currentState!.validate()) {
+              return;
+            }
+            _formKey.currentState!.save();
+            try {
+              String id = idController.text;
+              String desc = descController.text;
+              String docName = docNameController.text;
+              String companyName = companyNameController.text;
+              DataBaseService db = DataBaseService();
+              await db.updateMouData(
+                  id: id,
+                  desc: desc,
+                  docName: docName,
+                  companyName: companyName,
+                  isApproved: false);
+
+              // If text field uploading is successful, Move to File uploading
+              FirebaseApi.fileUpload();
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return dialog(context);
+                  });
+            } catch (err) {
+              print("Error occurred - $err");
+            }
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+                const Color.fromARGB(255, 55, 65, 122)),
+            elevation: MaterialStateProperty.all(5),
+          ),
+          child: const Text(
+            'DONE',
+            style: TextStyle(
+                fontSize: 20, color: Color.fromARGB(255, 216, 216, 216)),
+          ),
+        ),
+      ),
+    );
   }
 
   Future pickFile() async {
