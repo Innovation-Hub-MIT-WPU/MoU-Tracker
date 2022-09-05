@@ -6,17 +6,17 @@ class MOUApproved extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff2D376E),
+        backgroundColor: const Color(0xff2D376E),
         // The title text which will be shown on the action bar
-        title: Text(""),
+        title: const Text(""),
         leading: IconButton(
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => const HomePage()),
             );
           },
-          icon: Icon(Icons.home),
+          icon: const Icon(Icons.home),
         ),
       ),
       body: Center(
