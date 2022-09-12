@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
+import 'package:flutter/material.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
-import 'package:flutter/material.dart';
 
 class ReportIssues extends StatefulWidget {
   const ReportIssues({Key? key}) : super(key: key);
@@ -101,7 +101,7 @@ class _ReportIssuesState extends State<ReportIssues> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                       0, MediaQuery.of(context).size.height * 0.2, 0, 0),
-                  child: FlatButton(
+                  child: TextButton(
                       onPressed: () {
                         if (reportKey.currentState?.validate() == true) {
                           issue = _issueController.text;

@@ -95,7 +95,7 @@ class ProfileTabState extends State<ProfileTab> {
                       0, MediaQuery.of(context).size.height * 0.15, 0, 0),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: FlatButton(
+                    child: TextButton(
                         //need to connect
                         onPressed: () {},
                         child: Text(
@@ -232,7 +232,7 @@ class ProfileTabState extends State<ProfileTab> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FlatButton.icon(
+                    TextButton.icon(
                       onPressed: () {
                         Navigator.pop(context);
                         takePhoto(ImageSource.camera);
@@ -240,7 +240,7 @@ class ProfileTabState extends State<ProfileTab> {
                       icon: Icon(Icons.camera),
                       label: Text("Camera"),
                     ),
-                    FlatButton.icon(
+                    TextButton.icon(
                       onPressed: () {
                         Navigator.pop(context);
                         takePhoto(ImageSource.gallery);
