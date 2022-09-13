@@ -15,7 +15,7 @@ class CreateMouField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(50, 25, 40, 15),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Container(
         decoration: BoxDecoration(
             color: const Color(0XFFEFF3F6),

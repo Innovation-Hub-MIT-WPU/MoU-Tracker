@@ -37,14 +37,20 @@ class DataBaseService {
     required String desc,
     required String docName,
     required String companyName,
+    required String authName,
+    required String spocName,
+    required String companyWebsite,
     required bool isApproved,
   }) async {
     try {
       await db.collection('mou').add({
         'approval-lvl': approved,
+        'spoc-name': spocName,
+        'auth-name': authName,
         'description': desc,
         'doc-name': docName,
         'company-name': companyName,
+        'company-website': companyWebsite,
         'status': isApproved,
       });
     } catch (err) {

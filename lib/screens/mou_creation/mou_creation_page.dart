@@ -18,12 +18,19 @@ class CreateForm extends StatefulWidget {
 class CreateFormState extends State<CreateForm> {
   int currStep = 0;
   // for identification and validation of the form
-  TextEditingController descController = TextEditingController();
-  TextEditingController dueDateController = TextEditingController();
+
+  // page 1
   TextEditingController docNameController = TextEditingController();
   TextEditingController authNameController = TextEditingController();
+  TextEditingController spocController = TextEditingController();
+
+  // page 2
   TextEditingController companyNameController = TextEditingController();
   TextEditingController companyWebController = TextEditingController();
+
+  //page 3
+  TextEditingController descController = TextEditingController();
+  TextEditingController dueDateController = TextEditingController();
   static io.File? file;
   static UploadTask? task;
   final _formKey = GlobalKey<FormState>();
@@ -41,36 +48,35 @@ class CreateFormState extends State<CreateForm> {
       backgroundColor: const Color(0XFFEFF3F6),
       appBar: appBar("CREATE MOU", context),
       body: NotificationListener<OverscrollIndicatorNotification>(
-        onNotification: (overscroll) {
-          overscroll.disallowIndicator();
-          return true;
-        },
-        child: Form(
-          key: _formKey,
-          child: Stepper(
-            type: StepperType.horizontal,
-            steps: getSteps(),
-            currentStep: currStep,
-            onStepTapped: (index) => setState(() => currStep = index),
-            onStepContinue: () => setState(() {
-              bool notLastStep = currStep != getSteps().length - 1;
-              if (notLastStep) {
-                currStep++;
-              } else {
-                submitMOU();
-              }
-            }),
-            onStepCancel: (() => setState(() {
-                  if (currStep != 0) {
-                    currStep--;
-                  }
-                })),
-            controlsBuilder: ((context, details) {
-              return formButtons(details, getSteps);
-            }),
-          ),
-        ),
-      ),
+          onNotification: (overscroll) {
+            overscroll.disallowIndicator();
+            return true;
+          },
+          child: Form(
+            key: _formKey,
+            child: Stepper(
+              type: StepperType.horizontal,
+              steps: getSteps(),
+              currentStep: currStep,
+              onStepTapped: (index) => setState(() => currStep = index),
+              onStepContinue: () => setState(() {
+                bool notLastStep = currStep != getSteps().length - 1;
+                if (notLastStep) {
+                  currStep++;
+                } else {
+                  submitMOU();
+                }
+              }),
+              onStepCancel: (() => setState(() {
+                    if (currStep != 0) {
+                      currStep--;
+                    }
+                  })),
+              controlsBuilder: ((context, details) {
+                return formButtons(details, getSteps);
+              }),
+            ),
+          )),
     ));
   }
 
@@ -78,52 +84,99 @@ class CreateFormState extends State<CreateForm> {
     return [
       Step(
         title: const Text("Document"),
-        content: Column(
-          children: [
-            CreateMouField(
-                hintText: "Document name",
-                textInputType: TextInputType.text,
-                textEditingController: docNameController),
-            CreateMouField(
-                hintText: "Initiator name",
-                textInputType: TextInputType.text,
-                textEditingController: authNameController),
-          ],
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Document name",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Document name",
+                  textInputType: TextInputType.text,
+                  textEditingController: docNameController),
+              const Text(
+                "Initator name",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Initiator name",
+                  textInputType: TextInputType.text,
+                  textEditingController: authNameController),
+              const Text(
+                "SPOC name",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "SPOC name",
+                  textInputType: TextInputType.text,
+                  textEditingController: spocController),
+            ],
+          ),
         ),
         isActive: currStep >= 0,
         state: currStep > 0 ? StepState.complete : StepState.indexed,
       ),
       Step(
         title: const Text("Company"),
-        content: Column(
-          children: [
-            CreateMouField(
-                hintText: "Company name",
-                textInputType: TextInputType.text,
-                textEditingController: companyNameController),
-            CreateMouField(
-                hintText: "Company website",
-                textInputType: TextInputType.text,
-                textEditingController: companyWebController),
-          ],
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Company name",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Company name",
+                  textInputType: TextInputType.text,
+                  textEditingController: companyNameController),
+              const Text(
+                "Company website",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Company website",
+                  textInputType: TextInputType.text,
+                  textEditingController: companyWebController),
+            ],
+          ),
         ),
         isActive: currStep >= 1,
         state: currStep > 1 ? StepState.complete : StepState.indexed,
       ),
       Step(
         title: const Text("Complete"),
-        content: Column(
-          children: [
-            CreateMouField(
-                hintText: "Due date",
-                textInputType: TextInputType.datetime,
-                textEditingController: dueDateController),
-            CreateMouField(
-                hintText: "MOU description",
-                textInputType: TextInputType.text,
-                textEditingController: descController),
-            chooseFileButton(context, pickFile),
-          ],
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Due date",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Due date",
+                  textInputType: TextInputType.datetime,
+                  textEditingController: dueDateController),
+              const Text(
+                "MOU description",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "MOU description",
+                  textInputType: TextInputType.text,
+                  textEditingController: descController),
+              chooseFileButton(context, pickFile),
+            ],
+          ),
         ),
         isActive: currStep >= 2,
         state: currStep > 2 ? StepState.complete : StepState.indexed,
@@ -137,16 +190,30 @@ class CreateFormState extends State<CreateForm> {
     }
     _formKey.currentState!.save();
     try {
-      String desc = descController.text;
+      // document details
       String docName = docNameController.text;
+      String authName = authNameController.text;
+      String spocName = spocController.text;
+
+      // company details
       String companyName = companyNameController.text;
+      String companyWebsite = companyWebController.text;
+
+      // tracking details
+      // DateTime dueDate = dueDateController.text;
+      String desc = descController.text;
+
       DataBaseService db = DataBaseService();
       await db.updateMouData(
-          approved: 0,
-          desc: desc,
-          docName: docName,
-          companyName: companyName,
-          isApproved: false);
+        approved: 0,
+        desc: desc,
+        authName: authName,
+        spocName: spocName,
+        docName: docName,
+        companyName: companyName,
+        companyWebsite: companyWebsite,
+        isApproved: false,
+      );
 
       // If text field uploading is successful, Move to File uploading
       FirebaseApi.fileUpload();

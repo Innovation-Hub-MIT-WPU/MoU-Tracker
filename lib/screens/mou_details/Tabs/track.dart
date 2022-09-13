@@ -23,8 +23,8 @@ class _TrackTabState extends State<TrackTab> {
     return FutureBuilder(
       future: db.userData,
       builder: ((context, snapshot) {
-        UserModel userData = snapshot.data as UserModel;
         if (snapshot.hasData) {
+          UserModel userData = snapshot.data as UserModel;
           return trackApproval(userData.pos!);
         } else {
           return const Scaffold(
@@ -54,7 +54,7 @@ class _TrackTabState extends State<TrackTab> {
                     );
                   } else {
                     setState(() {
-                      if (pos == _currentStep) {
+                      if (pos + 1 == _currentStep) {
                         _currentStep += 1;
                       }
                     });
