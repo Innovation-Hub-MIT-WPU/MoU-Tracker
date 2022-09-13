@@ -20,7 +20,6 @@ class _MouStatusTabState extends State<MouStatusTab> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<dynamic> mouList = snapshot.data as List<dynamic>;
-          print(mouList);
           return mouCards(mouList);
         } else {
           return const Scaffold(
@@ -34,7 +33,6 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
   Widget mouCards(List<dynamic> mouList) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [

@@ -22,14 +22,6 @@ class DataBaseService {
   final CollectionReference activity =
       FirebaseFirestore.instance.collection('activity');
 
-  Future updateActivityData(String name, String desc, bool isApproved) async {
-    return await activity.doc(name).set({
-      'name': name,
-      'description': desc,
-      'status': isApproved,
-    });
-  }
-
   // Future addUserDetails(String name, String designation) async {
   //   await mou
   //       .doc(name)
@@ -69,7 +61,7 @@ class DataBaseService {
     return mouList;
   }
 
-  Stream<DocumentSnapshot> get userData {
-    return users.doc().snapshots();
-  }
+  // Stream<User> get userData {
+  //   return users.doc(uid).snapshots();
+  // }
 }

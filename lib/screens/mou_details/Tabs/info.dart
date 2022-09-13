@@ -36,7 +36,6 @@ class _InfoTabState extends State<InfoTab> {
   }
 
   final Uri _url = Uri.parse('https://flutter.dev');
-  // This is just Dummy data, there are more fields in the actual MOU collection
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
+import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -97,7 +98,10 @@ class ProfileTabState extends State<ProfileTab> {
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
                         //need to connect
-                        onPressed: () {},
+                        onPressed: () {
+                          FireAuth().logOut();
+                          Navigator.popAndPushNamed(context, '/start');
+                        },
                         child: Text(
                           "LOGOUT",
                           style: Theme.of(context).textTheme.button,
@@ -106,7 +110,7 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 TextButton.icon(
                     onPressed: () async {
-                      Navigator.pushNamed(context, MyRoute.reportIssuesRoute);
+                      Navigator.pushNamed(context, '/login_signup');
                     },
                     icon: Icon(Icons.bug_report),
                     label: Text("Report Isuues")),

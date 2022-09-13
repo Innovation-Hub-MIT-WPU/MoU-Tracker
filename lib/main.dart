@@ -1,7 +1,8 @@
+import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
-import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
+import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
@@ -50,12 +51,13 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: '/home',
+      initialRoute: '/start',
       routes: {
+        '/login_signup': (_) => const LogInSignUpPage(),
         '/multi_form': (_) => const MultiStepForm(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
-        '/start': (context) => const AnimatedSplashScreenPage(),
+        '/start': (context) => const CheckAuth(),
         '/home': (context) => const HomePage(),
         MyRoute.profileRoute: (context) => const ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => const ReportIssues(),

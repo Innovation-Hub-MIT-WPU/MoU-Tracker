@@ -125,14 +125,14 @@ class _SignUpState extends State<SignUp> {
     if (_formKey.currentState!.validate()) {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => postDetailsToFirestore())
+          .then((value) => postUserDetails())
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
   }
 
-  postDetailsToFirestore() async {
+  postUserDetails() async {
     //calling firestore
     //calling user model
     //sending these values
@@ -144,11 +144,10 @@ class _SignUpState extends State<SignUp> {
 
     //writing all the values
     userModel.email = user!.email;
-    userModel.userid = user.uid;
-    userModel.firstName = firstNameController.text;
     userModel.lastName = lastNameController.text;
+    userModel.firstName = firstNameController.text;
     userModel.designation = designationController.text;
-
+    print(designationController.value);
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)
