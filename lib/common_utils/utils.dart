@@ -49,6 +49,17 @@ TextStyle subtitleStyle() {
   return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 }
 
+//designations
+var designations = [
+  'Initiator',
+  'SPOC',
+  'Head',
+  'Directors',
+  'CEO',
+  'Dean',
+  'Vice Chancellor'
+];
+
 //misc
 List<String> months = [
   "Jan",

@@ -1,4 +1,5 @@
 import 'package:MouTracker/screens/mou_details/completion.dart';
+import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -14,15 +15,17 @@ class _TrackTabState extends State<TrackTab> {
     return MediaQuery.of(context).size;
   }
 
-  int _currentStep = 0;
+  int _currentStep = 1;
   StepperType stepperType = StepperType.vertical;
   DataBaseService db = DataBaseService();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      future: db.userData,
       builder: ((context, snapshot) {
+        UserModel userData = snapshot.data as UserModel;
         if (snapshot.hasData) {
-          return TrackApproval();
+          return trackApproval(userData.pos!);
         } else {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
@@ -31,7 +34,7 @@ class _TrackTabState extends State<TrackTab> {
     );
   }
 
-  Widget TrackApproval() {
+  Widget trackApproval(int pos) {
     return Scaffold(
       body: Column(
         children: [
@@ -43,7 +46,6 @@ class _TrackTabState extends State<TrackTab> {
                 type: stepperType,
                 physics: const ScrollPhysics(),
                 currentStep: _currentStep,
-                onStepTapped: (step) => tapped(step),
                 onStepContinue: () {
                   if (_currentStep == 5) {
                     Navigator.push(
@@ -51,7 +53,11 @@ class _TrackTabState extends State<TrackTab> {
                       MaterialPageRoute(builder: (context) => MOUApproved()),
                     );
                   } else {
-                    setState(() => _currentStep += 1);
+                    setState(() {
+                      if (pos == _currentStep) {
+                        _currentStep += 1;
+                      }
+                    });
                   }
                 },
                 onStepCancel: cancel,
@@ -130,14 +136,6 @@ class _TrackTabState extends State<TrackTab> {
       ),
     );
   }
-
-  tapped(int step) {
-    setState(() => _currentStep = step);
-  }
-
-  /*continued() {
-    _currentStep < 6 ? setState(() => _currentStep += 1) : null;
-  }*/
 
   cancel() {
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;

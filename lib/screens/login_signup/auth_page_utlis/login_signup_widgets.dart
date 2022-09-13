@@ -2,15 +2,6 @@ import 'package:flutter/material.dart';
 import '/common_utils/utils.dart';
 
 //designations array used in DropDownButtonFormField items
-var _designations = [
-  'Initiator',
-  'SPOC',
-  'Head',
-  'Directors',
-  'CEO',
-  'Dean',
-  'Vice Chancellor'
-];
 
 //A widget using DropDropDownButtonFormField to give dropdown for var _designations
 ///A widget to create DropDownButtonFormField
@@ -53,7 +44,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
               ),
               value: widget.designation,
               selectedItemBuilder: (_) {
-                return _designations
+                return designations
                     .map((e) => Container(
                         child: Text(e,
                             textAlign: TextAlign.start,
@@ -64,7 +55,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
                     .toList();
               },
               isExpanded: true,
-              items: _designations.map(buildMenuItem).toList(),
+              items: designations.map(buildMenuItem).toList(),
               onChanged: (value) {
                 setState(() {
                   widget.designationController.text = value.toString();

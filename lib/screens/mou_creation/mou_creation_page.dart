@@ -142,6 +142,7 @@ class CreateFormState extends State<CreateForm> {
       String companyName = companyNameController.text;
       DataBaseService db = DataBaseService();
       await db.updateMouData(
+          approved: 0,
           desc: desc,
           docName: docName,
           companyName: companyName,

@@ -1,13 +1,12 @@
-import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
+import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/screens/multi_step_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,7 +53,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/start',
       routes: {
         '/login_signup': (_) => const LogInSignUpPage(),
-        '/multi_form': (_) => const MultiStepForm(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
         '/start': (context) => const CheckAuth(),

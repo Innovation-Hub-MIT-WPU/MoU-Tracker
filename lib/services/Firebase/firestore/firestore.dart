@@ -1,3 +1,5 @@
+import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
+import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataBaseService {
@@ -31,6 +33,7 @@ class DataBaseService {
   // }
 
   Future updateMouData({
+    required int approved,
     required String desc,
     required String docName,
     required String companyName,
@@ -38,6 +41,7 @@ class DataBaseService {
   }) async {
     try {
       await db.collection('mou').add({
+        'approval-lvl': approved,
         'description': desc,
         'doc-name': docName,
         'company-name': companyName,
@@ -61,7 +65,10 @@ class DataBaseService {
     return mouList;
   }
 
-  // Stream<User> get userData {
-  //   return users.doc(uid).snapshots();
-  // }
+  Future<UserModel> get userData async {
+    String uid = FireAuth().getCurrentUser()!.uid;
+    var snap = await users.doc(uid).get();
+    print(snap.data());
+    return UserModel.fromMap(snap);
+  }
 }

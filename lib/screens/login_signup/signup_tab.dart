@@ -3,12 +3,12 @@
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/material.dart';
 
-import '../../common_utils/utils.dart';
+import '/common_utils/utils.dart';
+import '/services/Firebase/fireauth/model.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
-import '../../services/Firebase/fireauth/model.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -147,7 +147,7 @@ class _SignUpState extends State<SignUp> {
     userModel.lastName = lastNameController.text;
     userModel.firstName = firstNameController.text;
     userModel.designation = designationController.text;
-    print(designationController.value);
+    userModel.pos = designations.indexOf(designationController.text);
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)

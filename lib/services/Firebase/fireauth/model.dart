@@ -3,24 +3,27 @@ class UserModel {
   String? firstName;
   String? lastName;
   String? designation;
-
-  UserModel({this.email, this.firstName, this.lastName, this.designation});
+  int? pos;
+  UserModel(
+      {this.email, this.firstName, this.lastName, this.designation, this.pos});
 
   // receive data from server -> creating map
   factory UserModel.fromMap(map) {
     return UserModel(
+        pos: map['pos'],
         email: map['email'],
-        firstName: map['firstName'],
         lastName: map['lastName'],
+        firstName: map['firstName'],
         designation: map['designation']);
   }
 
   //sending data to server
   Map<String, dynamic> toMap() {
     return {
+      'pos': pos,
       'email': email,
-      'firstName': firstName,
       'lastName': lastName,
+      'firstName': firstName,
       'designation': designation
     };
   }
