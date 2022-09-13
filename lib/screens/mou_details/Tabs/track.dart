@@ -1,7 +1,5 @@
 import 'package:MouTracker/screens/mou_details/completion.dart';
 import 'package:flutter/material.dart';
-import 'package:timeline_tile/timeline_tile.dart';
-
 
 class TrackTab extends StatefulWidget {
   const TrackTab({Key? key}) : super(key: key);
@@ -35,14 +33,12 @@ class _TrackTabState extends State<TrackTab> {
                   currentStep: _currentStep,
                   onStepTapped: (step) => tapped(step),
                   onStepContinue: () {
-                    if(_currentStep==5)
-                      {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MOUApproved()),
-                        );
-                      }
-                    else {
+                    if (_currentStep == 5) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MOUApproved()),
+                      );
+                    } else {
                       setState(() => _currentStep += 1);
                     }
                   },
@@ -114,7 +110,6 @@ class _TrackTabState extends State<TrackTab> {
                       content: const Text(" "),
                       isActive: _currentStep >= 0,
                     ),
-
                   ],
                 ),
               ),

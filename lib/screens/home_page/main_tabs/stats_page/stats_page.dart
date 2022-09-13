@@ -9,6 +9,8 @@ import 'dart:ui' as ui;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../../../common_widgets/widgets.dart';
+
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
   @override
@@ -102,7 +104,7 @@ class StatsPageState extends State<StatsPage> {
     return Scaffold(
       key: cartesianChartKey3,
       floatingActionButton: SavePDF(),
-      appBar: appBar(),
+      appBar: appBar("Report", context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -130,27 +132,6 @@ class StatsPageState extends State<StatsPage> {
           ],
         ),
       ),
-    );
-  }
-
-  AppBar appBar() {
-    return AppBar(
-      backgroundColor: hexStringToColor("2D376E"),
-      bottom: PreferredSize(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-            child: Text(
-              "Report",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: Theme.of(context).textTheme.headline2!.fontFamily,
-                fontSize: Theme.of(context).textTheme.headline3!.fontSize,
-              ),
-            ),
-          ),
-          preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.1)),
-      centerTitle: true,
     );
   }
 

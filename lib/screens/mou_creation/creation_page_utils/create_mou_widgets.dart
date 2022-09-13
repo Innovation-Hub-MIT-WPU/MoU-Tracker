@@ -3,30 +3,44 @@ import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 
-Widget appbar(BuildContext context) {
-  return AppBar(
-    automaticallyImplyLeading: false,
-    backgroundColor: const Color(0xFF2D376E),
-    title: const Padding(
-      padding: EdgeInsets.only(
-        top: 35,
-      ),
-      child: Center(
-        child: Text(
-          'CREATE MOU',
-          style: TextStyle(
-              fontSize: 29, color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-  );
-}
-
 Widget fileName() {
   return Center(
     child: Text(CreateFormState.file == null
         ? "No File Selected"
         : CreateFormState.file!.path.split('/').last),
+  );
+}
+
+Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
+  bool isLastStep = details.currentStep == getSteps().length - 1;
+  return Padding(
+    padding: details.currentStep == 0
+        ? const EdgeInsets.all(22.0)
+        : const EdgeInsets.all(12.0),
+    child: Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: details.onStepContinue,
+            child: isLastStep ? const Text("Submit") : const Text("Next"),
+          ),
+        ),
+        const SizedBox(width: 12),
+        if (details.currentStep != 0)
+          Expanded(
+            child: ElevatedButton(
+              onPressed: details.onStepCancel,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
+              ),
+              child: const Text(
+                "Back",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+      ],
+    ),
   );
 }
 

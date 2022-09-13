@@ -6,6 +6,7 @@ import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/multi_step_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,8 +18,8 @@ void main() async {
   await Firebase.initializeApp();
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: kBgClr2,
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: COLOR_THEME['primary'],
   ));
 
   runApp(const MyApp());
@@ -35,9 +36,9 @@ class MyApp extends StatelessWidget {
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
-        textTheme: DEFAULT_TEXT_THEME,
+        // textTheme: DEFAULT_TEXT_THEME,
         colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: const Color(0x9400688B),
+              primary: const Color(0xff2D376E),
               secondary: const Color(0xFFF0FFFF),
             ),
         buttonTheme: Theme.of(context).buttonTheme.copyWith(
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/home',
       routes: {
+        '/multi_form': (_) => const MultiStepForm(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
         '/start': (context) => const AnimatedSplashScreenPage(),

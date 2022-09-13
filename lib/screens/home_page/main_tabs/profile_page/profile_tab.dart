@@ -17,9 +17,9 @@ class ProfileTabState extends State<ProfileTab> {
   static var imageFile;
   static final ImagePicker picker = ImagePicker();
   static late TextEditingController _nameController;
-  static String name = "take from the firebase";
-  static String position = "take from the firebase";
-  static String email = "take from the firebase";
+  static String name = "Mou Team";
+  static String position = "Directors";
+  static String email = "moutracker@gmail.com";
   static var myKey = GlobalKey<FormState>();
 
   @override

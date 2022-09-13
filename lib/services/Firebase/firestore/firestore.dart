@@ -39,7 +39,6 @@ class DataBaseService {
   // }
 
   Future updateMouData({
-    required String id,
     required String desc,
     required String docName,
     required String companyName,
@@ -47,7 +46,6 @@ class DataBaseService {
   }) async {
     try {
       await db.collection('mou').add({
-        'id': id,
         'description': desc,
         'doc-name': docName,
         'company-name': companyName,

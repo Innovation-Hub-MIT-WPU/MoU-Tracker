@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage>
   ];
   @override
   void initState() {
+    super.initState();
     _tabController = TabController(
       animationDuration: const Duration(seconds: 0),
       initialIndex: 0,
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage>
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: TabBarView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: _widgetList),
       bottomNavigationBar: CustomNavigationBar(

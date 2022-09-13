@@ -1,3 +1,4 @@
+import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
@@ -15,14 +16,14 @@ class CreateForm extends StatefulWidget {
 }
 
 class CreateFormState extends State<CreateForm> {
+  int currStep = 0;
   // for identification and validation of the form
-
-  TextEditingController idController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  TextEditingController dueDateController = TextEditingController();
   TextEditingController docNameController = TextEditingController();
   TextEditingController authNameController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
-
+  TextEditingController companyWebController = TextEditingController();
   static io.File? file;
   static UploadTask? task;
   final _formKey = GlobalKey<FormState>();
@@ -38,115 +39,125 @@ class CreateFormState extends State<CreateForm> {
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color(0XFFEFF3F6),
-      appBar: AppBar(
-        toolbarHeight: MediaQuery.of(context).size.height / 8,
-        backgroundColor: const Color(0xff2D376E),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          'CREATE MOU',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 40),
-        ),
-        centerTitle: true,
-      ),
+      appBar: appBar("CREATE MOU", context),
       body: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (overscroll) {
           overscroll.disallowIndicator();
           return true;
         },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CreateMouField(
-                        hintText: 'Document Name',
-                        textInputType: TextInputType.text,
-                        textEditingController: docNameController),
-                    CreateMouField(
-                        hintText: 'Company Name',
-                        textInputType: TextInputType.text,
-                        textEditingController: companyNameController),
-                    CreateMouField(
-                        hintText: 'Description',
-                        textInputType: TextInputType.text,
-                        textEditingController: descController),
-                    CreateMouField(
-                        hintText: 'MOU Id',
-                        textInputType: TextInputType.text,
-                        textEditingController: idController),
-                    fileName(),
-                    chooseFileButton(context, pickFile),
-                    doneButton(),
-                  ],
-                ),
-              ),
-            ],
+        child: Form(
+          key: _formKey,
+          child: Stepper(
+            type: StepperType.horizontal,
+            steps: getSteps(),
+            currentStep: currStep,
+            onStepTapped: (index) => setState(() => currStep = index),
+            onStepContinue: () => setState(() {
+              bool notLastStep = currStep != getSteps().length - 1;
+              if (notLastStep) {
+                currStep++;
+              } else {
+                submitMOU();
+              }
+            }),
+            onStepCancel: (() => setState(() {
+                  if (currStep != 0) {
+                    currStep--;
+                  }
+                })),
+            controlsBuilder: ((context, details) {
+              return formButtons(details, getSteps);
+            }),
           ),
         ),
       ),
     ));
   }
 
-  Widget doneButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        // height: 50,
-        // width: 200,
-        height: MediaQuery.of(context).size.height * 0.065,
-        width: MediaQuery.of(context).size.width * 0.4,
-        child: ElevatedButton(
-          onPressed: () async {
-            if (!_formKey.currentState!.validate()) {
-              return;
-            }
-            _formKey.currentState!.save();
-            try {
-              String id = idController.text;
-              String desc = descController.text;
-              String docName = docNameController.text;
-              String companyName = companyNameController.text;
-              DataBaseService db = DataBaseService();
-              await db.updateMouData(
-                  id: id,
-                  desc: desc,
-                  docName: docName,
-                  companyName: companyName,
-                  isApproved: false);
-
-              // If text field uploading is successful, Move to File uploading
-              FirebaseApi.fileUpload();
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return dialog(context);
-                  });
-            } catch (err) {
-              print("Error occurred - $err");
-            }
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
-                const Color.fromARGB(255, 55, 65, 122)),
-            elevation: MaterialStateProperty.all(5),
-          ),
-          child: const Text(
-            'DONE',
-            style: TextStyle(
-                fontSize: 20, color: Color.fromARGB(255, 216, 216, 216)),
-          ),
+  List<Step> getSteps() {
+    return [
+      Step(
+        title: const Text("Document"),
+        content: Column(
+          children: [
+            CreateMouField(
+                hintText: "Document name",
+                textInputType: TextInputType.text,
+                textEditingController: docNameController),
+            CreateMouField(
+                hintText: "Initiator name",
+                textInputType: TextInputType.text,
+                textEditingController: authNameController),
+          ],
         ),
+        isActive: currStep >= 0,
+        state: currStep > 0 ? StepState.complete : StepState.indexed,
       ),
-    );
+      Step(
+        title: const Text("Company"),
+        content: Column(
+          children: [
+            CreateMouField(
+                hintText: "Company name",
+                textInputType: TextInputType.text,
+                textEditingController: companyNameController),
+            CreateMouField(
+                hintText: "Company website",
+                textInputType: TextInputType.text,
+                textEditingController: companyWebController),
+          ],
+        ),
+        isActive: currStep >= 1,
+        state: currStep > 1 ? StepState.complete : StepState.indexed,
+      ),
+      Step(
+        title: const Text("Complete"),
+        content: Column(
+          children: [
+            CreateMouField(
+                hintText: "Due date",
+                textInputType: TextInputType.datetime,
+                textEditingController: dueDateController),
+            CreateMouField(
+                hintText: "MOU description",
+                textInputType: TextInputType.text,
+                textEditingController: descController),
+            chooseFileButton(context, pickFile),
+          ],
+        ),
+        isActive: currStep >= 2,
+        state: currStep > 2 ? StepState.complete : StepState.indexed,
+      ),
+    ];
+  }
+
+  void submitMOU() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    _formKey.currentState!.save();
+    try {
+      String desc = descController.text;
+      String docName = docNameController.text;
+      String companyName = companyNameController.text;
+      DataBaseService db = DataBaseService();
+      await db.updateMouData(
+          desc: desc,
+          docName: docName,
+          companyName: companyName,
+          isApproved: false);
+
+      // If text field uploading is successful, Move to File uploading
+      FirebaseApi.fileUpload();
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return dialog(context);
+          });
+    } catch (err) {
+      print("Error occurred - $err");
+    }
   }
 
   Future pickFile() async {
@@ -164,11 +175,12 @@ class CreateFormState extends State<CreateForm> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    descController.dispose();
     docNameController.dispose();
     companyNameController.dispose();
-    idController.dispose();
-    descController.dispose();
+    authNameController.dispose();
+    companyWebController.dispose();
+    dueDateController.dispose();
     super.dispose();
   }
 }
