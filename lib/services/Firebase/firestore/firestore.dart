@@ -66,8 +66,6 @@ class DataBaseService {
 
   Stream<List> getmouData() {
     Stream<List> mouList = mou.snapshots().map(_getMouList);
-    // snapshot -> list of documents containing mou-data
-    // mouList
     return mouList;
   }
 

@@ -26,7 +26,6 @@ class Details extends StatefulWidget {
 class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _tabIndex = 0;
-  int cardIndex = 0;
   List colors = [
     kTabBarGreen,
     kTabBarYellow,
@@ -82,9 +81,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  InfoTab(index: cardIndex, mou: widget.mou),
+                  InfoTab(mou: widget.mou),
                   const EngagementTab(),
-                  const TrackTab(),
+                  TrackTab(mou: widget.mou),
                 ],
               ),
             ),

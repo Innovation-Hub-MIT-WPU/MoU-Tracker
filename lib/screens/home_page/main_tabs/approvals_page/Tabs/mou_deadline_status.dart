@@ -1,3 +1,4 @@
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/list_builders.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
           List<dynamic> mouList = snapshot.data as List<dynamic>;
           return mouCards(mouList);
         } else {
-          return const Scaffold(
-              body: Center(
-            child: CircularProgressIndicator(),
-          ));
+          return const Loading();
         }
       },
     );

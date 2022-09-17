@@ -24,13 +24,13 @@ class _MyCardState extends State<MyCard> {
     k = widget.index;
     mou = MOU(
       docName: widget.mouList[k]['doc-name'],
-      authName: "",
+      authName: "Author",
       companyName: widget.mouList[k]['company-name'],
       description: widget.mouList[k]['description'],
       day: 22,
       month: "Sept",
       year: 2022,
-      index: 0,
+      index: k,
       isApproved: widget.mouList[k]['status'],
     ); //
     super.initState();
@@ -74,9 +74,22 @@ class _MyCardState extends State<MyCard> {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
-            Text(
-              'No. ${mou.index}           ${mou.authName}             ${mou.companyName}',
-              style: const TextStyle(fontSize: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'No. ${mou.index}',
+                  style: const TextStyle(fontSize: 15),
+                ),
+                Text(
+                  mou.authName,
+                  style: const TextStyle(fontSize: 15),
+                ),
+                Text(
+                  mou.companyName,
+                  style: const TextStyle(fontSize: 15),
+                ),
+              ],
             ),
             // const SizedBox(height: 4),
 
@@ -84,6 +97,7 @@ class _MyCardState extends State<MyCard> {
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 6),
               child: Text(
                 mou.description,
+                maxLines: 4,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 16,

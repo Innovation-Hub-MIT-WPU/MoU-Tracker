@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 
 class ReportIssues extends StatefulWidget {
   const ReportIssues({Key? key}) : super(key: key);
@@ -65,18 +64,18 @@ class _ReportIssuesState extends State<ReportIssues> {
                 20, MediaQuery.of(context).size.height * 0.1, 20, 0),
             child: Column(
               children: [
-                textBox("Name", ProfileTabState.name),
-                SizedBox(
-                  height: 30,
-                ),
-                textBox("Position", ProfileTabState.position),
-                SizedBox(
-                  height: 30,
-                ),
-                textBox("Email", ProfileTabState.email),
-                SizedBox(
-                  height: 30,
-                ),
+                // textBox("Name", name),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // textBox("Position", position),
+                // SizedBox(
+                //   height: 30,
+                // ),
+                // textBox("Email", email),
+                // SizedBox(
+                //   height: 30,
+                // ),
                 Form(
                   key: reportKey,
                   child: TextFormField(

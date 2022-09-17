@@ -3,7 +3,10 @@
 import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
+import 'package:MouTracker/services/Firebase/fireauth/model.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,12 +18,12 @@ class ProfileTab extends StatefulWidget {
 }
 
 class ProfileTabState extends State<ProfileTab> {
-  static var imageFile;
+  var imageFile;
+  String name = "";
+  String position = "";
+  String email = "";
   static final ImagePicker picker = ImagePicker();
   static late TextEditingController _nameController;
-  static String name = "Mou Team";
-  static String position = "Directors";
-  static String email = "moutracker@gmail.com";
   static var myKey = GlobalKey<FormState>();
 
   @override
@@ -37,6 +40,23 @@ class ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: DataBaseService().userData,
+      builder: ((context, snapshot) {
+        if (snapshot.hasData) {
+          UserModel userData = snapshot.data as UserModel;
+          name = "${userData.firstName} ${userData.lastName}";
+          position = userData.designation!;
+          email = userData.email!;
+          return profilePage();
+        } else {
+          return Loading();
+        }
+      }),
+    );
+  }
+
+  Widget profilePage() {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -110,7 +130,7 @@ class ProfileTabState extends State<ProfileTab> {
                 ),
                 TextButton.icon(
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/login_signup');
+                      Navigator.pushNamed(context, '/report_issues');
                     },
                     icon: Icon(Icons.bug_report),
                     label: Text("Report Isuues")),
@@ -165,20 +185,22 @@ class ProfileTabState extends State<ProfileTab> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             heading,
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          SizedBox(
-            width: width,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-                fontSize: 20,
-                fontFamily: Theme.of(context).textTheme.headline3?.fontFamily,
-                color: Colors.black),
+          SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontFamily: Theme.of(context).textTheme.headline3?.fontFamily,
+                  color: Colors.black),
+            ),
           ),
         ],
       ),
