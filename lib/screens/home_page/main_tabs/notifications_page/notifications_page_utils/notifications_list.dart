@@ -69,33 +69,58 @@ List getdelayedList() {
   ];
 }
 
+// class NotificationsData {
+//   static List delayedMap = [];
+//   static List onTrackMap = [];
+
+//   static Stream<Iterable<Map<String, dynamic>>> getData() {
+//     return FirebaseFirestore.instance
+//         .collection('mou')
+//         .snapshots()
+//         .map((event) => event.docs.map((e) => e.data()));
+//   }
+
+//   static unloadData() {
+//     delayedMap.clear();
+//     onTrackMap.clear();
+//     Stream<Iterable<Map<String, dynamic>>> stream;
+//     stream = getData();
+//     stream.listen((event) {
+//       for (Map e in event) {
+//         if ((e["due-date"] as Timestamp)
+//             .toDate()
+//             .difference(DateTime.now())
+//             .isNegative) {
+//           delayedMap.add(e);
+//         } else {
+//           onTrackMap.add(e);
+//         }
+//       }
+//     });
+//   }
+// }
+
 class NotificationsData {
   static List delayedMap = [];
   static List onTrackMap = [];
+  static List userList = [];
 
-  static Stream<Iterable<Map<String, dynamic>>> getData() {
-    return FirebaseFirestore.instance
-        .collection('MOUs')
-        .snapshots()
-        .map((event) => event.docs.map((e) => e.data()));
-  }
-
-  static unloadData() {
+  static Future newGet() async {
     delayedMap.clear();
     onTrackMap.clear();
-    Stream<Iterable<Map<String, dynamic>>> stream;
-    stream = getData();
-    stream.listen((event) {
-      for (Map e in event) {
-        if ((e["Due Date"] as Timestamp)
-            .toDate()
-            .difference(DateTime.now())
-            .isNegative) {
-          delayedMap.add(e);
-        } else {
-          onTrackMap.add(e);
-        }
+    // print("i was cleared");
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('mou').get();
+
+    userList = querySnapshot.docs.map((e) => (e.data())).toList();
+    for (Map e in userList) {
+      if ((e["due-date"]).toDate().difference(DateTime.now()).isNegative) {
+        delayedMap.add(e);
+        // print("iwasadded");
+      } else {
+        onTrackMap.add(e);
       }
-    });
+    }
+    // print("i was called");
   }
 }

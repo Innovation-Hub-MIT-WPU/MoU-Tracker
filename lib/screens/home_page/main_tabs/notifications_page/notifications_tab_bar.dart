@@ -16,15 +16,19 @@ class NotificationsState extends State<Notifications>
   int index = 0;
   static late List ontracklist;
   static late List delayedlist;
+  final future = NotificationsData.newGet();
 
   @override
   void initState() {
-    ontracklist = getonTracksList();
-    delayedlist = getdelayedList();
+    // ontracklist = getonTracksList();
+    // delayedlist = getdelayedList();
 
     // NotificationsData.unloadData();
     // delayedlist = NotificationsData.delayedMap;
     // ontracklist = NotificationsData.onTrackMap;
+
+    delayedlist = NotificationsData.delayedMap;
+    ontracklist = NotificationsData.onTrackMap;
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -49,16 +53,27 @@ class NotificationsState extends State<Notifications>
         appBar: appbar(_tabController, index, context),
         body: Padding(
           padding: EdgeInsets.all(screenWidth / 30),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(screenWidth / 50),
-                child: searchBox(screenHeight, screenWidth),
-              ),
-              Expanded(
-                  child: tabview(_tabController, screenHeight, screenWidth)),
-            ],
-          ),
+          child: FutureBuilder(
+              future: future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(screenWidth / 50),
+                        child: searchBox(screenHeight, screenWidth),
+                      ),
+                      Expanded(
+                          child: tabview(
+                              _tabController, screenHeight, screenWidth)),
+                    ],
+                  );
+                }
+              }),
         ),
       ),
     );
@@ -82,9 +97,9 @@ class NotificationsState extends State<Notifications>
   }
 
   _runFilter(String value) {
-    final search1 = getonTracksList().where((element) {
-      final name = element.title.toString().toLowerCase();
-      final desc = element.description.toString().toLowerCase();
+    final search1 = NotificationsData.onTrackMap.where((element) {
+      final name = element["doc-name"].toString().toLowerCase();
+      final desc = element["description"].toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
@@ -95,9 +110,9 @@ class NotificationsState extends State<Notifications>
     setState(() {
       ontracklist = search1;
     });
-    final search2 = getdelayedList().where((element) {
-      final name = element.title.toString().toLowerCase();
-      final desc = element.description.toString().toLowerCase();
+    final search2 = NotificationsData.delayedMap.where((element) {
+      final name = element["doc-name"].toString().toLowerCase();
+      final desc = element["description"].toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
@@ -110,3 +125,17 @@ class NotificationsState extends State<Notifications>
     });
   }
 }
+
+
+
+
+// Column(
+//             children: [
+//               Padding(
+//                 padding: EdgeInsets.all(screenWidth / 50),
+//                 child: searchBox(screenHeight, screenWidth),
+//               ),
+//               Expanded(
+//                   child: tabview(_tabController, screenHeight, screenWidth)),
+//             ],
+//           ),

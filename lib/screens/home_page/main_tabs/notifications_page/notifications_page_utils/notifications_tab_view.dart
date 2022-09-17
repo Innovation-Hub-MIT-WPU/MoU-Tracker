@@ -1,5 +1,6 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'notifications_list.dart';
 
@@ -47,8 +48,8 @@ Widget makeDelayed(double height, double width) => Container(
       ),
     );
 
-Container makeCard(onTrack onTrack, double height, double width) => Container(
-// Container makeCard(Map onTrack,double height ,double width) => Container(
+// Container makeCard(onTrack onTrack, double height, double width) => Container(
+Container makeCard(Map onTrack, double height, double width) => Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
@@ -70,19 +71,17 @@ Container makeCard(onTrack onTrack, double height, double width) => Container(
       ),
     );
 
-Column makeListTile(onTrack onTrack, double height, double width) =>
+// Column makeListTile(onTrack onTrack, double height, double width) =>
 
-// Column makeListTile(Map onTrack,double height ,double width) => Column(
-
-    Column(
+Column makeListTile(Map onTrack, double height, double width) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.symmetric(
               horizontal: width / 20, vertical: height / 60),
           child: Text(
-            onTrack.title,
-            // onTrack["MOU NAME"],
+            // onTrack.title,
+            onTrack["doc-name"],
             style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
           ),
@@ -91,8 +90,8 @@ Column makeListTile(onTrack onTrack, double height, double width) =>
             padding: EdgeInsets.only(
                 left: width / 20, right: width / 40, bottom: height / 100),
             child: Text(
-              onTrack.description,
-              // onTrack["Description"],
+              // onTrack.description,
+              onTrack["description"],
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
@@ -123,8 +122,8 @@ Column makeListTile(onTrack onTrack, double height, double width) =>
                 Padding(
                   padding: EdgeInsets.only(left: width / 40),
                   child: Text(
-                    onTrack.date.toString(),
-                    // (onTrack["Due Date"] as Timestamp).toDate().toString(),
+                    // onTrack.date.toString(),
+                    (onTrack["due-date"] as Timestamp).toDate().toString(),
                     style: const TextStyle(
                       color: black,
                       fontWeight: FontWeight.w500,
