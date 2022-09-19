@@ -50,7 +50,6 @@ class _TrackTabState extends State<TrackTab> {
                   physics: const ScrollPhysics(),
                   currentStep: _currentStep,
                   onStepContinue: () {
-                    print("user-pos: $userPos");
                     if (_currentStep ==
                         getStepsList().sublist(0, userPos + 3).length) {}
                     if (_currentStep == getStepsList().length) {
@@ -66,20 +65,46 @@ class _TrackTabState extends State<TrackTab> {
                       }
                     }
                   },
-                  onStepCancel: cancel,
+                  onStepCancel: () {
+                    _currentStep > 1 ? setState(() => _currentStep -= 1) : null;
+                  },
                   controlsBuilder: ((context, details) {
-                    return Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    return Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
                         children: [
-                          ElevatedButton(
-                              onPressed: details.onStepContinue,
-                              child: details.currentStep == 1
-                                  ? const Text("Initiate MOU")
-                                  : const Text("Approve")),
-                          ElevatedButton(
-                              onPressed: details.onStepCancel,
-                              child: const Text("Deny"))
+                          MouCard(widget: widget),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                    style: _buttonStyle(0, 0, 22, 0),
+                                    onPressed: details.onStepContinue,
+                                    child: details.currentStep == 1
+                                        ? const Text("Initiate MOU")
+                                        : const Text("Approve")),
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                    style: _buttonStyle(0, 0, 0, 22).copyWith(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.red)),
+                                    onPressed: details.onStepCancel,
+                                    child: const Text("Deny")),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     );
@@ -92,67 +117,60 @@ class _TrackTabState extends State<TrackTab> {
     );
   }
 
+  ButtonStyle _buttonStyle(
+      double topLeft, double topRight, double bottomLeft, double bottomRight) {
+    return ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(topLeft),
+          topRight: Radius.circular(topRight),
+          bottomLeft: Radius.circular(bottomLeft),
+          bottomRight: Radius.circular(bottomRight),
+        ),
+      )),
+    );
+  }
+
   List<Step> getStepsList() {
     return <Step>[
       Step(
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Completed the MoU',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Created the MoU'),
+        content: const Text(""),
         isActive: _currentStep >= 0,
       ),
       Step(
         state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Sent for Approval',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Sent for Approval'),
+        content: const Text(""),
         isActive: _currentStep >= 1,
       ),
       Step(
         state: _currentStep > 2 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Approved by Head',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Approved by Head'),
+        content: const Text(""),
         isActive: _currentStep >= 2,
       ),
       Step(
         state: _currentStep > 3 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Approved by Directors',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Approved by Directors'),
+        content: const Text(""),
         isActive: _currentStep >= 3,
       ),
       Step(
         state: _currentStep > 4 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Approved by CEO',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Approved by CEO'),
+        content: const Text(""),
         isActive: _currentStep >= 4,
       ),
       Step(
         state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-        title: const Text(
-          'Process Completed',
-          style: TextStyle(color: Colors.black),
-        ),
-        content: MouCard(widget: widget),
+        title: const Text('Process Completed'),
+        content: const Text(""),
         isActive: _currentStep >= 5,
       ),
     ];
-  }
-
-  cancel() {
-    _currentStep > 1 ? setState(() => _currentStep -= 1) : null;
   }
 }
 
@@ -166,11 +184,26 @@ class MouCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Text(widget.mou.docName),
-      ),
-    );
+    return Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(22),
+            topRight: Radius.circular(22),
+          ),
+        ),
+        child: Column(
+          children: [
+            Text(
+              widget.mou.docName,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(widget.mou.description, maxLines: 4),
+            ),
+          ],
+        ));
   }
 }
