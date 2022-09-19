@@ -25,7 +25,7 @@ class ProfileTabState extends State<ProfileTab> {
   static final ImagePicker picker = ImagePicker();
   static late TextEditingController _nameController;
   static var myKey = GlobalKey<FormState>();
-
+  Future<UserModel> getUserData = DataBaseService().getuserData();
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DataBaseService().userData,
+      future: getUserData,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           UserModel userData = snapshot.data as UserModel;

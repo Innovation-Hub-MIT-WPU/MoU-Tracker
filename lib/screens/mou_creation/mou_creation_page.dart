@@ -202,9 +202,10 @@ class CreateFormState extends State<CreateForm> {
       // tracking details
       // DateTime dueDate = dueDateController.text;
       String desc = descController.text;
-
+      DateTime dueDate = DateTime(2022, 03, 02);
       DataBaseService db = DataBaseService();
-      await db.updateMouData(
+      late String mouId;
+      db.createMou(
         approved: 0,
         desc: desc,
         authName: authName,
@@ -212,9 +213,9 @@ class CreateFormState extends State<CreateForm> {
         docName: docName,
         companyName: companyName,
         companyWebsite: companyWebsite,
+        dueDate: dueDate,
         isApproved: false,
       );
-
       // If text field uploading is successful, Move to File uploading
       FirebaseApi.fileUpload();
       showDialog(

@@ -2,7 +2,6 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'notifications_list.dart';
 
 Widget tabview(TabController tabController, double height, double width) {
   return TabBarView(
@@ -54,10 +53,11 @@ Container makeCard(Map onTrack, double height, double width) => Container(
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-              color: black.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 7,
-              offset: const Offset(0, 3)),
+            color: black.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: const Offset(0, 3),
+          ),
         ],
       ),
       margin:

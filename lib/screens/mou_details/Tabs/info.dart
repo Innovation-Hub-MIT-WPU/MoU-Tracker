@@ -26,7 +26,7 @@ class _InfoTabState extends State<InfoTab> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    String date = "${widget.mou.day} ${widget.mou.month} ${widget.mou.year}";
+    String date = widget.mou.dueDate;
     return Padding(
       padding: EdgeInsets.only(
           top: screenHeight * 0.06,

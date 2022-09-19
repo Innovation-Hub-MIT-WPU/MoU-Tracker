@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/list_builders.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
@@ -16,12 +17,14 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: DataBaseService().getmouData(),
+    return FutureBuilder(
+      future: DataBaseService().getmouData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<dynamic> mouList = snapshot.data as List<dynamic>;
+          List<MOU> mouList = snapshot.data as List<MOU>;
           return mouCards(mouList);
+        } else if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
         } else {
           return const Loading();
         }
@@ -29,48 +32,13 @@ class _MouStatusTabState extends State<MouStatusTab> {
     );
   }
 
-  Widget mouCards(List<dynamic> mouList) {
+  Widget mouCards(List<MOU> mouList) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
           buildList(mouList, dropdownvalue),
-          Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: DropdownButton<String>(
-              elevation: 50,
-              icon: const Icon(
-                Icons.keyboard_arrow_down,
-                size: 15,
-              ),
-              autofocus: true,
-              borderRadius: BorderRadius.circular(20),
-              dropdownColor: Colors.white,
-              hint: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/carousel.png',
-                    width: 15,
-                  ),
-                  const Text(
-                    ' Views',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-              items: <String>['Type A', 'Type B', 'Type C'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newvalue) {
-                setState(() {
-                  dropdownvalue = newvalue!;
-                });
-              },
-            ),
-          ),
+          dropDownSelector(),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -82,6 +50,45 @@ class _MouStatusTabState extends State<MouStatusTab> {
           Icons.add,
           size: 50,
         ),
+      ),
+    );
+  }
+
+  Padding dropDownSelector() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 40),
+      child: DropdownButton<String>(
+        elevation: 50,
+        icon: const Icon(
+          Icons.keyboard_arrow_down,
+          size: 15,
+        ),
+        autofocus: true,
+        borderRadius: BorderRadius.circular(20),
+        dropdownColor: Colors.white,
+        hint: Row(
+          children: [
+            Image.asset(
+              'assets/images/carousel.png',
+              width: 15,
+            ),
+            const Text(
+              ' Views',
+              style: TextStyle(fontSize: 12),
+            ),
+          ],
+        ),
+        items: <String>['Type A', 'Type B', 'Type C'].map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (String? newvalue) {
+          setState(() {
+            dropdownvalue = newvalue!;
+          });
+        },
       ),
     );
   }

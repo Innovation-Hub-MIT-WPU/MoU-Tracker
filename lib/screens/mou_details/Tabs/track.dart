@@ -17,16 +17,17 @@ class _TrackTabState extends State<TrackTab> {
     return MediaQuery.of(context).size;
   }
 
+  Future<UserModel> getUserData = DataBaseService().getuserData();
   int _currentStep = 1;
   StepperType stepperType = StepperType.vertical;
-  DataBaseService db = DataBaseService();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: db.userData,
+      future: getUserData,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           UserModel userData = snapshot.data as UserModel;
+          _currentStep = (widget.mou.appLvl + 1);
           return trackApproval(userData.pos!);
         } else {
           return const Scaffold(
@@ -49,19 +50,20 @@ class _TrackTabState extends State<TrackTab> {
                   physics: const ScrollPhysics(),
                   currentStep: _currentStep,
                   onStepContinue: () {
+                    print("user-pos: $userPos");
                     if (_currentStep ==
-                        getStepsList().sublist(0, userPos + 1).length) {}
+                        getStepsList().sublist(0, userPos + 3).length) {}
                     if (_currentStep == getStepsList().length) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MOUApproved()),
                       );
                     } else {
-                      setState(() {
-                        if (userPos + 1 >= _currentStep) {
-                          _currentStep += 1;
-                        }
-                      });
+                      if (userPos + 1 >= _currentStep) {
+                        DataBaseService().updateApprovalLvl(
+                            mouId: widget.mou.mouId, appLvl: _currentStep);
+                        setState(() => _currentStep += 1);
+                      }
                     }
                   },
                   onStepCancel: cancel,
@@ -82,7 +84,7 @@ class _TrackTabState extends State<TrackTab> {
                       ),
                     );
                   }),
-                  steps: getStepsList().sublist(0, 3)),
+                  steps: getStepsList().sublist(0, userPos + 3)),
             ),
           ),
         ],

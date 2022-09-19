@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,6 @@ class DataBaseService {
   // Structure -
   /* 
       Mou collection 
-
         |_ Document -> MOU
               |_ Mou details
                  Activity collection
@@ -19,20 +19,12 @@ class DataBaseService {
   final CollectionReference users =
       FirebaseFirestore.instance.collection('users');
 
-  late final CollectionReference mou =
-      FirebaseFirestore.instance.collection('mou');
+  final CollectionReference mou = FirebaseFirestore.instance.collection('mou');
   final CollectionReference activity =
       FirebaseFirestore.instance.collection('activity');
 
-  // Future addUserDetails(String name, String designation) async {
-  //   await mou
-  //       .doc(name)
-  //       .collection('userDetails')
-  //       .doc()
-  //       .set({'name': name, 'designation': designation});
-  // }
-
-  Future updateMouData({
+  Future createMou({
+    required DateTime dueDate,
     required int approved,
     required String desc,
     required String docName,
@@ -52,27 +44,48 @@ class DataBaseService {
         'company-name': companyName,
         'company-website': companyWebsite,
         'status': isApproved,
+        'creation-date': DateTime.now(),
+        'due-date': dueDate,
       });
     } catch (err) {
       print("error - $err");
     }
   }
 
-  List _getMouList(snapshot) {
-    return snapshot.docs.map((doc) {
-      return doc.data();
-    }).toList();
+  Future updateApprovalLvl({required String mouId, required int appLvl}) async {
+    await mou.doc(mouId).update({'approval-lvl': appLvl});
   }
 
-  Stream<List> getmouData() {
-    Stream<List> mouList = mou.snapshots().map(_getMouList);
+  // List<MOU> _getMouList(QuerySnapshot snapshot) {
+  //   return snapshot.docs.map((doc) {
+
+  //     return
+  //   }).toList();
+  // }
+
+  Future<List<MOU>> getmouData() async {
+    var querySnap = await mou.get();
+    final List<MOU> mouList = querySnap.docs.map((doc) {
+      String mouId = doc.id;
+      DateTime date = doc['due-date'].toDate();
+      String dueDate = "${date.year}-${date.month}-${date.day}";
+      return MOU(
+        mouId: mouId,
+        docName: doc['doc-name'],
+        authName: doc['auth-name'],
+        companyName: doc['company-name'],
+        description: doc['description'],
+        isApproved: doc['status'],
+        appLvl: doc['approval-lvl'],
+        dueDate: dueDate,
+      );
+    }).toList();
     return mouList;
   }
 
-  Future<UserModel> get userData async {
+  Future<UserModel> getuserData() async {
     String uid = FireAuth().getCurrentUser()!.uid;
     var snap = await users.doc(uid).get();
-    print(snap.data());
     return UserModel.fromMap(snap);
   }
 }

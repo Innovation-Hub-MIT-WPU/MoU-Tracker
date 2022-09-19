@@ -12,7 +12,7 @@ class MyCard3 extends StatefulWidget {
   // final String description;
   // final date;
   final int index;
-  final List mouList;
+  final MOU mou;
   // bool isApproved;
 
   const MyCard3({
@@ -22,7 +22,7 @@ class MyCard3 extends StatefulWidget {
     // required this.description,
     // required this.date,
     required this.index,
-    required this.mouList,
+    required this.mou,
     // required this.isApproved
   });
 
@@ -36,17 +36,18 @@ class _MyCard3State extends State<MyCard3> {
   @override
   void initState() {
     k = widget.index;
-    mou = MOU(
-      docName: widget.mouList[k]['doc-name'],
-      authName: "",
-      companyName: widget.mouList[k]['company-name'],
-      description: widget.mouList[k]['description'],
-      day: 22,
-      month: "Sept",
-      year: 2022,
-      index: 0,
-      isApproved: widget.mouList[k]['status'],
-    ); //
+    mou = widget.mou;
+    // mou = MOU(
+    //   docName: widget.mouList[k]['doc-name'],
+    //   authName: "",
+    //   companyName: widget.mouList[k]['company-name'],
+    //   description: widget.mouList[k]['description'],
+    //   day: 22,
+    //   month: "Sept",
+    //   year: 2022,
+    //   index: 0,
+    //   isApproved: widget.mouList[k]['status'],
+    // );
     super.initState();
   }
 
@@ -100,7 +101,7 @@ class _MyCard3State extends State<MyCard3> {
                     padding:
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.005),
                     child: Text(
-                      'Before ${mou.day} ${mou.month}, ${mou.year} ',
+                      'Before ${mou.dueDate} ',
                       style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
@@ -119,7 +120,8 @@ class _MyCard3State extends State<MyCard3> {
                         topRight: Radius.circular(20)),
                   ),
                   context: context,
-                  builder: (context) => BuildBottomSheet(index: widget.index),
+                  builder: (context) =>
+                      BuildBottomSheet(index: widget.index, mou: mou),
                 ),
               ),
               // IconButton(

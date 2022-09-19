@@ -4,10 +4,10 @@ import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
-  final List<dynamic> mouList;
+  final MOU mou;
   final int index;
   const MyCard({
-    required this.mouList,
+    required this.mou,
     required this.index,
     Key? key,
   }) : super(key: key);
@@ -22,17 +22,7 @@ class _MyCardState extends State<MyCard> {
   @override
   void initState() {
     k = widget.index;
-    mou = MOU(
-      docName: widget.mouList[k]['doc-name'],
-      authName: "Author",
-      companyName: widget.mouList[k]['company-name'],
-      description: widget.mouList[k]['description'],
-      day: 22,
-      month: "Sept",
-      year: 2022,
-      index: k,
-      isApproved: widget.mouList[k]['status'],
-    ); //
+    mou = widget.mou; //
     super.initState();
   }
 
@@ -78,7 +68,7 @@ class _MyCardState extends State<MyCard> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  'No. ${mou.index}',
+                  'No. $k',
                   style: const TextStyle(fontSize: 15),
                 ),
                 Text(
@@ -120,7 +110,7 @@ class _MyCardState extends State<MyCard> {
                   child:
                       // Text("${selectedDate.toLocal()}".split(' ')[0]),
                       Text(
-                    'Before ${mou.day}/${mou.month}/${mou.year} ',
+                    'Before ${mou.dueDate}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,

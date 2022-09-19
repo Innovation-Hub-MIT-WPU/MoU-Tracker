@@ -5,9 +5,11 @@ import '../../../../../common_utils/utils.dart';
 
 class BuildBottomSheet extends StatefulWidget {
   final int index;
+  final MOU mou;
   // bool isApproved;
 
   const BuildBottomSheet({
+    required this.mou,
     required this.index,
   });
 
@@ -21,17 +23,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
   @override
   void initState() {
     k = widget.index;
-    mou = MOU(
-      docName: DocName[k],
-      authName: AuthName[k],
-      companyName: CompanyName[k],
-      description: Description[k],
-      day: 22,
-      month: months[k],
-      year: 2022,
-      index: 0,
-      isApproved: k % 2 == 0 ? isApproved : !isApproved,
-    ); //
+    mou = widget.mou;
     super.initState();
   }
 

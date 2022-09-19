@@ -7,7 +7,7 @@ import '../../../../../../../common_utils/utils.dart';
 
 class MyCard2 extends StatefulWidget {
   final int index;
-  final List<dynamic> mouList;
+  final MOU mou;
   // final String docName;
   // final String authName;
   // final int amount;
@@ -16,7 +16,7 @@ class MyCard2 extends StatefulWidget {
   // bool isApproved;
 
   const MyCard2({
-    required this.mouList,
+    required this.mou,
     required this.index,
     //   required this.docName,
     // required this.authName,
@@ -36,17 +36,7 @@ class _MyCard2State extends State<MyCard2> {
   @override
   void initState() {
     k = widget.index;
-    mou = MOU(
-      docName: widget.mouList[k]['doc-name'],
-      authName: "",
-      companyName: widget.mouList[k]['company-name'],
-      description: widget.mouList[k]['description'],
-      day: 22,
-      month: "Sept",
-      year: 2022,
-      index: 0,
-      isApproved: widget.mouList[k]['status'],
-    ); //
+    mou = widget.mou;
     super.initState();
   }
 
@@ -60,7 +50,10 @@ class _MyCard2State extends State<MyCard2> {
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         context: context,
-        builder: (context) => BuildBottomSheet(index: widget.index),
+        builder: (context) => BuildBottomSheet(
+          index: widget.index,
+          mou: mou,
+        ),
       ),
       child: Container(
         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -102,7 +95,7 @@ class _MyCard2State extends State<MyCard2> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Text(
-                    'Before ${mou.day} ${mou.month}, ${mou.year}',
+                    'Before ${mou.dueDate}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
