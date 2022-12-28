@@ -100,7 +100,7 @@ List getdelayedList() {
 //   }
 // }
 
-class NotificationsData {
+class NotificationsData1 {
   static List delayedMap = [];
   static List onTrackMap = [];
   static List userList = [];

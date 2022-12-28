@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../classes/notifications_data.dart';
+import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_list.dart';
 import 'notifications_page_utils/notifications_tab.dart';
 import 'notifications_page_utils/notifications_tab_view.dart';
@@ -14,9 +16,8 @@ class NotificationsState extends State<Notifications>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int index = 0;
-  static late List ontracklist;
-  static late List delayedlist;
-  final future = NotificationsData.newGet();
+  static late List<NotificationsData> ontracklist;
+  static late List<NotificationsData> delayedlist;
 
   @override
   void initState() {
@@ -27,8 +28,6 @@ class NotificationsState extends State<Notifications>
     // delayedlist = NotificationsData.delayedMap;
     // ontracklist = NotificationsData.onTrackMap;
 
-    delayedlist = NotificationsData.delayedMap;
-    ontracklist = NotificationsData.onTrackMap;
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -54,13 +53,15 @@ class NotificationsState extends State<Notifications>
         body: Padding(
           padding: EdgeInsets.all(screenWidth / 30),
           child: FutureBuilder(
-              future: future,
+              future: DataBaseService().getNotifications(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
+                  ontracklist = snapshot.data as List<NotificationsData>;
+                  delayedlist = snapshot.data as List<NotificationsData>;
                   return Column(
                     children: [
                       Padding(
@@ -97,9 +98,9 @@ class NotificationsState extends State<Notifications>
   }
 
   _runFilter(String value) {
-    final search1 = NotificationsData.onTrackMap.where((element) {
-      final name = element["doc-name"].toString().toLowerCase();
-      final desc = element["description"].toString().toLowerCase();
+    final search1 = ontracklist.where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.body.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
@@ -110,9 +111,9 @@ class NotificationsState extends State<Notifications>
     setState(() {
       ontracklist = search1;
     });
-    final search2 = NotificationsData.delayedMap.where((element) {
-      final name = element["doc-name"].toString().toLowerCase();
-      final desc = element["description"].toString().toLowerCase();
+    final search2 = delayedlist.where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.body.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
