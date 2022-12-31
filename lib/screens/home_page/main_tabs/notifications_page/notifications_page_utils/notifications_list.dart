@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/notifications_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class onTrack {
@@ -104,6 +105,8 @@ class NotificationsData1 {
   static List delayedMap = [];
   static List onTrackMap = [];
   static List userList = [];
+  static List<NotificationsData> notiList = [];
+  static List list = [];
 
   static Future newGet() async {
     delayedMap.clear();
@@ -122,5 +125,21 @@ class NotificationsData1 {
       }
     }
     // print("i was called");
+  }
+
+  static Future getNoti() async {
+    notiList.clear();
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('notifications').get();
+
+    list = querySnapshot.docs.map((e) => (e.data())).toList();
+    for (Map e in list) {
+      notiList.add(NotificationsData(
+          title: e['title'],
+          body: e['body'],
+          docName: e['doc_name'],
+          on: e['on'].toDate()));
+    }
+    print(notiList);
   }
 }

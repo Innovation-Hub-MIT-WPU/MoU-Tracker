@@ -15,6 +15,7 @@ class Notifications extends StatefulWidget {
 class NotificationsState extends State<Notifications>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final TextEditingController searchQueryController = TextEditingController();
   int index = 0;
   static late List<NotificationsData> ontracklist;
   static late List<NotificationsData> delayedlist;
@@ -41,6 +42,7 @@ class NotificationsState extends State<Notifications>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    searchQueryController.dispose();
   }
 
   @override
@@ -52,29 +54,33 @@ class NotificationsState extends State<Notifications>
         appBar: appbar(_tabController, index, context),
         body: Padding(
           padding: EdgeInsets.all(screenWidth / 30),
-          child: FutureBuilder(
-              future: DataBaseService().getNotifications(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  ontracklist = snapshot.data as List<NotificationsData>;
-                  delayedlist = snapshot.data as List<NotificationsData>;
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(screenWidth / 50),
-                        child: searchBox(screenHeight, screenWidth),
-                      ),
-                      Expanded(
-                          child: tabview(
-                              _tabController, screenHeight, screenWidth)),
-                    ],
-                  );
-                }
-              }),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(screenWidth / 50),
+                child: searchBox(screenHeight, screenWidth),
+              ),
+              FutureBuilder(
+                  future: DataBaseService().getNotifications(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      ontracklist = snapshot.data as List<NotificationsData>;
+                      delayedlist = snapshot.data as List<NotificationsData>;
+                      ontracklist = _runFilter(
+                          searchQueryController.text.toString().trim());
+                      delayedlist = _runFilter(
+                          searchQueryController.text.toString().trim());
+                      return Expanded(
+                          child: tabview(_tabController, screenHeight,
+                              screenWidth, context));
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -82,7 +88,12 @@ class NotificationsState extends State<Notifications>
 
   Widget searchBox(double height, double width) {
     return TextField(
-      onChanged: (value) => _runFilter(value),
+      controller: searchQueryController,
+      onChanged: (value) {
+        setState(() {
+          ontracklist = _runFilter(value);
+        });
+      },
       decoration: InputDecoration(
         contentPadding:
             EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 20),
@@ -97,7 +108,7 @@ class NotificationsState extends State<Notifications>
     );
   }
 
-  _runFilter(String value) {
+  List<NotificationsData> _runFilter(String value) {
     final search1 = ontracklist.where((element) {
       final name = element.title.toString().toLowerCase();
       final desc = element.body.toString().toLowerCase();
@@ -108,26 +119,10 @@ class NotificationsState extends State<Notifications>
         return desc.contains(q);
       }
     }).toList();
-    setState(() {
-      ontracklist = search1;
-    });
-    final search2 = delayedlist.where((element) {
-      final name = element.title.toString().toLowerCase();
-      final desc = element.body.toString().toLowerCase();
-      final q = value.toLowerCase();
-      if (name.contains(q)) {
-        return name.contains(q);
-      } else {
-        return desc.contains(q);
-      }
-    }).toList();
-    setState(() {
-      delayedlist = search2;
-    });
+    print(search1);
+    return ontracklist = search1;
   }
 }
-
-
 
 
 // Column(

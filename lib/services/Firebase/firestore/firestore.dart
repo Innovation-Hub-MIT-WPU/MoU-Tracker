@@ -27,6 +27,7 @@ class DataBaseService {
       FirebaseFirestore.instance.collection('activity');
   final CollectionReference notifications =
       FirebaseFirestore.instance.collection('notifications');
+  final List<NotificationsData> notificationsList = [];
 
   Future createMou({
     required DateTime dueDate,
