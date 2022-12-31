@@ -1,28 +1,27 @@
-// import 'package:MouTracker/widgets/drawer.dart';
-// ignore_for_file: prefer_const_constructors
-
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
+import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
+import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
+import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
+import 'package:MouTracker/screens/get_started/check_logged.dart';
+import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/screens/main_tabs/profile_tab.dart';
-import 'package:MouTracker/screens/main_tabs/report_bug.dart';
-import 'package:MouTracker/screens/main_tabs/stats_page.dart';
-import 'package:flutter/material.dart';
-
-import 'package:MouTracker/globals.dart';
-// import 'package:MouTracker/screens/login_register/login_register_page.dart';
-// import 'package:MouTracker/screens/splash/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:MouTracker/services/Firebase/firebase_options.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '/globals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+
+  await Firebase.initializeApp();
+
+  // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: COLOR_THEME['primary'],
   ));
+
   runApp(const MyApp());
 }
 
@@ -36,9 +35,9 @@ class MyApp extends StatelessWidget {
       title: APP_TITLE,
       theme: ThemeData(
         brightness: Brightness.light,
-        textTheme: DEFAULT_TEXT_THEME,
+        // textTheme: DEFAULT_TEXT_THEME,
         colorScheme: Theme.of(context).colorScheme.copyWith(
-              primary: const Color(0x9400688B),
+              primary: const Color(0xff2D376E),
               secondary: const Color(0xFFF0FFFF),
             ),
         buttonTheme: Theme.of(context).buttonTheme.copyWith(
@@ -50,12 +49,17 @@ class MyApp extends StatelessWidget {
         textTheme: DEFAULT_TEXT_THEME,
       ),
       themeMode: ThemeMode.light,
-      initialRoute: MyRoute.startPageRoute,
+      initialRoute: '/start',
       routes: {
-        MyRoute.profileRoute: (context) => ProfileTab(),
-        MyRoute.reportIssuesRoute: (context) => reportIssues(),
-        MyRoute.statsPageRoute: (context) => StatsPage(),
-        MyRoute.startPageRoute: (context) => Page1(),
+        '/login_signup': (_) => const LogInSignUpPage(),
+        '/submitted': (_) => const SubmittedPage(),
+        '/create_mou': (_) => const CreateForm(),
+        '/start': (context) => const CheckAuth(),
+        '/home': (context) => const HomePage(),
+        '/report_issues': (context) => const ReportIssues(),
+        MyRoute.profileRoute: (context) => const ProfileTab(),
+        MyRoute.reportIssuesRoute: (context) => const ReportIssues(),
+        MyRoute.statsPageRoute: (context) => const StatsPage(),
       },
     );
   }

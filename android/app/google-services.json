@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "46885490701",
+    "project_id": "mou-tracker-prototype",
+    "storage_bucket": "mou-tracker-prototype.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46885490701:android:dfc972d9b7eb963a8ac544",
+        "android_client_info": {
+          "package_name": "com.mitwpu.mou_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46885490701-4ui1hh1ueu9f6onse9usr8romesqm580.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqPAWmPKw9RWFW3tq5I3YwdwJ0EYnYc4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "46885490701-4ui1hh1ueu9f6onse9usr8romesqm580.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
