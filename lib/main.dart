@@ -8,6 +8,7 @@ import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '/globals.dart';
@@ -16,6 +17,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  await FirebaseMessaging.instance.getInitialMessage();
+
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  await firebaseMessaging.subscribeToTopic('test-1');
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
