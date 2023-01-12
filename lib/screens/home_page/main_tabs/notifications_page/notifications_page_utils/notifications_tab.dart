@@ -2,6 +2,8 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../services/Firebase/fcm/notification_service.dart';
+
 Widget tabs(TabController _tabController, int index, BuildContext context) {
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
@@ -64,13 +66,27 @@ PreferredSizeWidget appbar(
         top: MediaQuery.of(context).size.height / 30,
       ),
       child: Center(
-        child: Text(
-          'Notifications',
-          style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width / 15,
-              color: kBgClr1,
-              fontWeight: FontWeight.w400),
+        child: TextButton(
+          child: Text(
+            'Notifications',
+            style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width / 15,
+                color: kBgClr1,
+                fontWeight: FontWeight.w400),
+          ),
+          onPressed: () {
+            NotificationService().sendPushMessage(
+                "You may have some new messages...", "Team Mou");
+          },
         ),
+
+        // Text(
+        //   'Notifications',
+        //   style: TextStyle(
+        //       fontSize: MediaQuery.of(context).size.width / 15,
+        //       color: kBgClr1,
+        //       fontWeight: FontWeight.w400),
+        // ),
       ),
     ),
   );

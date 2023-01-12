@@ -1,7 +1,10 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../classes/notifications_data.dart';
 
 class DataBaseService {
   // Collections for storing data in the cloud firestore.
@@ -22,6 +25,9 @@ class DataBaseService {
   final CollectionReference mou = FirebaseFirestore.instance.collection('mou');
   final CollectionReference activity =
       FirebaseFirestore.instance.collection('activity');
+  final CollectionReference notifications =
+      FirebaseFirestore.instance.collection('notifications');
+  final List<NotificationsData> notificationsList = [];
 
   Future createMou({
     required DateTime dueDate,
@@ -87,5 +93,17 @@ class DataBaseService {
     String uid = FireAuth().getCurrentUser()!.uid;
     var snap = await users.doc(uid).get();
     return UserModel.fromMap(snap);
+  }
+
+  Future<List<NotificationsData>> getNotifications() async {
+    var querySnap = await notifications.get();
+    final List<NotificationsData> notificationsList = querySnap.docs.map((doc) {
+      return NotificationsData(
+          title: doc['title'],
+          docName: doc['doc_name'],
+          on: doc['on'].toDate(),
+          body: doc['body']);
+    }).toList();
+    return notificationsList;
   }
 }

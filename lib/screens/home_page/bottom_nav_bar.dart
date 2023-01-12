@@ -4,6 +4,7 @@ import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import '../../services/Firebase/fcm/notification_service.dart';
 import 'main_tabs/notifications_page/notifications_tab_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,6 +43,10 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+    NotificationService().requestPermission();
+    NotificationService().getToken();
+    NotificationService().checkNotifications();
+
     _tabController = TabController(
       animationDuration: const Duration(seconds: 0),
       initialIndex: 0,

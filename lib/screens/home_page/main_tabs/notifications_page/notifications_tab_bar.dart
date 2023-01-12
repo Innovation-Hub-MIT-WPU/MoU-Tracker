@@ -1,4 +1,7 @@
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:flutter/material.dart';
+import '../../../../classes/notifications_data.dart';
+import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_list.dart';
 import 'notifications_page_utils/notifications_tab.dart';
 import 'notifications_page_utils/notifications_tab_view.dart';
@@ -13,10 +16,10 @@ class Notifications extends StatefulWidget {
 class NotificationsState extends State<Notifications>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final TextEditingController searchQueryController = TextEditingController();
   int index = 0;
-  static late List ontracklist;
-  static late List delayedlist;
-  final future = NotificationsData.newGet();
+  static late List<NotificationsData> ontracklist;
+  static late List<NotificationsData> delayedlist;
 
   @override
   void initState() {
@@ -27,8 +30,6 @@ class NotificationsState extends State<Notifications>
     // delayedlist = NotificationsData.delayedMap;
     // ontracklist = NotificationsData.onTrackMap;
 
-    delayedlist = NotificationsData.delayedMap;
-    ontracklist = NotificationsData.onTrackMap;
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -42,6 +43,7 @@ class NotificationsState extends State<Notifications>
   void dispose() {
     super.dispose();
     _tabController.dispose();
+    searchQueryController.dispose();
   }
 
   @override
@@ -53,27 +55,33 @@ class NotificationsState extends State<Notifications>
         appBar: appbar(_tabController, index, context),
         body: Padding(
           padding: EdgeInsets.all(screenWidth / 30),
-          child: FutureBuilder(
-              future: future,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(screenWidth / 50),
-                        child: searchBox(screenHeight, screenWidth),
-                      ),
-                      Expanded(
-                          child: tabview(
-                              _tabController, screenHeight, screenWidth)),
-                    ],
-                  );
-                }
-              }),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(screenWidth / 50),
+                child: searchBox(screenHeight, screenWidth),
+              ),
+              FutureBuilder(
+                  future: DataBaseService().getNotifications(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      ontracklist = snapshot.data as List<NotificationsData>;
+                      delayedlist = snapshot.data as List<NotificationsData>;
+                      ontracklist = _runFilter(
+                          searchQueryController.text.toString().trim());
+                      delayedlist = _runFilter(
+                          searchQueryController.text.toString().trim());
+                      return Expanded(
+                          child: tabview(_tabController, screenHeight,
+                              screenWidth, context));
+                    }
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -81,7 +89,12 @@ class NotificationsState extends State<Notifications>
 
   Widget searchBox(double height, double width) {
     return TextField(
-      onChanged: (value) => _runFilter(value),
+      controller: searchQueryController,
+      onChanged: (value) {
+        setState(() {
+          ontracklist = _runFilter(value);
+        });
+      },
       decoration: InputDecoration(
         contentPadding:
             EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 20),
@@ -96,10 +109,10 @@ class NotificationsState extends State<Notifications>
     );
   }
 
-  _runFilter(String value) {
-    final search1 = NotificationsData.onTrackMap.where((element) {
-      final name = element["doc-name"].toString().toLowerCase();
-      final desc = element["description"].toString().toLowerCase();
+  List<NotificationsData> _runFilter(String value) {
+    final search1 = ontracklist.where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.body.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
@@ -107,26 +120,10 @@ class NotificationsState extends State<Notifications>
         return desc.contains(q);
       }
     }).toList();
-    setState(() {
-      ontracklist = search1;
-    });
-    final search2 = NotificationsData.delayedMap.where((element) {
-      final name = element["doc-name"].toString().toLowerCase();
-      final desc = element["description"].toString().toLowerCase();
-      final q = value.toLowerCase();
-      if (name.contains(q)) {
-        return name.contains(q);
-      } else {
-        return desc.contains(q);
-      }
-    }).toList();
-    setState(() {
-      delayedlist = search2;
-    });
+    print(search1);
+    return ontracklist = search1;
   }
 }
-
-
 
 
 // Column(
