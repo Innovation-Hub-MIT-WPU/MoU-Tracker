@@ -14,6 +14,8 @@ class MouStatusTab extends StatefulWidget {
   _MouStatusTabState createState() => _MouStatusTabState();
 }
 
+late List<MOU> mouList;
+
 class _MouStatusTabState extends State<MouStatusTab> {
   String dropdownvalue = "Type A";
 
@@ -23,7 +25,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
       future: DataBaseService().getmouData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<MOU> mouList = snapshot.data as List<MOU>;
+          mouList = snapshot.data as List<MOU>;
           return mouCards(mouList);
         } else if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));

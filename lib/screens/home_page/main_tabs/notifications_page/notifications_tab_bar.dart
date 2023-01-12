@@ -64,11 +64,7 @@ class NotificationsState extends State<Notifications>
               FutureBuilder(
                   future: DataBaseService().getNotifications(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
+                    if (snapshot.hasData) {
                       ontracklist = snapshot.data as List<NotificationsData>;
                       delayedlist = snapshot.data as List<NotificationsData>;
                       ontracklist = _runFilter(
@@ -78,6 +74,12 @@ class NotificationsState extends State<Notifications>
                       return Expanded(
                           child: tabview(_tabController, screenHeight,
                               screenWidth, context));
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text(snapshot.error.toString()));
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   }),
             ],
@@ -124,15 +126,3 @@ class NotificationsState extends State<Notifications>
     return ontracklist = search1;
   }
 }
-
-
-// Column(
-//             children: [
-//               Padding(
-//                 padding: EdgeInsets.all(screenWidth / 50),
-//                 child: searchBox(screenHeight, screenWidth),
-//               ),
-//               Expanded(
-//                   child: tabview(_tabController, screenHeight, screenWidth)),
-//             ],
-//           ),

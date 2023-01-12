@@ -79,14 +79,6 @@ PreferredSizeWidget appbar(
                 "You may have some new messages...", "Team Mou");
           },
         ),
-
-        // Text(
-        //   'Notifications',
-        //   style: TextStyle(
-        //       fontSize: MediaQuery.of(context).size.width / 15,
-        //       color: kBgClr1,
-        //       fontWeight: FontWeight.w400),
-        // ),
       ),
     ),
   );
