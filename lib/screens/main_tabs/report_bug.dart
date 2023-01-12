@@ -63,7 +63,12 @@ class _reportIssuesState extends State<reportIssues> {
           child: Padding(
             padding: EdgeInsets.fromLTRB(
                 20, MediaQuery.of(context).size.height * 0.1, 20, 0),
-            child: Column(
+            child: Wrap(
+              runAlignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.center,
+              spacing: MediaQuery.of(context).size.height,
+              runSpacing: MediaQuery.of(context).size.height * 0.01,
               children: [
                 textBox("Name", ProfileTabState.name),
                 SizedBox(
@@ -97,25 +102,25 @@ class _reportIssuesState extends State<reportIssues> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      0, MediaQuery.of(context).size.height * 0.2, 0, 0),
-                  child: FlatButton(
-                      onPressed: () {
-                        if (reportKey.currentState?.validate() == true) {
-                          issue = _issueController.text;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Issue Submitted"),
-                            duration: Duration(seconds: 2),
-                          ));
-                          _issueController.clear();
-                        }
-                      },
-                      child: Text(
-                        "SUBMIT",
-                        style: Theme.of(context).textTheme.button,
-                      )),
-                )
+                SizedBox(
+                  height: 25,
+                ),
+                FlatButton(
+                  onPressed: () {
+                    if (reportKey.currentState?.validate() == true) {
+                      issue = _issueController.text;
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("Issue Submitted"),
+                        duration: Duration(seconds: 2),
+                      ));
+                      _issueController.clear();
+                    }
+                  },
+                  child: Text(
+                    "SUBMIT",
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
               ],
             ),
           ),
