@@ -89,7 +89,7 @@ class SearchState extends State<Search> with TickerProviderStateMixin {
                       child: AnimatedOpacity(
                         opacity: (toggle == 0) ? 0.0 : 1.0,
                         duration: const Duration(milliseconds: 200),
-                        child: Container(
+                        child: SizedBox(
                           height: screenHeight * 0.03,
                           width: screenWidth * 0.4,
                           child: TextField(
@@ -100,7 +100,7 @@ class SearchState extends State<Search> with TickerProviderStateMixin {
                                     .trim());
                               });
                             },
-                            style: TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18),
                             controller: textEditingController,
                             cursorRadius: const Radius.circular(10.0),
                             cursorWidth: 2.0,
