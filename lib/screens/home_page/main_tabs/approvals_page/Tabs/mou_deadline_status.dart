@@ -1,4 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_2.dart';
@@ -14,10 +15,22 @@ class MouStatusTab extends StatefulWidget {
   _MouStatusTabState createState() => _MouStatusTabState();
 }
 
-late List<MOU> mouList;
-
 class _MouStatusTabState extends State<MouStatusTab> {
+  late List<MOU> mouList;
   String dropdownvalue = "Type A";
+
+  late TextEditingController searchQueryController;
+  @override
+  void initState() {
+    searchQueryController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchQueryController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +39,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           mouList = snapshot.data as List<MOU>;
+          mouList = _runFilter(searchQueryController.text.toString().trim());
           return mouCards(mouList);
         } else if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
@@ -42,7 +56,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
       body: Stack(
         children: [
           buildList(mouList, dropdownvalue),
-          dropDownSelector(),
+          searchBox(),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -58,14 +72,80 @@ class _MouStatusTabState extends State<MouStatusTab> {
     );
   }
 
+  Widget searchBox() {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Row(
+      children: [
+        Container(
+          width: screenWidth * 0.7,
+          margin: EdgeInsets.only(
+              top: screenWidth / 50,
+              bottom: screenWidth / 50,
+              left: screenWidth * 0.04),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          child: TextField(
+            controller: searchQueryController,
+            onChanged: (value) {
+              setState(() {
+                mouList = _runFilter(value);
+              });
+            },
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: screenHeight / 70, horizontal: screenWidth / 20),
+              hintText: "Search",
+              suffixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: const BorderSide(color: kBgClr2),
+              ),
+            ),
+          ),
+        ),
+        dropDownSelector()
+      ],
+    );
+  }
+
+  List<MOU> _runFilter(String value) {
+    List<MOU> search1 = mouList.where((element) {
+      final doc = element.docName.toString().toLowerCase();
+      // final company = element.companyName.toString().toLowerCase();
+      // final desc = element.description.toString().toLowerCase();
+      // final date = element.dueDate.toString().toLowerCase();
+      final query = value.toLowerCase();
+      return doc.contains(query);
+      // if (c_name.contains(query)) {
+      //   return c_name.contains(query);
+      // } else if (doc_name.contains(query)) {
+      //   return doc_name.contains(query);
+      // } else if (desc.contains(query)) {
+      //   return desc.contains(query);
+      // } else {
+      //   return date.contains(query);
+      // }
+    }).toList();
+    for (var i = 0; i < search1.length; i++) {
+      print(search1[i].docName);
+    }
+    return search1;
+  }
+
   Padding dropDownSelector() {
     return Padding(
-      padding: const EdgeInsets.only(left: 40),
+      padding: const EdgeInsets.only(left: 10),
       child: DropdownButton<String>(
         elevation: 50,
         icon: const Icon(
           Icons.keyboard_arrow_down,
-          size: 15,
+          color: Colors.black,
+          size: 17,
         ),
         autofocus: true,
         borderRadius: BorderRadius.circular(20),
@@ -74,11 +154,11 @@ class _MouStatusTabState extends State<MouStatusTab> {
           children: [
             Image.asset(
               'assets/images/carousel.png',
-              width: 15,
+              width: 17,
             ),
             const Text(
               ' Views',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -100,7 +180,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
 Widget buildList(List<MOU> mouList, String type) {
   return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 55),
     // physics: const PageScrollPhysics(),
     itemCount: mouList.length,
     itemBuilder: (context, index) {

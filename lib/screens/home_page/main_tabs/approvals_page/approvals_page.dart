@@ -56,12 +56,10 @@ class ApprovalsPageState extends State<ApprovalsPage>
                       // padding: EdgeInsets.only(bottom: 20),
                       width: screenWidth,
                       height: screenHeight * 0.07,
-                      child: Search()
-                      // const Text(
-                      //   'Approvals',
-                      //   style: TextStyle(fontSize: 24, color: Colors.white),
-                      // )
-                      ),
+                      child: const Text(
+                        'Approvals',
+                        style: TextStyle(fontSize: 24, color: Colors.white),
+                      )),
                   Container(
                     color: const Color(0xff2D376E),
                     width: screenWidth,
