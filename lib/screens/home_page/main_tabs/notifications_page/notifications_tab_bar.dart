@@ -1,8 +1,6 @@
-import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:flutter/material.dart';
 import '../../../../classes/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
-import 'notifications_page_utils/notifications_list.dart';
 import 'notifications_page_utils/notifications_tab.dart';
 import 'notifications_page_utils/notifications_tab_view.dart';
 

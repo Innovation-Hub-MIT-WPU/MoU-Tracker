@@ -13,7 +13,8 @@ AppBar appBar(String title, BuildContext context) {
             title,
             style: TextStyle(
               color: Colors.white,
-              fontFamily: Theme.of(context).textTheme.headline4!.fontFamily,
+              fontFamily:
+                  Theme.of(context).textTheme.headlineMedium!.fontFamily,
               fontSize: 28,
             ),
           ),

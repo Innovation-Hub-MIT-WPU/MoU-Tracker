@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
-  ExpandableText(this.text);
+  ExpandableText(this.text, {super.key});
 
   final String text;
   bool isExpanded = false;

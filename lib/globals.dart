@@ -13,32 +13,32 @@ const COLOR_THEME = {
   'tertiary': Color(0xFFCD364E)
 };
 const DEFAULT_TEXT_THEME = TextTheme(
-  bodyText1: TextStyle(
+  bodyLarge: TextStyle(
     fontFamily: 'RumRaisin',
     fontSize: 18,
     color: Colors.white,
   ),
-  headline2: TextStyle(
+  displayMedium: TextStyle(
     fontFamily: 'RumRaisin',
     fontSize: 60,
     color: Color(0xFF512DA8),
   ),
-  headline3: TextStyle(
+  displaySmall: TextStyle(
     fontFamily: 'SakkalMajalla',
     fontSize: 28,
     color: Colors.black,
   ),
-  subtitle1: TextStyle(
+  titleMedium: TextStyle(
     fontFamily: 'SakkalMajalla',
     fontSize: 20,
     color: Colors.grey,
   ),
-  subtitle2: TextStyle(
+  titleSmall: TextStyle(
     fontFamily: 'SakkalMajalla',
     fontSize: 26,
     color: Colors.grey,
   ),
-  button: TextStyle(
+  labelLarge: TextStyle(
     fontFamily: 'SakkalMajalla',
     fontSize: 20,
     color: Colors.grey,

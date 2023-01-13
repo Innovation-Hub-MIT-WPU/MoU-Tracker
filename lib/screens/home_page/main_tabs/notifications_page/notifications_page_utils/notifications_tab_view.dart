@@ -1,5 +1,4 @@
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 
 import 'package:flutter/material.dart';
