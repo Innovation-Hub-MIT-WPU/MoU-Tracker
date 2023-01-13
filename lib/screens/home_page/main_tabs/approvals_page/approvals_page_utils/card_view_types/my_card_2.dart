@@ -15,16 +15,17 @@ class MyCard2 extends StatefulWidget {
   // final date;
   // bool isApproved;
 
-  const MyCard2({
-    required this.mou,
-    required this.index,
-    //   required this.docName,
-    // required this.authName,
-    // required this.amount,
-    // required this.description,
-    // required this.date,
-    // required this.isApproved
-  });
+  const MyCard2(
+      {required this.mou,
+      required this.index,
+      //   required this.docName,
+      // required this.authName,
+      // required this.amount,
+      // required this.description,
+      // required this.date,
+      // required this.isApproved
+      Key? key})
+      : super(key: key);
 
   @override
   State<MyCard2> createState() => _MyCard2State();

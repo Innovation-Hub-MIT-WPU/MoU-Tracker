@@ -116,24 +116,22 @@ class _MouStatusTabState extends State<MouStatusTab> {
   List<MOU> _runFilter(String value) {
     List<MOU> search1 = mouList.where((element) {
       final doc = element.docName.toString().toLowerCase();
-      // final company = element.companyName.toString().toLowerCase();
-      // final desc = element.description.toString().toLowerCase();
-      // final date = element.dueDate.toString().toLowerCase();
+      final company = element.companyName.toString().toLowerCase();
+      final desc = element.description.toString().toLowerCase();
+      final date = element.dueDate.toString().toLowerCase();
       final query = value.toLowerCase();
-      return doc.contains(query);
-      // if (c_name.contains(query)) {
-      //   return c_name.contains(query);
-      // } else if (doc_name.contains(query)) {
-      //   return doc_name.contains(query);
-      // } else if (desc.contains(query)) {
-      //   return desc.contains(query);
-      // } else {
-      //   return date.contains(query);
-      // }
+
+      if (company.contains(query)) {
+        return company.contains(query);
+      } else if (doc.contains(query)) {
+        return doc.contains(query);
+      } else if (desc.contains(query)) {
+        return desc.contains(query);
+      } else {
+        return date.contains(query);
+      }
     }).toList();
-    for (var i = 0; i < search1.length; i++) {
-      print(search1[i].docName);
-    }
+
     return search1;
   }
 
@@ -185,11 +183,23 @@ Widget buildList(List<MOU> mouList, String type) {
     itemCount: mouList.length,
     itemBuilder: (context, index) {
       if (type == "Type A") {
-        return MyCard(index: index, mou: mouList[index]);
+        return MyCard(
+          index: index,
+          mou: mouList[index],
+          key: UniqueKey(),
+        );
       } else if (type == "Type B") {
-        return MyCard2(index: index, mou: mouList[index]);
+        return MyCard2(
+          index: index,
+          mou: mouList[index],
+          key: UniqueKey(),
+        );
       } else {
-        return MyCard3(index: index, mou: mouList[index]);
+        return MyCard3(
+          index: index,
+          mou: mouList[index],
+          key: UniqueKey(),
+        );
       }
     },
   );

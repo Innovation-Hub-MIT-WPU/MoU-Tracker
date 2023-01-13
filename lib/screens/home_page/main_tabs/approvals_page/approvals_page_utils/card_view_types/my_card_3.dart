@@ -15,16 +15,18 @@ class MyCard3 extends StatefulWidget {
   final MOU mou;
   // bool isApproved;
 
-  const MyCard3({
-    //   required this.docName,
-    // required this.authName,
-    // required this.amount,
-    // required this.description,
-    // required this.date,
-    required this.index,
-    required this.mou,
-    // required this.isApproved
-  });
+  const MyCard3(
+      {
+      //   required this.docName,
+      // required this.authName,
+      // required this.amount,
+      // required this.description,
+      // required this.date,
+      required this.index,
+      required this.mou,
+      // required this.isApproved
+      Key? key})
+      : super(key: key);
 
   @override
   State<MyCard3> createState() => _MyCard3State();
