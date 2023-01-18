@@ -1,5 +1,8 @@
+import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 
@@ -25,12 +28,8 @@ Widget makeOnTrack(double height, double width, BuildContext context) =>
         shrinkWrap: true,
         itemCount: NotificationsState.ontracklist.length,
         itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-              onTap: () {
-                // Navigator.pushNamed(context, Details.routeName);
-              },
-              child: makeCard(NotificationsState.ontracklist[index], height,
-                  width, context));
+          return makeCard(
+              NotificationsState.ontracklist[index], height, width, context);
         },
       ),
     );
@@ -81,84 +80,128 @@ Container makeCard(NotificationsData onTrack, double height, double width,
 // Column makeListTile(onTrack onTrack, double height, double width) =>
 
 Widget makeListTile(NotificationsData onTrack, double height, double width,
-        BuildContext context) =>
-    Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-      child: ExpansionTile(
-          backgroundColor: Colors.transparent,
-          leading: Leading(height, width),
-          title: Text(
-            // onTrack.title,
-            onTrack.title,
-            style: const TextStyle(
+    BuildContext context) {
+  String title = onTrack.title;
+  String doc_name = onTrack.docName.toUpperCase();
+  String state = title.contains("Approved")
+      ? "Approved"
+      : title.contains("Rejected")
+          ? "Rejected"
+          : "Created";
+  String by = onTrack.by;
+  String on = "${onTrack.on.day}-${onTrack.on.month}-${onTrack.on.year}";
+  return Theme(
+    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+    child: ExpansionTile(
+        backgroundColor: Colors.transparent,
+        leading: Leading(height, width),
+        title: Text(
+          title,
+          style: const TextStyle(
+            color: kBgClr2,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
+        ),
+        subtitle: Text(
+          doc_name,
+          style: const TextStyle(
               color: kBgClr2,
               fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                    padding: EdgeInsets.only(
-                        left: width / 20,
-                        right: width / 40,
-                        bottom: height / 100),
-                    child: Text(
-                      // onTrack.description,
-                      onTrack.body,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: black.withOpacity(0.6)),
-                    )),
-                Container(
-                  decoration: const BoxDecoration(
-                      color: notiCardColor2,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: notiShadow1,
-                        )
-                      ]),
+              fontSize: 13,
+              fontStyle: FontStyle.italic),
+        ),
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                  padding: EdgeInsets.only(
+                      left: width / 20,
+                      right: width / 40,
+                      bottom: height / 100),
+                  child: Text(
+                    " Company  :  $doc_name \n $state By :  $by \n $state On :  $on",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: kBgClr2.withOpacity(0.7)),
+                  )),
+              Container(
+                decoration: const BoxDecoration(
+                    color: notiCardColor2,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: notiShadow1,
+                      )
+                    ]),
+                child: InkWell(
+                  onTap: () async {
+                    var query = await FirebaseFirestore.instance
+                        .collection('mou')
+                        .where('doc-name', isEqualTo: onTrack.docName)
+                        .get();
+                    String mouId = "";
+                    DateTime date;
+                    String dueDate = "";
+                    final data = query.docs.map((doc) {
+                      mouId = doc.id;
+                      date = doc['due-date'].toDate();
+                      dueDate = "${date.year}-${date.month}-${date.day}";
+                      return doc.data();
+                    }).toList();
+
+                    MOU mou = MOU(
+                        mouId: mouId,
+                        docName: data[0]['doc-name'],
+                        authName: data[0]['auth-name'],
+                        companyName: data[0]['company-name'],
+                        description: data[0]['description'],
+                        isApproved: data[0]['status'],
+                        appLvl: data[0]['approval-lvl'],
+                        dueDate: dueDate);
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Details(mou: mou)));
+                  },
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        left: width / 20,
-                        top: height / 120,
-                        bottom: height / 80),
+                    padding:
+                        EdgeInsets.only(top: height / 120, bottom: height / 80),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(
-                          Icons.calendar_today_outlined,
-                          size: 18,
-                          color: black,
-                        ),
                         Padding(
-                          padding: EdgeInsets.only(left: width / 40),
-                          child: Text(
-                            // onTrack.date.toString(),
-
-                            "${onTrack.on.day}-${onTrack.on.month}-${onTrack.on.year}",
-
-                            style: const TextStyle(
+                          padding: EdgeInsets.only(right: width / 60),
+                          child: const Text(
+                            "Go To Track",
+                            style: TextStyle(
                               color: black,
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                             ),
                           ),
                         ),
+                        const Icon(
+                          Icons.ads_click_sharp,
+                          size: 19,
+                          color: black,
+                        ),
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ]),
-    );
+              ),
+            ],
+          ),
+        ]),
+  );
+}
 // );
 
 Widget Leading(

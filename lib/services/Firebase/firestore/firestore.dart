@@ -102,7 +102,8 @@ class DataBaseService {
           title: doc['title'],
           docName: doc['doc_name'],
           on: doc['on'].toDate(),
-          body: doc['body']);
+          body: doc['body'],
+          by: doc['by']);
     }).toList();
     return notificationsList;
   }

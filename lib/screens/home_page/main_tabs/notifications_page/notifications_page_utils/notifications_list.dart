@@ -138,7 +138,8 @@ class NotificationsData1 {
           title: e['title'],
           body: e['body'],
           docName: e['doc_name'],
-          on: e['on'].toDate()));
+          on: e['on'].toDate(),
+          by: e['by']));
     }
     print(notiList);
   }
