@@ -1,5 +1,4 @@
 import 'package:MouTracker/classes/mou.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

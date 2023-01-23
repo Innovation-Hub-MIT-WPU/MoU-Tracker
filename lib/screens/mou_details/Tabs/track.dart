@@ -1,5 +1,6 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
+import 'package:MouTracker/screens/mou_details/track_page_utils/mou_card.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
@@ -30,7 +31,9 @@ class _TrackTabState extends State<TrackTab> {
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           userData = snapshot.data as UserModel;
-          _currentStep = (widget.mou.appLvl + 1);
+          print('approval lvl - ${widget.mou.appLvl}');
+          // current Step -> next Step in approval
+          // _currentStep = (widget.mou.appLvl + 1);
           return trackApproval(userData.pos!);
         } else {
           return const Scaffold(
@@ -46,111 +49,148 @@ class _TrackTabState extends State<TrackTab> {
         children: [
           Expanded(
             child: Theme(
-              data: Theme.of(context).copyWith(
-                  colorScheme: const ColorScheme.light(primary: Colors.green)),
-              child: Stepper(
-                  type: stepperType,
-                  physics: const ScrollPhysics(),
-                  currentStep: _currentStep,
-                  onStepContinue: () {
-                    if (_currentStep ==
-                        getStepsList().sublist(0, userPos + 3).length) {}
-                    if (_currentStep == getStepsList().length) {
-                      DataBaseService().addNotification(
-                          body:
-                              "$widget.mou.docName was approved by  ${userData.firstName}",
-                          title: "Final Approval!!",
-                          doc_name: widget.mou.docName,
-                          by: userData.firstName!,
-                          on: DateTime.now());
-                      ns.sendPushMessage(
-                          "${widget.mou.docName} was approved sucessfully",
-                          "Final Approval!!",
-                          widget.mou.docName);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MOUApproved()),
+                data: Theme.of(context).copyWith(
+                    colorScheme:
+                        const ColorScheme.light(primary: Colors.green)),
+                child: Stepper(
+                    type: stepperType,
+                    physics: const ScrollPhysics(),
+                    currentStep: _currentStep,
+                    onStepContinue: continued,
+                    onStepCancel: cancel,
+                    controlsBuilder: ((context, details) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: _buttonStyle(0, 0, 22, 0),
+                                      onPressed: details.onStepContinue,
+                                      child: details.currentStep == 1
+                                          ? const Text("Initiate MOU")
+                                          : const Text("Approve")),
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                      style: _buttonStyle(0, 0, 0, 22).copyWith(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red)),
+                                      onPressed: details.onStepCancel,
+                                      child: const Text("Deny")),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       );
-                    } else {
-                      if (userPos + 1 >= _currentStep) {
-                        DataBaseService().updateApprovalLvl(
-                            mouId: widget.mou.mouId, appLvl: _currentStep);
-                        DataBaseService().addNotification(
-                            body:
-                                "${widget.mou.docName} was approved by  ${userData.firstName}",
-                            title: "MoU Approved!!",
-                            doc_name: widget.mou.docName,
-                            by: userData.firstName!,
-                            on: DateTime.now());
-                        ns.sendPushMessage(
-                            "${widget.mou.docName} was approved by ${userData.firstName}",
-                            "MoU Approved!!",
-                            widget.mou.docName);
-                        setState(() => _currentStep += 1);
-                      }
-                    }
-                  },
-                  onStepCancel: () {
-                    DataBaseService().addNotification(
-                        body:
-                            "${widget.mou.docName} was denied by ${userData.firstName}",
-                        title: "Mou Rejected!!",
-                        doc_name: widget.mou.docName,
-                        by: userData.firstName!,
-                        on: DateTime.now());
-                    ns.sendPushMessage(
-                        "${widget.mou.docName} was denied by ${userData.firstName}",
-                        "MoU Rejected!!",
-                        widget.mou.docName);
-                    _currentStep > 1 ? setState(() => _currentStep -= 1) : null;
-                  },
-                  controlsBuilder: ((context, details) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: const Offset(
-                                0, 3), // changes position of shadow
-                          ),
-                        ],
+                    }),
+                    steps: <Step>[
+                      Step(
+                        state: _currentStep > 0
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Created the MoU'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 0,
                       ),
-                      child: Column(
-                        children: [
-                          MouCard(widget: widget),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                    style: _buttonStyle(0, 0, 22, 0),
-                                    onPressed: details.onStepContinue,
-                                    child: details.currentStep == 1
-                                        ? const Text("Initiate MOU")
-                                        : const Text("Approve")),
-                              ),
-                              Expanded(
-                                child: ElevatedButton(
-                                    style: _buttonStyle(0, 0, 0, 22).copyWith(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.red)),
-                                    onPressed: details.onStepCancel,
-                                    child: const Text("Deny")),
-                              )
-                            ],
-                          ),
-                        ],
+                      Step(
+                        state: _currentStep > 1
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Sent for Approval'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 1,
                       ),
-                    );
-                  }),
-                  steps: getStepsList().sublist(0, userPos + 3)),
-            ),
+                      Step(
+                        state: _currentStep > 2
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Approved by Head'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 2,
+                      ),
+                      Step(
+                        state: _currentStep > 3
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Approved by Directors'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 3,
+                      ),
+                      Step(
+                        state: _currentStep > 4
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Approved by CEO'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 4,
+                      ),
+                      Step(
+                        state: _currentStep > 5
+                            ? StepState.complete
+                            : StepState.indexed,
+                        title: const Text('Process Completed'),
+                        content: MouCard(widget: widget),
+                        isActive: _currentStep >= 5,
+                      ),
+                    ])),
           ),
         ],
       ),
     );
+  }
+
+  continued() {
+    print('currentStep : $_currentStep');
+    if (_currentStep == 5) {
+      DataBaseService().addNotification(
+          body: "$widget.mou.docName was approved by  ${userData.firstName}",
+          title: "Final Approval!!",
+          doc_name: widget.mou.docName,
+          by: userData.firstName!,
+          on: DateTime.now());
+      ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
+          "Final Approval!!", widget.mou.docName);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MOUApproved()),
+      );
+    }
+    //   if (userPos + 1 >= _currentStep) {
+    //     DataBaseService().updateApprovalLvl(
+    //         mouId: widget.mou.mouId, appLvl: _currentStep);
+    //     // DataBaseService().addNotification(
+    //     //     body:
+    //     //         "${widget.mou.docName} was approved by  ${userData.firstName}",
+    //     //     title: "MoU Approved!!",
+    //     //     doc_name: widget.mou.docName,
+    //     //     by: userData.firstName!,
+    //     //     on: DateTime.now());
+    //     // ns.sendPushMessage(
+    //     //     "${widget.mou.docName} was approved by ${userData.firstName}",
+    //     //     "MoU Approved!!",
+    //     //     widget.mou.docName);
+    //   }
+    // }
+
+    _currentStep < 5 ? setState(() => _currentStep += 1) : null;
+  }
+
+  cancel() {
+    DataBaseService().addNotification(
+        body: "${widget.mou.docName} was denied by ${userData.firstName}",
+        title: "Mou Rejected!!",
+        doc_name: widget.mou.docName,
+        by: userData.firstName!,
+        on: DateTime.now());
+    ns.sendPushMessage(
+        "${widget.mou.docName} was denied by ${userData.firstName}",
+        "MoU Rejected!!",
+        widget.mou.docName);
+    _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
   }
 
   ButtonStyle _buttonStyle(
@@ -166,80 +206,5 @@ class _TrackTabState extends State<TrackTab> {
         ),
       )),
     );
-  }
-
-  List<Step> getStepsList() {
-    return <Step>[
-      Step(
-        state: _currentStep > 0 ? StepState.complete : StepState.indexed,
-        title: const Text('Created the MoU'),
-        content: const Text(""),
-        isActive: _currentStep >= 0,
-      ),
-      Step(
-        state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-        title: const Text('Sent for Approval'),
-        content: const Text(""),
-        isActive: _currentStep >= 1,
-      ),
-      Step(
-        state: _currentStep > 2 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by Head'),
-        content: const Text(""),
-        isActive: _currentStep >= 2,
-      ),
-      Step(
-        state: _currentStep > 3 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by Directors'),
-        content: const Text(""),
-        isActive: _currentStep >= 3,
-      ),
-      Step(
-        state: _currentStep > 4 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by CEO'),
-        content: const Text(""),
-        isActive: _currentStep >= 4,
-      ),
-      Step(
-        state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-        title: const Text('Process Completed'),
-        content: const Text(""),
-        isActive: _currentStep >= 5,
-      ),
-    ];
-  }
-}
-
-class MouCard extends StatelessWidget {
-  const MouCard({
-    Key? key,
-    required this.widget,
-  }) : super(key: key);
-
-  final TrackTab widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(22),
-            topRight: Radius.circular(22),
-          ),
-        ),
-        child: Column(
-          children: [
-            Text(
-              widget.mou.docName,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(widget.mou.description, maxLines: 4),
-            ),
-          ],
-        ));
   }
 }

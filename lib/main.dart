@@ -7,6 +7,7 @@ import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/start',
       routes: {
+        '/test': (_) => const TestWidget(),
         '/login_signup': (_) => const LogInSignUpPage(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),

@@ -2,6 +2,8 @@ import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class MOUApproved extends StatelessWidget {
+  const MOUApproved({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class MOUApproved extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Image.asset('assets/images/approved.png'), // <-- SEE HERE
+        child: Image.asset('assets/images/approved.png'),
       ),
     );
   }
