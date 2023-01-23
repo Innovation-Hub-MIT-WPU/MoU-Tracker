@@ -1,6 +1,10 @@
 import 'dart:convert';
 
+import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +37,7 @@ class NotificationService {
     await messaging.getToken().then((value) => print("token= $value"));
   }
 
-  void checkNotifications() async {
+  void checkNotifications(BuildContext context) async {
     var androidInitialize =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
     // var iosInitialize = DarwinInitializationSettings();
@@ -58,11 +62,44 @@ class NotificationService {
 
       await localNotifPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
-          payload: message.data['title']);
+          payload: message.data['doc_name']);
     });
   }
 
-  void sendPushMessage(String body, String title) async {
+  void openNotification(BuildContext context) async {
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print("onMessageOpenedApp: $message");
+      var doc_name = message.data['doc_name'];
+      var query = await FirebaseFirestore.instance
+          .collection('mou')
+          .where('doc-name', isEqualTo: doc_name)
+          .get();
+      String mouId = "";
+      DateTime date;
+      String dueDate = "";
+      final data = query.docs.map((doc) {
+        mouId = doc.id;
+        date = doc['due-date'].toDate();
+        dueDate = "${date.year}-${date.month}-${date.day}";
+        return doc.data();
+      }).toList();
+
+      MOU mou = MOU(
+          mouId: mouId,
+          docName: data[0]['doc-name'],
+          authName: data[0]['auth-name'],
+          companyName: data[0]['company-name'],
+          description: data[0]['description'],
+          isApproved: data[0]['status'],
+          appLvl: data[0]['approval-lvl'],
+          dueDate: dueDate);
+
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Details(mou: mou)));
+    });
+  }
+
+  void sendPushMessage(String body, String title, String doc_name) async {
     try {
       var responce =
           await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -83,10 +120,10 @@ class NotificationService {
                   "id": "1",
                   "status": "done",
                   "body": body,
-                  "title": title
+                  "title": title,
+                  "doc_name": doc_name
                 }
               }));
-      print(responce.body);
     } catch (e) {
       print(e);
     }

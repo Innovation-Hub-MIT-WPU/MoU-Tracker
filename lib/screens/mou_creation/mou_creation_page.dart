@@ -1,6 +1,7 @@
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -204,6 +205,7 @@ class CreateFormState extends State<CreateForm> {
       String desc = descController.text;
       DateTime dueDate = DateTime(2022, 03, 02);
       DataBaseService db = DataBaseService();
+      NotificationService ns = NotificationService();
       late String mouId;
       db.createMou(
         approved: 0,
@@ -218,6 +220,14 @@ class CreateFormState extends State<CreateForm> {
       );
       // If text field uploading is successful, Move to File uploading
       FirebaseApi.fileUpload();
+      db.addNotification(
+          body: "$docName was created by $spocName",
+          title: "Mou Created!!",
+          doc_name: docName,
+          by: spocName,
+          on: DateTime.now());
+      ns.sendPushMessage(
+          "$docName was created by $spocName", "Mou Created!!", docName);
       showDialog(
           barrierDismissible: false,
           context: context,

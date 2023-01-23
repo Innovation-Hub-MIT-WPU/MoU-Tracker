@@ -1,5 +1,6 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,17 @@ class _TrackTabState extends State<TrackTab> {
   }
 
   Future<UserModel> getUserData = DataBaseService().getuserData();
+  NotificationService ns = NotificationService();
   int _currentStep = 1;
   StepperType stepperType = StepperType.vertical;
+  late UserModel userData;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: getUserData,
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
-          UserModel userData = snapshot.data as UserModel;
+          userData = snapshot.data as UserModel;
           _currentStep = (widget.mou.appLvl + 1);
           return trackApproval(userData.pos!);
         } else {
@@ -53,6 +56,17 @@ class _TrackTabState extends State<TrackTab> {
                     if (_currentStep ==
                         getStepsList().sublist(0, userPos + 3).length) {}
                     if (_currentStep == getStepsList().length) {
+                      DataBaseService().addNotification(
+                          body:
+                              "$widget.mou.docName was approved by  ${userData.firstName}",
+                          title: "Final Approval!!",
+                          doc_name: widget.mou.docName,
+                          by: userData.firstName!,
+                          on: DateTime.now());
+                      ns.sendPushMessage(
+                          "${widget.mou.docName} was approved sucessfully",
+                          "Final Approval!!",
+                          widget.mou.docName);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => MOUApproved()),
@@ -61,11 +75,33 @@ class _TrackTabState extends State<TrackTab> {
                       if (userPos + 1 >= _currentStep) {
                         DataBaseService().updateApprovalLvl(
                             mouId: widget.mou.mouId, appLvl: _currentStep);
+                        DataBaseService().addNotification(
+                            body:
+                                "${widget.mou.docName} was approved by  ${userData.firstName}",
+                            title: "MoU Approved!!",
+                            doc_name: widget.mou.docName,
+                            by: userData.firstName!,
+                            on: DateTime.now());
+                        ns.sendPushMessage(
+                            "${widget.mou.docName} was approved by ${userData.firstName}",
+                            "MoU Approved!!",
+                            widget.mou.docName);
                         setState(() => _currentStep += 1);
                       }
                     }
                   },
                   onStepCancel: () {
+                    DataBaseService().addNotification(
+                        body:
+                            "${widget.mou.docName} was denied by ${userData.firstName}",
+                        title: "Mou Rejected!!",
+                        doc_name: widget.mou.docName,
+                        by: userData.firstName!,
+                        on: DateTime.now());
+                    ns.sendPushMessage(
+                        "${widget.mou.docName} was denied by ${userData.firstName}",
+                        "MoU Rejected!!",
+                        widget.mou.docName);
                     _currentStep > 1 ? setState(() => _currentStep -= 1) : null;
                   },
                   controlsBuilder: ((context, details) {

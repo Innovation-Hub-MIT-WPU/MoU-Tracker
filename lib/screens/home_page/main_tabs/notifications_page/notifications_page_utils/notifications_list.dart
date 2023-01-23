@@ -141,6 +141,6 @@ class NotificationsData1 {
           on: e['on'].toDate(),
           by: e['by']));
     }
-    print(notiList);
+    // print(notiList);
   }
 }

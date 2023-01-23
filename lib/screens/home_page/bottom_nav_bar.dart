@@ -45,7 +45,8 @@ class _HomePageState extends State<HomePage>
     super.initState();
     NotificationService().requestPermission();
     NotificationService().getToken();
-    NotificationService().checkNotifications();
+    NotificationService().checkNotifications(context);
+    NotificationService().openNotification(context);
 
     _tabController = TabController(
       animationDuration: const Duration(seconds: 0),

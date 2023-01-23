@@ -107,4 +107,23 @@ class DataBaseService {
     }).toList();
     return notificationsList;
   }
+
+  Future addNotification(
+      {required DateTime on,
+      required String body,
+      required String by,
+      required String doc_name,
+      required String title}) async {
+    try {
+      await db.collection('notifications').add({
+        'body': body,
+        'by': by,
+        'doc_name': doc_name,
+        'title': title,
+        'on': on
+      });
+    } catch (err) {
+      print("error - $err");
+    }
+  }
 }

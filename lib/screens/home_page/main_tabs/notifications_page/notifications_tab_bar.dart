@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../../classes/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
@@ -16,18 +17,12 @@ class NotificationsState extends State<Notifications>
   late TabController _tabController;
   final TextEditingController searchQueryController = TextEditingController();
   int index = 0;
-  static late List<NotificationsData> ontracklist;
-  static late List<NotificationsData> delayedlist;
+  static List<NotificationsData> ontracklist = [];
+  static List<NotificationsData> delayedlist = [];
+  static late List<NotificationsData> allData;
 
   @override
   void initState() {
-    // ontracklist = getonTracksList();
-    // delayedlist = getdelayedList();
-
-    // NotificationsData.unloadData();
-    // delayedlist = NotificationsData.delayedMap;
-    // ontracklist = NotificationsData.onTrackMap;
-
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
@@ -63,12 +58,17 @@ class NotificationsState extends State<Notifications>
                   future: DataBaseService().getNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      // allData = snapshot.data as List<NotificationsData>;
+
+                      // sort(allData);
                       ontracklist = snapshot.data as List<NotificationsData>;
                       delayedlist = snapshot.data as List<NotificationsData>;
                       ontracklist = _runFilter(
                           searchQueryController.text.toString().trim());
-                      delayedlist = _runFilter(
+                      delayedlist = _runFilter2(
                           searchQueryController.text.toString().trim());
+                      ontracklist.sort(((a, b) => b.on.compareTo(a.on)));
+                      delayedlist.sort(((a, b) => b.on.compareTo(a.on)));
                       return Expanded(
                           child: tabview(_tabController, screenHeight,
                               screenWidth, context));
@@ -93,6 +93,7 @@ class NotificationsState extends State<Notifications>
       onChanged: (value) {
         setState(() {
           ontracklist = _runFilter(value);
+          delayedlist = _runFilter2(value);
         });
       },
       decoration: InputDecoration(
@@ -120,7 +121,45 @@ class NotificationsState extends State<Notifications>
         return desc.contains(q);
       }
     }).toList();
-    print(search1);
+    // print(search1);
     return ontracklist = search1;
   }
+
+  List<NotificationsData> _runFilter2(String value) {
+    final search1 = delayedlist.where((element) {
+      final name = element.title.toString().toLowerCase();
+      final desc = element.body.toString().toLowerCase();
+      final q = value.toLowerCase();
+      if (name.contains(q)) {
+        return name.contains(q);
+      } else {
+        return desc.contains(q);
+      }
+    }).toList();
+    // print(search1);
+    return delayedlist = search1;
+  }
+
+  // void sort(List<NotificationsData> allData) async {
+  //   DateTime dueDate = DateTime.now();
+  //   for (NotificationsData data in allData) {
+  //     var query = await FirebaseFirestore.instance
+  //         .collection('mou')
+  //         .where('doc-name', isEqualTo: data.docName)
+  //         .get();
+  //     final dat = query.docs.map((doc) {
+  //       dueDate = doc['due-date'].toDate();
+  //       return doc.data();
+  //     });
+
+  //     if ((dueDate).difference(DateTime.now()).isNegative) {
+  //       print(" !due: $dueDate");
+  //       delayedlist.add(data);
+  //     } else {
+  //       print(" on: $dueDate");
+  //       ontracklist.add(data);
+  //     }
+  //   }
+  // }
+
 }
