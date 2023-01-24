@@ -22,6 +22,7 @@ class _TrackTabState extends State<TrackTab> {
   Future<UserModel> getUserData = DataBaseService().getuserData();
   NotificationService ns = NotificationService();
   int _currentStep = 1;
+  int _userPos = 1;
   StepperType stepperType = StepperType.vertical;
   late UserModel userData;
   @override
@@ -31,10 +32,15 @@ class _TrackTabState extends State<TrackTab> {
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           userData = snapshot.data as UserModel;
+          _currentStep = (widget.mou.appLvl + 1);
+          _userPos = userData.pos! + 1;
+
           print('approval lvl - ${widget.mou.appLvl}');
+          print('User pos - $_userPos');
+          print('currentStep : $_currentStep');
           // current Step -> next Step in approval
-          // _currentStep = (widget.mou.appLvl + 1);
-          return trackApproval(userData.pos!);
+
+          return trackApproval();
         } else {
           return const Scaffold(
               body: Center(child: CircularProgressIndicator()));
@@ -43,7 +49,7 @@ class _TrackTabState extends State<TrackTab> {
     );
   }
 
-  Widget trackApproval(int userPos) {
+  Widget trackApproval() {
     return Scaffold(
       body: Column(
         children: [
@@ -87,109 +93,102 @@ class _TrackTabState extends State<TrackTab> {
                         ),
                       );
                     }),
-                    steps: <Step>[
-                      Step(
-                        state: _currentStep > 0
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Created the MoU'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 0,
-                      ),
-                      Step(
-                        state: _currentStep > 1
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Sent for Approval'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 1,
-                      ),
-                      Step(
-                        state: _currentStep > 2
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Approved by Head'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 2,
-                      ),
-                      Step(
-                        state: _currentStep > 3
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Approved by Directors'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 3,
-                      ),
-                      Step(
-                        state: _currentStep > 4
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Approved by CEO'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 4,
-                      ),
-                      Step(
-                        state: _currentStep > 5
-                            ? StepState.complete
-                            : StepState.indexed,
-                        title: const Text('Process Completed'),
-                        content: MouCard(widget: widget),
-                        isActive: _currentStep >= 5,
-                      ),
-                    ])),
+                    steps: getStepsList())),
           ),
         ],
       ),
     );
   }
 
-  continued() {
-    print('currentStep : $_currentStep');
+  List<Step> getStepsList() {
+    return <Step>[
+      Step(
+        state: _currentStep > 0 ? StepState.complete : StepState.indexed,
+        title: const Text('Created the MoU'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 0,
+      ),
+      Step(
+        state: _currentStep > 1 ? StepState.complete : StepState.indexed,
+        title: const Text('Sent for Approval'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 1,
+      ),
+      Step(
+        state: _currentStep > 2 ? StepState.complete : StepState.indexed,
+        title: const Text('Approved by Head'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 2,
+      ),
+      Step(
+        state: _currentStep > 3 ? StepState.complete : StepState.indexed,
+        title: const Text('Approved by Directors'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 3,
+      ),
+      Step(
+        state: _currentStep > 4 ? StepState.complete : StepState.indexed,
+        title: const Text('Approved by CEO'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 4,
+      ),
+      Step(
+        state: _currentStep > 5 ? StepState.complete : StepState.indexed,
+        title: const Text('Process Completed'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 5,
+      ),
+    ];
+  }
+
+  continued() async {
     if (_currentStep == 5) {
       DataBaseService().addNotification(
           body: "$widget.mou.docName was approved by  ${userData.firstName}",
-          title: "Final Approval!!",
+          title: "Final Approval",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
-          "Final Approval!!", widget.mou.docName);
+          "Final Approval", widget.mou.docName);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
       );
+    } else if (_currentStep <= _userPos) {
+      await DataBaseService()
+          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
+      DataBaseService().addNotification(
+          body: "${widget.mou.docName} was approved by  ${userData.firstName}",
+          title: "MoU Approved",
+          doc_name: widget.mou.docName,
+          by: userData.firstName!,
+          on: DateTime.now());
+      ns.sendPushMessage(
+          "${widget.mou.docName} was approved by ${userData.firstName}",
+          "MoU Approved",
+          widget.mou.docName);
+      setState(() => _currentStep += 1);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MOUApproved()),
+      );
+    } else {
+      print("You can't approve this MOU");
     }
-    //   if (userPos + 1 >= _currentStep) {
-    //     DataBaseService().updateApprovalLvl(
-    //         mouId: widget.mou.mouId, appLvl: _currentStep);
-    //     // DataBaseService().addNotification(
-    //     //     body:
-    //     //         "${widget.mou.docName} was approved by  ${userData.firstName}",
-    //     //     title: "MoU Approved!!",
-    //     //     doc_name: widget.mou.docName,
-    //     //     by: userData.firstName!,
-    //     //     on: DateTime.now());
-    //     // ns.sendPushMessage(
-    //     //     "${widget.mou.docName} was approved by ${userData.firstName}",
-    //     //     "MoU Approved!!",
-    //     //     widget.mou.docName);
-    //   }
-    // }
-
-    _currentStep < 5 ? setState(() => _currentStep += 1) : null;
   }
 
   cancel() {
-    DataBaseService().addNotification(
-        body: "${widget.mou.docName} was denied by ${userData.firstName}",
-        title: "Mou Rejected!!",
-        doc_name: widget.mou.docName,
-        by: userData.firstName!,
-        on: DateTime.now());
-    ns.sendPushMessage(
-        "${widget.mou.docName} was denied by ${userData.firstName}",
-        "MoU Rejected!!",
-        widget.mou.docName);
+    // DataBaseService().addNotification(
+    //     body: "${widget.mou.docName} was denied by ${userData.firstName}",
+    //     title: "Mou Rejected!!",
+    //     doc_name: widget.mou.docName,
+    //     by: userData.firstName!,
+    //     on: DateTime.now());
+    // ns.sendPushMessage(
+    //     "${widget.mou.docName} was denied by ${userData.firstName}",
+    //     "MoU Rejected!!",
+    //     widget.mou.docName);
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
   }
 
