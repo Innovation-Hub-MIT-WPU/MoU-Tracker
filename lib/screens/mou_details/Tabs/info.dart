@@ -1,7 +1,8 @@
+import 'package:MouTracker/screens/mou_details/track_page_utils/web_view.dart';
+
 import '/classes/mou.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 
 class InfoTab extends StatefulWidget {
@@ -21,7 +22,6 @@ class _InfoTabState extends State<InfoTab> {
     super.initState();
   }
 
-  final Uri _url = Uri.parse('https://flutter.dev');
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -45,10 +45,10 @@ class _InfoTabState extends State<InfoTab> {
           _displayText(date, screenHeight, normalStyle()),
           ElevatedButton(
             onPressed: () async {
-              final Uri url = Uri.parse('https://flutter.dev');
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url);
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WebViewApp()),
+              );
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -65,12 +65,6 @@ class _InfoTabState extends State<InfoTab> {
         ],
       ),
     );
-  }
-
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
   }
 
   Padding _writeDesc(double screenWidth, double screenHeight) {
