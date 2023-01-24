@@ -1,5 +1,9 @@
 import 'package:MouTracker/screens/mou_details/track_page_utils/web_view.dart';
 
+import 'dart:io';
+
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
+
 import '/classes/mou.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +104,7 @@ class _InfoTabState extends State<InfoTab> {
 // Card to download MOU's PDF file
   ListTile _fileDownload() {
     return ListTile(
-      title: const Text("file_name.pdf",
+      title: Text("${widget.mou.docName}.pdf",
           style: TextStyle(fontSize: 16, color: Colors.black)),
       subtitle: const Text("10.0 MB", style: TextStyle(fontSize: 12)),
       tileColor: kTileClr,
@@ -108,6 +112,48 @@ class _InfoTabState extends State<InfoTab> {
       trailing: IconButton(
           onPressed: () async {
             // Download MOU's PDF for firebase storage.
+            await FirebaseApi.download(widget.mou.docName);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    backgroundColor: kBgClr2,
+                    title: Row(
+                      children: const <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Color(0xFFF2C32C),
+                          ),
+                        ),
+                        Flexible(
+                          child: Text(
+                            "Downloaded",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                    content: const Text(
+                      'saved in your device\'s downloads folder',
+                      style: TextStyle(color: kBgClr1),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color(0xFFF2C32C))),
+                        child: Text('Ok'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                });
           },
           icon: const Icon(Icons.file_download_outlined, size: 25)),
     );

@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 Widget fileName() {
   return Center(
     child: Text(
-      CreateFormState.file == null
-          ? "No File Selected"
-          : CreateFormState.file!.path.split('/').last,
-      style: TextStyle(color: kBgClr2),
-    ),
+        CreateFormState.file == null
+            ? "No File Selected"
+            : CreateFormState.file!.path.split('/').last,
+        style: const TextStyle(color: kBgClr2)),
   );
 }
 

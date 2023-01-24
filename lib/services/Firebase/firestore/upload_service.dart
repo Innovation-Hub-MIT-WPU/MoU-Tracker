@@ -1,4 +1,4 @@
-import 'package:MouTracker/classes/firebase_file.dart';
+import 'package:MouTracker/classes/file.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import '../../../screens/mou_creation/mou_creation_page.dart';
@@ -6,21 +6,19 @@ import 'dart:io' as io;
 
 class FirebaseApi {
   static var downloadUrl;
-  static late Reference fileReference;
-  static Future fileUpload(String docName) async {
+  static Future fileUpload(String folder) async {
     if (CreateFormState.file == null) {
       print("not done");
       return;
     } else {
       String filename = (CreateFormState.file!.path).split('/').last;
-      final location = '$docName';
+      final location = '$folder/$filename';
 
       CreateFormState.task =
           FirebaseApi.uploadTask(location, CreateFormState.file!);
       final snapshot = await CreateFormState.task!.whenComplete(() {});
-      fileReference = snapshot.ref;
       downloadUrl = await snapshot.ref.getDownloadURL();
-      print("url $downloadUrl");
+      print("done");
     }
   }
 
@@ -35,8 +33,9 @@ class FirebaseApi {
   }
 
   static Future download(String path) async {
-    final ref = FirebaseStorage.instance.ref('test/');
+    final ref = FirebaseStorage.instance.ref('/$path');
     final result = await ref.listAll();
+    print("hey${result.items[0].name}");
     final url = await result.items[0].getDownloadURL();
     final ref2 = result.items[0];
     final name = ref2.name;
@@ -44,17 +43,9 @@ class FirebaseApi {
 
     try {
       final io.Directory systemTempDir = io.Directory.systemTemp;
-      final io.File tempFile =
-          io.File('/storage/emulated/0/Download/temp${ref.name}');
-      if (tempFile.existsSync()) await tempFile.delete();
+      final io.File tempFile = io.File('/storage/emulated/0/Download/$name');
 
-      await ref.writeToFile(tempFile);
-
-      print('${systemTempDir.path}/temp${ref.name}'
-          // 'Success!\n Downloaded ${ref.name} \n from bucket: ${ref.bucket}\n '
-          // 'at path: ${ref.fullPath} \n'
-          // 'Wrote "${ref.fullPath}" to tmp-${ref.name}',
-          );
+      await ref2.writeToFile(tempFile);
     } catch (e) {
       print(e);
     }
