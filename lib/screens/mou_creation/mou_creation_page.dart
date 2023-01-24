@@ -175,6 +175,7 @@ class CreateFormState extends State<CreateForm> {
                   hintText: "MOU description",
                   textInputType: TextInputType.text,
                   textEditingController: descController),
+              fileName(),
               chooseFileButton(context, pickFile),
             ],
           ),
@@ -219,7 +220,7 @@ class CreateFormState extends State<CreateForm> {
         isApproved: false,
       );
       // If text field uploading is successful, Move to File uploading
-      FirebaseApi.fileUpload();
+      FirebaseApi.fileUpload(docName);
       db.addNotification(
           body: "$docName was created by $spocName",
           title: "Mou Created!!",

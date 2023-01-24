@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:string_validator/string_validator.dart';
 import '../../../../classes/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_tab.dart';
@@ -58,9 +59,6 @@ class NotificationsState extends State<Notifications>
                   future: DataBaseService().getNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      // allData = snapshot.data as List<NotificationsData>;
-
-                      // sort(allData);
                       ontracklist = snapshot.data as List<NotificationsData>;
                       delayedlist = snapshot.data as List<NotificationsData>;
                       ontracklist = _runFilter(
@@ -140,26 +138,23 @@ class NotificationsState extends State<Notifications>
     return delayedlist = search1;
   }
 
-  // void sort(List<NotificationsData> allData) async {
-  //   DateTime dueDate = DateTime.now();
-  //   for (NotificationsData data in allData) {
-  //     var query = await FirebaseFirestore.instance
-  //         .collection('mou')
-  //         .where('doc-name', isEqualTo: data.docName)
-  //         .get();
-  //     final dat = query.docs.map((doc) {
-  //       dueDate = doc['due-date'].toDate();
-  //       return doc.data();
-  //     });
-
-  //     if ((dueDate).difference(DateTime.now()).isNegative) {
-  //       print(" !due: $dueDate");
-  //       delayedlist.add(data);
-  //     } else {
-  //       print(" on: $dueDate");
-  //       ontracklist.add(data);
-  //     }
-  //   }
-  // }
-
+  void sort(List<NotificationsData> data) async {
+    for (NotificationsData data in data) {
+      var query = await FirebaseFirestore.instance
+          .collection('mou')
+          .where('doc-name', isEqualTo: data.docName)
+          .get();
+      final dueDate = query.docs.map((doc) {
+        return doc['due-date'].toDate();
+      }).toList();
+      print(dueDate[0]);
+      if ((dueDate[0]).difference(DateTime.now()).isNegative) {
+        print(" !due: $dueDate");
+        delayedlist.add(data);
+      } else {
+        print(" on: $dueDate");
+        ontracklist.add(data);
+      }
+    }
+  }
 }

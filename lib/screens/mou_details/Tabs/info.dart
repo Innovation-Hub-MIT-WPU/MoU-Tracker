@@ -106,7 +106,7 @@ class _InfoTabState extends State<InfoTab> {
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 25),
       trailing: IconButton(
-          onPressed: () {
+          onPressed: () async {
             // Download MOU's PDF for firebase storage.
           },
           icon: const Icon(Icons.file_download_outlined, size: 25)),

@@ -9,7 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de068826-9eb0-497a-9ecc-79441fa98b31" name="Changes" comment="working search bar">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_creation/creation_page_utils/create_mou_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_creation/mou_creation_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_creation/mou_creation_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/mou_details/Tabs/info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/Firebase/firestore/upload_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/Firebase/firestore/upload_service.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
