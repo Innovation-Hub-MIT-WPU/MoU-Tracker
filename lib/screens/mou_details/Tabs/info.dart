@@ -49,10 +49,10 @@ class _InfoTabState extends State<InfoTab> {
           _displayText(date, screenHeight, normalStyle()),
           ElevatedButton(
             onPressed: () async {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const WebViewApp()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const WebViewApp()),
+              // );
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -105,7 +105,7 @@ class _InfoTabState extends State<InfoTab> {
   ListTile _fileDownload() {
     return ListTile(
       title: Text("${widget.mou.docName}.pdf",
-          style: TextStyle(fontSize: 16, color: Colors.black)),
+          style: const TextStyle(fontSize: 16, color: Colors.black)),
       subtitle: const Text("10.0 MB", style: TextStyle(fontSize: 12)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 25),
@@ -146,7 +146,7 @@ class _InfoTabState extends State<InfoTab> {
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 const Color(0xFFF2C32C))),
-                        child: Text('Ok'),
+                        child: const Text('Ok'),
                         onPressed: () {
                           Navigator.pop(context);
                         },
