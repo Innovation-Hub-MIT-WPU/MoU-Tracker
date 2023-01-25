@@ -168,7 +168,9 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Details(mou: mou)));
+                            builder: (context) => Details(
+                                  mou: mou,
+                                )));
                   },
                   child: Padding(
                     padding:

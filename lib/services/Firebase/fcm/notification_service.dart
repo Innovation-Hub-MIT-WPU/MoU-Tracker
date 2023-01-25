@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -44,7 +45,14 @@ class NotificationService {
 
     var initializationsSettings =
         InitializationSettings(android: androidInitialize);
-    localNotifPlugin.initialize(initializationsSettings);
+    localNotifPlugin.initialize(
+      initializationsSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        onOpenForeNotification(notificationResponse.payload!, context);
+      },
+    );
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print("onMessage: $message.notification");
 
@@ -63,11 +71,13 @@ class NotificationService {
       await localNotifPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
           payload: message.data['doc_name']);
+      print("payload ${message.data['doc_name']}");
     });
   }
 
-  void openNotification(BuildContext context) async {
+  void onOpenBackNotification(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print("noti click");
       print("onMessageOpenedApp: $message");
       var doc_name = message.data['doc_name'];
       var query = await FirebaseFirestore.instance
@@ -95,8 +105,46 @@ class NotificationService {
           dueDate: dueDate);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Details(mou: mou)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => Details(
+                    mou: mou,
+                  )));
     });
+  }
+
+  void onOpenForeNotification(String payload, BuildContext context) async {
+    var doc_name = payload;
+    var query = await FirebaseFirestore.instance
+        .collection('mou')
+        .where('doc-name', isEqualTo: doc_name)
+        .get();
+    String mouId = "";
+    DateTime date;
+    String dueDate = "";
+    final data = query.docs.map((doc) {
+      mouId = doc.id;
+      date = doc['due-date'].toDate();
+      dueDate = "${date.year}-${date.month}-${date.day}";
+      return doc.data();
+    }).toList();
+
+    MOU mou = MOU(
+        mouId: mouId,
+        docName: data[0]['doc-name'],
+        authName: data[0]['auth-name'],
+        companyName: data[0]['company-name'],
+        description: data[0]['description'],
+        isApproved: data[0]['status'],
+        appLvl: data[0]['approval-lvl'],
+        dueDate: dueDate);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Details(
+                  mou: mou,
+                )));
   }
 
   void sendPushMessage(String body, String title, String doc_name) async {
