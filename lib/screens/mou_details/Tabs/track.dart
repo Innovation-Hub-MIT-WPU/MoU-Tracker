@@ -148,13 +148,15 @@ class _TrackTabState extends State<TrackTab> {
   continued() async {
     if (_currentStep == 5) {
       DataBaseService().addNotification(
+          mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",
           title: "Final Approval",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
+          due: widget.mou.due!,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
-          "Final Approval", widget.mou.docName);
+          "Final Approval", widget.mou.mouId);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
@@ -165,15 +167,17 @@ class _TrackTabState extends State<TrackTab> {
           .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
       setState(() => isLoading = false);
       DataBaseService().addNotification(
+          mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",
           title: "MoU Approved",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
+          due: widget.mou.due!,
           on: DateTime.now());
       ns.sendPushMessage(
           "${widget.mou.docName} was approved by ${userData.firstName}",
           "MoU Approved",
-          widget.mou.docName);
+          widget.mou.mouId);
       // setState(() => _currentStep += 1);
       Navigator.push(
         context,
@@ -192,15 +196,17 @@ class _TrackTabState extends State<TrackTab> {
     setState(() => isLoading = false);
     footerText("MOU Rejected", context);
     DataBaseService().addNotification(
+        mouId: widget.mou.mouId,
         body: "${widget.mou.docName} was denied by ${userData.firstName}",
         title: "Mou Rejected!!",
         doc_name: widget.mou.docName,
         by: userData.firstName!,
+        due: widget.mou.due!,
         on: DateTime.now());
     ns.sendPushMessage(
         "${widget.mou.docName} was denied by ${userData.firstName}",
         "MoU Rejected!!",
-        widget.mou.docName);
+        widget.mou.mouId);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const HomePage()),

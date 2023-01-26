@@ -135,6 +135,8 @@ class NotificationsData1 {
     list = querySnapshot.docs.map((e) => (e.data())).toList();
     for (Map e in list) {
       notiList.add(NotificationsData(
+          due: e['due'],
+          mouId: e['mou_id'],
           title: e['title'],
           body: e['body'],
           docName: e['doc_name'],

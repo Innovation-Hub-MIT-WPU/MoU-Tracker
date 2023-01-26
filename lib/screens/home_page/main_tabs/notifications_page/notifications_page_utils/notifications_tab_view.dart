@@ -3,7 +3,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 import '../../../../../classes/notifications_data.dart';
@@ -143,26 +143,21 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                   onTap: () async {
                     var query = await FirebaseFirestore.instance
                         .collection('mou')
-                        .where('doc-name', isEqualTo: onTrack.docName)
+                        .doc(onTrack.mouId.trim())
                         .get();
-                    String mouId = "";
-                    DateTime date;
-                    String dueDate = "";
-                    final data = query.docs.map((doc) {
-                      mouId = doc.id;
-                      date = doc['due-date'].toDate();
-                      dueDate = "${date.year}-${date.month}-${date.day}";
-                      return doc.data();
-                    }).toList();
+
+                    final data = query.data();
+                    DateTime date = data!['due-date'].toDate();
+                    String dueDate = "${date.year}-${date.month}-${date.day}";
 
                     MOU mou = MOU(
-                        mouId: mouId,
-                        docName: data[0]['doc-name'],
-                        authName: data[0]['auth-name'],
-                        companyName: data[0]['company-name'],
-                        description: data[0]['description'],
-                        isApproved: data[0]['status'],
-                        appLvl: data[0]['approval-lvl'],
+                        mouId: onTrack.mouId.trim(),
+                        docName: data['doc-name'],
+                        authName: data['auth-name'],
+                        companyName: data['company-name'],
+                        description: data['description'],
+                        isApproved: data['status'],
+                        appLvl: data['approval-lvl'],
                         dueDate: dueDate);
 
                     Navigator.push(

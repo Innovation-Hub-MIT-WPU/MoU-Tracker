@@ -70,38 +70,32 @@ class NotificationService {
 
       await localNotifPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
-          payload: message.data['doc_name']);
-      print("payload ${message.data['doc_name']}");
+          payload: message.data['mou_id']);
+      print("payload ${message.data['mou_id']}");
     });
   }
 
   void onOpenBackNotification(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print("noti click");
       print("onMessageOpenedApp: $message");
-      var doc_name = message.data['doc_name'];
+      var mou_id = message.data['mou_id'];
       var query = await FirebaseFirestore.instance
           .collection('mou')
-          .where('doc-name', isEqualTo: doc_name)
+          .doc(mou_id.trim())
           .get();
-      String mouId = "";
-      DateTime date;
-      String dueDate = "";
-      final data = query.docs.map((doc) {
-        mouId = doc.id;
-        date = doc['due-date'].toDate();
-        dueDate = "${date.year}-${date.month}-${date.day}";
-        return doc.data();
-      }).toList();
+
+      final data = query.data();
+      DateTime date = data!['due-date'].toDate();
+      String dueDate = "${date.year}-${date.month}-${date.day}";
 
       MOU mou = MOU(
-          mouId: mouId,
-          docName: data[0]['doc-name'],
-          authName: data[0]['auth-name'],
-          companyName: data[0]['company-name'],
-          description: data[0]['description'],
-          isApproved: data[0]['status'],
-          appLvl: data[0]['approval-lvl'],
+          mouId: mou_id.trim(),
+          docName: data['doc-name'],
+          authName: data['auth-name'],
+          companyName: data['company-name'],
+          description: data['description'],
+          isApproved: data['status'],
+          appLvl: data['approval-lvl'],
           dueDate: dueDate);
 
       Navigator.push(
@@ -114,29 +108,24 @@ class NotificationService {
   }
 
   void onOpenForeNotification(String payload, BuildContext context) async {
-    var doc_name = payload;
+    var mou_id = payload;
     var query = await FirebaseFirestore.instance
         .collection('mou')
-        .where('doc-name', isEqualTo: doc_name)
+        .doc(mou_id.trim())
         .get();
-    String mouId = "";
-    DateTime date;
-    String dueDate = "";
-    final data = query.docs.map((doc) {
-      mouId = doc.id;
-      date = doc['due-date'].toDate();
-      dueDate = "${date.year}-${date.month}-${date.day}";
-      return doc.data();
-    }).toList();
+
+    final data = await query.data();
+    DateTime date = data!['due-date'].toDate();
+    String dueDate = "${date.year}-${date.month}-${date.day}";
 
     MOU mou = MOU(
-        mouId: mouId,
-        docName: data[0]['doc-name'],
-        authName: data[0]['auth-name'],
-        companyName: data[0]['company-name'],
-        description: data[0]['description'],
-        isApproved: data[0]['status'],
-        appLvl: data[0]['approval-lvl'],
+        mouId: mou_id.trim(),
+        docName: data['doc-name'],
+        authName: data['auth-name'],
+        companyName: data['company-name'],
+        description: data['description'],
+        isApproved: data['status'],
+        appLvl: data['approval-lvl'],
         dueDate: dueDate);
 
     Navigator.push(
@@ -147,7 +136,7 @@ class NotificationService {
                 )));
   }
 
-  void sendPushMessage(String body, String title, String doc_name) async {
+  void sendPushMessage(String body, String title, String mouId) async {
     try {
       var responce =
           await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -169,7 +158,7 @@ class NotificationService {
                   "status": "done",
                   "body": body,
                   "title": title,
-                  "doc_name": doc_name
+                  "mou_id": mouId
                 }
               }));
     } catch (e) {
