@@ -75,15 +75,16 @@ class DataBaseService {
       DateTime date = doc['due-date'].toDate();
       String dueDate = "${date.year}-${date.month}-${date.day}";
       return MOU(
-        mouId: mouId,
-        docName: doc['doc-name'],
-        authName: doc['auth-name'],
-        companyName: doc['company-name'],
-        description: doc['description'],
-        isApproved: doc['status'],
-        appLvl: doc['approval-lvl'],
-        dueDate: dueDate,
-      );
+          mouId: mouId,
+          docName: doc['doc-name'],
+          authName: doc['auth-name'],
+          companyName: doc['company-name'],
+          description: doc['description'],
+          isApproved: doc['status'],
+          appLvl: doc['approval-lvl'],
+          dueDate: dueDate,
+          due: date,
+          createdOn: doc['creation-date'].toDate());
     }).toList();
     return mouList;
   }

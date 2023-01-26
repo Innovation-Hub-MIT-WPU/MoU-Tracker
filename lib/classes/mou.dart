@@ -9,16 +9,21 @@ class MOU {
   final String dueDate;
   final int appLvl;
   final bool isApproved;
+  final DateTime? due;
+  final DateTime? createdOn;
 
-  MOU(
-      {required this.mouId,
-      required this.docName,
-      required this.authName,
-      // required this.spocName,
-      required this.companyName,
-      // required this.companyWebsite,
-      required this.description,
-      required this.isApproved,
-      required this.appLvl,
-      required this.dueDate});
+  MOU({
+    required this.mouId,
+    required this.docName,
+    required this.authName,
+    // required this.spocName,
+    required this.companyName,
+    // required this.companyWebsite,
+    required this.description,
+    required this.isApproved,
+    required this.appLvl,
+    required this.dueDate,
+    this.due,
+    this.createdOn,
+  });
 }

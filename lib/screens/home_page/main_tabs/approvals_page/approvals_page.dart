@@ -102,14 +102,9 @@ class ApprovalsPageState extends State<ApprovalsPage>
               ),
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  MouStatusTab(due: "On Track"),
-                  MouStatusTab(due: "Delayed"),
-                ],
-              ),
-            ),
+                child: MouStatusTab(
+              tabController: _tabController,
+            )),
           ],
         ),
       ),

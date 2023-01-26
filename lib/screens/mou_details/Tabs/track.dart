@@ -148,7 +148,7 @@ class _TrackTabState extends State<TrackTab> {
   continued() async {
     if (_currentStep == 5) {
       DataBaseService().addNotification(
-          body: "$widget.mou.docName was approved by  ${userData.firstName}",
+          body: "${widget.mou.docName} was approved by  ${userData.firstName}",
           title: "Final Approval",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
