@@ -156,7 +156,7 @@ class _TrackTabState extends State<TrackTab> {
           due: widget.mou.due!,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
-          "Final Approval", widget.mou.mouId);
+          "Final Approval", widget.mou.mouId, 5);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
@@ -177,7 +177,8 @@ class _TrackTabState extends State<TrackTab> {
       ns.sendPushMessage(
           "${widget.mou.docName} was approved by ${userData.firstName}",
           "MoU Approved",
-          widget.mou.mouId);
+          widget.mou.mouId,
+          _userPos);
       // setState(() => _currentStep += 1);
       Navigator.push(
         context,
@@ -206,7 +207,8 @@ class _TrackTabState extends State<TrackTab> {
     ns.sendPushMessage(
         "${widget.mou.docName} was denied by ${userData.firstName}",
         "MoU Rejected!!",
-        widget.mou.mouId);
+        widget.mou.mouId,
+        _userPos);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const HomePage()),

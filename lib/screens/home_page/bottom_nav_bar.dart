@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     NotificationService().requestPermission();
-    NotificationService().getToken();
+    NotificationService().addToken();
     NotificationService().checkNotifications(context);
     NotificationService().onOpenBackNotification(context);
 

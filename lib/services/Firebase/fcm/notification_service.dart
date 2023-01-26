@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
+import 'package:MouTracker/services/Firebase/fireauth/model.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -34,8 +37,15 @@ class NotificationService {
     }
   }
 
-  void getToken() async {
-    await messaging.getToken().then((value) => print("token= $value"));
+  void addToken() async {
+    var token = await messaging.getToken();
+    print("token : $token");
+    UserModel model = await DataBaseService().getuserData();
+    var list = [token];
+    await FirebaseFirestore.instance
+        .collection('deviceTokens')
+        .doc(model.pos.toString())
+        .update({"tokens": FieldValue.arrayUnion(list)});
   }
 
   void checkNotifications(BuildContext context) async {
@@ -136,33 +146,44 @@ class NotificationService {
                 )));
   }
 
-  void sendPushMessage(String body, String title, String mouId) async {
-    try {
-      var responce =
-          await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
-              headers: <String, String>{
-                'Content-Type': 'application/json',
-                'Authorization':
-                    'key=AAAACuqX0A0:APA91bGkROQ4fssNIbcdMOYwmyCq4t5IIjDTYzlRkCW4tpjQYqwkszVOgS0UvKXmEx_Y9DfZiLs7cGudph1wTlsB1fo2WEQIVzgf43vqKj6YscQa6ngvxZ289P-y9hkf4V69x473XkkI'
-              },
-              body: jsonEncode(<String, dynamic>{
-                "notification": <String, dynamic>{
-                  "body": body,
-                  "title": title,
-                },
-                "to": "/topics/test-1",
-                'priority': 'high',
-                'data': <String, dynamic>{
-                  "click_action": "FLUTTER_NOTIFICATION_CLICK",
-                  "id": "1",
-                  "status": "done",
-                  "body": body,
-                  "title": title,
-                  "mou_id": mouId
-                }
-              }));
-    } catch (e) {
-      print(e);
+  void sendPushMessage(String body, String title, String mouId, int pos) async {
+    for (var position = 0; position < pos; position++) {
+      var query = await FirebaseFirestore.instance
+          .collection('deviceTokens')
+          .doc(position.toString())
+          .get();
+
+      var doc = await query.data();
+      List tokens = doc!['tokens'];
+      for (var i = 0; i < tokens.length; i++) {
+        try {
+          var responce =
+              await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json',
+                    'Authorization':
+                        'key=AAAACuqX0A0:APA91bGkROQ4fssNIbcdMOYwmyCq4t5IIjDTYzlRkCW4tpjQYqwkszVOgS0UvKXmEx_Y9DfZiLs7cGudph1wTlsB1fo2WEQIVzgf43vqKj6YscQa6ngvxZ289P-y9hkf4V69x473XkkI'
+                  },
+                  body: jsonEncode(<String, dynamic>{
+                    "notification": <String, dynamic>{
+                      "body": body,
+                      "title": title,
+                    },
+                    "to": tokens[i],
+                    'priority': 'high',
+                    'data': <String, dynamic>{
+                      "click_action": "FLUTTER_NOTIFICATION_CLICK",
+                      "id": "1",
+                      "status": "done",
+                      "body": body,
+                      "title": title,
+                      "mou_id": mouId
+                    }
+                  }));
+        } catch (e) {
+          print(e);
+        }
+      }
     }
   }
 }
