@@ -1,8 +1,12 @@
 import 'dart:convert';
 
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
+import 'package:MouTracker/services/Firebase/fireauth/model.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -33,8 +37,15 @@ class NotificationService {
     }
   }
 
-  void getToken() async {
-    await messaging.getToken().then((value) => print("token= $value"));
+  void addToken() async {
+    var token = await messaging.getToken();
+    print("token : $token");
+    UserModel model = await DataBaseService().getuserData();
+    var list = [token];
+    await FirebaseFirestore.instance
+        .collection('deviceTokens')
+        .doc(model.pos.toString())
+        .update({"tokens": FieldValue.arrayUnion(list)});
   }
 
   void checkNotifications(BuildContext context) async {
@@ -44,7 +55,14 @@ class NotificationService {
 
     var initializationsSettings =
         InitializationSettings(android: androidInitialize);
-    localNotifPlugin.initialize(initializationsSettings);
+    localNotifPlugin.initialize(
+      initializationsSettings,
+      onDidReceiveNotificationResponse:
+          (NotificationResponse notificationResponse) {
+        onOpenForeNotification(notificationResponse.payload!, context);
+      },
+    );
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print("onMessage: $message.notification");
 
@@ -62,70 +80,112 @@ class NotificationService {
 
       await localNotifPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
-          payload: message.data['doc_name']);
+          payload: message.data['mou_id']);
+      print("payload ${message.data['mou_id']}");
     });
   }
 
-  void openNotification(BuildContext context) async {
+  void onOpenBackNotification(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
-      var doc_name = message.data['doc_name'];
+      var mou_id = message.data['mou_id'];
       var query = await FirebaseFirestore.instance
           .collection('mou')
-          .where('doc-name', isEqualTo: doc_name)
+          .doc(mou_id.trim())
           .get();
-      String mouId = "";
-      DateTime date;
-      String dueDate = "";
-      final data = query.docs.map((doc) {
-        mouId = doc.id;
-        date = doc['due-date'].toDate();
-        dueDate = "${date.year}-${date.month}-${date.day}";
-        return doc.data();
-      }).toList();
+
+      final data = query.data();
+      DateTime date = data!['due-date'].toDate();
+      String dueDate = "${date.year}-${date.month}-${date.day}";
 
       MOU mou = MOU(
-          mouId: mouId,
-          docName: data[0]['doc-name'],
-          authName: data[0]['auth-name'],
-          companyName: data[0]['company-name'],
-          description: data[0]['description'],
-          isApproved: data[0]['status'],
-          appLvl: data[0]['approval-lvl'],
+          mouId: mou_id.trim(),
+          docName: data['doc-name'],
+          authName: data['auth-name'],
+          companyName: data['company-name'],
+          companyWebsite: data[0]['company-website'],
+          description: data['description'],
+          isApproved: data['status'],
+          appLvl: data['approval-lvl'],
           dueDate: dueDate);
 
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Details(mou: mou)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => Details(
+                    mou: mou,
+                  )));
     });
   }
 
-  void sendPushMessage(String body, String title, String doc_name) async {
-    try {
-      var responce =
-          await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
-              headers: <String, String>{
-                'Content-Type': 'application/json',
-                'Authorization':
-                    'key=AAAACuqX0A0:APA91bGkROQ4fssNIbcdMOYwmyCq4t5IIjDTYzlRkCW4tpjQYqwkszVOgS0UvKXmEx_Y9DfZiLs7cGudph1wTlsB1fo2WEQIVzgf43vqKj6YscQa6ngvxZ289P-y9hkf4V69x473XkkI'
-              },
-              body: jsonEncode(<String, dynamic>{
-                "notification": <String, dynamic>{
-                  "body": body,
-                  "title": title,
-                },
-                "to": "/topics/test-1",
-                'priority': 'high',
-                'data': <String, dynamic>{
-                  "click_action": "FLUTTER_NOTIFICATION_CLICK",
-                  "id": "1",
-                  "status": "done",
-                  "body": body,
-                  "title": title,
-                  "doc_name": doc_name
-                }
-              }));
-    } catch (e) {
-      print(e);
+  void onOpenForeNotification(String payload, BuildContext context) async {
+    var mou_id = payload;
+    var query = await FirebaseFirestore.instance
+        .collection('mou')
+        .doc(mou_id.trim())
+        .get();
+
+    final data = await query.data();
+    DateTime date = data!['due-date'].toDate();
+    String dueDate = "${date.year}-${date.month}-${date.day}";
+
+    MOU mou = MOU(
+        mouId: mou_id.trim(),
+        docName: data['doc-name'],
+        authName: data['auth-name'],
+        companyName: data['company-name'],
+        companyWebsite: data['company-website'],
+        description: data['description'],
+        isApproved: data['status'],
+        appLvl: data['approval-lvl'],
+        dueDate: dueDate);
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Details(
+                  mou: mou,
+                )));
+  }
+
+  void sendPushMessage(String body, String title, String mouId, int pos) async {
+    for (var position = 0; position < pos; position++) {
+      var query = await FirebaseFirestore.instance
+          .collection('deviceTokens')
+          .doc(position.toString())
+          .get();
+
+      var doc = await query.data();
+      List tokens = doc!['tokens'];
+      for (var i = 0; i < tokens.length; i++) {
+        try {
+          var responce =
+              await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json',
+                    'Authorization':
+                        'key=AAAACuqX0A0:APA91bGkROQ4fssNIbcdMOYwmyCq4t5IIjDTYzlRkCW4tpjQYqwkszVOgS0UvKXmEx_Y9DfZiLs7cGudph1wTlsB1fo2WEQIVzgf43vqKj6YscQa6ngvxZ289P-y9hkf4V69x473XkkI'
+                  },
+                  body: jsonEncode(<String, dynamic>{
+                    "notification": <String, dynamic>{
+                      "body": body,
+                      "title": title,
+                    },
+                    "to": tokens[i],
+                    'priority': 'high',
+                    'data': <String, dynamic>{
+                      "click_action": "FLUTTER_NOTIFICATION_CLICK",
+                      "id": "1",
+                      "status": "done",
+                      "body": body,
+                      "title": title,
+                      "mou_id": mouId
+                    }
+                  }));
+        } catch (e) {
+          print(e);
+        }
+      }
     }
   }
 }

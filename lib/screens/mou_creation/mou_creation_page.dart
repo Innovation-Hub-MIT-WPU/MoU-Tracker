@@ -207,8 +207,7 @@ class CreateFormState extends State<CreateForm> {
       DateTime dueDate = DateTime(2022, 03, 02);
       DataBaseService db = DataBaseService();
       NotificationService ns = NotificationService();
-      late String mouId;
-      db.createMou(
+      final mouId = await db.createMou(
         approved: 0,
         desc: desc,
         authName: authName,
@@ -222,13 +221,15 @@ class CreateFormState extends State<CreateForm> {
       // If text field uploading is successful, Move to File uploading
       FirebaseApi.fileUpload(docName);
       db.addNotification(
+          mouId: mouId.toString(),
           body: "$docName was created by $spocName",
           title: "Mou Created!!",
           doc_name: docName,
           by: spocName,
+          due: dueDate,
           on: DateTime.now());
-      ns.sendPushMessage(
-          "$docName was created by $spocName", "Mou Created!!", docName);
+      ns.sendPushMessage("$docName was created by $spocName", "Mou Created!!",
+          mouId.toString(), 5);
       showDialog(
           barrierDismissible: false,
           context: context,

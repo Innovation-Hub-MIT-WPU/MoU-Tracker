@@ -27,6 +27,7 @@ class DataBaseService {
   final CollectionReference notifications =
       FirebaseFirestore.instance.collection('notifications');
   final List<NotificationsData> notificationsList = [];
+  late DocumentReference mouId;
 
   Future createMou({
     required DateTime dueDate,
@@ -40,7 +41,7 @@ class DataBaseService {
     required bool isApproved,
   }) async {
     try {
-      await db.collection('mou').add({
+      mouId = await db.collection('mou').add({
         'approval-lvl': approved,
         'spoc-name': spocName,
         'auth-name': authName,
@@ -55,6 +56,7 @@ class DataBaseService {
     } catch (err) {
       print("error - $err");
     }
+    return mouId.id;
   }
 
   Future updateApprovalLvl({required String mouId, required int appLvl}) async {
@@ -75,15 +77,17 @@ class DataBaseService {
       DateTime date = doc['due-date'].toDate();
       String dueDate = "${date.year}-${date.month}-${date.day}";
       return MOU(
-        mouId: mouId,
-        docName: doc['doc-name'],
-        authName: doc['auth-name'],
-        companyName: doc['company-name'],
-        description: doc['description'],
-        isApproved: doc['status'],
-        appLvl: doc['approval-lvl'],
-        dueDate: dueDate,
-      );
+          mouId: mouId,
+          docName: doc['doc-name'],
+          authName: doc['auth-name'],
+          companyName: doc['company-name'],
+          companyWebsite: doc['company-website'],
+          description: doc['description'],
+          isApproved: doc['status'],
+          appLvl: doc['approval-lvl'],
+          dueDate: dueDate,
+          due: date,
+          createdOn: doc['creation-date'].toDate());
     }).toList();
     return mouList;
   }
@@ -98,9 +102,11 @@ class DataBaseService {
     var querySnap = await notifications.get();
     final List<NotificationsData> notificationsList = querySnap.docs.map((doc) {
       return NotificationsData(
+          mouId: doc['mou_id'],
           title: doc['title'],
           docName: doc['doc_name'],
           on: doc['on'].toDate(),
+          due: doc['due'].toDate(),
           body: doc['body'],
           by: doc['by']);
     }).toList();
@@ -109,6 +115,8 @@ class DataBaseService {
 
   Future addNotification(
       {required DateTime on,
+      required DateTime due,
+      required String mouId,
       required String body,
       required String by,
       required String doc_name,
@@ -119,7 +127,9 @@ class DataBaseService {
         'by': by,
         'doc_name': doc_name,
         'title': title,
-        'on': on
+        'on': on,
+        'due': due,
+        'mou_id': mouId
       });
     } catch (err) {
       print("error - $err");

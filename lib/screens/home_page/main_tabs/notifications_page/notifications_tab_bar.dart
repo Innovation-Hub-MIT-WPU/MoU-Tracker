@@ -59,8 +59,10 @@ class NotificationsState extends State<Notifications>
                   future: DataBaseService().getNotifications(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      ontracklist = snapshot.data as List<NotificationsData>;
-                      delayedlist = snapshot.data as List<NotificationsData>;
+                      ontracklist =
+                          onTrackSort(snapshot.data as List<NotificationsData>);
+                      delayedlist =
+                          delayedSort(snapshot.data as List<NotificationsData>);
                       ontracklist = _runFilter(
                           searchQueryController.text.toString().trim());
                       delayedlist = _runFilter2(
@@ -112,9 +114,12 @@ class NotificationsState extends State<Notifications>
     final search1 = ontracklist.where((element) {
       final name = element.title.toString().toLowerCase();
       final desc = element.body.toString().toLowerCase();
+      final doc_name = element.docName.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
+      } else if (doc_name.contains(q)) {
+        return doc_name.contains(q);
       } else {
         return desc.contains(q);
       }
@@ -124,37 +129,42 @@ class NotificationsState extends State<Notifications>
   }
 
   List<NotificationsData> _runFilter2(String value) {
-    final search1 = delayedlist.where((element) {
+    final search2 = delayedlist.where((element) {
       final name = element.title.toString().toLowerCase();
       final desc = element.body.toString().toLowerCase();
+
+      final doc_name = element.docName.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
+      } else if (doc_name.contains(q)) {
+        return doc_name.contains(q);
       } else {
         return desc.contains(q);
       }
     }).toList();
     // print(search1);
-    return delayedlist = search1;
+    return delayedlist = search2;
   }
 
-  void sort(List<NotificationsData> data) async {
-    for (NotificationsData data in data) {
-      var query = await FirebaseFirestore.instance
-          .collection('mou')
-          .where('doc-name', isEqualTo: data.docName)
-          .get();
-      final dueDate = query.docs.map((doc) {
-        return doc['due-date'].toDate();
-      }).toList();
-      print(dueDate[0]);
-      if ((dueDate[0]).difference(DateTime.now()).isNegative) {
-        print(" !due: $dueDate");
-        delayedlist.add(data);
-      } else {
-        print(" on: $dueDate");
-        ontracklist.add(data);
+  List<NotificationsData> delayedSort(List<NotificationsData> allData) {
+    List<NotificationsData> res = [];
+    for (NotificationsData data in allData) {
+      if ((data.due).difference(DateTime.now()).isNegative) {
+        res.add(data);
       }
     }
+    return res;
+  }
+
+  List<NotificationsData> onTrackSort(List<NotificationsData> allData) {
+    List<NotificationsData> res = [];
+    for (NotificationsData data in allData) {
+      if ((data.due).difference(DateTime.now()).isNegative) {
+      } else {
+        res.add(data);
+      }
+    }
+    return res;
   }
 }

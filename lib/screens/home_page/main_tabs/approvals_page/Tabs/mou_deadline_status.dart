@@ -8,8 +8,8 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 
 class MouStatusTab extends StatefulWidget {
-  final String due;
-  const MouStatusTab({required this.due, Key? key}) : super(key: key);
+  final TabController tabController;
+  const MouStatusTab({required this.tabController, Key? key}) : super(key: key);
 
   @override
   _MouStatusTabState createState() => _MouStatusTabState();
@@ -17,6 +17,8 @@ class MouStatusTab extends StatefulWidget {
 
 class _MouStatusTabState extends State<MouStatusTab> {
   late List<MOU> mouList;
+  late List<MOU> onTrackMouList;
+  late List<MOU> delayedMouList;
   String dropdownvalue = "Type A";
 
   late TextEditingController searchQueryController;
@@ -40,7 +42,18 @@ class _MouStatusTabState extends State<MouStatusTab> {
         if (snapshot.hasData) {
           mouList = snapshot.data as List<MOU>;
           mouList = _runFilter(searchQueryController.text.toString().trim());
-          return mouCards(mouList);
+          onTrackMouList = onTrackSort(mouList);
+          delayedMouList = delayedSort(mouList);
+
+          onTrackMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
+          delayedMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
+          return TabBarView(
+            controller: widget.tabController,
+            children: [
+              mouCards(onTrackMouList),
+              mouCards(delayedMouList),
+            ],
+          );
         } else if (snapshot.hasError) {
           return Center(child: Text(snapshot.error.toString()));
         } else {
@@ -111,6 +124,27 @@ class _MouStatusTabState extends State<MouStatusTab> {
         dropDownSelector()
       ],
     );
+  }
+
+  List<MOU> delayedSort(List<MOU> allData) {
+    List<MOU> res = [];
+    for (MOU data in allData) {
+      if ((data.due)!.difference(DateTime.now()).isNegative) {
+        res.add(data);
+      }
+    }
+    return res;
+  }
+
+  List<MOU> onTrackSort(List<MOU> allData) {
+    List<MOU> res = [];
+    for (MOU data in allData) {
+      if ((data.due)!.difference(DateTime.now()).isNegative) {
+      } else {
+        res.add(data);
+      }
+    }
+    return res;
   }
 
   List<MOU> _runFilter(String value) {
