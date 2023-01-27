@@ -1,3 +1,4 @@
+import 'package:MouTracker/common_utils/webview.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/web_view.dart';
 
 import 'dart:io';
@@ -20,10 +21,17 @@ class InfoTab extends StatefulWidget {
 class _InfoTabState extends State<InfoTab> {
   int k = 0;
   DataBaseService db = DataBaseService();
+
+  
+
   // Setup a Provider stream here to get MOU data from firestore
   @override
   void initState() {
     super.initState();
+    setState(() {
+      downloadChecker[widget.mou.docName] = 0;
+      print(downloadChecker[widget.mou.docName]);
+    });
   }
 
   @override
@@ -49,10 +57,12 @@ class _InfoTabState extends State<InfoTab> {
           _displayText(date, screenHeight, normalStyle()),
           ElevatedButton(
             onPressed: () async {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const WebViewApp()),
-              // );
+              String link = widget.mou.companyWebsite;
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => WebViewClass(url: link),
+                ),
+              );
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -109,53 +119,65 @@ class _InfoTabState extends State<InfoTab> {
       subtitle: const Text("10.0 MB", style: TextStyle(fontSize: 12)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 25),
-      trailing: IconButton(
+      trailing: (downloadChecker[widget.mou.docName] == 0 ) ? IconButton(
           onPressed: () async {
+            setState(() {
+              downloadChecker[widget.mou.docName] = -1;
+            });
+
             // Download MOU's PDF for firebase storage.
             await FirebaseApi.download(widget.mou.docName);
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    backgroundColor: kBgClr2,
-                    title: Row(
-                      children: const <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Color(0xFFF2C32C),
-                          ),
-                        ),
-                        Flexible(
-                          child: Text(
-                            "Downloaded",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                        )
-                      ],
-                    ),
-                    content: const Text(
-                      'saved in your device\'s downloads folder',
-                      style: TextStyle(color: kBgClr1),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color(0xFFF2C32C))),
-                        child: const Text('Ok'),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  );
-                });
+            
+
+            setState(() {
+              downloadChecker[widget.mou.docName] = 1;
+            });
+
+            // showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return AlertDialog(
+            //         backgroundColor: kBgClr2,
+            //         title: Row(
+            //           children: const <Widget>[
+            //             Padding(
+            //               padding: EdgeInsets.only(right: 8.0),
+            //               child: Icon(
+            //                 Icons.done,
+            //                 color: Color(0xFFF2C32C),
+            //               ),
+            //             ),
+            //             Flexible(
+            //               child: Text(
+            //                 "Downloaded",
+            //                 style: TextStyle(
+            //                     fontWeight: FontWeight.w600,
+            //                     color: Colors.white),
+            //               ),
+            //             )
+            //           ],
+            //         ),
+            //         content: const Text(
+            //           'saved in your device\'s downloads folder',
+            //           style: TextStyle(color: kBgClr1),
+            //         ),
+            //         actions: <Widget>[
+            //           TextButton(
+            //             style: ButtonStyle(
+            //                 backgroundColor: MaterialStateProperty.all(
+            //                     const Color(0xFFF2C32C))),
+            //             child: const Text('Ok'),
+            //             onPressed: () {
+            //               Navigator.pop(context);
+            //             },
+            //           ),
+            //         ],
+            //       );
+            //     });
           },
-          icon: const Icon(Icons.file_download_outlined, size: 25)),
+          icon: const Icon(Icons.file_download_outlined, size: 25))
+          : (downloadChecker[widget.mou.docName] == -1) ? const CircularProgressIndicator()
+          : const Icon(Icons.download_done_outlined , size: 25),
     );
   }
 }

@@ -1,11 +1,20 @@
+import 'dart:io';
+
 import 'package:MouTracker/classes/file.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 import '../../../screens/mou_creation/mou_creation_page.dart';
 import 'dart:io' as io;
 
 class FirebaseApi {
   static var downloadUrl;
+
+  static String downloadPath = '/storage/emulated/0/Download';
+  static late DownloaderUtils options;
+  static late DownloaderCore core;
+
   static Future fileUpload(String folder) async {
     if (CreateFormState.file == null) {
       print("not done");
@@ -37,18 +46,38 @@ class FirebaseApi {
     final result = await ref.listAll();
     print("hey${result.items[0].name}");
     final url = await result.items[0].getDownloadURL();
+    final FullMetadata metaData = await result.items[0].getMetadata();
+    print('${metaData.name} is ${metaData.size} bytes');
+    print('metaData.contentType: ${metaData.contentType}');
+    String extensionName = metaData.contentType.toString().split('/').last;
+    print('extensionName: $extensionName');
+    if (extensionName ==
+        'vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      extensionName = 'docx';
+    }
     final ref2 = result.items[0];
     final name = ref2.name;
     final file = FirebaseFile(ref: ref2, name: name, url: url);
 
-    try {
-      final io.Directory systemTempDir = io.Directory.systemTemp;
-      final io.File tempFile = io.File('/storage/emulated/0/Download/$name');
-
-      await ref2.writeToFile(tempFile);
-    } catch (e) {
-      print(e);
-    }
+    options = DownloaderUtils(
+      progressCallback: (current, total) {
+        final progress = (current / total) * 100;
+        // print('Downloading: $progress');
+        // print('$path/$fileName.pdf');
+      },
+      file: File('$downloadPath/MoU-Tracker/$name'),
+      progress: ProgressImplementation(),
+      onDone: () {
+        OpenFile.open('/storage/emulated/0/Download/MoU-Tracker/$name');
+        print(
+            'Download completed. File saved at /storage/emulated/0/Download/MoU-Tracker/$name');
+      },
+      deleteOnCancel: true,
+    );
+    core = await Flowder.download(
+      url,
+      options,
+    );
   }
 }
 

@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 // const double kDefaultHorizontal = 12.0;
 // const double kDefaultVertical = 8.0;
 
+Map downloadChecker =   {
+  
+};
+
 const double kFormHorizontal = 26.0;
 const double kFormSpacing = 20.0;
 // const double kTabBarHorizontal = 16.0;

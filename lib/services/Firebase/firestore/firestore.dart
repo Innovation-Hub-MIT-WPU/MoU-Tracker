@@ -81,6 +81,7 @@ class DataBaseService {
           docName: doc['doc-name'],
           authName: doc['auth-name'],
           companyName: doc['company-name'],
+          companyWebsite: doc['company-website'],
           description: doc['description'],
           isApproved: doc['status'],
           appLvl: doc['approval-lvl'],

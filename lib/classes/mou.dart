@@ -4,7 +4,7 @@ class MOU {
   final String authName;
   // final String spocName;
   final String companyName;
-  // final String companyWebsite;
+  final String companyWebsite;
   final String description;
   final String dueDate;
   final int appLvl;
@@ -18,7 +18,7 @@ class MOU {
     required this.authName,
     // required this.spocName,
     required this.companyName,
-    // required this.companyWebsite,
+    required this.companyWebsite,
     required this.description,
     required this.isApproved,
     required this.appLvl,
