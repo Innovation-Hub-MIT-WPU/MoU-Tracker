@@ -29,6 +29,7 @@ class _InfoTabState extends State<InfoTab> {
   void initState() {
     super.initState();
     setState(() {
+      // default value to show download iconbutton
       downloadChecker[widget.mou.docName] = 0;
       print(downloadChecker[widget.mou.docName]);
     });
@@ -121,6 +122,8 @@ class _InfoTabState extends State<InfoTab> {
       leading: const Icon(Icons.file_present, size: 25),
       trailing: (downloadChecker[widget.mou.docName] == 0 ) ? IconButton(
           onPressed: () async {
+
+            // this is to show the circular progress indicator
             setState(() {
               downloadChecker[widget.mou.docName] = -1;
             });
@@ -128,7 +131,7 @@ class _InfoTabState extends State<InfoTab> {
             // Download MOU's PDF for firebase storage.
             await FirebaseApi.download(widget.mou.docName);
             
-
+            // this is to show the downloaded icon
             setState(() {
               downloadChecker[widget.mou.docName] = 1;
             });

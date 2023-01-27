@@ -44,13 +44,13 @@ class FirebaseApi {
   static Future download(String path) async {
     final ref = FirebaseStorage.instance.ref('/$path');
     final result = await ref.listAll();
-    print("hey${result.items[0].name}");
+    // print("hey${result.items[0].name}");
     final url = await result.items[0].getDownloadURL();
     final FullMetadata metaData = await result.items[0].getMetadata();
-    print('${metaData.name} is ${metaData.size} bytes');
-    print('metaData.contentType: ${metaData.contentType}');
+    // print('${metaData.name} is ${metaData.size} bytes');
+    // print('metaData.contentType: ${metaData.contentType}');
     String extensionName = metaData.contentType.toString().split('/').last;
-    print('extensionName: $extensionName');
+    // print('extensionName: $extensionName');
     if (extensionName ==
         'vnd.openxmlformats-officedocument.wordprocessingml.document') {
       extensionName = 'docx';
@@ -65,6 +65,8 @@ class FirebaseApi {
         // print('Downloading: $progress');
         // print('$path/$fileName.pdf');
       },
+
+      // folder struucture to save the file
       file: File('$downloadPath/MoU-Tracker/$name'),
       progress: ProgressImplementation(),
       onDone: () {

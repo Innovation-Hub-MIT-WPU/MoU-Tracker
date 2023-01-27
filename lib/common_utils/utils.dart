@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 // const double kDefaultHorizontal = 12.0;
 // const double kDefaultVertical = 8.0;
 
+// will be used to check if the file is downloaded or not, in info.dart
 Map downloadChecker =   {
-  
+
 };
 
 const double kFormHorizontal = 26.0;
