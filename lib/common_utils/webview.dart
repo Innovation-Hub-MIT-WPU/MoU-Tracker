@@ -1,7 +1,6 @@
-import 'dart:async'; // Add this import for Completer
+// Add this import for Completer
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-
 
 class WebViewClass extends StatefulWidget {
   const WebViewClass({Key? key, required this.url}) : super(key: key);
