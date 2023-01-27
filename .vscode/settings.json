@@ -1,3 +1,4 @@
 {
-	"workbench.colorTheme": "Mayukai Semantic Mirage"
+	"workbench.colorTheme": "Mayukai Semantic Mirage",
+	"java.configuration.updateBuildConfiguration": "interactive"
 }
