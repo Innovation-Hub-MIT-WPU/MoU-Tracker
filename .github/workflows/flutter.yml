@@ -24,15 +24,17 @@ jobs:
           distribution: temurin
       # Set up Flutter.
       - name: Clone Flutter repository with master channel
-        uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d
+        uses: subosito/flutter-action@v2
         with:
-          channel: master
+          flutter-version: '3.0.5'
+          channel: 'stable'
+      - run: flutter --version
       - run: flutter config --enable-macos-desktop
       - run: flutter doctor -v
 
       # Checkout gallery code and get packages.
       - name: Checkout gallery code
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        uses: actions/checkout@v3
       - run: flutter pub get
 
       - run: flutter build ${{ matrix.target }}
