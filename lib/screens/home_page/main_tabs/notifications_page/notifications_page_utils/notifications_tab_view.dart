@@ -83,6 +83,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
     BuildContext context) {
   String title = onTrack.title;
   String doc_name = onTrack.docName.toUpperCase();
+  
   String state = title.contains("Approved")
       ? "Approved"
       : title.contains("Rejected")

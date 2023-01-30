@@ -1,13 +1,15 @@
 import 'package:MouTracker/common_utils/webview.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/classes/mou.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 
 class InfoTab extends StatefulWidget {
+  final String? heroTag;
   final MOU mou;
-  const InfoTab({Key? key, required this.mou}) : super(key: key);
+  const InfoTab({Key? key, required this.mou,this.heroTag = null}) : super(key: key);
 
   @override
   _InfoTabState createState() => _InfoTabState();
@@ -38,40 +40,42 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.06,
           left: screenWidth * 0.02,
           right: screenWidth * 0.02),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("Information", style: titleStyle()),
-          _buildDivider(screenWidth, screenHeight),
-          Text("Title", style: subtitleStyle()),
-          _displayText(widget.mou.docName, screenHeight, titleStyle()),
-          Text("Description", style: subtitleStyle()),
-          _writeDesc(screenWidth, screenHeight),
-          Text("Date", style: subtitleStyle()),
-          _displayText(date, screenHeight, normalStyle()),
-          ElevatedButton(
-            onPressed: () async {
-              String link = widget.mou.companyWebsite;
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => WebViewClass(url: link),
-                ),
-              );
-            },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.green),
+      child: 
+         Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Information", style: titleStyle(screenWidth * 0.055)),
+            _buildDivider(screenWidth, screenHeight),
+            Text("Title", style: subtitleStyle(screenWidth * 0.04)),
+            _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.05)),
+            Text("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
+            _writeDesc(screenWidth, screenHeight),
+            Text("Date", style: subtitleStyle(screenWidth * 0.04)),
+            _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.normal)),
+            ElevatedButton(
+              onPressed: () async {
+                String link = widget.mou.companyWebsite;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => WebViewClass(url: link),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
+              ),
+              child: Text("Company Website",
+                  style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600)),
             ),
-            child: const Text("Company Website",
-                style: TextStyle(color: Colors.white, fontSize: 17)),
-          ),
-          _buildDivider(screenWidth, screenHeight),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
-            child: _fileDownload(),
-          ),
-        ],
-      ),
+            _buildDivider(screenWidth, screenHeight),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+              child: _fileDownload(),
+            ),
+          ],
+        ),
+      
     );
   }
 
@@ -79,10 +83,11 @@ class _InfoTabState extends State<InfoTab> {
     return Padding(
       padding: EdgeInsets.only(
           left: screenWidth * 0.09,
+          top: screenHeight * 0.005,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
       child: Text(widget.mou.description,
-          softWrap: true, textAlign: TextAlign.center, style: normalStyle()),
+          softWrap: true, textAlign: TextAlign.justify, style: normalStyle(screenWidth * 0.045)),
     );
   }
 

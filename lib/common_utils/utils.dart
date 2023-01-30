@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Padding & spacing values -> Modify Later Using media query
 // Values are kept const for now since setState has to be called for changing variable values
@@ -42,16 +43,19 @@ const Color kTileClr = Color(0xffedf9ff);
 //TextStyles
 
 // Used in Mou details - Info tab
-TextStyle titleStyle() {
-  return const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
+TextStyle titleStyle(double size) {
+  return GoogleFonts.figtree(fontSize: size, fontWeight: FontWeight.bold);
+  // return const TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
 }
 
-TextStyle normalStyle() {
-  return const TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
+TextStyle normalStyle(double size) {
+  return GoogleFonts.figtree(fontSize: size, fontWeight: FontWeight.w400);
+  // return const TextStyle(fontSize: 14, fontWeight: FontWeight.w400);
 }
 
-TextStyle subtitleStyle() {
-  return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+TextStyle subtitleStyle(double size) {
+  return GoogleFonts.figtree(fontSize: size, fontWeight: FontWeight.w500);
+  // return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 }
 
 //designations

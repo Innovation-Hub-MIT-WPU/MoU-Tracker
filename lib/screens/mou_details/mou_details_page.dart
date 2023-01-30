@@ -1,4 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,8 @@ import '/screens/mou_details/Tabs/engagement.dart';
 
 class Details extends StatefulWidget {
   final MOU mou;
-  const Details({Key? key, required this.mou}) : super(key: key);
+  final String? heroTag;
+  const Details({Key? key, required this.mou, this.heroTag = null}) : super(key: key);
   static const routeName = '/mou_details';
 
   @override
@@ -51,46 +53,44 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kBgClr2,
-          centerTitle: true,
-          title: const Text(
-            "Tracking",
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                  color: Colors.white),
-            ),
-          ],
-          // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(screenHeight * 0.1),
-              child: _customTabBar(screenWidth, screenHeight)),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kBgClr2,
+        centerTitle: true,
+        title: Text(
+          "Tracking",
+          style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.07),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  InfoTab(mou: widget.mou),
-                  const EngagementTab(),
-                  TrackTab(mou: widget.mou),
-                ],
-              ),
-            ),
-          ],
-        ),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(16.0),
+        //     child: IconButton(
+        //         onPressed: () {},
+        //         icon: const Icon(Icons.search),
+        //         color: Colors.white),
+        //   ),
+        // ],
+        // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(screenHeight * 0.1),
+            child: _customTabBar(screenWidth, screenHeight)),
       ),
-    );
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                InfoTab(mou: widget.mou,heroTag: widget.heroTag,),
+                const EngagementTab(),
+                TrackTab(mou: widget.mou),
+              ],
+            ),
+          ),
+        ],
+      ),
+      );
   }
 
   // Function to build a single tab for tab bar
@@ -125,9 +125,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         decoration: BoxDecoration(
           border: Border.all(width: kBorderWidth, color: Colors.white),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(15),
         ),
-        child: _buildTabBar(),
+        child: Center(child: _buildTabBar()),
       ),
     );
   }
@@ -135,7 +135,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   // In-built Flutter Tab bar Widget
   TabBar _buildTabBar() {
     return TabBar(
-        labelPadding: const EdgeInsets.all(2),
+        labelPadding: const EdgeInsets.all(1),
         controller: _tabController,
         unselectedLabelColor: Colors.grey,
         indicator:

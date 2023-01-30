@@ -6,6 +6,7 @@ import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_3.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MouStatusTab extends StatefulWidget {
   final TabController tabController;
@@ -19,7 +20,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
   late List<MOU> mouList;
   late List<MOU> onTrackMouList;
   late List<MOU> delayedMouList;
-  String dropdownvalue = "Type A";
+  String dropdownvalue = "Detailed";
 
   late TextEditingController searchQueryController;
   @override
@@ -77,9 +78,9 @@ class _MouStatusTabState extends State<MouStatusTab> {
         backgroundColor: const Color(0xff2D376E),
         label:
             Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
-        icon: const Icon(
+        icon: Icon(
           Icons.add,
-          size: 50,
+          size: screenWidth * 0.06,
         ),
       ),
     );
@@ -88,41 +89,54 @@ class _MouStatusTabState extends State<MouStatusTab> {
   Widget searchBox() {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return Row(
-      children: [
-        Container(
-          width: screenWidth * 0.7,
-          margin: EdgeInsets.only(
-              top: screenWidth / 50,
-              bottom: screenWidth / 50,
-              left: screenWidth * 0.04),
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          child: TextField(
-            controller: searchQueryController,
-            onChanged: (value) {
-              setState(() {
-                mouList = _runFilter(value);
-              });
-            },
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(
-                  vertical: screenHeight / 70, horizontal: screenWidth / 20),
-              hintText: "Search",
-              suffixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: const BorderSide(color: kBgClr2),
+    return Container(
+      decoration: BoxDecoration(
+        color: kBgClr2,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(screenWidth * 0.08),
+          bottomRight: Radius.circular(screenWidth * 0.08),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: screenWidth * 0.7,
+            margin: EdgeInsets.only(
+                top: screenWidth / 50,
+                bottom: screenWidth / 50,
+                // left: screenWidth * 0.04
+                ),
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            child: TextField(
+              controller: searchQueryController,
+              onChanged: (value) {
+                setState(() {
+                  mouList = _runFilter(value);
+                });
+              },
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    vertical: screenHeight / 70, horizontal: screenWidth / 20),
+                hintText: "Search MoU",
+                hintStyle: GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.04, color: Colors.grey),
+                suffixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: const BorderSide(),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: const BorderSide(color: kBgClr2),
+                ),
               ),
             ),
           ),
-        ),
-        dropDownSelector()
-      ],
+          dropDownSelector()
+        ],
+      ),
     );
   }
 
@@ -169,42 +183,50 @@ class _MouStatusTabState extends State<MouStatusTab> {
     return search1;
   }
 
-  Padding dropDownSelector() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: DropdownButton<String>(
-        elevation: 50,
-        icon: const Icon(
-          Icons.keyboard_arrow_down,
-          color: Colors.black,
-          size: 17,
-        ),
-        autofocus: true,
+  Widget dropDownSelector() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        dropdownColor: Colors.white,
-        hint: Row(
-          children: [
-            Image.asset(
-              'assets/images/carousel.png',
-              width: 17,
-            ),
-            const Text(
-              ' Views',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: DropdownButton<String>(
+          underline: Container(),
+          elevation: 50,
+          icon: const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black,
+            size: 17,
+          ),
+          autofocus: true,
+          borderRadius: BorderRadius.circular(20),
+          dropdownColor: Colors.white,
+          hint: Row(
+            children: [
+              Image.asset(
+                'assets/images/carousel.png',
+                width: 17,
+              ),
+              Text(
+                'Views',
+                style: GoogleFonts.figtree(
+                    fontSize: 13, fontWeight: FontWeight.normal),
+              ),
+            ],
+          ),
+          items: <String>['Detailed', 'Short'].map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (String? newvalue) {
+            setState(() {
+              dropdownvalue = newvalue!;
+            });
+          },
         ),
-        items: <String>['Type A', 'Type B', 'Type C'].map((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-        onChanged: (String? newvalue) {
-          setState(() {
-            dropdownvalue = newvalue!;
-          });
-        },
       ),
     );
   }
@@ -216,19 +238,21 @@ Widget buildList(List<MOU> mouList, String type) {
     // physics: const PageScrollPhysics(),
     itemCount: mouList.length,
     itemBuilder: (context, index) {
-      if (type == "Type A") {
+      if (type == "Detailed") {
         return MyCard(
           index: index,
           mou: mouList[index],
           key: UniqueKey(),
         );
-      } else if (type == "Type B") {
-        return MyCard2(
-          index: index,
-          mou: mouList[index],
-          key: UniqueKey(),
-        );
-      } else {
+      }
+      // else if (type == "Short") {
+      //   return MyCard3(
+      //     index: index,
+      //     mou: mouList[index],
+      //     key: UniqueKey(),
+      //   );
+      // }
+      else {
         return MyCard3(
           index: index,
           mou: mouList[index],

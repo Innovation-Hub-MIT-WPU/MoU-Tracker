@@ -2,6 +2,7 @@ import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ApprovalsPage extends StatefulWidget {
   const ApprovalsPage({Key? key}) : super(key: key);
@@ -51,24 +52,27 @@ class ApprovalsPageState extends State<ApprovalsPage>
               child: Column(
                 children: [
                   Container(
-                      alignment: Alignment.bottomCenter,
-                      color: const Color(0xff2D376E),
-                      // padding: EdgeInsets.only(bottom: 20),
-                      width: screenWidth,
-                      height: screenHeight * 0.07,
-                      child: const Text(
-                        'Approvals',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
-                      )),
+                    alignment: Alignment.bottomCenter,
+                    
+                    // padding: EdgeInsets.only(bottom: 20),
+                    width: screenWidth,
+                    height: screenHeight * 0.06,
+                    
+                    child: Text(
+                      'Approvals',
+                      style: GoogleFonts.figtree(
+                          fontSize: screenWidth * 0.07, color: Colors.white),
+                    ),
+                  ),
                   Container(
                     color: const Color(0xff2D376E),
                     width: screenWidth,
-                    height: screenHeight * 0.1,
+                    height: screenHeight * 0.09,
                     padding: EdgeInsets.fromLTRB(
                         screenWidth * 0.125,
-                        screenHeight * 0.010,
+                        screenHeight * 0.0075,
                         screenWidth * 0.125,
-                        screenHeight * 0.02),
+                        screenHeight * 0.014),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -76,12 +80,14 @@ class ApprovalsPageState extends State<ApprovalsPage>
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(15),
+                          
                         ),
                         child: TabBar(
-                          padding: const EdgeInsets.all(2.5),
+                          padding: EdgeInsets.all(screenWidth * 0.007),
                           // isScrollable: true,
-                          labelStyle: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
+                          labelStyle: GoogleFonts.figtree(
+                              fontSize: screenWidth * 0.04,
+                              fontWeight: FontWeight.bold),
                           unselectedLabelColor: Colors.black.withOpacity(0.25),
                           indicator: BoxDecoration(
                             color:
@@ -99,6 +105,15 @@ class ApprovalsPageState extends State<ApprovalsPage>
                     ),
                   ),
                 ],
+              ),
+            ),
+            Container(
+              height: screenHeight * 0.005,
+              color: const Color(0xff2D376E),
+              // color: Colors.white,
+              child: Divider(
+                color: Colors.black.withOpacity(0.25),
+                thickness: 1,
               ),
             ),
             Expanded(

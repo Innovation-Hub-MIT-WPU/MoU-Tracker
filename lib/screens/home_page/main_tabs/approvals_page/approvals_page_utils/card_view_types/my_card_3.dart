@@ -58,12 +58,13 @@ class _MyCard3State extends State<MyCard3> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
+      
       margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       // index % 2 == 0 ? Colors.teal : Colors.pink
-      height: 105,
+      height: screenHeight * 0.12,
       width: screenWidth,
       decoration: BoxDecoration(
-        color: Colors.lightBlueAccent.withOpacity(0.2),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(

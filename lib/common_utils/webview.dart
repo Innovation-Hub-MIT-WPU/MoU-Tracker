@@ -30,6 +30,10 @@ class WebViewState extends State<WebViewClass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.url),
+        centerTitle: true,
+      ),
       body: IndexedStack(index: position, children: <Widget>[
         SafeArea(
           top: true,

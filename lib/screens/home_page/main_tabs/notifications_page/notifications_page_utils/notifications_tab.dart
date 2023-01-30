@@ -1,6 +1,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../services/Firebase/fcm/notification_service.dart';
 
@@ -35,7 +36,7 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
             ),
             labelColor: kBgClr1,
             labelStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                 GoogleFonts.figtree(fontSize: width * 0.04, fontWeight: FontWeight.bold),
             unselectedLabelColor: black.withOpacity(0.25),
             tabs: const [
               Tab(
@@ -59,7 +60,7 @@ PreferredSizeWidget appbar(
     backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.09),
         child: tabs(_tabController, index, context)),
     title: Padding(
       padding: EdgeInsets.only(
@@ -69,7 +70,7 @@ PreferredSizeWidget appbar(
         child: TextButton(
           child: Text(
             'Notifications',
-            style: TextStyle(
+            style: GoogleFonts.figtree(
                 fontSize: MediaQuery.of(context).size.width / 15,
                 color: kBgClr1,
                 fontWeight: FontWeight.w400),
