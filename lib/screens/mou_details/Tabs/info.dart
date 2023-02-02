@@ -41,40 +41,42 @@ class _InfoTabState extends State<InfoTab> {
           left: screenWidth * 0.02,
           right: screenWidth * 0.02),
       child: 
-         Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Information", style: titleStyle(screenWidth * 0.055)),
-            _buildDivider(screenWidth, screenHeight),
-            Text("Title", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.05)),
-            Text("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
-            _writeDesc(screenWidth, screenHeight),
-            Text("Date", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.normal)),
-            ElevatedButton(
-              onPressed: () async {
-                String link = widget.mou.companyWebsite;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => WebViewClass(url: link),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.green),
+         SingleChildScrollView(
+           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text("Information", style: titleStyle(screenWidth * 0.055)),
+              _buildDivider(screenWidth, screenHeight),
+              Text("Title", style: subtitleStyle(screenWidth * 0.04)),
+              _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.05)),
+              Text("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
+              _writeDesc(screenWidth, screenHeight),
+              Text("Date", style: subtitleStyle(screenWidth * 0.04)),
+              _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.normal)),
+              ElevatedButton(
+                onPressed: () async {
+                  String link = widget.mou.companyWebsite;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => WebViewClass(url: link),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                ),
+                child: Text("Company Website",
+                    style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600)),
               ),
-              child: Text("Company Website",
-                  style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600)),
-            ),
-            _buildDivider(screenWidth, screenHeight),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
-              child: _fileDownload(),
-            ),
-          ],
-        ),
+              _buildDivider(screenWidth, screenHeight),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+                child: _fileDownload(),
+              ),
+            ],
+                 ),
+         ),
       
     );
   }
