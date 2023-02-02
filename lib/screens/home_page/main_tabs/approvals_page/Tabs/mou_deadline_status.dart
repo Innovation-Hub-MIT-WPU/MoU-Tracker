@@ -4,6 +4,7 @@ import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_2.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_3.dart';
+import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,14 +74,21 @@ class _MouStatusTabState extends State<MouStatusTab> {
           searchBox(),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.pushNamed(context, '/create_mou'),
-        backgroundColor: const Color(0xff2D376E),
-        label:
-            Text('Create MOU', style: TextStyle(fontSize: screenWidth * 0.04)),
-        icon: Icon(
-          Icons.add,
-          size: screenWidth * 0.06,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: Container(
+        alignment: Alignment.bottomRight,
+        margin: EdgeInsets.only(bottom: screenWidth * 0.04),
+        child: FloatingActionButton.extended(
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const CreateForm())),
+          // Navigator.pushNamed(context, '/create_mou'),
+          backgroundColor: const Color(0xff2D376E),
+          label: Text('Create MOU',
+              style: GoogleFonts.figtree(fontSize: screenWidth * 0.04)),
+          icon: Icon(
+            Icons.add,
+            size: screenWidth * 0.06,
+          ),
         ),
       ),
     );
@@ -103,10 +111,10 @@ class _MouStatusTabState extends State<MouStatusTab> {
           Container(
             width: screenWidth * 0.7,
             margin: EdgeInsets.only(
-                top: screenWidth / 50,
-                bottom: screenWidth / 50,
-                // left: screenWidth * 0.04
-                ),
+              top: screenWidth / 50,
+              bottom: screenWidth / 50,
+              // left: screenWidth * 0.04
+            ),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
             child: TextField(
