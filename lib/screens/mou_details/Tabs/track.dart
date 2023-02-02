@@ -209,10 +209,11 @@ class _TrackTabState extends State<TrackTab> {
         "MoU Rejected!!",
         widget.mou.mouId,
         _userPos);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
+        Navigator.pop(context);
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const HomePage()),
+    // );
   }
 
   ButtonStyle _buttonStyle(
