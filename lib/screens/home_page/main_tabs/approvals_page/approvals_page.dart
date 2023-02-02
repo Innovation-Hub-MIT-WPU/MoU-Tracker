@@ -1,4 +1,3 @@
-import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -53,11 +52,11 @@ class ApprovalsPageState extends State<ApprovalsPage>
                 children: [
                   Container(
                     alignment: Alignment.bottomCenter,
-                    
+
                     // padding: EdgeInsets.only(bottom: 20),
                     width: screenWidth,
                     height: screenHeight * 0.06,
-                    
+
                     child: Text(
                       'Approvals',
                       style: GoogleFonts.figtree(
@@ -80,7 +79,6 @@ class ApprovalsPageState extends State<ApprovalsPage>
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(15),
-                          
                         ),
                         child: TabBar(
                           padding: EdgeInsets.all(screenWidth * 0.007),

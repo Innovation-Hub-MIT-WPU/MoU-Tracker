@@ -9,7 +9,7 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 class InfoTab extends StatefulWidget {
   final String? heroTag;
   final MOU mou;
-  const InfoTab({Key? key, required this.mou,this.heroTag = null}) : super(key: key);
+  const InfoTab({Key? key, required this.mou, this.heroTag}) : super(key: key);
 
   @override
   _InfoTabState createState() => _InfoTabState();
@@ -40,18 +40,26 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.06,
           left: screenWidth * 0.02,
           right: screenWidth * 0.02),
-      child: 
-         Column(
+      child: SingleChildScrollView(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Information", style: titleStyle(screenWidth * 0.055)),
             _buildDivider(screenWidth, screenHeight),
             Text("Title", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.05)),
-            Text("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
+            _displayText(widget.mou.docName, screenHeight,
+                titleStyle(screenWidth * 0.05)),
+            Text("Description",
+                style: GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
             _writeDesc(screenWidth, screenHeight),
             Text("Date", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.04, fontWeight: FontWeight.normal)),
+            _displayText(
+                date,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.04,
+                    fontWeight: FontWeight.normal)),
             ElevatedButton(
               onPressed: () async {
                 String link = widget.mou.companyWebsite;
@@ -65,17 +73,21 @@ class _InfoTabState extends State<InfoTab> {
                 backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
               child: Text("Company Website",
-                  style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600)),
+                  style: GoogleFonts.figtree(
+                      color: Colors.white,
+                      fontSize: screenWidth * 0.045,
+                      fontWeight: FontWeight.w600)),
             ),
             _buildDivider(screenWidth, screenHeight),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+                  horizontal: screenWidth * 0.05,
+                  vertical: screenHeight * 0.02),
               child: _fileDownload(),
             ),
           ],
         ),
-      
+      ),
     );
   }
 
@@ -87,7 +99,9 @@ class _InfoTabState extends State<InfoTab> {
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
       child: Text(widget.mou.description,
-          softWrap: true, textAlign: TextAlign.justify, style: normalStyle(screenWidth * 0.045)),
+          softWrap: true,
+          textAlign: TextAlign.justify,
+          style: normalStyle(screenWidth * 0.045)),
     );
   }
 
