@@ -1,13 +1,16 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
-import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/mou_card.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
+
+/// Issues
+/*
+    Approval Level takes time to update need to play an animation until the database is updated.
+ */
 
 class TrackTab extends StatefulWidget {
   final MOU mou;
@@ -39,6 +42,7 @@ class _TrackTabState extends State<TrackTab> {
           _currentStep = (widget.mou.appLvl + 1);
           _userPos = userData.pos! + 1;
 
+          print('before operation');
           print('approval lvl - ${widget.mou.appLvl}');
           print('User pos - $_userPos');
           print('currentStep : $_currentStep');
@@ -180,7 +184,7 @@ class _TrackTabState extends State<TrackTab> {
           widget.mou.mouId,
           _userPos);
       // setState(() => _currentStep += 1);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
       );
@@ -190,13 +194,19 @@ class _TrackTabState extends State<TrackTab> {
   }
 
   cancel() async {
-    // _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
+    _currentStep > 0
+        ? setState(() {
+            _currentStep -= 2;
+            print('currentStep : $_currentStep');
+          })
+        : null;
     setState(() => isLoading = true);
+
     await DataBaseService()
-        .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep - 1));
+        .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
     setState(() => isLoading = false);
-    footerText("MOU Rejected", context);
-    DataBaseService().addNotification(
+
+    await DataBaseService().addNotification(
         mouId: widget.mou.mouId,
         body: "${widget.mou.docName} was denied by ${userData.firstName}",
         title: "Mou Rejected!!",
@@ -209,10 +219,10 @@ class _TrackTabState extends State<TrackTab> {
         "MoU Rejected!!",
         widget.mou.mouId,
         _userPos);
-        Navigator.pop(context);
+    Navigator.pop(context);
     // Navigator.push(
     //   context,
-    //   MaterialPageRoute(builder: (context) => const HomePage()),
+    //   MaterialPageRoute(builder: (context) => const NewHomePage()),
     // );
   }
 
