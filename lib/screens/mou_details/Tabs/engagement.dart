@@ -13,17 +13,20 @@ class _EngagementTabState extends State<EngagementTab> {
   // Receive Activity information here
   List<Activity> activities = [
     Activity(
-        name: "Workshop",
-        desc: "Lorem ipsum dolor sit amet, consectetur",
-        status: true),
+      name: "Placement",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: true,
+    ),
     Activity(
-        name: "Placement",
-        desc: "Lorem ipsum dolor sit amet, consectetur",
-        status: true),
+      name: "InternShip",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: true,
+    ),
     Activity(
-        name: "Workshop",
-        desc: "Lorem ipsum dolor sit amet, consectetur",
-        status: false)
+      name: "Faculty Internships",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: true,
+    ),
   ];
   @override
   Widget build(BuildContext context) {
