@@ -1,5 +1,6 @@
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
+
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class MOUApproved extends StatelessWidget {
@@ -16,7 +17,7 @@ class MOUApproved extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(builder: (context) => const NewNavBar()),
             );
           },
           icon: const Icon(Icons.home),

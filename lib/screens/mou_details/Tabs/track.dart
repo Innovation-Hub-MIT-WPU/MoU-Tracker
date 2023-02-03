@@ -1,6 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
