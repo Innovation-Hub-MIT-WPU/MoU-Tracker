@@ -8,15 +8,15 @@ import 'main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'main_tabs/profile_page/profile_tab.dart';
 import 'main_tabs/stats_page/stats_page.dart';
 
-class NewNavBar extends StatefulWidget {
-  const NewNavBar({Key? key}) : super(key: key);
+class NewHomePage extends StatefulWidget {
+  const NewHomePage({Key? key}) : super(key: key);
 
   @override
-  State<NewNavBar> createState() => _NewNavBarState();
+  State<NewHomePage> createState() => _NewHomePageState();
 }
 
-class _NewNavBarState extends State<NewNavBar> {
-  PersistentTabController _controller =
+class _NewHomePageState extends State<NewHomePage> {
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
   static const List<Widget> _widgetList = [

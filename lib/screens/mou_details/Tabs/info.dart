@@ -10,7 +10,7 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 class InfoTab extends StatefulWidget {
   final String? heroTag;
   final MOU mou;
-  const InfoTab({Key? key, required this.mou,this.heroTag = null}) : super(key: key);
+  const InfoTab({Key? key, required this.mou, this.heroTag}) : super(key: key);
 
   @override
   _InfoTabState createState() => _InfoTabState();
@@ -75,10 +75,22 @@ class _InfoTabState extends State<InfoTab> {
                     horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
                 child: _fileDownload(),
               ),
-            ],
-                 ),
-         ),
-      
+              child: Text("Company Website",
+                  style: GoogleFonts.figtree(
+                      color: Colors.white,
+                      fontSize: screenWidth * 0.045,
+                      fontWeight: FontWeight.w600)),
+            ),
+            _buildDivider(screenWidth, screenHeight),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05,
+                  vertical: screenHeight * 0.02),
+              child: _fileDownload(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -89,8 +101,10 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.005,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
+
       child: PText(widget.mou.description,
           softWrap: true, textAlign: TextAlign.justify, style: normalStyle(screenWidth * 0.038)),
+
     );
   }
 

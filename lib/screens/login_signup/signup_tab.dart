@@ -1,6 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
-
-
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -156,8 +154,8 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully !");
-
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => NewNavBar()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => NewHomePage()));
+   // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NewNavBar()));
   }
 }

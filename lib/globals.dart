@@ -12,6 +12,8 @@ const COLOR_THEME = {
   'secondary': Color(0xFFA1ACDA),
   'tertiary': Color(0xFFCD364E)
 };
+Color? STATUS_BAR_COLOR = COLOR_THEME['primary'];
+
 const DEFAULT_TEXT_THEME = TextTheme(
   bodyLarge: TextStyle(
     fontFamily: 'RumRaisin',

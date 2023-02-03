@@ -18,7 +18,7 @@ import '/screens/mou_details/Tabs/engagement.dart';
 class Details extends StatefulWidget {
   final MOU mou;
   final String? heroTag;
-  const Details({Key? key, required this.mou, this.heroTag = null}) : super(key: key);
+  const Details({Key? key, required this.mou, this.heroTag}) : super(key: key);
   static const routeName = '/mou_details';
 
   @override
@@ -82,7 +82,10 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: [
-                InfoTab(mou: widget.mou,heroTag: widget.heroTag,),
+                InfoTab(
+                  mou: widget.mou,
+                  heroTag: widget.heroTag,
+                ),
                 const EngagementTab(),
                 TrackTab(mou: widget.mou),
               ],
@@ -90,7 +93,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
           ),
         ],
       ),
-      );
+    );
   }
 
   // Function to build a single tab for tab bar

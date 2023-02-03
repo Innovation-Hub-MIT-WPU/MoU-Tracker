@@ -5,6 +5,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
@@ -122,8 +123,11 @@ class ProfileTabState extends State<ProfileTab> {
                         //need to connect
                         onPressed: () {
                           FireAuth().logOut();
-                          NotificationService().deteleToken();
-                          Navigator.popAndPushNamed(context, '/start');
+                          // Navigator.popAndPushNamed(context, '/start');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CheckAuth()));
                         },
                         child: PText(
                           "LOGOUT",

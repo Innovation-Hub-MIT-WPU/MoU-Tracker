@@ -9,6 +9,6 @@ class CheckAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool showSignIn = FireAuth().getCurrentUser() == null ? true : false;
-    return showSignIn ? const AnimatedSplashScreenPage() : const NewNavBar();
+    return showSignIn ? const AnimatedSplashScreenPage() : const NewHomePage();
   }
 }

@@ -9,6 +9,11 @@ import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 
+/// Issues
+/*
+    Approval Level takes time to update need to play an animation until the database is updated.
+ */
+
 class TrackTab extends StatefulWidget {
   final MOU mou;
   const TrackTab({required this.mou, Key? key}) : super(key: key);
@@ -39,6 +44,7 @@ class _TrackTabState extends State<TrackTab> {
           _currentStep = (widget.mou.appLvl + 1);
           _userPos = userData.pos! + 1;
 
+          print('before operation');
           print('approval lvl - ${widget.mou.appLvl}');
           print('User pos - $_userPos');
           print('currentStep : $_currentStep');
@@ -180,7 +186,7 @@ class _TrackTabState extends State<TrackTab> {
           widget.mou.mouId,
           _userPos);
       // setState(() => _currentStep += 1);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
       );
@@ -190,13 +196,19 @@ class _TrackTabState extends State<TrackTab> {
   }
 
   cancel() async {
-    // _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
+    _currentStep > 0
+        ? setState(() {
+            _currentStep -= 2;
+            print('currentStep : $_currentStep');
+          })
+        : null;
     setState(() => isLoading = true);
+
     await DataBaseService()
-        .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep - 1));
+        .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
     setState(() => isLoading = false);
-    footerText("MOU Rejected", context);
-    DataBaseService().addNotification(
+
+    await DataBaseService().addNotification(
         mouId: widget.mou.mouId,
         body: "${widget.mou.docName} was denied by ${userData.firstName}",
         title: "Mou Rejected!!",
@@ -209,10 +221,10 @@ class _TrackTabState extends State<TrackTab> {
         "MoU Rejected!!",
         widget.mou.mouId,
         _userPos);
-        Navigator.pop(context);
+    Navigator.pop(context);
     // Navigator.push(
     //   context,
-    //   MaterialPageRoute(builder: (context) => const HomePage()),
+    //   MaterialPageRoute(builder: (context) => const NewHomePage()),
     // );
   }
 

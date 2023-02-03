@@ -75,7 +75,6 @@ class ApprovalsPageState extends State<ApprovalsPage>
                     // padding: EdgeInsets.only(bottom: 20),
                     width: screenWidth,
                     height: screenHeight * 0.06,
-
                     child: PText(
                       'Approvals',
                       style: GoogleFonts.figtree(
