@@ -1,6 +1,6 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:MouTracker/classes/personalized_text.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
@@ -57,9 +57,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: kBgClr2,
         centerTitle: true,
-        title: Text(
+        title: PText(
           "Tracking",
-          style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.07),
+          style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.05),
         ),
         // actions: [
         //   Padding(
@@ -105,7 +105,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       ),
       child: Center(
-          child: Text(
+          child: PText(
         title,
         style: const TextStyle(fontSize: 16),
       )),

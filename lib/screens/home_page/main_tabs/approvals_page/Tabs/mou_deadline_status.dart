@@ -1,4 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
@@ -57,7 +58,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
             ],
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
+          return Center(child: PText(snapshot.error.toString()));
         } else {
           return const Loading();
         }
@@ -83,7 +84,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
               MaterialPageRoute(builder: (context) => const CreateForm())),
           // Navigator.pushNamed(context, '/create_mou'),
           backgroundColor: const Color(0xff2D376E),
-          label: Text('Create MOU',
+          label: PText('Create MOU',
               style: GoogleFonts.figtree(fontSize: screenWidth * 0.04)),
           icon: Icon(
             Icons.add,
@@ -216,7 +217,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
                 'assets/images/carousel.png',
                 width: 17,
               ),
-              Text(
+              PText(
                 'Views',
                 style: GoogleFonts.figtree(
                     fontSize: 13, fontWeight: FontWeight.normal),
@@ -226,7 +227,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
           items: <String>['Detailed', 'Short'].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: PText(value),
             );
           }).toList(),
           onChanged: (String? newvalue) {

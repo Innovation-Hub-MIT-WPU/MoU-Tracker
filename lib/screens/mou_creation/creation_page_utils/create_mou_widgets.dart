@@ -1,11 +1,12 @@
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 
 Widget fileName() {
   return Center(
-    child: Text(
+    child: PText(
         CreateFormState.file == null
             ? "No File Selected"
             : CreateFormState.file!.path.split('/').last,
@@ -24,7 +25,7 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
         Expanded(
           child: ElevatedButton(
             onPressed: details.onStepContinue,
-            child: isLastStep ? const Text("Submit") : const Text("Next"),
+            child: isLastStep ? const PText("Submit") : const PText("Next"),
           ),
         ),
         const SizedBox(width: 12),
@@ -35,7 +36,7 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
               ),
-              child: const Text(
+              child: const PText(
                 "Back",
                 style: TextStyle(color: Colors.grey),
               ),
@@ -64,7 +65,7 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
           backgroundColor: MaterialStateProperty.all(const Color(0xff64C636)),
           elevation: MaterialStateProperty.all(5),
         ),
-        child: const Text(
+        child: const PText(
           'Choose File',
           style: TextStyle(fontSize: 20),
         ),
@@ -87,7 +88,7 @@ Widget dialog(BuildContext cnt) {
           ),
         ),
         Flexible(
-          child: Text(
+          child: PText(
             "Please Wait",
             style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
           ),
@@ -98,7 +99,7 @@ Widget dialog(BuildContext cnt) {
     children: <Widget>[
       CreateFormState.task != null
           ? buildUploadStatus(CreateFormState.task!)
-          : const Text(
+          : const PText(
               "You haven't selected any file",
               style: TextStyle(color: Colors.white),
             ),
@@ -116,7 +117,7 @@ Widget dialog(BuildContext cnt) {
               Navigator.pop(cnt);
               Navigator.of(cnt).pushReplacementNamed('/submitted');
             },
-            child: const Text(
+            child: const PText(
               "Next",
               style: TextStyle(color: Colors.white),
             ),

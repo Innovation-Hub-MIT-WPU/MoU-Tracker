@@ -1,6 +1,7 @@
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
@@ -84,14 +85,14 @@ class CreateFormState extends State<CreateForm> {
   List<Step> getSteps() {
     return [
       Step(
-        title: const Text("Document"),
+        title: const PText("Document"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              const PText(
                 "Document name",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -99,7 +100,7 @@ class CreateFormState extends State<CreateForm> {
                   hintText: "Document name",
                   textInputType: TextInputType.text,
                   textEditingController: docNameController),
-              const Text(
+              const PText(
                 "Initator name",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -107,7 +108,7 @@ class CreateFormState extends State<CreateForm> {
                   hintText: "Initiator name",
                   textInputType: TextInputType.text,
                   textEditingController: authNameController),
-              const Text(
+              const PText(
                 "SPOC name",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -122,14 +123,14 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 0 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const Text("Company"),
+        title: const PText("Company"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              const PText(
                 "Company name",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -137,7 +138,7 @@ class CreateFormState extends State<CreateForm> {
                   hintText: "Company name",
                   textInputType: TextInputType.text,
                   textEditingController: companyNameController),
-              const Text(
+              const PText(
                 "Company website",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -152,14 +153,14 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 1 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const Text("Complete"),
+        title: const PText("Complete"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              const PText(
                 "Due date",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -167,7 +168,7 @@ class CreateFormState extends State<CreateForm> {
                   hintText: "Due date",
                   textInputType: TextInputType.datetime,
                   textEditingController: dueDateController),
-              const Text(
+              const PText(
                 "MOU description",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),

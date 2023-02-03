@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class GetStartedPage extends StatefulWidget {
   State<GetStartedPage> createState() => _GetStartedPageState();
 }
 
-//Text("MOU Tracker", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36,)),
+//PaTaTa("MOU Tracker", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36,)),
 
 class _GetStartedPageState extends State<GetStartedPage> {
   @override
@@ -30,7 +31,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
           Container(
               padding: EdgeInsets.only(top: screenHeight * 0.36),
               child: Center(
-                  child: Text(APP_TITLE,
+                  child: PText(APP_TITLE,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 36,
@@ -60,7 +61,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                     height: 40,
                   ),
                   //'Welcome to MOU' Tracker text
-                  Text("Welcome to MOU Tracker !",
+                  PText("Welcome to MOU Tracker !",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,

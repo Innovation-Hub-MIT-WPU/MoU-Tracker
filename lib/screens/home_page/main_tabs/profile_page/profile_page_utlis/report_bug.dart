@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 
 class ReportIssues extends StatefulWidget {
@@ -42,7 +43,7 @@ class _ReportIssuesState extends State<ReportIssues> {
         bottom: PreferredSize(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-              child: Text(
+              child: PText(
                 "Report Issues",
                 style: TextStyle(
                   color: Colors.white,
@@ -105,13 +106,13 @@ class _ReportIssuesState extends State<ReportIssues> {
                         if (reportKey.currentState?.validate() == true) {
                           issue = _issueController.text;
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Issue Submitted"),
+                            content: PText("Issue Submitted"),
                             duration: Duration(seconds: 2),
                           ));
                           _issueController.clear();
                         }
                       },
-                      child: Text(
+                      child: PText(
                         "SUBMIT",
                         style: Theme.of(context).textTheme.button,
                       )),

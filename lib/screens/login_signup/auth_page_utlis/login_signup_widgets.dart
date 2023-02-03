@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import '/common_utils/utils.dart';
 
 //designations array used in DropDownButtonFormField items
@@ -27,7 +28,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        const PText(
           "DESIGNATION",
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
@@ -38,7 +39,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
               //border: Border.all(color: Colors.white, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(4))),
           child: DropdownButtonFormField(
-              hint: Text(
+              hint: PText(
                 "Select a designation",
                 style: TextStyle(color: Colors.white.withOpacity(0.5)),
               ),
@@ -46,7 +47,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
               selectedItemBuilder: (_) {
                 return designations
                     .map((e) => Container(
-                        child: Text(e,
+                        child: PText(e,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400,
@@ -93,7 +94,7 @@ DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
       child: Padding(
         padding: const EdgeInsets.all(10),
-        child: Text(item,
+        child: PText(item,
             style: const TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -109,7 +110,7 @@ Widget emailFormElement(TextEditingController emailController,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Text(
+      const PText(
         "EMAIL",
         style: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
@@ -160,7 +161,7 @@ Widget passwordFormElement(TextEditingController passwordController,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Text(
+      const PText(
         "PASSWORD",
         style: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
@@ -209,7 +210,7 @@ Widget nameFormElement(String text, TextEditingController nameController,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
+      PText(
         text,
         style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
@@ -267,7 +268,7 @@ Widget appButton(String text, Widget newRoute, BuildContext context) {
           backgroundColor: MaterialStateProperty.all(AppColors.buttonYellow),
           shape: MaterialStateProperty.all(const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))))),
-      child: Text(text,
+      child: PText(text,
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 24,
@@ -314,7 +315,7 @@ Widget footerText(String text, BuildContext context) {
   return InkWell(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
+          content: PText(
             text,
             textAlign: TextAlign.center,
           ),
@@ -324,7 +325,7 @@ Widget footerText(String text, BuildContext context) {
           shape: const StadiumBorder(),
         ));
       },
-      child: Text(text,
+      child: PText(text,
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,

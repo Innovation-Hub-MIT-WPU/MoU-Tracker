@@ -1,6 +1,7 @@
 import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
 import 'package:MouTracker/screens/mou_details/track_page_utils/mou_card.dart';
@@ -79,8 +80,8 @@ class _TrackTabState extends State<TrackTab> {
                                       style: _buttonStyle(0, 0, 22, 0),
                                       onPressed: details.onStepContinue,
                                       child: details.currentStep == 1
-                                          ? const Text("Initiate MOU")
-                                          : const Text("Approve")),
+                                          ? const PText("Initiate MOU")
+                                          : const PText("Approve")),
                                 ),
                                 Expanded(
                                   child: ElevatedButton(
@@ -89,7 +90,7 @@ class _TrackTabState extends State<TrackTab> {
                                               MaterialStateProperty.all(
                                                   Colors.red)),
                                       onPressed: details.onStepCancel,
-                                      child: const Text("Deny")),
+                                      child: const PText("Deny")),
                                 )
                               ],
                             ),
@@ -108,37 +109,37 @@ class _TrackTabState extends State<TrackTab> {
     return <Step>[
       Step(
         state: _currentStep > 0 ? StepState.complete : StepState.indexed,
-        title: const Text('Created the MoU'),
+        title: const PText('Created the MoU'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 0,
       ),
       Step(
         state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-        title: const Text('Sent for Approval'),
+        title: const PText('Sent for Approval'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 1,
       ),
       Step(
         state: _currentStep > 2 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by Head'),
+        title: const PText('Approved by Head'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 2,
       ),
       Step(
         state: _currentStep > 3 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by Directors'),
+        title: const PText('Approved by Directors'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 3,
       ),
       Step(
         state: _currentStep > 4 ? StepState.complete : StepState.indexed,
-        title: const Text('Approved by CEO'),
+        title: const PText('Approved by CEO'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 4,
       ),
       Step(
         state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-        title: const Text('Process Completed'),
+        title: const PText('Process Completed'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 5,
       ),

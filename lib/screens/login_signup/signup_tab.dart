@@ -3,6 +3,7 @@
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,7 @@ class _SignUpState extends State<SignUp> {
                   MaterialStateProperty.all(AppColors.buttonYellow),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))))),
-          child: Text("SIGN UP",
+          child: PText("SIGN UP",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -85,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                   TextButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
+                        content: PText(
                           "Forgot password",
                           textAlign: TextAlign.center,
                         ),
@@ -95,7 +96,7 @@ class _SignUpState extends State<SignUp> {
                         shape: StadiumBorder(),
                       ));
                     },
-                    child: const Text("Forgot Password?",
+                    child: const PText("Forgot Password?",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,

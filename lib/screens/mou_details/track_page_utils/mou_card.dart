@@ -1,4 +1,5 @@
 import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:flutter/material.dart';
 
 class MouCard extends StatelessWidget {
@@ -21,14 +22,14 @@ class MouCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
+          PText(
             widget.mou.docName,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(widget.mou.description, maxLines: 4),
+            child: PText(widget.mou.description, maxLines: 4),
           ),
         ],
       ),

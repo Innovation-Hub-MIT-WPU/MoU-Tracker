@@ -1,4 +1,5 @@
 import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:flutter/material.dart';
 
 class MOUApproved extends StatelessWidget {
@@ -10,7 +11,7 @@ class MOUApproved extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color(0xff2D376E),
         // The title text which will be shown on the action bar
-        title: const Text(""),
+        title: const PText(""),
         leading: IconButton(
           onPressed: () {
             Navigator.push(

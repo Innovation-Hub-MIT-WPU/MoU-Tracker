@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage>
               navBarIconData[0],
               color: Colors.white,
             ),
-            title: Text(
+            title: PText(
               'Approvals',
               style: TextStyle(
                 color: COLOR_THEME['secondary'],
@@ -110,7 +111,7 @@ class _HomePageState extends State<HomePage>
               navBarIconData[1],
               color: Colors.white,
             ),
-            title: Text(
+            title: PText(
               'Notifications',
               style: TextStyle(
                 color: COLOR_THEME['secondary'],
@@ -158,7 +159,7 @@ class _HomePageState extends State<HomePage>
               navBarIconData[3],
               color: Colors.white,
             ),
-            title: Text(
+            title: PText(
               'Profile',
               style: TextStyle(
                 color: COLOR_THEME['secondary'],

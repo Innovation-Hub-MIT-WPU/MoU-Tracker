@@ -1,4 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class _MyCardState extends State<MyCard> {
                       //             size: screenWidth * 0.11,
                       //           ),
 
-                      //            Text(
+                      //            PaTaTa(
                       //             '$k',
                       //             style: GoogleFonts.figtree(
                       //                 fontSize: screenWidth * 0.065,
@@ -112,10 +113,10 @@ class _MyCardState extends State<MyCard> {
                       // Container(
                       // alignment: Alignment.centerLeft,
                       // child:
-                      Text(
+                      PText(
                     mou.docName,
                     style: GoogleFonts.figtree(
-                        fontSize: screenWidth * 0.05,
+                        fontSize: screenWidth * 0.04,
                         fontWeight: FontWeight.bold),
                   ),
                   // ),
@@ -130,20 +131,20 @@ class _MyCardState extends State<MyCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Text(
+                      // PaTaTa(
                       //   'No. $k',
                       //   style: GoogleFonts.figtree(fontSize: screenWidth * 0.04),
                       // ),
-                      Text(
+                      PText(
                         'Authorized By ',
                         style: GoogleFonts.figtree(
-                            fontSize: screenWidth * 0.04,
+                            fontSize: screenWidth * 0.03,
                             fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      PText(
                         mou.authName,
                         style:
-                            GoogleFonts.figtree(fontSize: screenWidth * 0.04),
+                            GoogleFonts.figtree(fontSize: screenWidth * 0.03),
                       ),
                     ],
                   ),
@@ -155,14 +156,14 @@ class _MyCardState extends State<MyCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Text(
+                      // PaTaTa(
                       //   'No. $k',
                       //   style: GoogleFonts.figtree(fontSize: screenWidth * 0.04),
                       // ),
-                      Text(
+                      PText(
                         'Company  ',
                         style: GoogleFonts.figtree(
-                          fontSize: screenWidth * 0.04,
+                          fontSize: screenWidth * 0.03,
                           fontWeight: FontWeight.bold,
                           // shadows: [
                           //   Shadow(
@@ -173,10 +174,10 @@ class _MyCardState extends State<MyCard> {
                           // ],
                         ),
                       ),
-                      Text(
+                      PText(
                         mou.companyName,
                         style:
-                            GoogleFonts.figtree(fontSize: screenWidth * 0.04),
+                            GoogleFonts.figtree(fontSize: screenWidth * 0.03),
                       ),
                     ],
                   ),
@@ -192,12 +193,12 @@ class _MyCardState extends State<MyCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child:
-                          // Text("${selectedDate.toLocal()}".split(' ')[0]),
-                          Text(
+                          // PaTaTa("${selectedDate.toLocal()}".split(' ')[0]),
+                          PText(
                         'Before ${mou.dueDate}',
                         style: GoogleFonts.figtree(
                           fontWeight: FontWeight.w500,
-                          fontSize: screenWidth * 0.04,
+                          fontSize: screenWidth * 0.03,
                         ),
                       ),
                     ),
@@ -207,13 +208,13 @@ class _MyCardState extends State<MyCard> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
                   
-                  child: Text(
+                  child: PText(
                     mou.description,
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
                     style: GoogleFonts.figtree(
-                        fontSize: screenWidth * 0.04,
+                        fontSize: screenWidth * 0.03,
                         fontWeight: FontWeight.w400,
                         color: Colors.black.withOpacity(0.6)),
                   ),
@@ -236,17 +237,17 @@ class _MyCardState extends State<MyCard> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        PText(
                           'STATUS : ',
                           style: GoogleFonts.figtree(
-                              fontSize: screenWidth * 0.04,
+                              fontSize: screenWidth * 0.03,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
-                        Text(
+                        PText(
                           mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                           style: GoogleFonts.figtree(
-                              fontSize: screenWidth * 0.04,
+                              fontSize: screenWidth * 0.03,
                               color: Colors.white),
                         ),
                       ],

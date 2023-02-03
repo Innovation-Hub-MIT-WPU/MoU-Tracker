@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
@@ -76,12 +77,12 @@ class _MyCard2State extends State<MyCard2> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SizedBox(height: 10),
-            Text(
+            PText(
               '${mou.docName}  ${mou.companyName}',
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             // SizedBox(height: 6),
-            // Text(
+            // PaTaTa(
             //   'No. $index           $authName',
             //   style: const TextStyle(fontSize: 12),
             // ),
@@ -95,7 +96,7 @@ class _MyCard2State extends State<MyCard2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
+                  child: PText(
                     'Before ${mou.dueDate}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
@@ -117,14 +118,14 @@ class _MyCard2State extends State<MyCard2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  const PText(
                     'STATUS : ',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
+                  PText(
                     mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                     style: const TextStyle(fontSize: 16, color: Colors.white),
                   ),

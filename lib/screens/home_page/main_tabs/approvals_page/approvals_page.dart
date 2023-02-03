@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
@@ -58,10 +59,10 @@ class ApprovalsPageState extends State<ApprovalsPage>
                     width: screenWidth,
                     height: screenHeight * 0.06,
                     
-                    child: Text(
+                    child: PText(
                       'Approvals',
                       style: GoogleFonts.figtree(
-                          fontSize: screenWidth * 0.07, color: Colors.white),
+                          fontSize: screenWidth * 0.05, color: Colors.white),
                     ),
                   ),
                   Container(

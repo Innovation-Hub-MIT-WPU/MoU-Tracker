@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import '../../../../classes/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_tab.dart';
@@ -73,7 +74,7 @@ class NotificationsState extends State<Notifications>
                           child: tabview(_tabController, screenHeight,
                               screenWidth, context));
                     } else if (snapshot.hasError) {
-                      return Center(child: Text(snapshot.error.toString()));
+                      return Center(child: PText(snapshot.error.toString()));
                     } else {
                       return const Center(
                         child: CircularProgressIndicator(),

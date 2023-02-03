@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import '/common_utils/utils.dart';
 import '/classes/activity.dart';
 
@@ -60,9 +61,9 @@ class _EngagementTabState extends State<EngagementTab> {
         color: kTileClr,
       ),
       child: ListTile(
-        title: Text(activity.name,
+        title: PText(activity.name,
             style: const TextStyle(color: Colors.black, fontSize: 18)),
-        subtitle: Text(activity.desc,
+        subtitle: PText(activity.desc,
             style: const TextStyle(color: Colors.grey, fontSize: 14)),
         trailing: activity.status == true
             ? _buildTextButton("View")
@@ -76,7 +77,7 @@ class _EngagementTabState extends State<EngagementTab> {
   TextButton _buildTextButton(String buttonTxt) {
     return TextButton(
       onPressed: () {},
-      child: Text(buttonTxt,
+      child: PText(buttonTxt,
           style: const TextStyle(color: Colors.black, fontSize: 15)),
     );
   }

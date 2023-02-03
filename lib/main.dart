@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         // textTheme: DEFAULT_TEXT_THEME,
+        textTheme: Theme.of(context).textTheme.copyWith(),
         colorScheme: Theme.of(context).colorScheme.copyWith(
               primary: const Color(0xff2D376E),
               secondary: const Color(0xFFF0FFFF),
