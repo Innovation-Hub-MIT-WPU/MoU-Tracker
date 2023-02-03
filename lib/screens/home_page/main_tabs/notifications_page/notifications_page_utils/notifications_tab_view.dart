@@ -3,6 +3,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
@@ -96,7 +97,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
     child: ExpansionTile(
         backgroundColor: Colors.transparent,
         leading: Leading(height, width),
-        title: Text(
+        title: PText(
           title,
           style: const TextStyle(
             color: kBgClr2,
@@ -104,7 +105,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
             fontSize: 16,
           ),
         ),
-        subtitle: Text(
+        subtitle: PText(
           doc_name,
           style: const TextStyle(
               color: kBgClr2,
@@ -121,7 +122,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                       left: width / 20,
                       right: width / 40,
                       bottom: height / 100),
-                  child: Text(
+                  child: PText(
                     " Company  :  $doc_name \n $state By :  $by \n $state On :  $on",
                     style: TextStyle(
                         fontSize: 16,
@@ -177,7 +178,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: width / 60),
-                          child: const Text(
+                          child: const PText(
                             "Go To Track",
                             style: TextStyle(
                               color: black,

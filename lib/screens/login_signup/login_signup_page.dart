@@ -2,7 +2,7 @@
 
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
-
+import 'package:MouTracker/classes/personalized_text.dart';
 import '../../common_utils/utils.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'login_tab.dart';
@@ -35,7 +35,7 @@ class _LogInSignUpPageState extends State<LogInSignUpPage>
       backgroundColor: AppColors.darkBlue,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(APP_TITLE,
+        title: PText(APP_TITLE,
             style: TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.w300,

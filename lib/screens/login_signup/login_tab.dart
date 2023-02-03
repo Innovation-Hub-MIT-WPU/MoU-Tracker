@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
-
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import '/common_utils/utils.dart';
@@ -47,7 +47,7 @@ class _LogInState extends State<LogIn> {
                   MaterialStateProperty.all(AppColors.buttonYellow),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))))),
-          child: Text("LOG IN",
+          child: PText("LOG IN",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -76,7 +76,7 @@ class _LogInState extends State<LogIn> {
                 TextButton(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
+                      content: PText(
                         "Forgot password",
                         textAlign: TextAlign.center,
                       ),
@@ -86,7 +86,7 @@ class _LogInState extends State<LogIn> {
                       shape: StadiumBorder(),
                     ));
                   },
-                  child: const Text("Forgot Password?",
+                  child: const PText("Forgot Password?",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,

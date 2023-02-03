@@ -1,4 +1,5 @@
 // Add this import for Completer
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -31,7 +32,7 @@ class WebViewState extends State<WebViewClass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.url),
+        title: PText(widget.url),
         centerTitle: true,
       ),
       body: IndexedStack(index: position, children: <Widget>[

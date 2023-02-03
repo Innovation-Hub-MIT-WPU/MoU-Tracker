@@ -1,6 +1,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../services/Firebase/fcm/notification_service.dart';
@@ -68,10 +69,10 @@ PreferredSizeWidget appbar(
       ),
       child: Center(
         child: TextButton(
-          child: Text(
+          child: PText(
             'Notifications',
             style: GoogleFonts.figtree(
-                fontSize: MediaQuery.of(context).size.width / 15,
+                fontSize: MediaQuery.of(context).size.width * 0.05,
                 color: kBgClr1,
                 fontWeight: FontWeight.w400),
           ),

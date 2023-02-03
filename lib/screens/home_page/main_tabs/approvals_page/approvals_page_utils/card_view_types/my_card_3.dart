@@ -1,3 +1,4 @@
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,8 @@ class MyCard3 extends StatefulWidget {
 class _MyCard3State extends State<MyCard3> {
   int k = 0;
   late MOU mou;
+
+  
   @override
   void initState() {
     k = widget.index;
@@ -80,7 +83,7 @@ class _MyCard3State extends State<MyCard3> {
           // const SizedBox(height: 10),
 
           // SizedBox(height: 6),
-          // Text(
+          // PaTaTa(
           //   'No. $index           $authName',
           //   style: const TextStyle(fontSize: 12),
           // ),
@@ -88,10 +91,10 @@ class _MyCard3State extends State<MyCard3> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              PText(
                 '${mou.docName}  ',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                     TextStyle(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.04),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -103,11 +106,11 @@ class _MyCard3State extends State<MyCard3> {
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.005),
-                    child: Text(
+                    child: PText(
                       'Before ${mou.dueDate} ',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth * 0.035,
                       ),
                     ),
                   ),
@@ -134,7 +137,7 @@ class _MyCard3State extends State<MyCard3> {
               // ),
             ],
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: screenWidth * 0.03),
           Container(
             height: 45,
             decoration: BoxDecoration(
@@ -146,16 +149,16 @@ class _MyCard3State extends State<MyCard3> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                PText(
                   'STATUS : ',
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                Text(
+                PText(
                   !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.white),
                 ),
               ],
             ),

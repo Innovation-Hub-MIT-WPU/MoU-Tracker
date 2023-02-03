@@ -1,4 +1,5 @@
 import 'package:MouTracker/common_utils/webview.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '/classes/mou.dart';
@@ -40,37 +41,39 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.06,
           left: screenWidth * 0.02,
           right: screenWidth * 0.02),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Information", style: titleStyle(screenWidth * 0.055)),
-            _buildDivider(screenWidth, screenHeight),
-            Text("Title", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(widget.mou.docName, screenHeight,
-                titleStyle(screenWidth * 0.05)),
-            Text("Description",
-                style: GoogleFonts.figtree(
-                    fontSize: screenWidth * 0.04, fontWeight: FontWeight.w500)),
-            _writeDesc(screenWidth, screenHeight),
-            Text("Date", style: subtitleStyle(screenWidth * 0.04)),
-            _displayText(
-                date,
-                screenHeight,
-                GoogleFonts.figtree(
-                    fontSize: screenWidth * 0.04,
-                    fontWeight: FontWeight.normal)),
-            ElevatedButton(
-              onPressed: () async {
-                String link = widget.mou.companyWebsite;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => WebViewClass(url: link),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.green),
+      child: 
+         SingleChildScrollView(
+           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              PText("Information", style: titleStyle(screenWidth * 0.04)),
+              _buildDivider(screenWidth, screenHeight),
+              PText("Title", style: subtitleStyle(screenWidth * 0.035)),
+              _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.038)),
+              PText("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.033, fontWeight: FontWeight.w500)),
+              _writeDesc(screenWidth, screenHeight),
+              PText("Date", style: subtitleStyle(screenWidth * 0.033)),
+              _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.033, fontWeight: FontWeight.normal)),
+              ElevatedButton(
+                onPressed: () async {
+                  String link = widget.mou.companyWebsite;
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => WebViewClass(url: link),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                ),
+                child: PText("Company Website",
+                    style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.038, fontWeight: FontWeight.w600)),
+              ),
+              _buildDivider(screenWidth, screenHeight),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
+                child: _fileDownload(),
               ),
               child: Text("Company Website",
                   style: GoogleFonts.figtree(
@@ -98,10 +101,10 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.005,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
-      child: Text(widget.mou.description,
-          softWrap: true,
-          textAlign: TextAlign.justify,
-          style: normalStyle(screenWidth * 0.045)),
+
+      child: PText(widget.mou.description,
+          softWrap: true, textAlign: TextAlign.justify, style: normalStyle(screenWidth * 0.038)),
+
     );
   }
 
@@ -109,7 +112,7 @@ class _InfoTabState extends State<InfoTab> {
     return Padding(
       padding: EdgeInsets.only(
           top: screenHeight * 0.002, bottom: screenHeight * 0.02),
-      child: Text(
+      child: PText(
         text,
         style: style,
       ),
@@ -127,11 +130,11 @@ class _InfoTabState extends State<InfoTab> {
 // Card to download MOU's PDF file
   ListTile _fileDownload() {
     return ListTile(
-      title: Text("${widget.mou.docName}.pdf",
-          style: const TextStyle(fontSize: 16, color: Colors.black)),
-      subtitle: const Text("10.0 MB", style: TextStyle(fontSize: 12)),
+      title: PText("${widget.mou.docName}.pdf",
+          style: const TextStyle(fontSize: 13, color: Colors.black)),
+      subtitle: const PText("10.0 MB", style: TextStyle(fontSize: 12)),
       tileColor: kTileClr,
-      leading: const Icon(Icons.file_present, size: 25),
+      leading: const Icon(Icons.file_present, size: 22),
       trailing: (downloadChecker[widget.mou.docName] == 0)
           ? IconButton(
               onPressed: () async {
@@ -163,7 +166,7 @@ class _InfoTabState extends State<InfoTab> {
                 //               ),
                 //             ),
                 //             Flexible(
-                //               child: Text(
+                //               child: PaTaTa(
                 //                 "Downloaded",
                 //                 style: TextStyle(
                 //                     fontWeight: FontWeight.w600,
@@ -172,7 +175,7 @@ class _InfoTabState extends State<InfoTab> {
                 //             )
                 //           ],
                 //         ),
-                //         content: const Text(
+                //         content: const PaTaTa(
                 //           'saved in your device\'s downloads folder',
                 //           style: TextStyle(color: kBgClr1),
                 //         ),
@@ -181,7 +184,7 @@ class _InfoTabState extends State<InfoTab> {
                 //             style: ButtonStyle(
                 //                 backgroundColor: MaterialStateProperty.all(
                 //                     const Color(0xFFF2C32C))),
-                //             child: const Text('Ok'),
+                //             child: const PaTaTa('Ok'),
                 //             onPressed: () {
                 //               Navigator.pop(context);
                 //             },
@@ -190,10 +193,10 @@ class _InfoTabState extends State<InfoTab> {
                 //       );
                 //     });
               },
-              icon: const Icon(Icons.file_download_outlined, size: 25))
+              icon: const Icon(Icons.file_download_outlined, size: 23))
           : (downloadChecker[widget.mou.docName] == -1)
               ? const CircularProgressIndicator()
-              : const Icon(Icons.download_done_outlined, size: 25),
+              : const Icon(Icons.download_done_outlined, size: 23),
     );
   }
 }

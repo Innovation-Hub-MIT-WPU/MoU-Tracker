@@ -39,13 +39,24 @@ class NotificationService {
 
   void addToken() async {
     var token = await messaging.getToken();
-    print("token : $token");
+    print("get token : $token");
     UserModel model = await DataBaseService().getuserData();
     var list = [token];
     await FirebaseFirestore.instance
         .collection('deviceTokens')
         .doc(model.pos.toString())
         .update({"tokens": FieldValue.arrayUnion(list)});
+  }
+
+  void deteleToken() async {
+    var token = await messaging.getToken();
+    print("delete token : $token");
+    UserModel model = await DataBaseService().getuserData();
+    var list = [token];
+    await FirebaseFirestore.instance
+        .collection('deviceTokens')
+        .doc(model.pos.toString())
+        .update({"tokens": FieldValue.arrayRemove(list)});
   }
 
   void checkNotifications(BuildContext context) async {

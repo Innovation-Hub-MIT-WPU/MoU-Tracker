@@ -1,4 +1,5 @@
 import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
@@ -48,15 +49,20 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
           onTrackMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
           delayedMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
-          return TabBarView(
-            controller: widget.tabController,
+          return Stack(
             children: [
-              mouCards(onTrackMouList),
-              mouCards(delayedMouList),
+              TabBarView(
+                controller: widget.tabController,
+                children: [
+                  mouCards(onTrackMouList),
+                  mouCards(delayedMouList),
+                ],
+              ),
+              searchBox(),
             ],
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
+          return Center(child: PText(snapshot.error.toString()));
         } else {
           return const Loading();
         }
@@ -67,29 +73,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
   Widget mouCards(List<MOU> mouList) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        children: [
-          buildList(mouList, dropdownvalue),
-          searchBox(),
-        ],
-      ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: Container(
-        alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(bottom: screenWidth * 0.04),
-        child: FloatingActionButton.extended(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const CreateForm())),
-          // Navigator.pushNamed(context, '/create_mou'),
-          backgroundColor: const Color(0xff2D376E),
-          label: Text('Create MOU',
-              style: GoogleFonts.figtree(fontSize: screenWidth * 0.04)),
-          icon: Icon(
-            Icons.add,
-            size: screenWidth * 0.06,
-          ),
-        ),
-      ),
+      body: buildList(mouList, dropdownvalue),
     );
   }
 
@@ -215,7 +199,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
                 'assets/images/carousel.png',
                 width: 17,
               ),
-              Text(
+              PText(
                 'Views',
                 style: GoogleFonts.figtree(
                     fontSize: 13, fontWeight: FontWeight.normal),
@@ -225,7 +209,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
           items: <String>['Detailed', 'Short'].map((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: PText(value),
             );
           }).toList(),
           onChanged: (String? newvalue) {

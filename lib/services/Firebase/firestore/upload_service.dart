@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:MouTracker/classes/file.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';
@@ -91,12 +92,12 @@ Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
           final progress = snap.bytesTransferred / snap.totalBytes;
           final percentage = (progress * 100).toStringAsFixed(2);
 
-          return Text(
+          return PText(
             '$percentage %',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           );
         } else {
-          return const Text("Uploading...");
+          return const PText("Uploading...");
         }
       },
     );

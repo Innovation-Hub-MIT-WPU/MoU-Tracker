@@ -32,7 +32,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: const Text('Flutter WebView'),
+//         title: const PaTaTa('Flutter WebView'),
 //       ),
 //       body: WebViewWidget(
 //         controller: controller,

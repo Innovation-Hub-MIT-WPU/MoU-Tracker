@@ -1,5 +1,7 @@
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
+
 
 AppBar appBar(String title, BuildContext context) {
   return AppBar(
@@ -9,7 +11,7 @@ AppBar appBar(String title, BuildContext context) {
             Size.fromHeight(MediaQuery.of(context).size.height * 0.04),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-          child: Text(
+          child: PText(
             title,
             style: TextStyle(
               color: Colors.white,

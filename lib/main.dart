@@ -5,7 +5,6 @@ import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/get_started/check_logged.dart';
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/test.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +42,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         brightness: Brightness.light,
         // textTheme: DEFAULT_TEXT_THEME,
+        textTheme: Theme.of(context).textTheme.copyWith(),
         colorScheme: Theme.of(context).colorScheme.copyWith(
               primary: const Color(0xff2D376E),
               secondary: const Color(0xFFF0FFFF),
@@ -58,12 +58,12 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/start',
       routes: {
+        '/start': (context) => const CheckAuth(),
         '/test': (_) => const TestWidget(),
         '/login_signup': (_) => const LogInSignUpPage(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
-        '/start': (context) => const CheckAuth(),
-        '/home': (context) => const HomePage(),
+        // '/home': (context) => const HomePage(),
         '/report_issues': (context) => const ReportIssues(),
         MyRoute.profileRoute: (context) => const ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => const ReportIssues(),

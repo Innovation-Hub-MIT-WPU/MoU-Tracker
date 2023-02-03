@@ -2,6 +2,7 @@
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -38,7 +39,7 @@ class PreviewScreen extends StatelessWidget {
       bottom: PreferredSize(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-            child: Text(
+            child: PText(
               "Preview",
               style: TextStyle(
                 color: Colors.white,
