@@ -75,24 +75,6 @@ class _MouStatusTabState extends State<MouStatusTab> {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: buildList(mouList, dropdownvalue),
-
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: Container(
-        alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(bottom: screenWidth * 0.04),
-        child: FloatingActionButton.extended(
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const CreateForm())),
-          // Navigator.pushNamed(context, '/create_mou'),
-          backgroundColor: const Color(0xff2D376E),
-          label: PText('Create MOU',
-              style: GoogleFonts.figtree(fontSize: screenWidth * 0.04)),
-          icon: Icon(
-            Icons.add,
-            size: screenWidth * 0.06,
-          ),
-        ),
-      ),
     );
   }
 

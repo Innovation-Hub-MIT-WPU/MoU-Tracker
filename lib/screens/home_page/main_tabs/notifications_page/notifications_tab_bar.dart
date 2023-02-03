@@ -1,5 +1,7 @@
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:string_validator/string_validator.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import '../../../../classes/notifications_data.dart';
@@ -48,64 +50,81 @@ class NotificationsState extends State<Notifications>
     return SafeArea(
       child: Scaffold(
         appBar: appbar(_tabController, index, context),
-        body: Padding(
-          padding: EdgeInsets.all(screenWidth / 30),
-          child: Column(
-            children: [
-              Padding(
+        body: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: kBgClr2,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(screenWidth * 0.08),
+                  bottomRight: Radius.circular(screenWidth * 0.08),
+                ),
+              ),
+              child: Padding(
                 padding: EdgeInsets.all(screenWidth / 50),
                 child: searchBox(screenHeight, screenWidth),
               ),
-              FutureBuilder(
-                  future: DataBaseService().getNotifications(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      ontracklist =
-                          onTrackSort(snapshot.data as List<NotificationsData>);
-                      delayedlist =
-                          delayedSort(snapshot.data as List<NotificationsData>);
-                      ontracklist = _runFilter(
-                          searchQueryController.text.toString().trim());
-                      delayedlist = _runFilter2(
-                          searchQueryController.text.toString().trim());
-                      ontracklist.sort(((a, b) => b.on.compareTo(a.on)));
-                      delayedlist.sort(((a, b) => b.on.compareTo(a.on)));
-                      return Expanded(
-                          child: tabview(_tabController, screenHeight,
-                              screenWidth, context));
-                    } else if (snapshot.hasError) {
-                      return Center(child: PText(snapshot.error.toString()));
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  }),
-            ],
-          ),
+            ),
+            FutureBuilder(
+                future: DataBaseService().getNotifications(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    ontracklist =
+                        onTrackSort(snapshot.data as List<NotificationsData>);
+                    delayedlist =
+                        delayedSort(snapshot.data as List<NotificationsData>);
+                    ontracklist = _runFilter(
+                        searchQueryController.text.toString().trim());
+                    delayedlist = _runFilter2(
+                        searchQueryController.text.toString().trim());
+                    ontracklist.sort(((a, b) => b.on.compareTo(a.on)));
+                    delayedlist.sort(((a, b) => b.on.compareTo(a.on)));
+                    return Expanded(
+                        child: tabview(_tabController, screenHeight,
+                            screenWidth, context));
+                  } else if (snapshot.hasError) {
+                    return Center(child: PText(snapshot.error.toString()));
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ],
         ),
       ),
     );
   }
 
   Widget searchBox(double height, double width) {
-    return TextField(
-      controller: searchQueryController,
-      onChanged: (value) {
-        setState(() {
-          ontracklist = _runFilter(value);
-          delayedlist = _runFilter2(value);
-        });
-      },
-      decoration: InputDecoration(
-        contentPadding:
-            EdgeInsets.symmetric(vertical: height / 70, horizontal: width / 20),
-        hintText: "Search",
-        suffixIcon: const Icon(Icons.search),
-        // prefix: Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-          borderSide: const BorderSide(),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(width * 0.5),
+      child: Container(
+        alignment: Alignment.center,
+        color: Colors.white,
+        padding: EdgeInsets.all(width * 0.004),
+        child: TextField(
+          controller: searchQueryController,
+          textAlignVertical: TextAlignVertical.center,
+          onChanged: (value) {
+            setState(() {
+              ontracklist = _runFilter(value);
+              delayedlist = _runFilter2(value);
+            });
+          },
+          decoration: InputDecoration(
+            contentPadding:
+                EdgeInsets.symmetric(vertical: height * 0.005, horizontal: width / 20),
+            hintText: "Search",
+            
+            hintStyle: GoogleFonts.figtree(
+              color: Colors.grey,
+              fontSize: width * 0.04,
+            ),
+            suffixIcon: const Icon(Icons.search),
+            // prefix: Icon(Icons.search),
+            border: InputBorder.none,
+          ),
         ),
       ),
     );
