@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:MouTracker/screens/home_page/bottom_nav_bar.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -123,7 +124,7 @@ class _LogInState extends State<LogIn> {
           .then((userid) => {
                 Fluttertoast.showToast(msg: "Login Successful"),
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => HomePage()))
+                    MaterialPageRoute(builder: (context) => NewHomePage()))
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);

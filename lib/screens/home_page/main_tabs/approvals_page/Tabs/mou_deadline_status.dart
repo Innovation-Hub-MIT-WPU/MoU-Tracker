@@ -2,12 +2,11 @@ import 'package:MouTracker/classes/mou.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_2.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_3.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 class MouStatusTab extends StatefulWidget {
   final TabController tabController;

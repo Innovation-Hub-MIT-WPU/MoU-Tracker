@@ -9,9 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 // const double kDefaultVertical = 8.0;
 
 // will be used to check if the file is downloaded or not, in info.dart
-Map downloadChecker =   {
-
-};
+Map downloadChecker = {};
 
 const double kFormHorizontal = 26.0;
 const double kFormSpacing = 20.0;

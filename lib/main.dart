@@ -12,7 +12,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '/globals.dart';
 
 void main() async {
@@ -26,7 +25,7 @@ void main() async {
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: COLOR_THEME['primary'],
+    statusBarColor: STATUS_BAR_COLOR,
   ));
 
   runApp(const MyApp());
