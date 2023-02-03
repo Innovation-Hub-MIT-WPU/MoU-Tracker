@@ -50,11 +50,16 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
           onTrackMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
           delayedMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
-          return TabBarView(
-            controller: widget.tabController,
+          return Stack(
             children: [
-              mouCards(onTrackMouList),
-              mouCards(delayedMouList),
+              TabBarView(
+                controller: widget.tabController,
+                children: [
+                  mouCards(onTrackMouList),
+                  mouCards(delayedMouList),
+                ],
+              ),
+              searchBox(),
             ],
           );
         } else if (snapshot.hasError) {
@@ -69,12 +74,8 @@ class _MouStatusTabState extends State<MouStatusTab> {
   Widget mouCards(List<MOU> mouList) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
-        children: [
-          buildList(mouList, dropdownvalue),
-          searchBox(),
-        ],
-      ),
+      body: buildList(mouList, dropdownvalue),
+
       // floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: Container(
         alignment: Alignment.bottomRight,
