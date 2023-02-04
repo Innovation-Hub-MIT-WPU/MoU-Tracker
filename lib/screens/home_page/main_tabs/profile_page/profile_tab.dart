@@ -6,15 +6,20 @@ import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/get_started/check_logged.dart';
+import 'package:MouTracker/screens/get_started/get_started_page.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class ProfileTab extends StatefulWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+  final PersistentTabController controller;
+  ProfileTab({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<ProfileTab> createState() => ProfileTabState();
@@ -121,13 +126,10 @@ class ProfileTabState extends State<ProfileTab> {
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
                         //need to connect
-                        onPressed: () {
+                        onPressed: () async {
                           FireAuth().logOut();
-                          // Navigator.popAndPushNamed(context, '/start');
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const CheckAuth()));
+                          NotificationService().deteleToken();
+                          Navigator.popAndPushNamed(context, '/start');
                         },
                         child: PText(
                           "LOGOUT",
@@ -136,8 +138,8 @@ class ProfileTabState extends State<ProfileTab> {
                   ),
                 ),
                 TextButton.icon(
-                    onPressed: () async {
-                      Navigator.pushNamed(context, '/report_issues');
+                    onPressed: () {
+                       Navigator.of(context, rootNavigator: true).pushNamed('/report_issues');
                     },
                     icon: Icon(Icons.bug_report),
                     label: PText("Report Isuues")),

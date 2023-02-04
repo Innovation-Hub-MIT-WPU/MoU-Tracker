@@ -16,7 +16,6 @@ class GetStartedPage extends StatefulWidget {
   State<GetStartedPage> createState() => _GetStartedPageState();
 }
 
-//PaTaTa("MOU Tracker", style: GoogleFonts.figtree(fontWeight: FontWeight.w600, fontSize: 36,)),
 
 class _GetStartedPageState extends State<GetStartedPage> {
   @override

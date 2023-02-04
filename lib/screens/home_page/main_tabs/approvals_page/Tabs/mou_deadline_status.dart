@@ -235,13 +235,7 @@ Widget buildList(List<MOU> mouList, String type) {
           key: UniqueKey(),
         );
       }
-      // else if (type == "Short") {
-      //   return MyCard3(
-      //     index: index,
-      //     mou: mouList[index],
-      //     key: UniqueKey(),
-      //   );
-      // }
+   
       else {
         return MyCard3(
           index: index,

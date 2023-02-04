@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../models/mou.dart';
 import '../../../../../common_utils/utils.dart';
 
 class BuildBottomSheet extends StatefulWidget {
@@ -45,7 +46,9 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             height: MediaQuery.of(context).size.height * 0.01 - 2,
             width: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: Colors.white70),
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width * 0.5),
+                color: Colors.white70),
           ),
           SizedBox(
             height: screenWidth * 0.045,
@@ -58,7 +61,8 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             width: MediaQuery.of(context).size.width - 20,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.5),
             ),
             child: Container(
               alignment: Alignment.center,
@@ -66,7 +70,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: mou.isApproved
-                    ? const Color(0XFFCD364E).withOpacity(0.6)
+                    ? Color(0XFFCD364E).withOpacity(0.6)
                     : kTabBarGreen.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -83,15 +87,17 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
           ),
 
           // OTHER CONTENT
-          const SizedBox(height: 20),
+          SizedBox(height: MediaQuery.of(context).size.width * 0.05),
 
           Container(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
+                topRight:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                topLeft:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
               ),
             ),
             child: Container(
@@ -103,7 +109,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: screenWidth * 0.035,
                   color: Colors.black,
                 ),
               ),
@@ -125,7 +131,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Colors.black,
                 ),
               ),
@@ -134,12 +140,15 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
 
           // Author
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-            decoration: const BoxDecoration(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            margin: EdgeInsets.only(bottom: screenWidth * 0.04),
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
+                bottomRight:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                bottomLeft:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
               ),
             ),
             child: Container(
@@ -151,7 +160,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
                   color: Colors.black,
                 ),
               ),

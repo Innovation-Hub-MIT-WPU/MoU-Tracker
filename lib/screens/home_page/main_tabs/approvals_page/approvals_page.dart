@@ -1,7 +1,12 @@
+
+import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/screens/get_started/get_started_page.dart';
+import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
+import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
