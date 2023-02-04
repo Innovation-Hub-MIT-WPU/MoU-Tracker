@@ -1,13 +1,17 @@
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 
 Widget fileName() {
   return Center(
-    child: Text(CreateFormState.file == null
-        ? "No File Selected"
-        : CreateFormState.file!.path.split('/').last),
+    child: PText(
+        CreateFormState.file == null
+            ? "No File Selected"
+            : CreateFormState.file!.path.split('/').last,
+        style: GoogleFonts.figtree(color: kBgClr2)),
   );
 }
 
@@ -22,7 +26,7 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
         Expanded(
           child: ElevatedButton(
             onPressed: details.onStepContinue,
-            child: isLastStep ? const Text("Submit") : const Text("Next"),
+            child: isLastStep ? const PText("Submit") : const PText("Next"),
           ),
         ),
         const SizedBox(width: 12),
@@ -33,9 +37,9 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.grey[300]),
               ),
-              child: const Text(
+              child: PText(
                 "Back",
-                style: TextStyle(color: Colors.grey),
+                style: GoogleFonts.figtree(color: Colors.grey),
               ),
             ),
           ),
@@ -62,9 +66,9 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
           backgroundColor: MaterialStateProperty.all(const Color(0xff64C636)),
           elevation: MaterialStateProperty.all(5),
         ),
-        child: const Text(
+        child: PText(
           'Choose File',
-          style: TextStyle(fontSize: 20),
+          style: GoogleFonts.figtree(fontSize: 20),
         ),
       ),
     ),
@@ -75,8 +79,8 @@ Widget dialog(BuildContext cnt) {
   return SimpleDialog(
     backgroundColor: const Color(0xFF2D376E),
     title: Row(
-      children: const <Widget>[
-        Padding(
+      children: <Widget>[
+        const Padding(
           padding: EdgeInsets.only(right: 8.0),
           child: Icon(
             Icons.error,
@@ -85,9 +89,10 @@ Widget dialog(BuildContext cnt) {
           ),
         ),
         Flexible(
-          child: Text(
+          child: PText(
             "Please Wait",
-            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+            style: GoogleFonts.figtree(
+                fontWeight: FontWeight.w600, color: Colors.white),
           ),
         )
       ],
@@ -96,9 +101,9 @@ Widget dialog(BuildContext cnt) {
     children: <Widget>[
       CreateFormState.task != null
           ? buildUploadStatus(CreateFormState.task!)
-          : const Text(
+          : PText(
               "You haven't selected any file",
-              style: TextStyle(color: Colors.white),
+              style: GoogleFonts.figtree(color: Colors.white),
             ),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -114,9 +119,9 @@ Widget dialog(BuildContext cnt) {
               Navigator.pop(cnt);
               Navigator.of(cnt).pushReplacementNamed('/submitted');
             },
-            child: const Text(
+            child: PText(
               "Next",
-              style: TextStyle(color: Colors.white),
+              style: GoogleFonts.figtree(color: Colors.white),
             ),
           )
         ],

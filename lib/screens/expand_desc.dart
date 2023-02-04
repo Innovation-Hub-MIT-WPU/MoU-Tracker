@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 
 class ExpandableText extends StatefulWidget {
-  ExpandableText(this.text);
+  ExpandableText(this.text, {super.key});
 
   final String text;
   bool isExpanded = false;
@@ -22,7 +23,7 @@ class _ExpandableTextState extends State<ExpandableText>
                 constraints: widget.isExpanded
                     ? const BoxConstraints()
                     : const BoxConstraints(maxHeight: 50.0),
-                child: Text(
+                child: PText(
                   widget.text,
                   softWrap: true,
                   overflow: TextOverflow.fade,
@@ -30,7 +31,7 @@ class _ExpandableTextState extends State<ExpandableText>
         widget.isExpanded
             ? ConstrainedBox(constraints: const BoxConstraints())
             : TextButton(
-                child: const Text('...'),
+                child: const PText('...'),
                 onPressed: () => setState(() => widget.isExpanded = true))
       ]),
     );

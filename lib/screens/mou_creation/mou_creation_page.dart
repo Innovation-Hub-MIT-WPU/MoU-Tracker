@@ -1,12 +1,16 @@
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
+import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' as io;
+
+import 'package:google_fonts/google_fonts.dart';
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
@@ -83,32 +87,35 @@ class CreateFormState extends State<CreateForm> {
   List<Step> getSteps() {
     return [
       Step(
-        title: const Text("Document"),
+        title: const PText("Document"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              PText(
                 "Document name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Document name",
                   textInputType: TextInputType.text,
                   textEditingController: docNameController),
-              const Text(
+              PText(
                 "Initator name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Initiator name",
                   textInputType: TextInputType.text,
                   textEditingController: authNameController),
-              const Text(
+              PText(
                 "SPOC name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "SPOC name",
@@ -121,24 +128,26 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 0 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const Text("Company"),
+        title: const PText("Company"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              PText(
                 "Company name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Company name",
                   textInputType: TextInputType.text,
                   textEditingController: companyNameController),
-              const Text(
+              PText(
                 "Company website",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Company website",
@@ -151,29 +160,32 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 1 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const Text("Complete"),
+        title: const PText("Complete"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              PText(
                 "Due date",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Due date",
                   textInputType: TextInputType.datetime,
                   textEditingController: dueDateController),
-              const Text(
+              PText(
                 "MOU description",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "MOU description",
                   textInputType: TextInputType.text,
                   textEditingController: descController),
+              fileName(),
               chooseFileButton(context, pickFile),
             ],
           ),
@@ -204,8 +216,8 @@ class CreateFormState extends State<CreateForm> {
       String desc = descController.text;
       DateTime dueDate = DateTime(2022, 03, 02);
       DataBaseService db = DataBaseService();
-      late String mouId;
-      db.createMou(
+      NotificationService ns = NotificationService();
+      final mouId = await db.createMou(
         approved: 0,
         desc: desc,
         authName: authName,
@@ -217,7 +229,17 @@ class CreateFormState extends State<CreateForm> {
         isApproved: false,
       );
       // If text field uploading is successful, Move to File uploading
-      FirebaseApi.fileUpload();
+      FirebaseApi.fileUpload(docName);
+      db.addNotification(
+          mouId: mouId.toString(),
+          body: "$docName was created by $spocName",
+          title: "Mou Created!!",
+          doc_name: docName,
+          by: spocName,
+          due: dueDate,
+          on: DateTime.now());
+      ns.sendPushMessage("$docName was created by $spocName", "Mou Created!!",
+          mouId.toString(), 5);
       showDialog(
           barrierDismissible: false,
           context: context,

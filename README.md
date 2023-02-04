@@ -7,10 +7,13 @@
 - *Do not merge code with conflicts*
 
 ### Classes
+
 - Classes are used to be imported for different types of access levels
 - Make sure to make these classes neat and clean
 - They might not have methods of their own and can only be used to store data in certain format
+
 ### Screens
+
 - Make sure to use `FutureBuilders` for developing tabs where data is updated regularly
 - `Do not instantiate unnecessary timers` and setup only necessary ones
 - Setting up a `StreamSubscription` is better than setting up timers for data updating in a period
@@ -23,6 +26,7 @@
 - `Adhere by all the rules` of making screens as it should not be the case that the app works on android but not on iOS
 
 ### Services
+
 - We are using Firebase as the primary backend here. Setup basic CRUD operations and along with that setup methods which will be required to read / write specific information to different pages
 - Make the requesting methods `async` as and when needed
 - Do not mess up Future methods. `async-await errors should be avoided at all costs`

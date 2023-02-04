@@ -3,11 +3,14 @@
 import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -67,7 +70,7 @@ class ProfileTabState extends State<ProfileTab> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
+                PText(
                   "PROFILE",
                   style: Theme.of(context).textTheme.headline3,
                 ),
@@ -105,7 +108,7 @@ class ProfileTabState extends State<ProfileTab> {
                           }
                         },
                         icon: Icon(Icons.edit),
-                        label: Text("Edit")),
+                        label: PText("Edit")),
                   ),
                 ),
                 SizedBox(
@@ -120,9 +123,13 @@ class ProfileTabState extends State<ProfileTab> {
                         //need to connect
                         onPressed: () {
                           FireAuth().logOut();
-                          Navigator.popAndPushNamed(context, '/start');
+                          // Navigator.popAndPushNamed(context, '/start');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CheckAuth()));
                         },
-                        child: Text(
+                        child: PText(
                           "LOGOUT",
                           style: Theme.of(context).textTheme.button,
                         )),
@@ -133,7 +140,7 @@ class ProfileTabState extends State<ProfileTab> {
                       Navigator.pushNamed(context, '/report_issues');
                     },
                     icon: Icon(Icons.bug_report),
-                    label: Text("Report Isuues")),
+                    label: PText("Report Isuues")),
               ],
             ),
           ),
@@ -187,19 +194,16 @@ class ProfileTabState extends State<ProfileTab> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          PText(
             heading,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(width: 10),
           Expanded(
-            child: Text(
+            child: PText(
               text,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: Theme.of(context).textTheme.headline3?.fontFamily,
-                  color: Colors.black),
+              style: GoogleFonts.figtree(fontSize: 18, color: Colors.black),
             ),
           ),
         ],
@@ -210,7 +214,7 @@ class ProfileTabState extends State<ProfileTab> {
   Future<String?> openDialog() => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Enter your name"),
+          title: PText("Enter your name"),
           content: Form(
             key: myKey,
             child: TextFormField(
@@ -232,7 +236,7 @@ class ProfileTabState extends State<ProfileTab> {
                 if (myKey.currentState?.validate() == true)
                   Navigator.of(context).pop(_nameController.text);
               },
-              child: Text("Done"),
+              child: PText("Done"),
             )
           ],
         ),
@@ -248,9 +252,9 @@ class ProfileTabState extends State<ProfileTab> {
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: Column(
               children: [
-                Text(
+                PText(
                   "Choose Profile Photo",
-                  style: TextStyle(fontSize: 20),
+                  style: GoogleFonts.figtree(fontSize: 20),
                 ),
                 SizedBox(
                   height: 20,
@@ -264,7 +268,7 @@ class ProfileTabState extends State<ProfileTab> {
                         takePhoto(ImageSource.camera);
                       },
                       icon: Icon(Icons.camera),
-                      label: Text("Camera"),
+                      label: PText("Camera"),
                     ),
                     TextButton.icon(
                       onPressed: () {
@@ -272,7 +276,7 @@ class ProfileTabState extends State<ProfileTab> {
                         takePhoto(ImageSource.gallery);
                       },
                       icon: Icon(Icons.image),
-                      label: Text("Gallery"),
+                      label: PText("Gallery"),
                     )
                   ],
                 )

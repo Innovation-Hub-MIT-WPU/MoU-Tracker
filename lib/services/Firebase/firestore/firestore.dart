@@ -1,10 +1,9 @@
-import 'package:MouTracker/classes/mou.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../classes/notifications_data.dart';
+import '../../../models/notifications_data.dart';
 
 class DataBaseService {
   // Collections for storing data in the cloud firestore.
@@ -13,9 +12,14 @@ class DataBaseService {
       Mou collection 
         |_ Document -> MOU
               |_ Mou details
-                 Activity collection
-                    |_ Activity docs
-                          |_ Activity details
+                 Activity References
+        
+        Activity collection
+              |_ Activity details
+  
+      Queries - 
+
+  
   */
 
   final db = FirebaseFirestore.instance;
@@ -28,6 +32,7 @@ class DataBaseService {
   final CollectionReference notifications =
       FirebaseFirestore.instance.collection('notifications');
   final List<NotificationsData> notificationsList = [];
+  late DocumentReference mouId;
 
   Future createMou({
     required DateTime dueDate,
@@ -41,7 +46,7 @@ class DataBaseService {
     required bool isApproved,
   }) async {
     try {
-      await db.collection('mou').add({
+      mouId = await db.collection('mou').add({
         'approval-lvl': approved,
         'spoc-name': spocName,
         'auth-name': authName,
@@ -56,18 +61,12 @@ class DataBaseService {
     } catch (err) {
       print("error - $err");
     }
+    return mouId.id;
   }
 
   Future updateApprovalLvl({required String mouId, required int appLvl}) async {
     await mou.doc(mouId).update({'approval-lvl': appLvl});
   }
-
-  // List<MOU> _getMouList(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc) {
-
-  //     return
-  //   }).toList();
-  // }
 
   Future<List<MOU>> getmouData() async {
     var querySnap = await mou.get();
@@ -76,15 +75,17 @@ class DataBaseService {
       DateTime date = doc['due-date'].toDate();
       String dueDate = "${date.year}-${date.month}-${date.day}";
       return MOU(
-        mouId: mouId,
-        docName: doc['doc-name'],
-        authName: doc['auth-name'],
-        companyName: doc['company-name'],
-        description: doc['description'],
-        isApproved: doc['status'],
-        appLvl: doc['approval-lvl'],
-        dueDate: dueDate,
-      );
+          mouId: mouId,
+          docName: doc['doc-name'],
+          authName: doc['auth-name'],
+          companyName: doc['company-name'],
+          companyWebsite: doc['company-website'],
+          description: doc['description'],
+          isApproved: doc['status'],
+          appLvl: doc['approval-lvl'],
+          dueDate: dueDate,
+          due: date,
+          createdOn: doc['creation-date'].toDate());
     }).toList();
     return mouList;
   }
@@ -99,11 +100,37 @@ class DataBaseService {
     var querySnap = await notifications.get();
     final List<NotificationsData> notificationsList = querySnap.docs.map((doc) {
       return NotificationsData(
+          mouId: doc['mou_id'],
           title: doc['title'],
           docName: doc['doc_name'],
           on: doc['on'].toDate(),
-          body: doc['body']);
+          due: doc['due'].toDate(),
+          body: doc['body'],
+          by: doc['by']);
     }).toList();
     return notificationsList;
+  }
+
+  Future addNotification(
+      {required DateTime on,
+      required DateTime due,
+      required String mouId,
+      required String body,
+      required String by,
+      required String doc_name,
+      required String title}) async {
+    try {
+      await db.collection('notifications').add({
+        'body': body,
+        'by': by,
+        'doc_name': doc_name,
+        'title': title,
+        'on': on,
+        'due': due,
+        'mou_id': mouId
+      });
+    } catch (err) {
+      print("error - $err");
+    }
   }
 }

@@ -1,8 +1,10 @@
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../../classes/mou.dart';
+import '../../../../../../models/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
 
 class MyCard2 extends StatefulWidget {
@@ -15,16 +17,17 @@ class MyCard2 extends StatefulWidget {
   // final date;
   // bool isApproved;
 
-  const MyCard2({
-    required this.mou,
-    required this.index,
-    //   required this.docName,
-    // required this.authName,
-    // required this.amount,
-    // required this.description,
-    // required this.date,
-    // required this.isApproved
-  });
+  const MyCard2(
+      {required this.mou,
+      required this.index,
+      //   required this.docName,
+      // required this.authName,
+      // required this.amount,
+      // required this.description,
+      // required this.date,
+      // required this.isApproved
+      Key? key})
+      : super(key: key);
 
   @override
   State<MyCard2> createState() => _MyCard2State();
@@ -75,14 +78,15 @@ class _MyCard2State extends State<MyCard2> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SizedBox(height: 10),
-            Text(
+            PText(
               '${mou.docName}  ${mou.companyName}',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: GoogleFonts.figtree(
+                  fontWeight: FontWeight.bold, fontSize: 20),
             ),
             // SizedBox(height: 6),
-            // Text(
+            // PaTaTa(
             //   'No. $index           $authName',
-            //   style: const TextStyle(fontSize: 12),
+            //   style: const GoogleFonts.figtree(fontSize: 12),
             // ),
             const SizedBox(height: 8),
             Row(
@@ -94,9 +98,9 @@ class _MyCard2State extends State<MyCard2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
+                  child: PText(
                     'Before ${mou.dueDate}',
-                    style: const TextStyle(
+                    style: GoogleFonts.figtree(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
@@ -116,16 +120,17 @@ class _MyCard2State extends State<MyCard2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  PText(
                     'STATUS : ',
-                    style: TextStyle(
+                    style: GoogleFonts.figtree(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  Text(
+                  PText(
                     mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    style:
+                        GoogleFonts.figtree(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),

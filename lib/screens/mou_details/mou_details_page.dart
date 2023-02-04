@@ -1,5 +1,6 @@
-import 'package:MouTracker/classes/mou.dart';
-
+import 'package:MouTracker/models/mou.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
@@ -16,7 +17,8 @@ import '/screens/mou_details/Tabs/engagement.dart';
 
 class Details extends StatefulWidget {
   final MOU mou;
-  const Details({Key? key, required this.mou}) : super(key: key);
+  final String? heroTag;
+  const Details({Key? key, required this.mou, this.heroTag}) : super(key: key);
   static const routeName = '/mou_details';
 
   @override
@@ -51,44 +53,46 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
 
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kBgClr2,
-          centerTitle: true,
-          title: const Text(
-            "Tracking",
-            style: TextStyle(color: Colors.white),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kBgClr2,
+        centerTitle: true,
+        title: PText(
+          "Tracking",
+          style: GoogleFonts.figtree(
+              color: Colors.white, fontSize: screenWidth * 0.05),
+        ),
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(16.0),
+        //     child: IconButton(
+        //         onPressed: () {},
+        //         icon: const Icon(Icons.search),
+        //         color: Colors.white),
+        //   ),
+        // ],
+        // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(screenHeight * 0.1),
+            child: _customTabBar(screenWidth, screenHeight)),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                InfoTab(
+                  mou: widget.mou,
+                  heroTag: widget.heroTag,
+                ),
+                const EngagementTab(),
+                TrackTab(mou: widget.mou),
+              ],
+            ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.search),
-                  color: Colors.white),
-            ),
-          ],
-          // bottom only accepts normal TabBar(), but ours is wrapped for custom style.
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(screenHeight * 0.1),
-              child: _customTabBar(screenWidth, screenHeight)),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  InfoTab(mou: widget.mou),
-                  const EngagementTab(),
-                  TrackTab(mou: widget.mou),
-                ],
-              ),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -105,9 +109,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       ),
       child: Center(
-          child: Text(
+          child: PText(
         title,
-        style: const TextStyle(fontSize: 16),
+        style: GoogleFonts.figtree(fontSize: 16),
       )),
     );
   }
@@ -125,9 +129,9 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         decoration: BoxDecoration(
           border: Border.all(width: kBorderWidth, color: Colors.white),
           color: Colors.white,
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(15),
         ),
-        child: _buildTabBar(),
+        child: Center(child: _buildTabBar()),
       ),
     );
   }
@@ -135,7 +139,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   // In-built Flutter Tab bar Widget
   TabBar _buildTabBar() {
     return TabBar(
-        labelPadding: const EdgeInsets.all(2),
+        labelPadding: const EdgeInsets.all(1),
         controller: _tabController,
         unselectedLabelColor: Colors.grey,
         indicator:
@@ -151,6 +155,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
 
   // All the labels have same style except for color
   TextStyle _labelStyle(Color clr) {
-    return TextStyle(color: clr, fontSize: 13, fontWeight: FontWeight.w600);
+    return GoogleFonts.figtree(
+        color: clr, fontSize: 13, fontWeight: FontWeight.w600);
   }
 }

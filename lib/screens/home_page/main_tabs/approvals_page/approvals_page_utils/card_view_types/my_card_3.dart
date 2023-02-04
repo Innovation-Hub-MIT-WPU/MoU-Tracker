@@ -1,8 +1,10 @@
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../../classes/mou.dart';
+import '../../../../../../models/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
 
 class MyCard3 extends StatefulWidget {
@@ -15,16 +17,18 @@ class MyCard3 extends StatefulWidget {
   final MOU mou;
   // bool isApproved;
 
-  const MyCard3({
-    //   required this.docName,
-    // required this.authName,
-    // required this.amount,
-    // required this.description,
-    // required this.date,
-    required this.index,
-    required this.mou,
-    // required this.isApproved
-  });
+  const MyCard3(
+      {
+      //   required this.docName,
+      // required this.authName,
+      // required this.amount,
+      // required this.description,
+      // required this.date,
+      required this.index,
+      required this.mou,
+      // required this.isApproved
+      Key? key})
+      : super(key: key);
 
   @override
   State<MyCard3> createState() => _MyCard3State();
@@ -33,6 +37,7 @@ class MyCard3 extends StatefulWidget {
 class _MyCard3State extends State<MyCard3> {
   int k = 0;
   late MOU mou;
+
   @override
   void initState() {
     k = widget.index;
@@ -58,10 +63,10 @@ class _MyCard3State extends State<MyCard3> {
     return Container(
       margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       // index % 2 == 0 ? Colors.teal : Colors.pink
-      height: 105,
+      height: screenHeight * 0.12,
       width: screenWidth,
       decoration: BoxDecoration(
-        color: Colors.lightBlueAccent.withOpacity(0.2),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -77,18 +82,18 @@ class _MyCard3State extends State<MyCard3> {
           // const SizedBox(height: 10),
 
           // SizedBox(height: 6),
-          // Text(
+          // PaTaTa(
           //   'No. $index           $authName',
-          //   style: const TextStyle(fontSize: 12),
+          //   style: const GoogleFonts.figtree(fontSize: 12),
           // ),
           SizedBox(height: screenHeight * 0.015),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
+              PText(
                 '${mou.docName}  ',
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: GoogleFonts.figtree(
+                    fontWeight: FontWeight.bold, fontSize: screenWidth * 0.04),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -100,11 +105,11 @@ class _MyCard3State extends State<MyCard3> {
                   Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.005),
-                    child: Text(
+                    child: PText(
                       'Before ${mou.dueDate} ',
-                      style: const TextStyle(
+                      style: GoogleFonts.figtree(
                         fontWeight: FontWeight.w500,
-                        fontSize: 16,
+                        fontSize: screenWidth * 0.035,
                       ),
                     ),
                   ),
@@ -131,7 +136,7 @@ class _MyCard3State extends State<MyCard3> {
               // ),
             ],
           ),
-          const SizedBox(height: 15),
+          SizedBox(height: screenWidth * 0.03),
           Container(
             height: 45,
             decoration: BoxDecoration(
@@ -143,16 +148,17 @@ class _MyCard3State extends State<MyCard3> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                PText(
                   'STATUS : ',
-                  style: TextStyle(
-                      fontSize: 16,
+                  style: GoogleFonts.figtree(
+                      fontSize: screenWidth * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                Text(
+                PText(
                   !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  style: GoogleFonts.figtree(
+                      fontSize: screenWidth * 0.035, color: Colors.white),
                 ),
               ],
             ),

@@ -1,8 +1,12 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:MouTracker/models/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-Widget tabs(TabController _tabController, int index, BuildContext context) {
+import '../../../../../services/Firebase/fcm/notification_service.dart';
+
+Widget tabs(TabController tabController, int index, BuildContext context) {
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
   return Padding(
@@ -24,7 +28,7 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
           ),
           child: TabBar(
             padding: const EdgeInsets.all(3),
-            controller: _tabController,
+            controller: tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 12.0,
@@ -32,8 +36,8 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
               color: index == 0 ? kTabBarGreen : kTabBarRed,
             ),
             labelColor: kBgClr1,
-            labelStyle:
-                const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            labelStyle: GoogleFonts.figtree(
+                fontSize: width * 0.04, fontWeight: FontWeight.bold),
             unselectedLabelColor: black.withOpacity(0.25),
             tabs: const [
               Tab(
@@ -51,25 +55,34 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
 }
 
 PreferredSizeWidget appbar(
-    TabController _tabController, int index, BuildContext context) {
+    TabController tabController, int index, BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.10),
-        child: tabs(_tabController, index, context)),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.09),
+        child: tabs(tabController, index, context)),
     title: Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).size.height / 30,
       ),
       child: Center(
-        child: Text(
-          'Notifications',
-          style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width / 15,
-              color: kBgClr1,
-              fontWeight: FontWeight.w400),
+        child: TextButton(
+          child: PText(
+            'Notifications',
+            style: GoogleFonts.figtree(
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+                color: kBgClr1,
+                fontWeight: FontWeight.w400),
+          ),
+          onPressed: () {
+            NotificationService().sendPushMessage(
+                "You may have some new messages...",
+                "Team Mou",
+                "innovators'22",
+                5);
+          },
         ),
       ),
     ),

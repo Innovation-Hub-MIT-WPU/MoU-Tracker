@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:MouTracker/models/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'creation_page_utils/created_logo.dart';
 
 class SubmittedPage extends StatefulWidget {
@@ -21,18 +23,18 @@ class _SubmittedPageState extends State<SubmittedPage> {
             snap: false,
             pinned: false,
             floating: false,
-            flexibleSpace: const FlexibleSpaceBar(
+            flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: Text(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: PText(
                   title,
-                  style: TextStyle(
+                  style: GoogleFonts.figtree(
                     color: Colors.white,
                     fontSize: 24,
-                  ), //TextStyle
+                  ), //GoogleFonts.figtree
                 ),
-              ), //Text
+              ), //PaTaTa
             ), //FlexibleSpaceBar
             expandedHeight: MediaQuery.of(context).size.height * 0.2 - 30,
             backgroundColor: const Color(0xff2D376E),
@@ -66,9 +68,9 @@ Widget _text0() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 45),
     alignment: Alignment.center,
-    child: const Text(
+    child: PText(
       'We have received your request!',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      style: GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: 16),
     ),
   );
 }
@@ -77,9 +79,9 @@ Widget _text1() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 45),
     alignment: Alignment.center,
-    child: const Text(
+    child: PText(
       'Please wait till we verify your details.',
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      style: GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: 16),
     ),
   );
 }
@@ -88,9 +90,9 @@ Widget _text2() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 45),
     alignment: Alignment.center,
-    child: const Text(
+    child: PText(
       'In the meanwhile, you can track your request, by clicking on the button below!',
-      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+      style: GoogleFonts.figtree(fontWeight: FontWeight.w400, fontSize: 16),
       textAlign: TextAlign.center,
     ),
   );
@@ -120,9 +122,9 @@ class _TrackButtonState extends State<TrackButton> {
           color: const Color(0xff64C636),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: const Text(
+        child: PText(
           'TRACK',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: GoogleFonts.figtree(fontSize: 20, color: Colors.white),
         ),
       ),
     );

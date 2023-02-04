@@ -1,4 +1,4 @@
-import 'package:MouTracker/classes/notifications_data.dart';
+import 'package:MouTracker/models/notifications_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class onTrack {
@@ -135,11 +135,14 @@ class NotificationsData1 {
     list = querySnapshot.docs.map((e) => (e.data())).toList();
     for (Map e in list) {
       notiList.add(NotificationsData(
+          due: e['due'],
+          mouId: e['mou_id'],
           title: e['title'],
           body: e['body'],
           docName: e['doc_name'],
-          on: e['on'].toDate()));
+          on: e['on'].toDate(),
+          by: e['by']));
     }
-    print(notiList);
+    // print(notiList);
   }
 }
