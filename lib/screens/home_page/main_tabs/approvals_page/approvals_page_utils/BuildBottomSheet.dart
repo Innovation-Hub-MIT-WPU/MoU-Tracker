@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../classes/mou.dart';
+import '../../../../../models/mou.dart';
 import '../../../../../common_utils/utils.dart';
 
 class BuildBottomSheet extends StatefulWidget {

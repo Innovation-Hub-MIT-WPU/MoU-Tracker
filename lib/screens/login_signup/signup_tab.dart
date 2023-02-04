@@ -2,7 +2,7 @@
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

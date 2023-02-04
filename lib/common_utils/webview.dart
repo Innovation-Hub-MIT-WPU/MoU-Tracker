@@ -1,5 +1,5 @@
 // Add this import for Completer
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

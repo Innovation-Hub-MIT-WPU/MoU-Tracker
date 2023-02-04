@@ -1,9 +1,9 @@
-import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../classes/notifications_data.dart';
+import '../../../models/notifications_data.dart';
 
 class DataBaseService {
   // Collections for storing data in the cloud firestore.
@@ -12,9 +12,14 @@ class DataBaseService {
       Mou collection 
         |_ Document -> MOU
               |_ Mou details
-                 Activity collection
-                    |_ Activity docs
-                          |_ Activity details
+                 Activity References
+        
+        Activity collection
+              |_ Activity details
+  
+      Queries - 
+
+  
   */
 
   final db = FirebaseFirestore.instance;
@@ -62,13 +67,6 @@ class DataBaseService {
   Future updateApprovalLvl({required String mouId, required int appLvl}) async {
     await mou.doc(mouId).update({'approval-lvl': appLvl});
   }
-
-  // List<MOU> _getMouList(QuerySnapshot snapshot) {
-  //   return snapshot.docs.map((doc) {
-
-  //     return
-  //   }).toList();
-  // }
 
   Future<List<MOU>> getmouData() async {
     var querySnap = await mou.get();

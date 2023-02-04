@@ -1,13 +1,13 @@
-import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifications_tab_bar.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../classes/notifications_data.dart';
+import '../../../../../models/notifications_data.dart';
 
 Widget tabview(TabController tabController, double height, double width,
     BuildContext context) {

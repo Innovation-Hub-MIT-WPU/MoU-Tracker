@@ -1,5 +1,5 @@
-import 'package:MouTracker/classes/mou.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/mou.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';

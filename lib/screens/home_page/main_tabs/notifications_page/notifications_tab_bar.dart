@@ -1,10 +1,8 @@
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:string_validator/string_validator.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
-import '../../../../classes/notifications_data.dart';
+import 'package:MouTracker/models/personalized_text.dart';
+import '../../../../models/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_tab.dart';
 import 'notifications_page_utils/notifications_tab_view.dart';
@@ -113,10 +111,10 @@ class NotificationsState extends State<Notifications>
             });
           },
           decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.symmetric(vertical: height * 0.005, horizontal: width / 20),
+            contentPadding: EdgeInsets.symmetric(
+                vertical: height * 0.005, horizontal: width / 20),
             hintText: "Search",
-            
+
             hintStyle: GoogleFonts.figtree(
               color: Colors.grey,
               fontSize: width * 0.04,
@@ -134,12 +132,12 @@ class NotificationsState extends State<Notifications>
     final search1 = ontracklist.where((element) {
       final name = element.title.toString().toLowerCase();
       final desc = element.body.toString().toLowerCase();
-      final doc_name = element.docName.toString().toLowerCase();
+      final docName = element.docName.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
-      } else if (doc_name.contains(q)) {
-        return doc_name.contains(q);
+      } else if (docName.contains(q)) {
+        return docName.contains(q);
       } else {
         return desc.contains(q);
       }
@@ -153,12 +151,12 @@ class NotificationsState extends State<Notifications>
       final name = element.title.toString().toLowerCase();
       final desc = element.body.toString().toLowerCase();
 
-      final doc_name = element.docName.toString().toLowerCase();
+      final docName = element.docName.toString().toLowerCase();
       final q = value.toLowerCase();
       if (name.contains(q)) {
         return name.contains(q);
-      } else if (doc_name.contains(q)) {
-        return doc_name.contains(q);
+      } else if (docName.contains(q)) {
+        return docName.contains(q);
       } else {
         return desc.contains(q);
       }

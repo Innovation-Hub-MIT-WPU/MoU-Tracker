@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
         '/create_mou': (_) => const CreateForm(),
         // '/home': (context) => const HomePage(),
         '/report_issues': (context) => const ReportIssues(),
+
         MyRoute.profileRoute: (context) => const ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => const ReportIssues(),
         MyRoute.statsPageRoute: (context) => const StatsPage(),

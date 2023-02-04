@@ -3,7 +3,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/preview_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:typed_data';

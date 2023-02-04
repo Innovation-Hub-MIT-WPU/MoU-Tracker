@@ -1,10 +1,10 @@
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../../classes/mou.dart';
+import '../../../../../../models/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
 
 class MyCard3 extends StatefulWidget {

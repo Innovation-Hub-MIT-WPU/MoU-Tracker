@@ -1,4 +1,4 @@
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:flutter/material.dart';
 

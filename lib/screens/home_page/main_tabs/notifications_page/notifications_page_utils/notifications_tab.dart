@@ -1,12 +1,12 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../services/Firebase/fcm/notification_service.dart';
 
-Widget tabs(TabController _tabController, int index, BuildContext context) {
+Widget tabs(TabController tabController, int index, BuildContext context) {
   double height = MediaQuery.of(context).size.height;
   double width = MediaQuery.of(context).size.width;
   return Padding(
@@ -28,7 +28,7 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
           ),
           child: TabBar(
             padding: const EdgeInsets.all(3),
-            controller: _tabController,
+            controller: tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 12.0,
@@ -36,8 +36,8 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
               color: index == 0 ? kTabBarGreen : kTabBarRed,
             ),
             labelColor: kBgClr1,
-            labelStyle:
-                 GoogleFonts.figtree(fontSize: width * 0.04, fontWeight: FontWeight.bold),
+            labelStyle: GoogleFonts.figtree(
+                fontSize: width * 0.04, fontWeight: FontWeight.bold),
             unselectedLabelColor: black.withOpacity(0.25),
             tabs: const [
               Tab(
@@ -55,14 +55,14 @@ Widget tabs(TabController _tabController, int index, BuildContext context) {
 }
 
 PreferredSizeWidget appbar(
-    TabController _tabController, int index, BuildContext context) {
+    TabController tabController, int index, BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.09),
-        child: tabs(_tabController, index, context)),
+        child: tabs(tabController, index, context)),
     title: Padding(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).size.height / 30,

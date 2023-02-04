@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
@@ -99,10 +99,10 @@ class NotificationService {
   void onOpenBackNotification(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       print("onMessageOpenedApp: $message");
-      var mou_id = message.data['mou_id'];
+      var mouId = message.data['mou_id'];
       var query = await FirebaseFirestore.instance
           .collection('mou')
-          .doc(mou_id.trim())
+          .doc(mouId.trim())
           .get();
 
       final data = query.data();
@@ -110,7 +110,7 @@ class NotificationService {
       String dueDate = "${date.year}-${date.month}-${date.day}";
 
       MOU mou = MOU(
-          mouId: mou_id.trim(),
+          mouId: mouId.trim(),
           docName: data['doc-name'],
           authName: data['auth-name'],
           companyName: data['company-name'],
@@ -130,18 +130,18 @@ class NotificationService {
   }
 
   void onOpenForeNotification(String payload, BuildContext context) async {
-    var mou_id = payload;
+    var mouId = payload;
     var query = await FirebaseFirestore.instance
         .collection('mou')
-        .doc(mou_id.trim())
+        .doc(mouId.trim())
         .get();
 
-    final data = await query.data();
+    final data = query.data();
     DateTime date = data!['due-date'].toDate();
     String dueDate = "${date.year}-${date.month}-${date.day}";
 
     MOU mou = MOU(
-        mouId: mou_id.trim(),
+        mouId: mouId.trim(),
         docName: data['doc-name'],
         authName: data['auth-name'],
         companyName: data['company-name'],
@@ -166,7 +166,7 @@ class NotificationService {
           .doc(position.toString())
           .get();
 
-      var doc = await query.data();
+      var doc = query.data();
       List tokens = doc!['tokens'];
       for (var i = 0; i < tokens.length; i++) {
         try {

@@ -1,3 +1,4 @@
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
 
 class PlacementData extends StatefulWidget {
@@ -10,6 +11,6 @@ class PlacementData extends StatefulWidget {
 class _PlacementDataState extends State<PlacementData> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const PText("Placement data");
   }
 }

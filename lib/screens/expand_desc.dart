@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 
 class ExpandableText extends StatefulWidget {
   ExpandableText(this.text, {super.key});

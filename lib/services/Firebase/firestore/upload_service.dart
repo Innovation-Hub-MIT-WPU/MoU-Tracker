@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:MouTracker/classes/file.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/file.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';

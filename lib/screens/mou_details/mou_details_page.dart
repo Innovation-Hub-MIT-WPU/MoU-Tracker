@@ -1,6 +1,6 @@
-import 'package:MouTracker/classes/mou.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
