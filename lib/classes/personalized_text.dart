@@ -17,9 +17,10 @@ class PText extends StatelessWidget {
     this.textWidthBasis,
     this.textHeightBehavior,
     this.selectionColor,
-  });
+  }) : super(key: key);
 
   final String data;
+  @override
   final Key? key;
   final TextStyle? style;
   final StrutStyle? strutStyle;

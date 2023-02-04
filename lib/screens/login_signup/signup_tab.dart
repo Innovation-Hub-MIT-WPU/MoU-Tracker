@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '/common_utils/utils.dart';
 import '/services/Firebase/fireauth/model.dart';
@@ -54,7 +55,7 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.all(Radius.circular(10))))),
           child: PText("SIGN UP",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: GoogleFonts.figtree(
                 fontSize: 16,
                 color: Colors.white,
               )),
@@ -95,8 +96,8 @@ class _SignUpState extends State<SignUp> {
                         shape: StadiumBorder(),
                       ));
                     },
-                    child: const PText("Forgot Password?",
-                        style: TextStyle(
+                    child: PText("Forgot Password?",
+                        style: GoogleFonts.figtree(
                             color: Colors.white,
                             fontSize: 12,
                             fontWeight: FontWeight.w400)),
@@ -156,6 +157,6 @@ class _SignUpState extends State<SignUp> {
     Fluttertoast.showToast(msg: "Account created successfully !");
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => NewHomePage()));
-   // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NewNavBar()));
+    // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NewNavBar()));
   }
 }

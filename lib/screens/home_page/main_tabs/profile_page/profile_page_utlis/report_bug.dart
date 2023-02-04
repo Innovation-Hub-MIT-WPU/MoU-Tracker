@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ReportIssues extends StatefulWidget {
   const ReportIssues({Key? key}) : super(key: key);
@@ -45,9 +46,8 @@ class _ReportIssuesState extends State<ReportIssues> {
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: PText(
                 "Report Issues",
-                style: TextStyle(
+                style: GoogleFonts.figtree(
                   color: Colors.white,
-                  fontFamily: Theme.of(context).textTheme.headline2!.fontFamily,
                   fontSize: Theme.of(context).textTheme.headline3!.fontSize,
                 ),
               ),

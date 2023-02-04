@@ -1,7 +1,7 @@
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 AppBar appBar(String title, BuildContext context) {
   return AppBar(
@@ -13,10 +13,8 @@ AppBar appBar(String title, BuildContext context) {
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
           child: PText(
             title,
-            style: TextStyle(
+            style: GoogleFonts.figtree(
               color: Colors.white,
-              fontFamily:
-                  Theme.of(context).textTheme.headlineMedium!.fontFamily,
               fontSize: 28,
             ),
           ),

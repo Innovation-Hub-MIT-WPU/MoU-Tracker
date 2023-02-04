@@ -3,6 +3,7 @@
 import 'package:MouTracker/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../common_utils/utils.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'login_tab.dart';
@@ -36,7 +37,7 @@ class _LogInSignUpPageState extends State<LogInSignUpPage>
       appBar: AppBar(
         centerTitle: true,
         title: PText(APP_TITLE,
-            style: TextStyle(
+            style: GoogleFonts.figtree(
               fontSize: 36,
               fontWeight: FontWeight.w300,
               color: Colors.white,

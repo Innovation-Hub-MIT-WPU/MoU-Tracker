@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/common_utils/utils.dart';
 
 //designations array used in DropDownButtonFormField items
@@ -28,9 +29,9 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const PText(
+        PText(
           "DESIGNATION",
-          style: TextStyle(
+          style: GoogleFonts.figtree(
               color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
         ),
         const SizedBox(height: kFormSpacing / 2),
@@ -41,7 +42,8 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
           child: DropdownButtonFormField(
               hint: PText(
                 "Select a designation",
-                style: TextStyle(color: Colors.white.withOpacity(0.5)),
+                style:
+                    GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
               ),
               value: widget.designation,
               selectedItemBuilder: (_) {
@@ -49,7 +51,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
                     .map((e) => Container(
                         child: PText(e,
                             textAlign: TextAlign.start,
-                            style: const TextStyle(
+                            style: GoogleFonts.figtree(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 18,
                                 color: Colors.white))))
@@ -95,7 +97,7 @@ DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: PText(item,
-            style: const TextStyle(
+            style: GoogleFonts.figtree(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
                 color: Colors.black)),
@@ -110,14 +112,14 @@ Widget emailFormElement(TextEditingController emailController,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const PText(
+      PText(
         "EMAIL",
-        style: TextStyle(
+        style: GoogleFonts.figtree(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
       const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: const TextStyle(color: Colors.white),
+        style: GoogleFonts.figtree(color: Colors.white),
         autofocus: false,
         onSaved: (value) {
           emailController.text = value!;
@@ -136,7 +138,7 @@ Widget emailFormElement(TextEditingController emailController,
         cursorColor: AppColors.buttonYellow,
         decoration: InputDecoration(
           hintText: "abc@gmail.com",
-          hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+          hintStyle: GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
           contentPadding: const EdgeInsets.all(10),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
@@ -161,14 +163,14 @@ Widget passwordFormElement(TextEditingController passwordController,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const PText(
+      PText(
         "PASSWORD",
-        style: TextStyle(
+        style: GoogleFonts.figtree(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
       const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: const TextStyle(color: Colors.white),
+        style: GoogleFonts.figtree(color: Colors.white),
         autofocus: false,
         controller: passwordController,
         obscureText: true,
@@ -212,12 +214,12 @@ Widget nameFormElement(String text, TextEditingController nameController,
     children: [
       PText(
         text,
-        style: const TextStyle(
+        style: GoogleFonts.figtree(
             color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
       ),
       const SizedBox(height: kFormSpacing / 2),
       TextFormField(
-        style: const TextStyle(color: Colors.white),
+        style: GoogleFonts.figtree(color: Colors.white),
         autofocus: false,
         controller: nameController,
         validator: (value) {
@@ -270,7 +272,7 @@ Widget appButton(String text, Widget newRoute, BuildContext context) {
               borderRadius: BorderRadius.all(Radius.circular(10))))),
       child: PText(text,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: GoogleFonts.figtree(
             fontSize: 24,
             color: Colors.white,
           )),
@@ -326,7 +328,7 @@ Widget footerText(String text, BuildContext context) {
         ));
       },
       child: PText(text,
-          style: const TextStyle(
+          style: GoogleFonts.figtree(
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: Colors.white,

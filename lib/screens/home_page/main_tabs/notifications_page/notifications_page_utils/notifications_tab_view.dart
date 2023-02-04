@@ -4,8 +4,8 @@ import 'package:MouTracker/screens/home_page/main_tabs/notifications_page/notifi
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../classes/notifications_data.dart';
 
@@ -83,8 +83,8 @@ Container makeCard(NotificationsData onTrack, double height, double width,
 Widget makeListTile(NotificationsData onTrack, double height, double width,
     BuildContext context) {
   String title = onTrack.title;
-  String doc_name = onTrack.docName.toUpperCase();
-  
+  String docName = onTrack.docName.toUpperCase();
+
   String state = title.contains("Approved")
       ? "Approved"
       : title.contains("Rejected")
@@ -99,15 +99,15 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
         leading: Leading(height, width),
         title: PText(
           title,
-          style: const TextStyle(
+          style: GoogleFonts.figtree(
             color: kBgClr2,
             fontWeight: FontWeight.w500,
             fontSize: 16,
           ),
         ),
         subtitle: PText(
-          doc_name,
-          style: const TextStyle(
+          docName,
+          style: GoogleFonts.figtree(
               color: kBgClr2,
               fontWeight: FontWeight.w500,
               fontSize: 13,
@@ -123,8 +123,8 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                       right: width / 40,
                       bottom: height / 100),
                   child: PText(
-                    " Company  :  $doc_name \n $state By :  $by \n $state On :  $on",
-                    style: TextStyle(
+                    " Company  :  $docName \n $state By :  $by \n $state On :  $on",
+                    style: GoogleFonts.figtree(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         color: kBgClr2.withOpacity(0.7)),
@@ -178,9 +178,9 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: width / 60),
-                          child: const PText(
+                          child: PText(
                             "Go To Track",
-                            style: TextStyle(
+                            style: GoogleFonts.figtree(
                               color: black,
                               fontWeight: FontWeight.w500,
                               fontSize: 16,

@@ -3,6 +3,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -41,10 +42,9 @@ class PreviewScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
             child: PText(
               "Preview",
-              style: TextStyle(
+              style: GoogleFonts.figtree(
                 color: Colors.white,
-                fontFamily: Theme.of(context).textTheme.headline2!.fontFamily,
-                fontSize: Theme.of(context).textTheme.headline3!.fontSize,
+                fontSize: Theme.of(context).textTheme.displaySmall!.fontSize,
               ),
             ),
           ),

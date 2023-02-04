@@ -4,6 +4,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/preview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -142,7 +143,7 @@ class StatsPageState extends State<StatsPage> {
       backgroundColor: hexStringToColor("EDF9FF"),
       title: ChartTitle(
           text: "Approval Rate",
-          textStyle: TextStyle(fontWeight: FontWeight.bold)),
+          textStyle: GoogleFonts.figtree(fontWeight: FontWeight.bold)),
       annotations: <CircularChartAnnotation>[
         CircularChartAnnotation(
           widget: Container(

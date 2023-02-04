@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/common_utils/utils.dart';
 import '/classes/activity.dart';
 
@@ -65,9 +66,9 @@ class _EngagementTabState extends State<EngagementTab> {
       ),
       child: ListTile(
         title: PText(activity.name,
-            style: const TextStyle(color: Colors.black, fontSize: 18)),
+            style: GoogleFonts.figtree(color: Colors.black, fontSize: 18)),
         subtitle: PText(activity.desc,
-            style: const TextStyle(color: Colors.grey, fontSize: 14)),
+            style: GoogleFonts.figtree(color: Colors.grey, fontSize: 14)),
         trailing: activity.status == true
             ? _buildTextButton("View")
             : null, // view button is only for completed activities
@@ -81,7 +82,7 @@ class _EngagementTabState extends State<EngagementTab> {
     return TextButton(
       onPressed: () {},
       child: PText(buttonTxt,
-          style: const TextStyle(color: Colors.black, fontSize: 15)),
+          style: GoogleFonts.figtree(color: Colors.black, fontSize: 15)),
     );
   }
 }

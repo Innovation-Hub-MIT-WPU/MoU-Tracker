@@ -2,6 +2,7 @@ import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../classes/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
@@ -79,12 +80,13 @@ class _MyCard2State extends State<MyCard2> {
             const SizedBox(height: 10),
             PText(
               '${mou.docName}  ${mou.companyName}',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: GoogleFonts.figtree(
+                  fontWeight: FontWeight.bold, fontSize: 20),
             ),
             // SizedBox(height: 6),
             // PaTaTa(
             //   'No. $index           $authName',
-            //   style: const TextStyle(fontSize: 12),
+            //   style: const GoogleFonts.figtree(fontSize: 12),
             // ),
             const SizedBox(height: 8),
             Row(
@@ -98,7 +100,7 @@ class _MyCard2State extends State<MyCard2> {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: PText(
                     'Before ${mou.dueDate}',
-                    style: const TextStyle(
+                    style: GoogleFonts.figtree(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
@@ -118,16 +120,17 @@ class _MyCard2State extends State<MyCard2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const PText(
+                  PText(
                     'STATUS : ',
-                    style: TextStyle(
+                    style: GoogleFonts.figtree(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
                   PText(
                     mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    style:
+                        GoogleFonts.figtree(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),

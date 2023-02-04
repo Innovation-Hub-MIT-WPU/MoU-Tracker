@@ -10,6 +10,7 @@ import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -202,10 +203,7 @@ class ProfileTabState extends State<ProfileTab> {
             child: PText(
               text,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: Theme.of(context).textTheme.headline3?.fontFamily,
-                  color: Colors.black),
+              style: GoogleFonts.figtree(fontSize: 18, color: Colors.black),
             ),
           ),
         ],
@@ -256,7 +254,7 @@ class ProfileTabState extends State<ProfileTab> {
               children: [
                 PText(
                   "Choose Profile Photo",
-                  style: TextStyle(fontSize: 20),
+                  style: GoogleFonts.figtree(fontSize: 20),
                 ),
                 SizedBox(
                   height: 20,

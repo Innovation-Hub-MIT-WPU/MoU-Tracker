@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../classes/mou.dart';
 import '../../../../../common_utils/utils.dart';
 
@@ -9,6 +10,7 @@ class BuildBottomSheet extends StatefulWidget {
   // bool isApproved;
 
   const BuildBottomSheet({
+    super.key,
     required this.mou,
     required this.index,
   });
@@ -63,12 +65,14 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: mou.isApproved ? Color(0XFFCD364E).withOpacity(0.6) : kTabBarGreen.withOpacity(0.6),
+                color: mou.isApproved
+                    ? const Color(0XFFCD364E).withOpacity(0.6)
+                    : kTabBarGreen.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: PText(
                 '${mou.companyName} \n ${mou.docName} ',
-                style: TextStyle(
+                style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: screenWidth * 0.05,
                   color: mou.isApproved ? Colors.white : Colors.black,
@@ -97,7 +101,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               child: PText(
                 mou.description,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.black,
@@ -116,10 +120,10 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
-              child: const PText(
+              child: PText(
                 'Amount : ₹ 10000',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   color: Colors.black,
@@ -145,7 +149,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               child: PText(
                 'Author : ${mou.authName}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: Colors.black,

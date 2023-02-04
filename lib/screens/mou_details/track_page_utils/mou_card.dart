@@ -1,6 +1,7 @@
 import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MouCard extends StatelessWidget {
   const MouCard({
@@ -24,7 +25,8 @@ class MouCard extends StatelessWidget {
         children: [
           PText(
             widget.mou.docName,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style:
+                GoogleFonts.figtree(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
           Padding(

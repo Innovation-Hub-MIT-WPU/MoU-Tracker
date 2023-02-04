@@ -10,6 +10,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' as io;
 
+import 'package:google_fonts/google_fonts.dart';
+
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
 
@@ -92,25 +94,28 @@ class CreateFormState extends State<CreateForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const PText(
+              PText(
                 "Document name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Document name",
                   textInputType: TextInputType.text,
                   textEditingController: docNameController),
-              const PText(
+              PText(
                 "Initator name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Initiator name",
                   textInputType: TextInputType.text,
                   textEditingController: authNameController),
-              const PText(
+              PText(
                 "SPOC name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "SPOC name",
@@ -130,17 +135,19 @@ class CreateFormState extends State<CreateForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const PText(
+              PText(
                 "Company name",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Company name",
                   textInputType: TextInputType.text,
                   textEditingController: companyNameController),
-              const PText(
+              PText(
                 "Company website",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Company website",
@@ -160,17 +167,19 @@ class CreateFormState extends State<CreateForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const PText(
+              PText(
                 "Due date",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Due date",
                   textInputType: TextInputType.datetime,
                   textEditingController: dueDateController),
-              const PText(
+              PText(
                 "MOU description",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.figtree(
+                    fontSize: 18, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "MOU description",

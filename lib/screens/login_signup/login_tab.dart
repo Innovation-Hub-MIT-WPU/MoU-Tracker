@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
-import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:MouTracker/classes/personalized_text.dart';
@@ -49,7 +49,7 @@ class _LogInState extends State<LogIn> {
                   borderRadius: BorderRadius.all(Radius.circular(10))))),
           child: PText("LOG IN",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: GoogleFonts.figtree(
                 fontSize: 16,
                 color: Colors.white,
               )),
@@ -86,8 +86,8 @@ class _LogInState extends State<LogIn> {
                       shape: StadiumBorder(),
                     ));
                   },
-                  child: const PText("Forgot Password?",
-                      style: TextStyle(
+                  child: PText("Forgot Password?",
+                      style: GoogleFonts.figtree(
                           color: Colors.white,
                           fontSize: 12,
                           fontWeight: FontWeight.w400)),

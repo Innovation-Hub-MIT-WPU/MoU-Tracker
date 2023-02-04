@@ -59,7 +59,8 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
         centerTitle: true,
         title: PText(
           "Tracking",
-          style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.05),
+          style: GoogleFonts.figtree(
+              color: Colors.white, fontSize: screenWidth * 0.05),
         ),
         // actions: [
         //   Padding(
@@ -110,7 +111,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       child: Center(
           child: PText(
         title,
-        style: const TextStyle(fontSize: 16),
+        style: GoogleFonts.figtree(fontSize: 16),
       )),
     );
   }
@@ -154,6 +155,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
 
   // All the labels have same style except for color
   TextStyle _labelStyle(Color clr) {
-    return TextStyle(color: clr, fontSize: 13, fontWeight: FontWeight.w600);
+    return GoogleFonts.figtree(
+        color: clr, fontSize: 13, fontWeight: FontWeight.w600);
   }
 }

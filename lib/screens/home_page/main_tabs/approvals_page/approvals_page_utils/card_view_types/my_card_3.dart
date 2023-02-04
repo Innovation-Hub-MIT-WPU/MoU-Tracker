@@ -2,6 +2,7 @@ import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../../classes/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
@@ -37,7 +38,6 @@ class _MyCard3State extends State<MyCard3> {
   int k = 0;
   late MOU mou;
 
-  
   @override
   void initState() {
     k = widget.index;
@@ -61,7 +61,6 @@ class _MyCard3State extends State<MyCard3> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      
       margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
       // index % 2 == 0 ? Colors.teal : Colors.pink
       height: screenHeight * 0.12,
@@ -85,7 +84,7 @@ class _MyCard3State extends State<MyCard3> {
           // SizedBox(height: 6),
           // PaTaTa(
           //   'No. $index           $authName',
-          //   style: const TextStyle(fontSize: 12),
+          //   style: const GoogleFonts.figtree(fontSize: 12),
           // ),
           SizedBox(height: screenHeight * 0.015),
           Row(
@@ -93,8 +92,8 @@ class _MyCard3State extends State<MyCard3> {
             children: [
               PText(
                 '${mou.docName}  ',
-                style:
-                     TextStyle(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.04),
+                style: GoogleFonts.figtree(
+                    fontWeight: FontWeight.bold, fontSize: screenWidth * 0.04),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +107,7 @@ class _MyCard3State extends State<MyCard3> {
                         EdgeInsets.symmetric(horizontal: screenWidth * 0.005),
                     child: PText(
                       'Before ${mou.dueDate} ',
-                      style: TextStyle(
+                      style: GoogleFonts.figtree(
                         fontWeight: FontWeight.w500,
                         fontSize: screenWidth * 0.035,
                       ),
@@ -151,14 +150,15 @@ class _MyCard3State extends State<MyCard3> {
               children: [
                 PText(
                   'STATUS : ',
-                  style: TextStyle(
+                  style: GoogleFonts.figtree(
                       fontSize: screenWidth * 0.035,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
                 PText(
                   !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                  style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.white),
+                  style: GoogleFonts.figtree(
+                      fontSize: screenWidth * 0.035, color: Colors.white),
                 ),
               ],
             ),

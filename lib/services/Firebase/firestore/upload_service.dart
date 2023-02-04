@@ -5,6 +5,7 @@ import 'package:MouTracker/classes/personalized_text.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import '../../../screens/mou_creation/mou_creation_page.dart';
 import 'dart:io' as io;
@@ -94,7 +95,8 @@ Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
 
           return PText(
             '$percentage %',
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style:
+                GoogleFonts.figtree(fontSize: 20, fontWeight: FontWeight.bold),
           );
         } else {
           return const PText("Uploading...");

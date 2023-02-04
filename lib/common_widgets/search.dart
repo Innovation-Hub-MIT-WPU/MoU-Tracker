@@ -59,7 +59,7 @@
 //                 ),
 //                 child: const PaTaTa(
 //                   'Approvals',
-//                   style: TextStyle(fontSize: 25, color: Colors.white),
+//                   style: GoogleFonts.figtree(fontSize: 25, color: Colors.white),
 //                 ),
 //               ),
 //               AnimatedContainer(
@@ -101,7 +101,7 @@
 //                                         .trim());
 //                               });
 //                             },
-//                             style: TextStyle(fontSize: 18),
+//                             style: GoogleFonts.figtree(fontSize: 18),
 //                             controller: textEditingController,
 //                             cursorRadius: const Radius.circular(10.0),
 //                             cursorWidth: 2.0,
@@ -110,7 +110,7 @@
 //                               floatingLabelBehavior:
 //                                   FloatingLabelBehavior.never,
 //                               labelText: 'Search...',
-//                               labelStyle: const TextStyle(
+//                               labelStyle: const GoogleFonts.figtree(
 //                                 color: Color(0xff5B5B5B),
 //                                 fontSize: 17.0,
 //                                 fontWeight: FontWeight.w500,

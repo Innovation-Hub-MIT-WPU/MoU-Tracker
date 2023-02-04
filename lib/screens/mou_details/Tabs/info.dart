@@ -137,8 +137,8 @@ class _InfoTabState extends State<InfoTab> {
   ListTile _fileDownload() {
     return ListTile(
       title: PText("${widget.mou.docName}.pdf",
-          style: const TextStyle(fontSize: 13, color: Colors.black)),
-      subtitle: const PText("10.0 MB", style: TextStyle(fontSize: 12)),
+          style: GoogleFonts.figtree(fontSize: 13, color: Colors.black)),
+      subtitle: PText("10.0 MB", style: GoogleFonts.figtree(fontSize: 12)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),
       trailing: (downloadChecker[widget.mou.docName] == 0)
@@ -174,7 +174,7 @@ class _InfoTabState extends State<InfoTab> {
                 //             Flexible(
                 //               child: PaTaTa(
                 //                 "Downloaded",
-                //                 style: TextStyle(
+                //                 style: GoogleFonts.figtree(
                 //                     fontWeight: FontWeight.w600,
                 //                     color: Colors.white),
                 //               ),
@@ -183,7 +183,7 @@ class _InfoTabState extends State<InfoTab> {
                 //         ),
                 //         content: const PaTaTa(
                 //           'saved in your device\'s downloads folder',
-                //           style: TextStyle(color: kBgClr1),
+                //           style: GoogleFonts.figtree(color: kBgClr1),
                 //         ),
                 //         actions: <Widget>[
                 //           TextButton(
