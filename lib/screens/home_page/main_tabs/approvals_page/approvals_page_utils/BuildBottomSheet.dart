@@ -1,7 +1,8 @@
+import 'package:MouTracker/models/mou.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
-import 'package:MouTracker/classes/personalized_text.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../classes/mou.dart';
 import '../../../../../common_utils/utils.dart';
 
 class BuildBottomSheet extends StatefulWidget {
@@ -45,7 +46,9 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             height: MediaQuery.of(context).size.height * 0.01 - 2,
             width: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.5), color: Colors.white70),
+                borderRadius: BorderRadius.circular(
+                    MediaQuery.of(context).size.width * 0.5),
+                color: Colors.white70),
           ),
           SizedBox(
             height: screenWidth * 0.045,
@@ -58,14 +61,17 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             width: MediaQuery.of(context).size.width - 20,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.5),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.5),
             ),
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 5),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: mou.isApproved ? Color(0XFFCD364E).withOpacity(0.6) : kTabBarGreen.withOpacity(0.6),
+                color: mou.isApproved
+                    ? Color(0XFFCD364E).withOpacity(0.6)
+                    : kTabBarGreen.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: PText(
@@ -88,8 +94,10 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(MediaQuery.of(context).size.width * 0.05),
-                topLeft: Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                topRight:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                topLeft:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
               ),
             ),
             child: Container(
@@ -132,13 +140,15 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
 
           // Author
           Container(
-            padding:  EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             margin: EdgeInsets.only(bottom: screenWidth * 0.04),
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(MediaQuery.of(context).size.width * 0.05),
-                bottomLeft: Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                bottomRight:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                bottomLeft:
+                    Radius.circular(MediaQuery.of(context).size.width * 0.05),
               ),
             ),
             child: Container(

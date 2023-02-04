@@ -1,5 +1,6 @@
-import 'package:MouTracker/classes/personalized_text.dart';
+
 import 'package:MouTracker/common_widgets/search.dart';
+import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/get_started/get_started_page.dart';
 import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
