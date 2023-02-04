@@ -19,17 +19,27 @@ class _NewHomePageState extends State<NewHomePage> {
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
-  static const List<Widget> _widgetList = [
-    ApprovalsPage(),
-    Notifications(),
-    StatsPage(),
-    ProfileTab(),
-  ];
+  List<Widget> _widgetList = [];
+
+  @override
+  void initState() {
+    _widgetList = [
+      const ApprovalsPage(),
+      const Notifications(),
+      const StatsPage(),
+      ProfileTab(
+        controller: _controller,
+      ),
+    ];
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return PersistentTabView(
       context,
       screens: _widgetList,

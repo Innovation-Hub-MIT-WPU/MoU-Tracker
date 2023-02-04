@@ -1,3 +1,4 @@
+import 'package:MouTracker/screens/get_started/get_started_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
@@ -61,12 +62,12 @@ class MyApp extends StatelessWidget {
         '/start': (context) => const CheckAuth(),
         '/test': (_) => const TestWidget(),
         '/login_signup': (_) => const LogInSignUpPage(),
+        '/get_started': (_) => const GetStartedPage(),
         '/submitted': (_) => const SubmittedPage(),
         '/create_mou': (_) => const CreateForm(),
         // '/home': (context) => const HomePage(),
         '/report_issues': (context) => const ReportIssues(),
-
-        MyRoute.profileRoute: (context) => const ProfileTab(),
+        // MyRoute.profileRoute: (context) => const ProfileTab(),
         MyRoute.reportIssuesRoute: (context) => const ReportIssues(),
         MyRoute.statsPageRoute: (context) => const StatsPage(),
       },
