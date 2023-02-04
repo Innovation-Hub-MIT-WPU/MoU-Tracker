@@ -96,7 +96,7 @@ class NotificationsState extends State<Notifications>
 
   Widget searchBox(double height, double width) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(width * 0.5),
+      borderRadius: BorderRadius.circular(width * 0.06),
       child: Container(
         alignment: Alignment.center,
         color: Colors.white,
@@ -113,14 +113,12 @@ class NotificationsState extends State<Notifications>
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 vertical: height * 0.005, horizontal: width / 20),
-            hintText: "Search",
-
+            hintText: "Search MoU",
             hintStyle: GoogleFonts.figtree(
               color: Colors.grey,
               fontSize: width * 0.04,
             ),
             suffixIcon: const Icon(Icons.search),
-            // prefix: Icon(Icons.search),
             border: InputBorder.none,
           ),
         ),

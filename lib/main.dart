@@ -18,9 +18,6 @@ void main() async {
 
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.getInitialMessage();
-  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-  await firebaseMessaging.subscribeToTopic('test-1');
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
