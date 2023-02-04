@@ -47,7 +47,7 @@ class NotificationsState extends State<Notifications>
     double screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        appBar: appbar(_tabController, index, context),
+        appBar: appbar(_tabController, index, context, screenHeight),
         body: Column(
           children: [
             Container(

@@ -87,13 +87,7 @@ class _InfoTabState extends State<InfoTab> {
                   vertical: screenHeight * 0.02),
               child: _fileDownload(),
             ),
-            _buildDivider(screenWidth, screenHeight),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05,
-                  vertical: screenHeight * 0.02),
-              child: _fileDownload(),
-            ),
+          
           ],
         ),
       ),
@@ -149,7 +143,7 @@ class _InfoTabState extends State<InfoTab> {
                   downloadChecker[widget.mou.docName] = -1;
                 });
 
-                // Download MOU's PDF for firebase storage.
+                // Download MOU's PDF for firebase storage, or open it if exists already.
                 await FirebaseApi.download(widget.mou.docName);
 
                 // this is to show the downloaded icon
@@ -199,7 +193,7 @@ class _InfoTabState extends State<InfoTab> {
                 //       );
                 //     });
               },
-              icon: const Icon(Icons.file_download_outlined, size: 23))
+              icon: const Icon(Icons.file_open, size: 23))
           : (downloadChecker[widget.mou.docName] == -1)
               ? const CircularProgressIndicator()
               : const Icon(Icons.download_done_outlined, size: 23),

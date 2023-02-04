@@ -98,7 +98,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
               // left: screenWidth * 0.04
             ),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: Colors.white, borderRadius: BorderRadius.circular(screenWidth * 0.5)),
             child: TextField(
               controller: searchQueryController,
               onChanged: (value) {
@@ -114,11 +114,11 @@ class _MouStatusTabState extends State<MouStatusTab> {
                     fontSize: screenWidth * 0.04, color: Colors.grey),
                 suffixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(),
+                  borderRadius: BorderRadius.circular(screenWidth*0.5),
+                  // borderSide: const BorderSide(),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(screenWidth*0.5),
                   borderSide: const BorderSide(color: kBgClr2),
                 ),
               ),
@@ -177,7 +177,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(1000),
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),

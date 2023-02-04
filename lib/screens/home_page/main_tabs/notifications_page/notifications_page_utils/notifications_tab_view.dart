@@ -57,7 +57,7 @@ Container makeCard(NotificationsData onTrack, double height, double width,
         BuildContext context) =>
     Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(width * 0.05),
         boxShadow: [
           BoxShadow(
             color: black.withOpacity(0.1),

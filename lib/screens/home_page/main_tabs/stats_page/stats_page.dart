@@ -147,9 +147,9 @@ class StatsPageState extends State<StatsPage> {
       annotations: <CircularChartAnnotation>[
         CircularChartAnnotation(
           widget: Container(
-            child: const PText(
+            child: PText(
               '12.5%',
-              style: TextStyle(
+              style: GoogleFonts.figtree(
                   color: Color.fromRGBO(0, 0, 0, 0.5),
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
@@ -264,8 +264,7 @@ class SavePDFState extends State<SavePDF> {
     );
 
     /// open Preview Screen
-    Navigator.push(
-        context,
+    Navigator.of(context, rootNavigator: true).push(
         MaterialPageRoute(
           builder: (context) => PreviewScreen(doc: doc),
         ));
