@@ -19,7 +19,7 @@ class _EngagementTabState extends State<EngagementTab> {
       status: true,
     ),
     Activity(
-      name: "InternShip",
+      name: "Internship",
       desc: "Lorem ipsum dolor sit amet, consectetur",
       status: true,
     ),

@@ -41,45 +41,51 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.06,
           left: screenWidth * 0.02,
           right: screenWidth * 0.02),
-      child: 
-         SingleChildScrollView(
-           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              PText("Information", style: titleStyle(screenWidth * 0.04)),
-              _buildDivider(screenWidth, screenHeight),
-              PText("Title", style: subtitleStyle(screenWidth * 0.035)),
-              _displayText(widget.mou.docName, screenHeight, titleStyle(screenWidth * 0.038)),
-              PText("Description", style: GoogleFonts.figtree(fontSize: screenWidth * 0.033, fontWeight: FontWeight.w500)),
-              _writeDesc(screenWidth, screenHeight),
-              PText("Date", style: subtitleStyle(screenWidth * 0.033)),
-              _displayText(date, screenHeight, GoogleFonts.figtree(fontSize: screenWidth * 0.033, fontWeight: FontWeight.normal)),
-              ElevatedButton(
-                onPressed: () async {
-                  String link = widget.mou.companyWebsite;
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => WebViewClass(url: link),
-                    ),
-                  );
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.green),
-                ),
-                child: PText("Company Website",
-                    style: GoogleFonts.figtree(color: Colors.white, fontSize: screenWidth * 0.038, fontWeight: FontWeight.w600)),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            PText("Information", style: titleStyle(screenWidth * 0.04)),
+            _buildDivider(screenWidth, screenHeight),
+            PText("Title", style: subtitleStyle(screenWidth * 0.035)),
+            _displayText(widget.mou.docName, screenHeight,
+                titleStyle(screenWidth * 0.038)),
+            PText("Description",
+                style: GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.w500)),
+            _writeDesc(screenWidth, screenHeight),
+            PText("Date", style: subtitleStyle(screenWidth * 0.033)),
+            _displayText(
+                date,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            ElevatedButton(
+              onPressed: () async {
+                String link = widget.mou.companyWebsite;
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => WebViewClass(url: link),
+                  ),
+                );
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
-              _buildDivider(screenWidth, screenHeight),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
-                child: _fileDownload(),
-              ),
-              child: Text("Company Website",
+              child: PText("Company Website",
                   style: GoogleFonts.figtree(
                       color: Colors.white,
-                      fontSize: screenWidth * 0.045,
+                      fontSize: screenWidth * 0.038,
                       fontWeight: FontWeight.w600)),
+            ),
+            _buildDivider(screenWidth, screenHeight),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth * 0.05,
+                  vertical: screenHeight * 0.02),
+              child: _fileDownload(),
             ),
             _buildDivider(screenWidth, screenHeight),
             Padding(
@@ -101,10 +107,10 @@ class _InfoTabState extends State<InfoTab> {
           top: screenHeight * 0.005,
           right: screenWidth * 0.09,
           bottom: screenHeight * 0.02),
-
       child: PText(widget.mou.description,
-          softWrap: true, textAlign: TextAlign.justify, style: normalStyle(screenWidth * 0.038)),
-
+          softWrap: true,
+          textAlign: TextAlign.justify,
+          style: normalStyle(screenWidth * 0.038)),
     );
   }
 

@@ -22,7 +22,7 @@ class _MyCardState extends State<MyCard> {
   int k = 0;
   late MOU mou;
   late String heroTag;
-  GlobalKey _key = GlobalKey();
+  final GlobalKey _key = GlobalKey();
   @override
   void initState() {
     k = widget.index;
@@ -44,11 +44,9 @@ class _MyCardState extends State<MyCard> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => 
-                  Details(
-                    heroTag:heroTag,
-                    mou: mou,
-                  
+                builder: (context) => Details(
+                  heroTag: heroTag,
+                  mou: mou,
                 ),
               ),
             );
@@ -81,38 +79,7 @@ class _MyCardState extends State<MyCard> {
                   // padding: EdgeInsets.only(left: screenWidth * 0.04),
                   alignment: Alignment.center,
                   child:
-                      // Row(
-                      //   children: [
-                      //     Container(
-                      //       width: screenWidth * 0.3,
-                      //       alignment: Alignment.centerLeft,
-                      //       child: Stack(
-                      //         alignment: Alignment.center,
-                      //         children: [
-                      //           Icon(
-                      //             Icons.circle,
-                      //             color: mou.isApproved
-                      //                 ? Colors.green
-                      //                 : !mou.isApproved
-                      //                     ? kCardRed
-                      //                     : kTabBarGreen,
-                      //             size: screenWidth * 0.11,
-                      //           ),
-
-                      //            PaTaTa(
-                      //             '$k',
-                      //             style: GoogleFonts.figtree(
-                      //                 fontSize: screenWidth * 0.065,
-                      //                 color: Colors.white,
-                      //                 fontWeight: FontWeight.bold),
-                      //                                  ),
-                      //         ],
-                      //       ),
-                      //     ),
-                      // SizedBox(width: screenWidth * 0.1),
-                      // Container(
-                      // alignment: Alignment.centerLeft,
-                      // child:
+                      // Ro
                       PText(
                     mou.docName,
                     style: GoogleFonts.figtree(
@@ -123,7 +90,6 @@ class _MyCardState extends State<MyCard> {
                   // ],
                   // ),
                 ),
-               
 
                 // SizedBox(height: MediaQuery.of(context).size.height * 0.001),
                 Padding(
@@ -131,10 +97,6 @@ class _MyCardState extends State<MyCard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // PaTaTa(
-                      //   'No. $k',
-                      //   style: GoogleFonts.figtree(fontSize: screenWidth * 0.04),
-                      // ),
                       PText(
                         'Authorized By ',
                         style: GoogleFonts.figtree(
@@ -174,16 +136,22 @@ class _MyCardState extends State<MyCard> {
                           // ],
                         ),
                       ),
-                      PText(
-                        mou.companyName,
-                        style:
-                            GoogleFonts.figtree(fontSize: screenWidth * 0.03),
+                      SizedBox(
+                        width: screenWidth * 0.1,
+                        child: PText(
+                          mou.companyName,
+                          softWrap: false,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style:
+                              GoogleFonts.figtree(fontSize: screenWidth * 0.03),
+                        ),
                       ),
                     ],
                   ),
                 ),
 
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
@@ -207,7 +175,6 @@ class _MyCardState extends State<MyCard> {
 
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
-                  
                   child: PText(
                     mou.description,
                     maxLines: 4,
