@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CreateMouField extends StatelessWidget {
+  final bool isEnabled;
   final String hintText;
   final TextInputType textInputType;
   final TextEditingController textEditingController;
 
-  const CreateMouField({
-    Key? key,
-    required this.hintText,
-    required this.textInputType,
-    required this.textEditingController,
-  }) : super(key: key);
+  const CreateMouField(
+      {Key? key,
+      required this.hintText,
+      required this.textInputType,
+      required this.textEditingController,
+      this.isEnabled = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,9 @@ class CreateMouField extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.065,
         width: MediaQuery.of(context).size.width * 1.5,
         decoration: BoxDecoration(
-            color: const Color(0XFFEFF3F6),
+            color: isEnabled
+                ? const Color(0XFFEFF3F6)
+                : Colors.grey.withOpacity(0.3),
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: const [
               BoxShadow(
@@ -35,6 +39,7 @@ class CreateMouField extends StatelessWidget {
                   spreadRadius: 1.0)
             ]),
         child: TextFormField(
+          enabled: isEnabled,
           keyboardType: textInputType,
           controller: textEditingController,
           decoration: InputDecoration(

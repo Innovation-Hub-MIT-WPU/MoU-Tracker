@@ -3,7 +3,6 @@ import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_w
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
-import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -277,6 +276,7 @@ class CreateFormState extends State<CreateForm> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       CreateMouField(
+                          isEnabled: false,
                           hintText: initiatorName,
                           textInputType: TextInputType.none,
                           textEditingController: authNameController),
@@ -286,6 +286,7 @@ class CreateFormState extends State<CreateForm> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       CreateMouField(
+                          isEnabled: false,
                           hintText: initiatorDesignation,
                           textInputType: TextInputType.none,
                           textEditingController:
@@ -322,7 +323,7 @@ class CreateFormState extends State<CreateForm> {
                     ],
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
         ),
