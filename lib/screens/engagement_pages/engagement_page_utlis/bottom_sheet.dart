@@ -1,38 +1,17 @@
-import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../common_utils/utils.dart';
 
-class BuildBottomSheet extends StatefulWidget {
-  final int index;
-  final MOU mou;
-  // bool isApproved;
-
-  const BuildBottomSheet({
-    super.key,
-    required this.mou,
-    required this.index,
-  });
+class ActivityBottomSheet extends StatefulWidget {
+  const ActivityBottomSheet({super.key});
 
   @override
-  State<BuildBottomSheet> createState() => _BuildBottomSheetState();
+  State<ActivityBottomSheet> createState() => ActivityBottomSheetState();
 }
 
-class _BuildBottomSheetState extends State<BuildBottomSheet> {
-  int k = 0;
-  late MOU mou;
-  @override
-  void initState() {
-    k = widget.index;
-    mou = widget.mou;
-    super.initState();
-  }
-
+class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       // padding: const EdgeInsets.symmetric(vertical: 30),
@@ -69,18 +48,15 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 5),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: mou.isApproved
-                    ? const Color(0XFFCD364E).withOpacity(0.6)
-                    : kTabBarGreen.withOpacity(0.6),
+                color: const Color(0XFFCD364E).withOpacity(0.6),
                 borderRadius: BorderRadius.circular(screenWidth * 0.5),
               ),
               child: PText(
-                '${mou.companyName} \n ${mou.docName} ',
+                'Bottom Shit',
                 style: GoogleFonts.figtree(
-                  fontWeight: FontWeight.bold,
-                  fontSize: screenWidth * 0.05,
-                  color: mou.isApproved ? Colors.white : Colors.black,
-                ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.05,
+                    color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -105,7 +81,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: PText(
-                mou.description,
+                "Description",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
@@ -127,7 +103,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: PText(
-                'Amount : ₹ 10000',
+                'Amount : ',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
@@ -156,7 +132,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: PText(
-                'Author : ${mou.authName}',
+                'Author : ',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,

@@ -1,4 +1,4 @@
-import 'package:MouTracker/screens/engagement_pages/placement_data.dart';
+import 'package:MouTracker/screens/engagement_pages/engagement_page_utlis/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,22 +12,8 @@ class EngagementTab extends StatefulWidget {
   _EngagementTabState createState() => _EngagementTabState();
 }
 
-List<Widget> engagementDataWidgets = [
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-  const PlacementData(),
-];
-
 class _EngagementTabState extends State<EngagementTab> {
-  bool isEngagementVisible = false;
+  int isEngagementVisible = -1;
   // Receive Engagement information here
   List<Activity> activities = [
     Activity(
@@ -55,12 +41,25 @@ class _EngagementTabState extends State<EngagementTab> {
       desc: "Lorem ipsum dolor sit amet, consectetur",
       status: false,
     ),
+    Activity(
+      name: "Lab equipment",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: false,
+    ),
+    Activity(
+      name: "Center of Execellence",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: false,
+    ),
   ];
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return _buildEngagementList(screenHeight, screenWidth);
+    return Scaffold(
+      body: _buildEngagementList(screenHeight, screenWidth),
+      floatingActionButton: FloatingActionButton.small(onPressed: () {}),
+    );
   }
 
   Padding _buildEngagementList(double screenHeight, double screenWidth) {
@@ -72,15 +71,12 @@ class _EngagementTabState extends State<EngagementTab> {
       child: Column(
         children: [
           Expanded(
-            child: isEngagementVisible
-                ? engagementDataWidgets[0]
-                : ListView.separated(
-                    itemBuilder: (_, i) => _buildListTile(
-                        i, activities[i], screenWidth, screenHeight),
-                    separatorBuilder: (_, i) => SizedBox(
-                        height:
-                            screenHeight * 0.015), // Use dynamic height here
-                    itemCount: activities.length),
+            child: ListView.separated(
+                itemBuilder: (_, i) =>
+                    _buildListTile(i, activities[i], screenWidth, screenHeight),
+                separatorBuilder: (_, i) => SizedBox(
+                    height: screenHeight * 0.015), // Use dynamic height here
+                itemCount: activities.length),
           )
         ],
       ),
@@ -106,7 +102,7 @@ class _EngagementTabState extends State<EngagementTab> {
         subtitle: PText(activity.desc,
             style: GoogleFonts.figtree(color: Colors.grey, fontSize: 14)),
         trailing: activity.status == true
-            ? _buildViewButton("View")
+            ? _buildViewButton("View", screenWidth, screenHeight)
             : PText(
                 "Ongoing",
                 style: GoogleFonts.figtree(color: Colors.grey, fontSize: 15),
@@ -117,12 +113,20 @@ class _EngagementTabState extends State<EngagementTab> {
 
   // View button - To View all the details of an activity.
   // todo - Display full details of an activity.
-  TextButton _buildViewButton(String buttonTxt) {
+  TextButton _buildViewButton(
+      String buttonTxt, double screenWidth, double screenHeight) {
     return TextButton(
       onPressed: () {
-        setState(() {
-          (isEngagementVisible = !isEngagementVisible);
-        });
+        showModalBottomSheet(
+          backgroundColor: const Color(0xff2D376E),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(screenWidth * 0.08),
+                topRight: Radius.circular(screenWidth * 0.08)),
+          ),
+          context: context,
+          builder: (context) => const ActivityBottomSheet(),
+        );
       },
       child: PText(buttonTxt,
           style: GoogleFonts.figtree(color: Colors.black, fontSize: 15)),

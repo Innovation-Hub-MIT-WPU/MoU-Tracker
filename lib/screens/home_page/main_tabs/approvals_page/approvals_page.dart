@@ -1,12 +1,7 @@
-
-import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/get_started/get_started_page.dart';
-import 'package:MouTracker/screens/get_started/splash_screen_animation_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/Tabs/mou_deadline_status.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
-import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,7 +49,8 @@ class ApprovalsPageState extends State<ApprovalsPage>
           alignment: Alignment.bottomRight,
           margin: EdgeInsets.only(bottom: screenWidth * 0.04),
           child: FloatingActionButton.extended(
-            onPressed: () => Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => const CreateForm())),
+            onPressed: () => Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute(builder: (context) => const CreateForm())),
             // Navigator.pushNamed(context, '/create_mou'),
             backgroundColor: const Color(0xff2D376E),
             label: PText('Create MOU',
@@ -93,7 +89,6 @@ class ApprovalsPageState extends State<ApprovalsPage>
                         screenHeight * 0.0075,
                         screenWidth * 0.125,
                         screenHeight * 0.014),
-                   
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -131,17 +126,17 @@ class ApprovalsPageState extends State<ApprovalsPage>
               height: screenHeight * 0.005,
               // color: const Color(0xff2D376E),
               // color: Colors.white,
-               decoration: BoxDecoration(
-                      color: const Color(0xff2D376E),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.25),
-                          spreadRadius: 0,
-                          blurRadius: 2,
-                          offset: const Offset(0, -2), // changes position of shadow
-                        ),
-                      ],
-                    ),
+              decoration: BoxDecoration(
+                color: const Color(0xff2D376E),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    spreadRadius: 0,
+                    blurRadius: 2,
+                    offset: const Offset(0, -2), // changes position of shadow
+                  ),
+                ],
+              ),
               // child: Divider(
               //   color: Colors.black.withOpacity(0.25),
               //   thickness: 1,
