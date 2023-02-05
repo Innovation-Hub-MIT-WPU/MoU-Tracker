@@ -1,3 +1,4 @@
+import 'package:MouTracker/screens/engagement_pages/labs_and_equipments.dart';
 import 'package:MouTracker/screens/engagement_pages/placement_data.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
@@ -18,7 +19,7 @@ List<Widget> engagementDataWidgets = [
   const PlacementData(),
   const PlacementData(),
   const PlacementData(),
-  const PlacementData(),
+  const Labs(),
   const PlacementData(),
   const PlacementData(),
   const PlacementData(),
@@ -54,6 +55,11 @@ class _EngagementTabState extends State<EngagementTab> {
       name: "Curriculum design",
       desc: "Lorem ipsum dolor sit amet, consectetur",
       status: false,
+    ),
+    Activity(
+      name: "Labs & Equipmemts",
+      desc: "Lorem ipsum dolor sit amet, consectetur",
+      status: true,
     ),
   ];
   @override
