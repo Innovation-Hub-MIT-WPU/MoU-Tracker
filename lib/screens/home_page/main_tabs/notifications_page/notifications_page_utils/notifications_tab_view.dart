@@ -223,7 +223,7 @@ Widget Leading(
             ]),
         child: Padding(
           padding: EdgeInsets.all(width / 45),
-          child: const Icon(
+          child: Icon(
             color: kBgClr2,
             Icons.notifications,
           ),

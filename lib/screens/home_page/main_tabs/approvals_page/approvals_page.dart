@@ -1,4 +1,3 @@
-
 import 'package:MouTracker/common_widgets/search.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/get_started/get_started_page.dart';

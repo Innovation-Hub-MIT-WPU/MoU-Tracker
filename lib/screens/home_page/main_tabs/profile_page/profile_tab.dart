@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
@@ -66,6 +67,7 @@ class ProfileTabState extends State<ProfileTab> {
 
   Widget profilePage() {
     return Scaffold(
+      appBar: appBar("Profile", context),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -75,20 +77,6 @@ class ProfileTabState extends State<ProfileTab> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                PText(
-                  "PROFILE",
-                  style: Theme.of(context).textTheme.headline3,
-                ),
-                Container(
-                  width: 100,
-                  child: Divider(
-                    color: hexStringToColor("F2C32C"),
-                    thickness: 5,
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
                 profile_image(DEFAULT_PROFILE_PICTURE),
                 SizedBox(
                   height: 20,
@@ -113,15 +101,15 @@ class ProfileTabState extends State<ProfileTab> {
                           }
                         },
                         icon: Icon(Icons.edit),
-                        label: PText("Edit")),
+                        label: PText(
+                          "Edit",
+                          style: GoogleFonts.figtree(),
+                        )),
                   ),
-                ),
-                SizedBox(
-                  height: 50,
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                      0, MediaQuery.of(context).size.height * 0.15, 0, 0),
+                      0, MediaQuery.of(context).size.height * 0.07, 0, 0),
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
@@ -129,20 +117,26 @@ class ProfileTabState extends State<ProfileTab> {
                         onPressed: () async {
                           FireAuth().logOut();
                           NotificationService().deteleToken();
-                          Navigator.of(context, rootNavigator: true).popAndPushNamed('/login_signup');
+                          Navigator.of(context, rootNavigator: true)
+                              .popAndPushNamed('/login_signup');
                         },
                         child: PText(
                           "LOGOUT",
-                          style: Theme.of(context).textTheme.button,
+                          style: GoogleFonts.figtree(),
                         )),
                   ),
                 ),
                 TextButton.icon(
-                    onPressed: () {
-                       Navigator.of(context, rootNavigator: true).pushNamed('/report_issues');
-                    },
-                    icon: Icon(Icons.bug_report),
-                    label: PText("Report Isuues")),
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamed('/report_issues');
+                  },
+                  icon: Icon(Icons.bug_report),
+                  label: PText(
+                    "Report Isuues",
+                    style: GoogleFonts.figtree(),
+                  ),
+                ),
               ],
             ),
           ),
@@ -198,7 +192,7 @@ class ProfileTabState extends State<ProfileTab> {
         children: [
           PText(
             heading,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: GoogleFonts.figtree(),
           ),
           SizedBox(width: 10),
           Expanded(
