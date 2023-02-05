@@ -64,10 +64,10 @@ class _MyCard3State extends State<MyCard3> {
       onTap: () {
         showModalBottomSheet(
                   backgroundColor: const Color(0xff2D376E),
-                  shape: const RoundedRectangleBorder(
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
+                        topLeft: Radius.circular(screenWidth * 0.08),
+                        topRight: Radius.circular(screenWidth * 0.08)),
                   ),
                   context: context,
                   builder: (context) =>

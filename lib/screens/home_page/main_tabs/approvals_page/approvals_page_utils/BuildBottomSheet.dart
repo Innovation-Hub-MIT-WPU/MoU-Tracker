@@ -72,7 +72,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 color: mou.isApproved
                     ? Color(0XFFCD364E).withOpacity(0.6)
                     : kTabBarGreen.withOpacity(0.6),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(screenWidth * 0.5),
               ),
               child: PText(
                 '${mou.companyName} \n ${mou.docName} ',
