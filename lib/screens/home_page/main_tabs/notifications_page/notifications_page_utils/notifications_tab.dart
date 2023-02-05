@@ -55,9 +55,10 @@ Widget tabs(TabController tabController, int index, BuildContext context) {
 }
 
 PreferredSizeWidget appbar(
-    TabController tabController, int index, BuildContext context) {
+    TabController tabController, int index, BuildContext context, double height) {
   return AppBar(
     automaticallyImplyLeading: false,
+    // toolbarHeight: height * 0.05,
     backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:

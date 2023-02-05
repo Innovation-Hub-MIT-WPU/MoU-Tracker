@@ -103,6 +103,7 @@ class StatsPageState extends State<StatsPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: cartesianChartKey3,
       floatingActionButton: SavePDF(),
@@ -110,17 +111,12 @@ class StatsPageState extends State<StatsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 10,
-            ),
             Padding(
               padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.03),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: MediaQuery.of(context).size.width,
-                child: lineChart(),
-              ),
+                  top: MediaQuery.of(context).size.height * 0.03,
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05),
+              child: lineChart(),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -147,9 +143,9 @@ class StatsPageState extends State<StatsPage> {
       annotations: <CircularChartAnnotation>[
         CircularChartAnnotation(
           widget: Container(
-            child: const PText(
+            child: PText(
               '12.5%',
-              style: TextStyle(
+              style: GoogleFonts.figtree(
                   color: Color.fromRGBO(0, 0, 0, 0.5),
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
@@ -168,36 +164,47 @@ class StatsPageState extends State<StatsPage> {
     );
   }
 
-  SfCartesianChart lineChart() {
-    return SfCartesianChart(
-      //isTransposed: true,
-      key: cartesianChartKey1,
-      backgroundColor: hexStringToColor("EDF9FF"),
-      title: ChartTitle(
-          text: "Monthly Approved MOU's",
-          textStyle: TextStyle(fontWeight: FontWeight.bold)),
-      //legend: Legend(isVisible: true),
-      tooltipBehavior: _tooltipBehavior,
-      series: <ChartSeries>[
-        SplineSeries<SalesData, String>(
-          //name: 'Sales',
-          markerSettings: MarkerSettings(isVisible: true),
-          color: Colors.black,
-          dataSource: _chartData1,
-          xValueMapper: (SalesData sales, _) => sales.month,
-          yValueMapper: (SalesData sales, _) => sales.sales,
-          dataLabelSettings: DataLabelSettings(isVisible: true),
-          enableTooltip: true,
-        )
-      ],
-      primaryXAxis: CategoryAxis(
-        name: "Months",
-        edgeLabelPlacement: EdgeLabelPlacement.shift,
-        maximumLabels: 5,
+  ClipRRect lineChart() {
+    return ClipRRect(
+      borderRadius:
+          BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius:
+              BorderRadius.circular(MediaQuery.of(context).size.width * 0.5),
+        ),
+        // padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+        child: SfCartesianChart(
+          //isTransposed: true,
+          key: cartesianChartKey1,
+          backgroundColor: hexStringToColor("EDF9FF"),
+          title: ChartTitle(
+              text: "Monthly Approved MOU's",
+              textStyle: TextStyle(fontWeight: FontWeight.bold)),
+          //legend: Legend(isVisible: true),
+          tooltipBehavior: _tooltipBehavior,
+          series: <ChartSeries>[
+            SplineSeries<SalesData, String>(
+              //name: 'Sales',
+              markerSettings: MarkerSettings(isVisible: true),
+              color: Colors.black,
+              dataSource: _chartData1,
+              xValueMapper: (SalesData sales, _) => sales.month,
+              yValueMapper: (SalesData sales, _) => sales.sales,
+              dataLabelSettings: DataLabelSettings(isVisible: true),
+              enableTooltip: true,
+            )
+          ],
+          primaryXAxis: CategoryAxis(
+            name: "Months",
+            edgeLabelPlacement: EdgeLabelPlacement.shift,
+            maximumLabels: 5,
+          ),
+          // primaryYAxis: NumericAxis(
+          //     labelFormat: '{value}M',
+          //     numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+        ),
       ),
-      // primaryYAxis: NumericAxis(
-      //     labelFormat: '{value}M',
-      //     numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
     );
   }
 }
@@ -264,11 +271,9 @@ class SavePDFState extends State<SavePDF> {
     );
 
     /// open Preview Screen
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PreviewScreen(doc: doc),
-        ));
+    Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
+      builder: (context) => PreviewScreen(doc: doc),
+    ));
   }
 
   buildPrintableData(Uint8List imageBytes1, Uint8List imageBytes2) {

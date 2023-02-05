@@ -34,7 +34,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                   child: PText(APP_TITLE,
                       style: GoogleFonts.figtree(
                         fontWeight: FontWeight.w600,
-                        fontSize: 36,
+                        fontSize: screenWidth * 0.08,
                       )))),
 
           //APP_LOGO aligned to screen's center

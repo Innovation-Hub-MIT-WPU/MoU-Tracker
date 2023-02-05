@@ -129,7 +129,7 @@ class ProfileTabState extends State<ProfileTab> {
                         onPressed: () async {
                           FireAuth().logOut();
                           NotificationService().deteleToken();
-                          Navigator.popAndPushNamed(context, '/start');
+                          Navigator.of(context, rootNavigator: true).popAndPushNamed('/start');
                         },
                         child: PText(
                           "LOGOUT",

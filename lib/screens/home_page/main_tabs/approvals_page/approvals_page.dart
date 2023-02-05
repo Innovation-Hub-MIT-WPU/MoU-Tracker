@@ -54,8 +54,7 @@ class ApprovalsPageState extends State<ApprovalsPage>
           alignment: Alignment.bottomRight,
           margin: EdgeInsets.only(bottom: screenWidth * 0.04),
           child: FloatingActionButton.extended(
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CreateForm())),
+            onPressed: () => Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (context) => const CreateForm())),
             // Navigator.pushNamed(context, '/create_mou'),
             backgroundColor: const Color(0xff2D376E),
             label: PText('Create MOU',
@@ -94,6 +93,7 @@ class ApprovalsPageState extends State<ApprovalsPage>
                         screenHeight * 0.0075,
                         screenWidth * 0.125,
                         screenHeight * 0.014),
+                   
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -129,12 +129,23 @@ class ApprovalsPageState extends State<ApprovalsPage>
             ),
             Container(
               height: screenHeight * 0.005,
-              color: const Color(0xff2D376E),
+              // color: const Color(0xff2D376E),
               // color: Colors.white,
-              child: Divider(
-                color: Colors.black.withOpacity(0.25),
-                thickness: 1,
-              ),
+               decoration: BoxDecoration(
+                      color: const Color(0xff2D376E),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          spreadRadius: 0,
+                          blurRadius: 2,
+                          offset: const Offset(0, -2), // changes position of shadow
+                        ),
+                      ],
+                    ),
+              // child: Divider(
+              //   color: Colors.black.withOpacity(0.25),
+              //   thickness: 1,
+              // ),
             ),
             Expanded(
                 child: MouStatusTab(

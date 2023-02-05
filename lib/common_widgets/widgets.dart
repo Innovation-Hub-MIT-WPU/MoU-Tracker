@@ -4,18 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 AppBar appBar(String title, BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
   return AppBar(
+    toolbarHeight: screenWidth * 0.24,
+    shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(screenWidth * 0.05),
+          ),
+        ),
     backgroundColor: COLOR_THEME['primary'],
     bottom: PreferredSize(
         preferredSize:
             Size.fromHeight(MediaQuery.of(context).size.height * 0.04),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+          padding: EdgeInsets.fromLTRB(0, 0, 0, screenWidth * 0.15),
           child: PText(
             title,
             style: GoogleFonts.figtree(
               color: Colors.white,
-              fontSize: 28,
+              fontSize: screenWidth * 0.05,
             ),
           ),
         )),

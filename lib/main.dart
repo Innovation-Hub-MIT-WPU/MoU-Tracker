@@ -25,7 +25,8 @@ void main() async {
     statusBarColor: STATUS_BAR_COLOR,
   ));
 
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
