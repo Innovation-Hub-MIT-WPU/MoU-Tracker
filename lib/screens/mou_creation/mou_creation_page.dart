@@ -7,10 +7,13 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' as io;
 
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../services/Firebase/fireauth/model.dart';
 
 class CreateForm extends StatefulWidget {
   const CreateForm({Key? key}) : super(key: key);
@@ -21,23 +24,41 @@ class CreateForm extends StatefulWidget {
 
 class CreateFormState extends State<CreateForm> {
   int currStep = 0;
+  DateTime selectedDate = DateTime.now();
   // for identification and validation of the form
 
   // page 1
   TextEditingController docNameController = TextEditingController();
-  TextEditingController authNameController = TextEditingController();
-  TextEditingController spocController = TextEditingController();
+  TextEditingController tenureController = TextEditingController();
+
+  TextEditingController descController = TextEditingController();
+  TextEditingController dueDateController = TextEditingController();
 
   // page 2
   TextEditingController companyNameController = TextEditingController();
+  TextEditingController domainController = TextEditingController();
+  TextEditingController employeeController = TextEditingController();
+  TextEditingController turnoverController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController companyWebController = TextEditingController();
 
   //page 3
-  TextEditingController descController = TextEditingController();
-  TextEditingController dueDateController = TextEditingController();
+  late String initiatorName;
+  late String initiatorDesignation;
+  TextEditingController authNameController = TextEditingController();
+  TextEditingController initiatorDesignationController =
+      TextEditingController();
+
+  TextEditingController spocNameController = TextEditingController();
+  TextEditingController spocNoController = TextEditingController();
+  TextEditingController spocDesignationController = TextEditingController();
+
   static io.File? file;
   static UploadTask? task;
   final _formKey = GlobalKey<FormState>();
+  late UserModel userData;
+
+  Future<UserModel> getUserData = DataBaseService().getuserData();
   @override
   void initState() {
     file = null;
@@ -97,30 +118,69 @@ class CreateFormState extends State<CreateForm> {
               PText(
                 "Document name",
                 style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                    fontSize: 17, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Document name",
-                  textInputType: TextInputType.text,
+                  textInputType: TextInputType.multiline,
                   textEditingController: docNameController),
               PText(
-                "Initator name",
+                "MOU description",
                 style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                    fontSize: 17, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
-                  hintText: "Initiator name",
+                  hintText: "MOU description",
                   textInputType: TextInputType.text,
-                  textEditingController: authNameController),
+                  textEditingController: descController),
               PText(
-                "SPOC name",
+                "Tenure",
                 style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                    fontSize: 17, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
-                  hintText: "SPOC name",
+                  hintText: "Tenure",
                   textInputType: TextInputType.text,
-                  textEditingController: spocController),
+                  textEditingController: tenureController),
+              PText(
+                "Due Date", // selectedDate == DateTime.now()
+                //     ? "Due date : ${selectedDate.month}-${selectedDate.day}-${selectedDate.year}"
+                //     : "Due date : ${selectedDate.month}-${selectedDate.day}-${selectedDate.year}",
+                style: GoogleFonts.figtree(
+                    fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.02),
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  // width: MediaQuery.of(context).size.width * 1.5,
+                  decoration: BoxDecoration(
+                      color: const Color(0XFFEFF3F6),
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10.0),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color.fromRGBO(0, 0, 0, 0.1),
+                            offset: Offset(6, 3),
+                            blurRadius: 4.0,
+                            spreadRadius: 1.0),
+                        BoxShadow(
+                            color: Color.fromRGBO(255, 255, 255, 0.9),
+                            offset: Offset(-6, -3),
+                            blurRadius: 4.0,
+                            spreadRadius: 1.0)
+                      ]),
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: DateTime.now(),
+                    onDateTimeChanged: (DateTime newDateTime) {
+                      selectedDate = newDateTime;
+                      print(selectedDate);
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -136,12 +196,48 @@ class CreateFormState extends State<CreateForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PText(
-                "Company name",
+                "Full Organization Name",
                 style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                    fontSize: 16, fontWeight: FontWeight.bold),
               ),
               CreateMouField(
                   hintText: "Company name",
+                  textInputType: TextInputType.text,
+                  textEditingController: companyNameController),
+              PText(
+                "Industry Domain",
+                style: GoogleFonts.figtree(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Segment/Domain/Vertical/Technology",
+                  textInputType: TextInputType.text,
+                  textEditingController: domainController),
+              PText(
+                "Annual Turnover",
+                style: GoogleFonts.figtree(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "In Lakhs INR",
+                  textInputType: TextInputType.number,
+                  textEditingController: companyNameController),
+              PText(
+                "No. of Employees",
+                style: GoogleFonts.figtree(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "No. of Employees",
+                  textInputType: TextInputType.number,
+                  textEditingController: employeeController),
+              PText(
+                "Address",
+                style: GoogleFonts.figtree(
+                    fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              CreateMouField(
+                  hintText: "Co-oporate location",
                   textInputType: TextInputType.text,
                   textEditingController: companyNameController),
               PText(
@@ -151,7 +247,7 @@ class CreateFormState extends State<CreateForm> {
               ),
               CreateMouField(
                   hintText: "Company website",
-                  textInputType: TextInputType.text,
+                  textInputType: TextInputType.url,
                   textEditingController: companyWebController),
             ],
           ),
@@ -163,32 +259,71 @@ class CreateFormState extends State<CreateForm> {
         title: const PText("Complete"),
         content: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PText(
-                "Due date",
-                style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              CreateMouField(
-                  hintText: "Due date",
-                  textInputType: TextInputType.datetime,
-                  textEditingController: dueDateController),
-              PText(
-                "MOU description",
-                style: GoogleFonts.figtree(
-                    fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              CreateMouField(
-                  hintText: "MOU description",
-                  textInputType: TextInputType.text,
-                  textEditingController: descController),
-              fileName(),
-              chooseFileButton(context, pickFile),
-            ],
-          ),
+          child: FutureBuilder(
+              future: getUserData,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  userData = snapshot.data as UserModel;
+                  initiatorName = "${userData.firstName} ${userData.lastName}";
+                  initiatorDesignation = userData.designation.toString();
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PText(
+                        "Initiated By",
+                        style: GoogleFonts.figtree(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      CreateMouField(
+                          hintText: initiatorName,
+                          textInputType: TextInputType.none,
+                          textEditingController: authNameController),
+                      PText(
+                        "Initiator Designation",
+                        style: GoogleFonts.figtree(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      CreateMouField(
+                          hintText: initiatorDesignation,
+                          textInputType: TextInputType.none,
+                          textEditingController:
+                              initiatorDesignationController),
+                      PText(
+                        "SPOC Name",
+                        style: GoogleFonts.figtree(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      CreateMouField(
+                          hintText: "SPOC's Name",
+                          textInputType: TextInputType.text,
+                          textEditingController: spocNameController),
+                      PText(
+                        "SPOC Designation",
+                        style: GoogleFonts.figtree(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      CreateMouField(
+                          hintText: "Designation",
+                          textInputType: TextInputType.text,
+                          textEditingController: spocDesignationController),
+                      PText(
+                        "SPOC Contact",
+                        style: GoogleFonts.figtree(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      CreateMouField(
+                          hintText: "SPOC's mobile no.",
+                          textInputType: TextInputType.number,
+                          textEditingController: spocNoController),
+                      fileName(),
+                      chooseFileButton(context, pickFile),
+                    ],
+                  );
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              }),
         ),
         isActive: currStep >= 2,
         state: currStep > 2 ? StepState.complete : StepState.indexed,
@@ -205,7 +340,7 @@ class CreateFormState extends State<CreateForm> {
       // document details
       String docName = docNameController.text;
       String authName = authNameController.text;
-      String spocName = spocController.text;
+      String spocName = spocNameController.text;
 
       // company details
       String companyName = companyNameController.text;
