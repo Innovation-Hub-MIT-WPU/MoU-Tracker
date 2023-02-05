@@ -57,6 +57,11 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: kBgClr2,
         centerTitle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(screenWidth * 0.05),
+          ),
+        ),
         title: PText(
           "Tracking",
           style: GoogleFonts.figtree(

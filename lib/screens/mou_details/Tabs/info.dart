@@ -65,7 +65,7 @@ class _InfoTabState extends State<InfoTab> {
             ElevatedButton(
               onPressed: () async {
                 String link = widget.mou.companyWebsite;
-                Navigator.of(context).push(
+                Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(
                     builder: (context) => WebViewClass(url: link),
                   ),
@@ -85,7 +85,7 @@ class _InfoTabState extends State<InfoTab> {
               padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
                   vertical: screenHeight * 0.02),
-              child: _fileDownload(),
+              child: _fileDownload(screenWidth, screenHeight),
             ),
           
           ],
@@ -128,11 +128,12 @@ class _InfoTabState extends State<InfoTab> {
   }
 
 // Card to download MOU's PDF file
-  ListTile _fileDownload() {
+  ListTile _fileDownload(double width, double height) {
+
     return ListTile(
       title: PText("${widget.mou.docName}.pdf",
-          style: GoogleFonts.figtree(fontSize: 13, color: Colors.black)),
-      subtitle: PText("10.0 MB", style: GoogleFonts.figtree(fontSize: 12)),
+          style: GoogleFonts.figtree(fontSize: width * 0.038, color: Colors.black)),
+      subtitle: PText("10.0 MB", style: GoogleFonts.figtree(fontSize: width * 0.03)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),
       trailing: (downloadChecker[widget.mou.docName] == 0)
