@@ -1,10 +1,16 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use, use_build_context_synchronously, avoid_print
 
 import 'package:MouTracker/common_widgets/widgets.dart';
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../services/Firebase/fireauth/model.dart';
+import '../../../../../services/Firebase/firestore/firestore.dart';
 
 class ReportIssues extends StatefulWidget {
   const ReportIssues({Key? key}) : super(key: key);
@@ -30,8 +36,31 @@ class _ReportIssuesState extends State<ReportIssues> {
     super.dispose();
   }
 
+  String name = "";
+  String position = "";
+  String email = "";
+  CollectionReference issues = FirebaseFirestore.instance.collection('issues');
+  Future<UserModel> getUserData = DataBaseService().getuserData();
+
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getUserData,
+      builder: ((context, snapshot) {
+        if (snapshot.hasData) {
+          UserModel userData = snapshot.data as UserModel;
+          name = "${userData.firstName} ${userData.lastName}";
+          position = userData.designation!;
+          email = userData.email!;
+          return reportBugPage(context);
+        } else {
+          return Loading();
+        }
+      }),
+    );
+  }
+
+  Scaffold reportBugPage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -109,9 +138,16 @@ class _ReportIssuesState extends State<ReportIssues> {
                   padding: EdgeInsets.fromLTRB(
                       0, MediaQuery.of(context).size.height * 0.2, 0, 0),
                   child: TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (reportKey.currentState?.validate() == true) {
                           issue = _issueController.text;
+                          await issues.add({
+                            'issue': issue,
+                            'name': name,
+                            'email': email,
+                            'position': position,
+                            'time': DateTime.now()
+                          }).then((value) => print('Issue Submitted'));
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: PText("Issue Submitted"),
                             duration: Duration(seconds: 2),
