@@ -27,7 +27,7 @@ Widget tabs(TabController tabController, int index, BuildContext context) {
             ),
           ),
           child: TabBar(
-            padding: const EdgeInsets.all(3),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
             controller: tabController,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(
@@ -54,8 +54,8 @@ Widget tabs(TabController tabController, int index, BuildContext context) {
   );
 }
 
-PreferredSizeWidget appbar(
-    TabController tabController, int index, BuildContext context, double height) {
+PreferredSizeWidget appbar(TabController tabController, int index,
+    BuildContext context, double height) {
   return AppBar(
     automaticallyImplyLeading: false,
     // toolbarHeight: height * 0.05,
@@ -78,10 +78,11 @@ PreferredSizeWidget appbar(
                 fontWeight: FontWeight.w400),
           ),
           onPressed: () {
+            print("pressed");
             NotificationService().sendPushMessage(
                 "You may have some new messages...",
                 "Team Mou",
-                "innovators'22",
+                "8AWJ0Nk2zOa7YHMaOznF",
                 5);
           },
         ),

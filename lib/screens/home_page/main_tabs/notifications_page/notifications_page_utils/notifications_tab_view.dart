@@ -188,9 +188,9 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                             ),
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.ads_click_sharp,
-                          size: 19,
+                          size: height * 0.025,
                           color: black,
                         ),
                       ],

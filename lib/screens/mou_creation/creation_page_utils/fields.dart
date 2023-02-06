@@ -16,11 +16,10 @@ class CreateMouField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      padding: EdgeInsets.symmetric(vertical: width * 0.035),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.065,
-        width: MediaQuery.of(context).size.width * 1.5,
         decoration: BoxDecoration(
             color: isEnabled
                 ? const Color(0XFFEFF3F6)
@@ -49,7 +48,7 @@ class CreateMouField extends StatelessWidget {
               )),
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Field is required.';
+              return 'Field is required*';
             } else {}
             return null;
           },
