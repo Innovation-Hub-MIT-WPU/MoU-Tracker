@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
@@ -114,10 +113,11 @@ class NotificationService {
           docName: data['doc-name'],
           authName: data['auth-name'],
           companyName: data['company-name'],
-          companyWebsite: data[0]['company-website'],
+          companyWebsite: data['company-website'],
           description: data['description'],
           isApproved: data['status'],
           appLvl: data['approval-lvl'],
+          due: date,
           dueDate: dueDate);
 
       Navigator.push(
@@ -149,6 +149,7 @@ class NotificationService {
         description: data['description'],
         isApproved: data['status'],
         appLvl: data['approval-lvl'],
+        due: date,
         dueDate: dueDate);
 
     Navigator.push(

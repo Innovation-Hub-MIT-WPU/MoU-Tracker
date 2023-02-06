@@ -19,9 +19,6 @@ void main() async {
 
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.getInitialMessage();
-  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-  await firebaseMessaging.subscribeToTopic('test-1');
 
   // await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -34,7 +31,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

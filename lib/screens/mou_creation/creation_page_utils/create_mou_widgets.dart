@@ -15,12 +15,13 @@ Widget fileName() {
   );
 }
 
-Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
-  bool isLastStep = details.currentStep == getSteps().length - 1;
+Widget formButtons(double h, double w, ControlsDetails details,
+    List<Step> Function(double h, double w) getSteps) {
+  bool isLastStep = details.currentStep == getSteps(h, w).length - 1;
   return Padding(
     padding: details.currentStep == 0
-        ? const EdgeInsets.all(22.0)
-        : const EdgeInsets.all(12.0),
+        ? EdgeInsets.all(w * 0.035)
+        : EdgeInsets.all(w * 0.025),
     child: Row(
       children: [
         Expanded(
@@ -29,7 +30,7 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
             child: isLastStep ? const PText("Submit") : const PText("Next"),
           ),
         ),
-        const SizedBox(width: 12),
+        SizedBox(width: w * 0.025),
         if (details.currentStep != 0)
           Expanded(
             child: ElevatedButton(
@@ -51,10 +52,8 @@ Widget formButtons(ControlsDetails details, List<Step> Function() getSteps) {
 Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
   double width = MediaQuery.of(context).size.width;
   return Padding(
-    padding: const EdgeInsets.all(8.0),
+    padding: EdgeInsets.all(width * 0.02),
     child: Container(
-      // height: 60,
-      // width: 300,
       height: MediaQuery.of(context).size.height * 0.08,
       width: width * 0.75,
       padding: EdgeInsets.fromLTRB(width / 40, width / 40, 0, 0),
@@ -68,20 +67,21 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
         ),
         child: PText(
           'Choose File',
-          style: GoogleFonts.figtree(fontSize: 20),
+          style: GoogleFonts.figtree(fontSize: width * 0.055),
         ),
       ),
     ),
   );
 }
 
-Widget dialog(BuildContext cnt) {
+Widget dialog(BuildContext cntx) {
+  double width = MediaQuery.of(cntx).size.width;
   return SimpleDialog(
     backgroundColor: const Color(0xFF2D376E),
     title: Row(
       children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.only(right: 8.0),
+        Padding(
+          padding: EdgeInsets.only(right: width * 0.020),
           child: Icon(
             Icons.error,
             // color: Color(0xFFF2C32C),
@@ -97,7 +97,8 @@ Widget dialog(BuildContext cnt) {
         )
       ],
     ),
-    contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
+    contentPadding: EdgeInsets.all(width * 0.025),
+    // contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
     children: <Widget>[
       CreateFormState.task != null
           ? buildUploadStatus(CreateFormState.task!)
@@ -116,8 +117,8 @@ Widget dialog(BuildContext cnt) {
               // CreationDetails.mapping(FirebaseApi.downloadUrl, "downloadLink");
               // CreationDetails.addData();
 
-              Navigator.pop(cnt);
-              Navigator.of(cnt).pushReplacementNamed('/submitted');
+              Navigator.pop(cntx);
+              Navigator.of(cntx).pushReplacementNamed('/submitted');
             },
             child: PText(
               "Next",
