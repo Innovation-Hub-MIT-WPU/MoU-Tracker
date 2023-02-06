@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
+import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
@@ -40,6 +41,12 @@ class _ReportIssuesState extends State<ReportIssues> {
           ),
           onPressed: () => Navigator.pop(context),
         ),
+        toolbarHeight: MediaQuery.of(context).size.width * 0.24,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(MediaQuery.of(context).size.width * 0.05),
+          ),
+        ),
         backgroundColor: hexStringToColor("2D376E"),
         bottom: PreferredSize(
             child: Padding(
@@ -48,7 +55,7 @@ class _ReportIssuesState extends State<ReportIssues> {
                 "Report Issues",
                 style: GoogleFonts.figtree(
                   color: Colors.white,
-                  fontSize: Theme.of(context).textTheme.headline3!.fontSize,
+                  fontSize: MediaQuery.of(context).size.width * 0.05,
                 ),
               ),
             ),
@@ -76,7 +83,7 @@ class _ReportIssuesState extends State<ReportIssues> {
                 // textBox("Email", email),
                 // SizedBox(
                 //   height: 30,
-                // ),
+                // ),0
                 Form(
                   key: reportKey,
                   child: TextFormField(

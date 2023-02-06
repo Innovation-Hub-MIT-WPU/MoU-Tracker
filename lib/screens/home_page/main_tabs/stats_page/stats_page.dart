@@ -106,7 +106,11 @@ class StatsPageState extends State<StatsPage> {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       key: cartesianChartKey3,
-      floatingActionButton: SavePDF(),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.only(bottom: width * 0.1),
+        child: SavePDF(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       appBar: appBar("Report", context),
       body: SingleChildScrollView(
         child: Column(
@@ -121,7 +125,10 @@ class StatsPageState extends State<StatsPage> {
             Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.03),
-              child: SizedBox(
+              child: Container(
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.05),
                 height: MediaQuery.of(context).size.height * 0.35,
                 width: MediaQuery.of(context).size.width,
                 child: approvalRate(),
@@ -134,33 +141,37 @@ class StatsPageState extends State<StatsPage> {
   }
 
   Widget approvalRate() {
-    return SfCircularChart(
-      key: cartesianChartKey2,
-      backgroundColor: hexStringToColor("EDF9FF"),
-      title: ChartTitle(
-          text: "Approval Rate",
-          textStyle: GoogleFonts.figtree(fontWeight: FontWeight.bold)),
-      annotations: <CircularChartAnnotation>[
-        CircularChartAnnotation(
-          widget: Container(
-            child: PText(
-              '12.5%',
-              style: GoogleFonts.figtree(
-                  color: Color.fromRGBO(0, 0, 0, 0.5),
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold),
+    return ClipRRect(
+      borderRadius:
+          BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
+      child: SfCircularChart(
+        key: cartesianChartKey2,
+        backgroundColor: hexStringToColor("EDF9FF"),
+        title: ChartTitle(
+            text: "Approval Rate",
+            textStyle: GoogleFonts.figtree(fontWeight: FontWeight.bold)),
+        annotations: <CircularChartAnnotation>[
+          CircularChartAnnotation(
+            widget: Container(
+              child: PText(
+                '12.5%',
+                style: GoogleFonts.figtree(
+                    color: Color.fromRGBO(0, 0, 0, 0.5),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
-        ),
-      ],
-      series: <CircularSeries>[
-        DoughnutSeries<ChartData, String>(
-            strokeWidth: 1,
-            dataSource: _chartData2,
-            pointColorMapper: (ChartData data, _) => data.color,
-            xValueMapper: (ChartData data, _) => data.x,
-            yValueMapper: (ChartData data, _) => data.y)
-      ],
+        ],
+        series: <CircularSeries>[
+          DoughnutSeries<ChartData, String>(
+              strokeWidth: 1,
+              dataSource: _chartData2,
+              pointColorMapper: (ChartData data, _) => data.color,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y)
+        ],
+      ),
     );
   }
 

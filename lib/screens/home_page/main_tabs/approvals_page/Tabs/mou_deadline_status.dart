@@ -98,7 +98,8 @@ class _MouStatusTabState extends State<MouStatusTab> {
               // left: screenWidth * 0.04
             ),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(screenWidth * 0.5)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(screenWidth * 0.5)),
             child: TextField(
               controller: searchQueryController,
               onChanged: (value) {
@@ -114,11 +115,11 @@ class _MouStatusTabState extends State<MouStatusTab> {
                     fontSize: screenWidth * 0.04, color: Colors.grey),
                 suffixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(screenWidth*0.5),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.5),
                   // borderSide: const BorderSide(),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(screenWidth*0.5),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.5),
                   borderSide: const BorderSide(color: kBgClr2),
                 ),
               ),
@@ -234,9 +235,7 @@ Widget buildList(List<MOU> mouList, String type) {
           mou: mouList[index],
           key: UniqueKey(),
         );
-      }
-   
-      else {
+      } else {
         return MyCard3(
           index: index,
           mou: mouList[index],
