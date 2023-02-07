@@ -62,7 +62,9 @@ class _MyCard3State extends State<MyCard3> {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
-          backgroundColor: const Color(0xff2D376E),
+          backgroundColor: Colors.white, 
+          // const Color(0xff2D376E),
+          useRootNavigator: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(screenWidth * 0.08),
@@ -89,7 +91,7 @@ class _MyCard3State extends State<MyCard3> {
           ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // const SizedBox(height: 10),
 
@@ -138,7 +140,7 @@ class _MyCard3State extends State<MyCard3> {
             ),
             SizedBox(height: screenWidth * 0.03),
             Container(
-              height: 45,
+              height: screenWidth * 0.09,
               decoration: BoxDecoration(
                 color: mou.isApproved ? kCardRed : kTabBarGreen,
                 borderRadius: const BorderRadius.only(

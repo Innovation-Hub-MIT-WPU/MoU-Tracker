@@ -197,7 +197,7 @@ class _InfoTabState extends State<InfoTab> {
                 //       );
                 //     });
               },
-              icon: const Icon(Icons.file_open, size: 23))
+              icon: Icon(Icons.file_open, size: width * 0.06))
           : (downloadChecker[widget.mou.docName] == -1)
               ? const CircularProgressIndicator()
               : Container(
