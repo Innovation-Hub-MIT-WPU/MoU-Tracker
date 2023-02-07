@@ -87,7 +87,6 @@ class _InfoTabState extends State<InfoTab> {
                   vertical: screenHeight * 0.02),
               child: _fileDownload(screenWidth, screenHeight),
             ),
-          
           ],
         ),
       ),
@@ -129,13 +128,17 @@ class _InfoTabState extends State<InfoTab> {
 
 // Card to download MOU's PDF file
   ListTile _fileDownload(double width, double height) {
-
     return ListTile(
       title: PText("${widget.mou.docName}.pdf",
-          style: GoogleFonts.figtree(fontSize: width * 0.038, color: Colors.black)),
-      subtitle: PText("10.0 MB", style: GoogleFonts.figtree(fontSize: width * 0.03)),
+          style: GoogleFonts.figtree(
+              fontSize: width * 0.038, color: Colors.black)),
+      subtitle:
+          PText("10.0 MB", style: GoogleFonts.figtree(fontSize: width * 0.03)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),
+      // onTap: () async {
+      //   await FirebaseApi.download(widget.mou.docName);
+      // },
       trailing: (downloadChecker[widget.mou.docName] == 0)
           ? IconButton(
               onPressed: () async {
@@ -197,7 +200,16 @@ class _InfoTabState extends State<InfoTab> {
               icon: const Icon(Icons.file_open, size: 23))
           : (downloadChecker[widget.mou.docName] == -1)
               ? const CircularProgressIndicator()
-              : const Icon(Icons.download_done_outlined, size: 23),
+              : Container(
+                // color: Colors.amber,
+                width: width * 0.15,
+                child: IconButton(
+                    onPressed: () async {
+                      await FirebaseApi.download(widget.mou.docName);
+                    },
+                    icon: PText('OPEN', style: GoogleFonts.figtree(fontSize: width * 0.03)), 
+                  ),
+              ),
     );
   }
 }
