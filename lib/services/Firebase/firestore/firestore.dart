@@ -74,7 +74,9 @@ class DataBaseService {
       {required String mouId,
       required String refParam,
       required String id}) async {
-    await mou.doc(mouId).update({refParam: id});
+    await mou.doc(mouId).update({
+      'activities': {refParam: id}
+    });
   }
 
   // Function to upload Activity details on Firebase, returns the id of the uploaded activity.
@@ -84,6 +86,12 @@ class DataBaseService {
       required Map<String, dynamic> data}) async {
     DocumentReference activity = await db.collection(activityName).add(data);
     return activity.id;
+  }
+
+  Future<List> getEngagementData(String collId, String refId) async {
+    var querySnap = await db.collection(collId).get();
+    final List activityList = querySnap.docs.map((doc) => doc).toList();
+    return activityList;
   }
 
   Future<List<MOU>> getmouData() async {

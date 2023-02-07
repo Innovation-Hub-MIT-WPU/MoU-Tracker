@@ -1,5 +1,6 @@
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/engagement_pages/engagement_page_utlis/bottom_sheet.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,8 +58,9 @@ class _EngagementTabState extends State<EngagementTab> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return StreamBuilder<Object>(
-        stream: null,
+    return FutureBuilder(
+        // stream: null,
+        future: DataBaseService().getmouData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
