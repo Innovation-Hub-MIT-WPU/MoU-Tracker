@@ -1,3 +1,4 @@
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/engagement_pages/engagement_page_utlis/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
@@ -56,10 +57,19 @@ class _EngagementTabState extends State<EngagementTab> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: _buildEngagementList(screenHeight, screenWidth),
-      floatingActionButton: FloatingActionButton.small(onPressed: () {}),
-    );
+    return StreamBuilder<Object>(
+        stream: null,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Scaffold(
+              body: _buildEngagementList(screenHeight, screenWidth),
+              floatingActionButton:
+                  FloatingActionButton.small(onPressed: () {}),
+            );
+          } else {
+            return const Loading();
+          }
+        });
   }
 
   Padding _buildEngagementList(double screenHeight, double screenWidth) {
