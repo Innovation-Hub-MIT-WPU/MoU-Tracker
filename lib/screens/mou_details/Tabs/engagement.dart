@@ -1,5 +1,8 @@
+import 'package:MouTracker/common_utils/buttons.dart';
+import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/engagement_pages/engagement_page_utlis/bottom_sheet.dart';
+import 'package:MouTracker/screens/mou_details/track_page_utils/add_activity.dart';
+import 'package:MouTracker/screens/mou_details/track_page_utils/bottom_sheet.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
@@ -8,7 +11,8 @@ import '/common_utils/utils.dart';
 import '../../../models/activity.dart';
 
 class EngagementTab extends StatefulWidget {
-  const EngagementTab({Key? key}) : super(key: key);
+  final MOU mou;
+  const EngagementTab({required this.mou, Key? key}) : super(key: key);
 
   @override
   _EngagementTabState createState() => _EngagementTabState();
@@ -64,10 +68,10 @@ class _EngagementTabState extends State<EngagementTab> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-              body: _buildEngagementList(screenHeight, screenWidth),
-              floatingActionButton:
-                  FloatingActionButton.small(onPressed: () {}),
-            );
+                body: _buildEngagementList(screenHeight, screenWidth),
+                floatingActionButton: floatingButtonUI(
+                    screenWidth, screenHeight, context,
+                    title: "Add activity", nextPage: const AddActivity()));
           } else {
             return const Loading();
           }

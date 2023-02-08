@@ -92,7 +92,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                   mou: widget.mou,
                   heroTag: widget.heroTag,
                 ),
-                const EngagementTab(),
+                EngagementTab(mou: widget.mou),
                 TrackTab(mou: widget.mou),
               ],
             ),

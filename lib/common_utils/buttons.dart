@@ -13,7 +13,7 @@ Widget floatingButtonUI(
           .push(MaterialPageRoute(builder: (context) => nextPage)),
       // Navigator.pushNamed(context, '/create_mou'),
       backgroundColor: const Color(0xff2D376E),
-      label: PText('Create MOU',
+      label: PText(title,
           style: GoogleFonts.figtree(fontSize: screenWidth * 0.04)),
       icon: Icon(
         Icons.add,

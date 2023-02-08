@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreateMouField extends StatelessWidget {
@@ -56,4 +57,39 @@ class CreateMouField extends StatelessWidget {
       ),
     );
   }
+}
+
+Padding selectDueDate(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.symmetric(
+        vertical: MediaQuery.of(context).size.height * 0.02),
+    child: Container(
+      height: MediaQuery.of(context).size.height * 0.12,
+      // width: MediaQuery.of(context).size.width * 1.5,
+      decoration: BoxDecoration(
+          color: const Color(0XFFEFF3F6),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: const [
+            BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.1),
+                offset: Offset(6, 3),
+                blurRadius: 4.0,
+                spreadRadius: 1.0),
+            BoxShadow(
+                color: Color.fromRGBO(255, 255, 255, 0.9),
+                offset: Offset(-6, -3),
+                blurRadius: 4.0,
+                spreadRadius: 1.0)
+          ]),
+      child: CupertinoDatePicker(
+        mode: CupertinoDatePickerMode.date,
+        initialDateTime: DateTime.now(),
+        onDateTimeChanged: (DateTime newDateTime) {
+          var selectedDate = newDateTime;
+          print(selectedDate);
+        },
+      ),
+    ),
+  );
 }
