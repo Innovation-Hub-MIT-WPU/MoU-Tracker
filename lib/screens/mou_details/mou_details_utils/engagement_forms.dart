@@ -1,7 +1,7 @@
 import 'package:MouTracker/common_utils/upload_file.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
-import 'package:MouTracker/screens/mou_creation/creation_page_utils/fields.dart';
+import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,4 +1,4 @@
-import 'package:MouTracker/common_utils/drop_down.dart';
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +22,7 @@ class _AddActivityState extends State<AddActivity> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     TextEditingController dropDownController = TextEditingController();
+    String dropdownValue = 'One';
     return Scaffold(
         appBar: appBar("Add Activity", context),
         body: NotificationListener<OverscrollIndicatorNotification>(
@@ -29,16 +30,34 @@ class _AddActivityState extends State<AddActivity> {
             overscroll.disallowIndicator();
             return true;
           },
-          child: Column(
-            children: [
-              FormAndDropDown(
-                dropDownController: dropDownController,
-                dropDownItem: 'Initiator',
-                screenHeight: screenHeight,
-                screenWidth: screenWidth,
+          child: Padding(
+            padding: EdgeInsets.all(screenWidth * 0.05),
+            child: DropdownButtonFormField<String>(
+              value: dropdownValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: AppColors.darkBlue, width: 2)),
               ),
-            ],
+              items: <String>['One', 'Two', 'Free', 'Four']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
           ),
         ));
   }
+}
+
+OutlineInputBorder dropDownBorder() {
+  return const OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.darkBlue, width: 2));
 }

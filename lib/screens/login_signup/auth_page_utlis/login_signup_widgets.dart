@@ -9,7 +9,7 @@ import '/common_utils/utils.dart';
 ///A widget to create DropDownButtonFormField
 
 //for each _designation element, we are mapping it to 'buildMenuItem' function and then converting to List:
-//" items: _designations.map(buildMenuItem).toList()  "
+//" items: _designations.map(buildMenuItem).toList()"
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
       child: Container(
