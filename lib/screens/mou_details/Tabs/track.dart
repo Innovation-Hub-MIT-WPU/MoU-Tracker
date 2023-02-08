@@ -1,8 +1,8 @@
 import 'package:MouTracker/models/mou.dart';
-import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_details/track_page_utils/completion.dart';
-import 'package:MouTracker/screens/mou_details/track_page_utils/mou_card.dart';
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_utils/completion.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_utils/mou_card.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';

@@ -36,8 +36,10 @@ class _LogInState extends State<LogIn> {
 
     Widget loginButton() {
       return SizedBox(
-        width: 125,
-        height: 35,
+        // width: 125,
+        // height: 35,
+        width: screenWidth * 0.5,
+        height: screenHeight * 0.05,
         child: ElevatedButton(
           onPressed: () {
             logInFunction(emailController.text, passwordController.text);
@@ -79,7 +81,7 @@ class _LogInState extends State<LogIn> {
                         textAlign: TextAlign.center,
                       ),
                       behavior: SnackBarBehavior.floating,
-                      width: 200,
+                      width: screenWidth * 0.5,
                       duration: Duration(milliseconds: 1000),
                       shape: StadiumBorder(),
                     ));

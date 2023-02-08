@@ -12,8 +12,7 @@ import '/common_utils/utils.dart';
 //" items: _designations.map(buildMenuItem).toList()  "
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
+      child: Container(
         child: PText(item,
             style: GoogleFonts.figtree(
                 fontWeight: FontWeight.w400,
@@ -57,7 +56,7 @@ Widget emailFormElement(TextEditingController emailController,
         decoration: InputDecoration(
           hintText: "abc@gmail.com",
           hintStyle: GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.all(screenWidth * 0.02),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
           border: const OutlineInputBorder(
@@ -107,16 +106,16 @@ Widget passwordFormElement(TextEditingController passwordController,
         },
         textInputAction: TextInputAction.next,
         cursorColor: AppColors.buttonYellow,
-        decoration: const InputDecoration(
-            contentPadding: EdgeInsets.all(10),
-            enabledBorder: OutlineInputBorder(
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(screenWidth * 0.02),
+            enabledBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Colors.white, width: kBorderWidth)),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                   color: AppColors.buttonYellow, width: kBorderWidth),
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Colors.white, width: kBorderWidth))),
       ),
@@ -176,9 +175,13 @@ Widget nameFormElement(String text, TextEditingController nameController,
 
 //Button widget: used in 'Get Started' screen
 Widget appButton(String text, Widget newRoute, BuildContext context) {
+  double h = MediaQuery.of(context).size.height;
+  double w = MediaQuery.of(context).size.width;
   return SizedBox(
-    width: 315,
-    height: 58,
+    // width: 315,
+    // height: 58,
+    height: h * 0.07,
+    width: w * 0.8,
     child: ElevatedButton(
       onPressed: () {
         Navigator.pushReplacement(
@@ -206,24 +209,24 @@ Widget footer(BuildContext context, double screenWidth) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       footerText("Privacy Policy", context),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       const Icon(
         Icons.circle,
         size: 6,
         color: Colors.white,
       ),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       footerText("TOS", context),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       const Icon(Icons.circle, size: 6, color: Colors.white),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       footerText("Content Policy", context),
     ],
@@ -240,7 +243,7 @@ Widget footerText(String text, BuildContext context) {
             textAlign: TextAlign.center,
           ),
           behavior: SnackBarBehavior.floating,
-          width: 200,
+          width: MediaQuery.of(context).size.width * 0.4,
           duration: const Duration(milliseconds: 1000),
           shape: const StadiumBorder(),
         ));

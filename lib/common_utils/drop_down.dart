@@ -1,6 +1,5 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
