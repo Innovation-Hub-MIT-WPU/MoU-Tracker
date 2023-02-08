@@ -67,10 +67,8 @@ class _LogInState extends State<LogIn> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: screenHeight * 0.024),
-
                 emailFormElement(emailController, screenWidth, screenHeight),
                 SizedBox(height: screenHeight * 0.024),
-
                 passwordFormElement(
                     passwordController, screenHeight, screenWidth),
                 TextButton(
@@ -92,17 +90,7 @@ class _LogInState extends State<LogIn> {
                           fontSize: 12,
                           fontWeight: FontWeight.w400)),
                 ),
-                //SizedBox(height: kFormSpacing),
-
-                //formElement("DESIGNATION", ""),
-                FormAndDropDown(
-                  designationController: designationController,
-                  designation: designation,
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                ),
                 SizedBox(height: screenHeight * 0.024),
-
                 Center(
                   child: loginButton(),
                 ),

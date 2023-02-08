@@ -1,4 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
+import 'package:MouTracker/common_utils/drop_down.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -103,8 +104,8 @@ class _SignUpState extends State<SignUp> {
                             fontWeight: FontWeight.w400)),
                   ),
                   FormAndDropDown(
-                    designationController: designationController,
-                    designation: designation,
+                    dropDownController: designationController,
+                    dropDownItem: designation,
                     screenWidth: screenWidth,
                     screenHeight: screenHeight,
                   ),
