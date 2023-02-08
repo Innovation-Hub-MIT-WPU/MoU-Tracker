@@ -41,8 +41,7 @@ class _MyCardState extends State<MyCard> {
           onTap: () {
             // Navigator.pushNamed(context, '/mou_details');
             // print('Tapped card {${widget.index}}');
-            Navigator.push(
-              context,
+            Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => Details(
                   heroTag: heroTag,

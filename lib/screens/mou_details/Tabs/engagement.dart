@@ -81,9 +81,10 @@ class _EngagementTabState extends State<EngagementTab> {
   Padding _buildEngagementList(double screenHeight, double screenWidth) {
     return Padding(
       padding: EdgeInsets.only(
-          top: screenHeight * 0.06,
-          left: screenWidth * 0.04,
-          right: screenWidth * 0.04),
+        top: screenHeight * 0.04,
+        left: screenWidth * 0.04,
+        right: screenWidth * 0.04,
+      ),
       child: Column(
         children: [
           Expanded(
@@ -113,15 +114,19 @@ class _EngagementTabState extends State<EngagementTab> {
         title: PText(
           activity.name,
           style: GoogleFonts.figtree(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+              color: Colors.black,
+              fontSize: screenWidth * 0.045,
+              fontWeight: FontWeight.bold),
         ),
         subtitle: PText(activity.desc,
-            style: GoogleFonts.figtree(color: Colors.grey, fontSize: 14)),
+            style: GoogleFonts.figtree(
+                color: Colors.grey, fontSize: screenWidth * 0.036)),
         trailing: activity.status == true
             ? _buildViewButton("View", screenWidth, screenHeight)
             : PText(
                 "Ongoing",
-                style: GoogleFonts.figtree(color: Colors.grey, fontSize: 15),
+                style: GoogleFonts.figtree(
+                    color: Colors.grey, fontSize: screenWidth * 0.036),
               ), // view button is only for completed activities
       ),
     );
@@ -134,7 +139,8 @@ class _EngagementTabState extends State<EngagementTab> {
     return TextButton(
       onPressed: () {
         showModalBottomSheet(
-          backgroundColor: const Color(0xff2D376E),
+          backgroundColor: Colors.white,
+          useRootNavigator: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(screenWidth * 0.08),

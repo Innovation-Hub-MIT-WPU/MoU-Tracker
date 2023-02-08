@@ -241,6 +241,7 @@ class ProfileTabState extends State<ProfileTab> {
   bottomSheet() {
     showModalBottomSheet(
         context: context,
+        useRootNavigator: true,
         builder: (context) {
           return Container(
             height: 100.0,

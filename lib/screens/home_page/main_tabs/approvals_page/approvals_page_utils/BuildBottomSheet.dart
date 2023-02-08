@@ -1,5 +1,6 @@
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -46,9 +47,10 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             height: MediaQuery.of(context).size.height * 0.01 - 2,
             width: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.width * 0.5),
-                color: Colors.white70),
+              borderRadius: BorderRadius.circular(
+                  MediaQuery.of(context).size.width * 0.5),
+              color: const Color(0xff2D376E),
+            ),
           ),
           SizedBox(
             height: screenWidth * 0.045,
@@ -90,7 +92,8 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
           SizedBox(height: MediaQuery.of(context).size.width * 0.05),
 
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+            padding: EdgeInsets.symmetric(
+                vertical: screenWidth * 0.02, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -106,7 +109,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               width: MediaQuery.of(context).size.width - 100,
               child: PText(
                 mou.description,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: screenWidth * 0.035,
@@ -123,24 +126,47 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               color: Colors.white,
             ),
             child: Container(
-              alignment: Alignment.center,
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
-              child: PText(
-                'Amount : ₹ 10000',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.figtree(
-                  fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Colors.black,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PText(
+                    'Amount ',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                  PText(
+                    ' : ',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                  PText(
+                    '₹ 10000',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
           // Author
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: screenWidth * 0.008, horizontal: screenWidth * 0.05),
             margin: EdgeInsets.only(bottom: screenWidth * 0.04),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -155,19 +181,58 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
-              child: PText(
-                'Author : ${mou.authName}',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.figtree(
-                  fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
-                  color: Colors.black,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PText(
+                    'Authour ',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                  PText(
+                    ' : ',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                  PText(
+                    mou.authName,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.figtree(
+                      fontWeight: FontWeight.bold,
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
+
+          Padding(
+            padding: EdgeInsets.only(bottom: screenWidth * 0.04),
+            child: ElevatedButton(
+              onPressed: () {
+               Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => Details(
+                  heroTag: 'mou',
+                  mou: mou,
+                ),
+              ),
+            );
+              },
+              child: const Text(
+                'More Details',
+              ),
+            ),
           ),
         ],
       ),
