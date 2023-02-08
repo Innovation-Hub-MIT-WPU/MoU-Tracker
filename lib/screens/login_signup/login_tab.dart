@@ -95,12 +95,12 @@ class _LogInState extends State<LogIn> {
                 //SizedBox(height: kFormSpacing),
 
                 //formElement("DESIGNATION", ""),
-                FormAndDropDown(
-                  designationController: designationController,
-                  designation: designation,
-                  screenHeight: screenHeight,
-                  screenWidth: screenWidth,
-                ),
+                // FormAndDropDown(
+                //   designationController: designationController,
+                //   designation: designation,
+                //   screenHeight: screenHeight,
+                //   screenWidth: screenWidth,
+                // ),
                 SizedBox(height: screenHeight * 0.024),
 
                 Center(

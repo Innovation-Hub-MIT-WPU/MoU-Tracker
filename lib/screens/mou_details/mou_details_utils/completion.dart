@@ -14,8 +14,7 @@ class MOUApproved extends StatelessWidget {
         title: const PText(""),
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-              context,
+            Navigator.of(context, rootNavigator: true).push(
               MaterialPageRoute(builder: (context) => const NewHomePage()),
             );
           },
