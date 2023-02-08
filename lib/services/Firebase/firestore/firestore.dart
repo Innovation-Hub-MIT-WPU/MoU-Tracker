@@ -27,13 +27,15 @@ class DataBaseService {
       FirebaseFirestore.instance.collection('users');
 
   final CollectionReference mou = FirebaseFirestore.instance.collection('mou');
-  final CollectionReference activity =
-      FirebaseFirestore.instance.collection('activity');
+
   final CollectionReference notifications =
       FirebaseFirestore.instance.collection('notifications');
-  final List<NotificationsData> notificationsList = [];
-  late DocumentReference mouId;
 
+  final List<NotificationsData> notificationsList = [];
+
+  late DocumentReference mouData;
+
+  // Function to create MOU doc on Firebase, returns the id of created MOU
   Future createMou({
     required DateTime dueDate,
     required int approved,
@@ -46,7 +48,7 @@ class DataBaseService {
     required bool isApproved,
   }) async {
     try {
-      mouId = await db.collection('mou').add({
+      mouData = await db.collection('mou').add({
         'approval-lvl': approved,
         'spoc-name': spocName,
         'auth-name': authName,
@@ -61,11 +63,35 @@ class DataBaseService {
     } catch (err) {
       print("error - $err");
     }
-    return mouId.id;
+    return mouData.id;
   }
 
   Future updateApprovalLvl({required String mouId, required int appLvl}) async {
     await mou.doc(mouId).update({'approval-lvl': appLvl});
+  }
+
+  Future updateReferenceId(
+      {required String mouId,
+      required String refParam,
+      required String id}) async {
+    await mou.doc(mouId).update({
+      'activities': {refParam: id}
+    });
+  }
+
+  // Function to upload Activity details on Firebase, returns the id of the uploaded activity.
+  // id is to be added as a reference in its MOU
+  Future<String> uploadEngagementData(
+      {required String activityName,
+      required Map<String, dynamic> data}) async {
+    DocumentReference activity = await db.collection(activityName).add(data);
+    return activity.id;
+  }
+
+  Future<List> getEngagementData(String collId, String refId) async {
+    var querySnap = await db.collection(collId).get();
+    final List activityList = querySnap.docs.map((doc) => doc).toList();
+    return activityList;
   }
 
   Future<List<MOU>> getmouData() async {

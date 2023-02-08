@@ -1,39 +1,18 @@
-import 'package:MouTracker/models/mou.dart';
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../common_utils/utils.dart';
 
-class BuildBottomSheet extends StatefulWidget {
-  final int index;
-  final MOU mou;
-  // bool isApproved;
-
-  const BuildBottomSheet({
-    super.key,
-    required this.mou,
-    required this.index,
-  });
+class ActivityBottomSheet extends StatefulWidget {
+  const ActivityBottomSheet({super.key});
 
   @override
-  State<BuildBottomSheet> createState() => _BuildBottomSheetState();
+  State<ActivityBottomSheet> createState() => ActivityBottomSheetState();
 }
 
-class _BuildBottomSheetState extends State<BuildBottomSheet> {
-  int k = 0;
-  late MOU mou;
-  @override
-  void initState() {
-    k = widget.index;
-    mou = widget.mou;
-    super.initState();
-  }
-
+class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       // padding: const EdgeInsets.symmetric(vertical: 30),
@@ -65,23 +44,22 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(
                   MediaQuery.of(context).size.width * 0.5),
+                   
             ),
             child: Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 5),
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: mou.isApproved
-                    ? const Color(0XFFCD364E).withOpacity(0.6)
-                    : kTabBarGreen.withOpacity(0.6),
+                color: kTabBarGreen.withOpacity(0.6),
                 borderRadius: BorderRadius.circular(screenWidth * 0.5),
               ),
               child: PText(
-                '${mou.companyName} \n ${mou.docName} ',
+                'Data ',
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
                   fontSize: screenWidth * 0.05,
-                  color: mou.isApproved ? Colors.white : Colors.black,
+                  color: Colors.black,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -96,6 +74,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                 vertical: screenWidth * 0.02, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white,
+            
               borderRadius: BorderRadius.only(
                 topRight:
                     Radius.circular(MediaQuery.of(context).size.width * 0.05),
@@ -108,7 +87,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.of(context).size.width - 100,
               child: PText(
-                mou.description,
+                'description',
                 textAlign: TextAlign.left,
                 style: GoogleFonts.figtree(
                   fontWeight: FontWeight.bold,
@@ -166,7 +145,8 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
 
           // Author
           Container(
-            padding: EdgeInsets.symmetric(vertical: screenWidth * 0.008, horizontal: screenWidth * 0.05),
+            padding: EdgeInsets.symmetric(
+                vertical: screenWidth * 0.008, horizontal: screenWidth * 0.05),
             margin: EdgeInsets.only(bottom: screenWidth * 0.04),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -203,7 +183,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                     ),
                   ),
                   PText(
-                    mou.authName,
+                    "Some Name",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.figtree(
                       fontWeight: FontWeight.bold,
@@ -212,25 +192,6 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ),
-
-          Padding(
-            padding: EdgeInsets.only(bottom: screenWidth * 0.04),
-            child: ElevatedButton(
-              onPressed: () {
-               Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => Details(
-                  heroTag: 'mou',
-                  mou: mou,
-                ),
-              ),
-            );
-              },
-              child: const Text(
-                'More Details',
               ),
             ),
           ),

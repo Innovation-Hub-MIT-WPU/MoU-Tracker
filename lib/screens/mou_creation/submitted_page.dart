@@ -14,7 +14,8 @@ class _SubmittedPageState extends State<SubmittedPage> {
   @override
   Widget build(BuildContext context) {
     const title = 'CREATE MOU';
-
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
           body: CustomScrollView(
@@ -26,12 +27,12 @@ class _SubmittedPageState extends State<SubmittedPage> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(bottom: h * 0.02),
                 child: PText(
                   title,
                   style: GoogleFonts.figtree(
                     color: Colors.white,
-                    fontSize: 24,
+                    fontSize: w * 0.04,
                   ), //GoogleFonts.figtree
                 ),
               ), //PaTaTa
@@ -44,14 +45,14 @@ class _SubmittedPageState extends State<SubmittedPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 40),
+                  SizedBox(height: h * 0.04),
                   const CreatedLogo(),
-                  const SizedBox(height: 10),
-                  _text0(),
-                  _text1(),
-                  const SizedBox(height: 30),
-                  _text2(),
-                  const SizedBox(height: 50),
+                  SizedBox(height: h * 0.03),
+                  _text0(h, w),
+                  _text1(h, w),
+                  SizedBox(height: h * 0.03),
+                  _text2(h, w),
+                  SizedBox(height: h * 0.05),
                   const TrackButton(),
                 ],
               ),
@@ -64,35 +65,38 @@ class _SubmittedPageState extends State<SubmittedPage> {
   }
 }
 
-Widget _text0() {
+Widget _text0(double h, double w) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 45),
+    padding: EdgeInsets.symmetric(horizontal: h * 0.045),
     alignment: Alignment.center,
     child: PText(
       'We have received your request!',
-      style: GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: 16),
+      style:
+          GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: w * 0.035),
     ),
   );
 }
 
-Widget _text1() {
+Widget _text1(double h, double w) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 45),
+    padding: EdgeInsets.symmetric(horizontal: h * 0.045),
     alignment: Alignment.center,
     child: PText(
       'Please wait till we verify your details.',
-      style: GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: 16),
+      style:
+          GoogleFonts.figtree(fontWeight: FontWeight.bold, fontSize: w * 0.035),
     ),
   );
 }
 
-Widget _text2() {
+Widget _text2(double h, double w) {
   return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 45),
+    padding: EdgeInsets.symmetric(horizontal: h * 0.045),
     alignment: Alignment.center,
     child: PText(
       'In the meanwhile, you can track your request, by clicking on the button below!',
-      style: GoogleFonts.figtree(fontWeight: FontWeight.w400, fontSize: 16),
+      style:
+          GoogleFonts.figtree(fontWeight: FontWeight.w400, fontSize: w * 0.035),
       textAlign: TextAlign.center,
     ),
   );
@@ -108,6 +112,8 @@ class TrackButton extends StatefulWidget {
 class _TrackButtonState extends State<TrackButton> {
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
         print('Inkwell Tap Registered');
@@ -117,14 +123,14 @@ class _TrackButtonState extends State<TrackButton> {
       borderRadius: BorderRadius.circular(10),
       child: Ink(
 // color: Color(0xff64C636),
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+        padding: EdgeInsets.symmetric(vertical: h * 0.02, horizontal: w * 0.08),
         decoration: BoxDecoration(
           color: const Color(0xff64C636),
           borderRadius: BorderRadius.circular(10),
         ),
         child: PText(
           'TRACK',
-          style: GoogleFonts.figtree(fontSize: 20, color: Colors.white),
+          style: GoogleFonts.figtree(fontSize: w * 0.05, color: Colors.white),
         ),
       ),
     );

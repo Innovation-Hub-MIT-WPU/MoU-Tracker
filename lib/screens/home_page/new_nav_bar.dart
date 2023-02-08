@@ -1,4 +1,5 @@
 import 'package:MouTracker/globals.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -31,6 +32,10 @@ class _NewHomePageState extends State<NewHomePage> {
         controller: _controller,
       ),
     ];
+    NotificationService().requestPermission();
+    NotificationService().addToken();
+    NotificationService().checkNotifications(context);
+    NotificationService().onOpenBackNotification(context);
 
     super.initState();
   }

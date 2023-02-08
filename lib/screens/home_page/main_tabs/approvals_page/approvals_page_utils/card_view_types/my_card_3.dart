@@ -2,7 +2,6 @@ import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page'
     '/approvals_page_utils/BuildBottomSheet.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../models/mou.dart';
 import '../../../../../../../common_utils/utils.dart';
@@ -63,19 +62,19 @@ class _MyCard3State extends State<MyCard3> {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
-                  backgroundColor: const Color(0xff2D376E),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(screenWidth * 0.08),
-                        topRight: Radius.circular(screenWidth * 0.08)),
-                  ),
-                  context: context,
-                  builder: (context) =>
-                      BuildBottomSheet(index: widget.index, mou: mou),
-                );
+          backgroundColor: Colors.white, 
+          // const Color(0xff2D376E),
+          useRootNavigator: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(screenWidth * 0.08),
+                topRight: Radius.circular(screenWidth * 0.08)),
+          ),
+          context: context,
+          builder: (context) => BuildBottomSheet(index: widget.index, mou: mou),
+        );
       },
       child: Container(
-        
         margin: const EdgeInsets.fromLTRB(20, 20, 20, 10),
         // index % 2 == 0 ? Colors.teal : Colors.pink
         height: screenHeight * 0.12,
@@ -92,10 +91,10 @@ class _MyCard3State extends State<MyCard3> {
           ],
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // const SizedBox(height: 10),
-    
+
             // SizedBox(height: 6),
             // PaTaTa(
             //   'No. $index           $authName',
@@ -107,8 +106,9 @@ class _MyCard3State extends State<MyCard3> {
               children: [
                 PText(
                   '${mou.docName}  ',
-                  style:
-                       TextStyle(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.04),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: screenWidth * 0.04),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +140,7 @@ class _MyCard3State extends State<MyCard3> {
             ),
             SizedBox(height: screenWidth * 0.03),
             Container(
-              height: 45,
+              height: screenWidth * 0.09,
               decoration: BoxDecoration(
                 color: mou.isApproved ? kCardRed : kTabBarGreen,
                 borderRadius: const BorderRadius.only(
@@ -159,7 +159,8 @@ class _MyCard3State extends State<MyCard3> {
                   ),
                   PText(
                     !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
-                    style: TextStyle(fontSize: screenWidth * 0.035, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: screenWidth * 0.035, color: Colors.white),
                   ),
                 ],
               ),

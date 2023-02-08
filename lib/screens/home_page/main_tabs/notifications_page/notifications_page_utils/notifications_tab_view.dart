@@ -84,7 +84,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
     BuildContext context) {
   String title = onTrack.title;
   String docName = onTrack.docName.toUpperCase();
-
+  Color bottomColor = title.contains("Rejected") ? kCardRed : kTabBarGreen;
   String state = title.contains("Approved")
       ? "Approved"
       : title.contains("Rejected")
@@ -101,8 +101,8 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
           title,
           style: GoogleFonts.figtree(
             color: kBgClr2,
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            fontSize: width * 0.04,
           ),
         ),
         subtitle: PText(
@@ -110,7 +110,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
           style: GoogleFonts.figtree(
               color: kBgClr2,
               fontWeight: FontWeight.w500,
-              fontSize: 13,
+              fontSize: width * 0.032,
               fontStyle: FontStyle.italic),
         ),
         children: [
@@ -125,12 +125,12 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                   child: PText(
                     " Company  :  $docName \n $state By :  $by \n $state On :  $on",
                     style: GoogleFonts.figtree(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                        fontSize: width * 0.033,
+                        fontWeight: FontWeight.w600,
                         color: kBgClr2.withOpacity(0.7)),
                   )),
               Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     color: notiCardColor2,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15),
@@ -157,10 +157,11 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                         docName: data['doc-name'],
                         authName: data['auth-name'],
                         companyName: data['company-name'],
-                        companyWebsite: data[0]['company-website'],
+                        companyWebsite: data['company-website'],
                         description: data['description'],
                         isApproved: data['status'],
                         appLvl: data['approval-lvl'],
+                        due: date,
                         dueDate: dueDate);
 
                     Navigator.push(
@@ -182,14 +183,14 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                             "Go To Track",
                             style: GoogleFonts.figtree(
                               color: black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontSize: width * 0.04,
                             ),
                           ),
                         ),
-                        const Icon(
+                        Icon(
                           Icons.ads_click_sharp,
-                          size: 19,
+                          size: height * 0.025,
                           color: black,
                         ),
                       ],
