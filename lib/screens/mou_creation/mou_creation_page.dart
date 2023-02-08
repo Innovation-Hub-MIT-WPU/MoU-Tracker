@@ -110,7 +110,11 @@ class CreateFormState extends State<CreateForm> {
   List<Step> getSteps(double h, double w) {
     return [
       Step(
-        title: const PText("Document"),
+        title: PText(
+          "Document",
+          style: GoogleFonts.figtree(
+              fontSize: w * 0.035, fontWeight: FontWeight.bold),
+        ),
         content: Padding(
           padding: EdgeInsets.symmetric(horizontal: w * 0.025),
           child: Column(
@@ -145,9 +149,10 @@ class CreateFormState extends State<CreateForm> {
                   textInputType: TextInputType.text,
                   textEditingController: tenureController),
               PText(
-                "Due Date", // selectedDate == DateTime.now()
+                // "Due Date",
                 //     ? "Due date : ${selectedDate.month}-${selectedDate.day}-${selectedDate.year}"
-                //     : "Due date : ${selectedDate.month}-${selectedDate.day}-${selectedDate.year}",
+                //     :
+                "Due date : ${selectedDate.day}-${selectedDate.month}-${selectedDate.year}",
                 style: GoogleFonts.figtree(
                     fontSize: w * 0.040, fontWeight: FontWeight.bold),
               ),
@@ -174,11 +179,13 @@ class CreateFormState extends State<CreateForm> {
                             spreadRadius: 1.0)
                       ]),
                   child: CupertinoDatePicker(
+                    dateOrder: DatePickerDateOrder.dmy,
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: DateTime.now(),
                     onDateTimeChanged: (DateTime newDateTime) {
-                      selectedDate = newDateTime;
-                      print(selectedDate);
+                      setState(() {
+                        selectedDate = newDateTime;
+                      });
                     },
                   ),
                 ),
@@ -190,7 +197,11 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 0 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const PText("Company"),
+        title: PText(
+          "Company",
+          style: GoogleFonts.figtree(
+              fontSize: w * 0.035, fontWeight: FontWeight.bold),
+        ),
         content: Padding(
           padding: EdgeInsets.symmetric(horizontal: w * 0.025),
           child: Column(
@@ -258,7 +269,11 @@ class CreateFormState extends State<CreateForm> {
         state: currStep > 1 ? StepState.complete : StepState.indexed,
       ),
       Step(
-        title: const PText("Complete"),
+        title: PText(
+          "Complete",
+          style: GoogleFonts.figtree(
+              fontSize: w * 0.035, fontWeight: FontWeight.bold),
+        ),
         content: Padding(
           padding: EdgeInsets.symmetric(horizontal: w * 0.025),
           child: FutureBuilder(

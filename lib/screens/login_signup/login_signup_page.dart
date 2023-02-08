@@ -38,12 +38,12 @@ class _LogInSignUpPageState extends State<LogInSignUpPage>
         centerTitle: true,
         title: PText(APP_TITLE,
             style: GoogleFonts.figtree(
-              fontSize: 36,
-              fontWeight: FontWeight.w300,
+              fontSize: screenWidth * 0.08,
+              fontWeight: FontWeight.w400,
               color: Colors.white,
             )),
         backgroundColor: AppColors.darkBlue,
-        elevation: 0.0,
+        elevation: 10.0,
       ),
       body: Column(
         children: [
@@ -78,7 +78,8 @@ class _LogInSignUpPageState extends State<LogInSignUpPage>
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10, top: 10),
+            padding: EdgeInsets.only(
+                bottom: screenHeight * 0.01, top: screenHeight * 0.01),
             child: footer(context, screenWidth),
           )
         ],

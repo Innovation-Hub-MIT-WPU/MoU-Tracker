@@ -19,7 +19,7 @@ class _AnimatedSplashScreenPageState extends State<AnimatedSplashScreenPage> {
       splash: Image.asset('assets/images/app_icon.png'),
       nextScreen: GetStartedPage(),
       splashTransition: SplashTransition.scaleTransition,
-      splashIconSize: 100,
+      splashIconSize: MediaQuery.of(context).size.width * 0.3,
     );
   }
 }
