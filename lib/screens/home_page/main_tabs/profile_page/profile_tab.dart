@@ -5,7 +5,7 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/globals.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/screens/loading/loading_spinner.dart';
 import 'package:MouTracker/screens/get_started/check_logged.dart';
 import 'package:MouTracker/screens/get_started/get_started_page.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
