@@ -16,7 +16,6 @@ class GetStartedPage extends StatefulWidget {
   State<GetStartedPage> createState() => _GetStartedPageState();
 }
 
-
 class _GetStartedPageState extends State<GetStartedPage> {
   @override
   Widget build(BuildContext context) {
@@ -43,8 +42,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
             child: Center(
                 child: Image.asset(
               'assets/images/app_icon.png',
-              height: 100,
-              width: 100,
+              height: MediaQuery.of(context).size.width * 0.3,
             )),
           ),
 
@@ -54,26 +52,26 @@ class _GetStartedPageState extends State<GetStartedPage> {
               padding: EdgeInsets.only(top: screenHeight * 0.72),
               child: Container(
                 width: double.infinity,
-                height: 227,
+                height: screenHeight * 0.5,
                 color: AppColors.darkBlue,
                 child: Column(children: [
                   SizedBox(
-                    height: 40,
+                    height: screenHeight * 0.04,
                   ),
                   //'Welcome to MOU' Tracker text
                   PText("Welcome to MOU Tracker !",
                       style: GoogleFonts.figtree(
-                        fontSize: 20,
+                        fontSize: screenWidth * 0.05,
                         fontWeight: FontWeight.w500,
                         color: Colors.white,
                       )),
                   SizedBox(
-                    height: 30,
+                    height: screenHeight * 0.04,
                   ),
                   //'Get Started' button
                   appButton("Get started", LogInSignUpPage(), context),
                   SizedBox(
-                    height: 50,
+                    height: screenHeight * 0.05,
                   ),
                   //'Privacy policy . TOC . Content Policy'
                   footer(context, screenWidth)

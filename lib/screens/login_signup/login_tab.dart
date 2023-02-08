@@ -36,8 +36,10 @@ class _LogInState extends State<LogIn> {
 
     Widget loginButton() {
       return SizedBox(
-        width: 125,
-        height: 35,
+        // width: 125,
+        // height: 35,
+        width: screenWidth * 0.5,
+        height: screenHeight * 0.05,
         child: ElevatedButton(
           onPressed: () {
             logInFunction(emailController.text, passwordController.text);
@@ -67,10 +69,8 @@ class _LogInState extends State<LogIn> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: screenHeight * 0.024),
-
                 emailFormElement(emailController, screenWidth, screenHeight),
                 SizedBox(height: screenHeight * 0.024),
-
                 passwordFormElement(
                     passwordController, screenHeight, screenWidth),
                 TextButton(
@@ -81,7 +81,7 @@ class _LogInState extends State<LogIn> {
                         textAlign: TextAlign.center,
                       ),
                       behavior: SnackBarBehavior.floating,
-                      width: 200,
+                      width: screenWidth * 0.5,
                       duration: Duration(milliseconds: 1000),
                       shape: StadiumBorder(),
                     ));
@@ -92,17 +92,7 @@ class _LogInState extends State<LogIn> {
                           fontSize: 12,
                           fontWeight: FontWeight.w400)),
                 ),
-                //SizedBox(height: kFormSpacing),
-
-                //formElement("DESIGNATION", ""),
-                // FormAndDropDown(
-                //   designationController: designationController,
-                //   designation: designation,
-                //   screenHeight: screenHeight,
-                //   screenWidth: screenWidth,
-                // ),
                 SizedBox(height: screenHeight * 0.024),
-
                 Center(
                   child: loginButton(),
                 ),

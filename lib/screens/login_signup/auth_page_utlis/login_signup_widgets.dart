@@ -7,95 +7,12 @@ import '/common_utils/utils.dart';
 
 //A widget using DropDropDownButtonFormField to give dropdown for var _designations
 ///A widget to create DropDownButtonFormField
-class FormAndDropDown extends StatefulWidget {
-  String? designation;
-  TextEditingController designationController;
-  double screenHeight, screenWidth;
-  FormAndDropDown(
-      {Key? key,
-      required this.designationController,
-      required this.designation,
-      required this.screenHeight,
-      required this.screenWidth})
-      : super(key: key);
-
-  @override
-  State<FormAndDropDown> createState() => _FormAndDropDownState();
-}
-
-class _FormAndDropDownState extends State<FormAndDropDown> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        PText(
-          "DESIGNATION",
-          style: GoogleFonts.figtree(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
-        ),
-        const SizedBox(height: kFormSpacing / 2),
-        Container(
-          decoration: const BoxDecoration(
-              //border: Border.all(color: Colors.white, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(4))),
-          child: DropdownButtonFormField(
-              hint: PText(
-                "Select a designation",
-                style:
-                    GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
-              ),
-              value: widget.designation,
-              selectedItemBuilder: (_) {
-                return designations
-                    .map((e) => Container(
-                        child: PText(e,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.figtree(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                color: Colors.white))))
-                    .toList();
-              },
-              isExpanded: true,
-              items: designations.map(buildMenuItem).toList(),
-              onChanged: (value) {
-                setState(() {
-                  widget.designationController.text = value.toString();
-                  widget.designation = value.toString();
-                });
-              },
-              validator: (value) {
-                if (value == null || value == "") {
-                  return "Select a designation";
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(10),
-                enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.white, width: kBorderWidth)),
-                border: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Colors.white, width: kBorderWidth)),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: AppColors.buttonYellow, width: kBorderWidth),
-                ),
-              )),
-        )
-      ],
-    );
-  }
-}
 
 //for each _designation element, we are mapping it to 'buildMenuItem' function and then converting to List:
 //" items: _designations.map(buildMenuItem).toList()  "
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
+      child: Container(
         child: PText(item,
             style: GoogleFonts.figtree(
                 fontWeight: FontWeight.w400,
@@ -139,7 +56,7 @@ Widget emailFormElement(TextEditingController emailController,
         decoration: InputDecoration(
           hintText: "abc@gmail.com",
           hintStyle: GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.all(screenWidth * 0.02),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white, width: kBorderWidth)),
           border: const OutlineInputBorder(
@@ -189,16 +106,16 @@ Widget passwordFormElement(TextEditingController passwordController,
         },
         textInputAction: TextInputAction.next,
         cursorColor: AppColors.buttonYellow,
-        decoration: const InputDecoration(
-            contentPadding: EdgeInsets.all(10),
-            enabledBorder: OutlineInputBorder(
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(screenWidth * 0.02),
+            enabledBorder: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Colors.white, width: kBorderWidth)),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                   color: AppColors.buttonYellow, width: kBorderWidth),
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
                 borderSide:
                     BorderSide(color: Colors.white, width: kBorderWidth))),
       ),
@@ -258,9 +175,13 @@ Widget nameFormElement(String text, TextEditingController nameController,
 
 //Button widget: used in 'Get Started' screen
 Widget appButton(String text, Widget newRoute, BuildContext context) {
+  double h = MediaQuery.of(context).size.height;
+  double w = MediaQuery.of(context).size.width;
   return SizedBox(
-    width: 315,
-    height: 58,
+    // width: 315,
+    // height: 58,
+    height: h * 0.07,
+    width: w * 0.8,
     child: ElevatedButton(
       onPressed: () {
         Navigator.pushReplacement(
@@ -288,24 +209,24 @@ Widget footer(BuildContext context, double screenWidth) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       footerText("Privacy Policy", context),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       const Icon(
         Icons.circle,
         size: 6,
         color: Colors.white,
       ),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       footerText("TOS", context),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       const Icon(Icons.circle, size: 6, color: Colors.white),
-      const SizedBox(
-        width: 20,
+      SizedBox(
+        width: screenWidth * 0.05,
       ),
       footerText("Content Policy", context),
     ],
@@ -322,7 +243,7 @@ Widget footerText(String text, BuildContext context) {
             textAlign: TextAlign.center,
           ),
           behavior: SnackBarBehavior.floating,
-          width: 200,
+          width: MediaQuery.of(context).size.width * 0.4,
           duration: const Duration(milliseconds: 1000),
           shape: const StadiumBorder(),
         ));
