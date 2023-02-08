@@ -1,7 +1,6 @@
 import 'package:MouTracker/common_utils/buttons.dart';
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/loading/loading_spinner.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_utils/add_activity.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_utils/bottom_sheet.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';

@@ -11,6 +11,7 @@ import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -146,13 +147,22 @@ class ProfileTabState extends State<ProfileTab> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
-        CircleAvatar(
-          //keep updating the image in firebase database
-          backgroundImage: imageFile == null
-              ? NetworkImage(image_url)
-              : FileImage(File(imageFile.path)) as ImageProvider,
-          radius: 90,
-        ),
+        // CircleAvatar(
+        //   //keep updating the image in firebase database
+        //   backgroundImage: 
+        //   imageFile == null
+        //       ? NetworkImage(image_url)
+        //       : FileImage(File(imageFile.path)) as ImageProvider,
+        //   radius: 90,
+        // ),
+        ProfilePicture(
+            name: name,
+            role: position,
+            radius: 80,
+            fontsize: 28,
+            tooltip: true,
+            // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
+          ),
         ClipOval(
           child: Container(
             padding: EdgeInsets.all(3),
