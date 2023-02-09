@@ -1,3 +1,4 @@
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
@@ -68,6 +69,11 @@ class DataBaseService {
 
   Future updateApprovalLvl({required String mouId, required int appLvl}) async {
     await mou.doc(mouId).update({'approval-lvl': appLvl});
+  }
+
+  Future updateDesignation({required String userId, required int pos}) async {
+    await users.doc(userId).update({'pos': pos});
+    await users.doc(userId).update({'designation': designations[pos]});
   }
 
   Future updateReferenceId(

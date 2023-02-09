@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../common_utils/drop_down.dart';
+import '../../services/Firebase/fireauth/fireauth.dart';
+import '../../services/Firebase/fireauth/model.dart';
+import '../../services/Firebase/firestore/firestore.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:MouTracker/models/personalized_text.dart';
@@ -92,6 +97,12 @@ class _LogInState extends State<LogIn> {
                           fontSize: 12,
                           fontWeight: FontWeight.w400)),
                 ),
+                FormAndDropDown(
+                  dropDownController: designationController,
+                  dropDownItem: designation,
+                  screenHeight: screenHeight,
+                  screenWidth: screenWidth,
+                ),
                 SizedBox(height: screenHeight * 0.024),
                 Center(
                   child: loginButton(),
@@ -109,16 +120,45 @@ class _LogInState extends State<LogIn> {
   void logInFunction(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       //if login is successful then display toast else display error toast
+
       await _auth
           .signInWithEmailAndPassword(email: email, password: password)
-          .then((userid) => {
-                Fluttertoast.showToast(msg: "Login Successful"),
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => NewHomePage()))
+          .then((userid) async => {
+                if (await checkPos(userid.user!.uid.toString()))
+                  {
+                    DataBaseService().updateDesignation(
+                        userId: userid.user!.uid.toString(),
+                        pos: designations.indexOf(designationController.text)),
+                    Fluttertoast.showToast(msg: "LoginSuccessful"),
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => NewHomePage()))
+                  }
+                else
+                  {
+                    FireAuth().logOut(),
+                    Fluttertoast.showToast(msg: "choose valid designation")
+                  }
               })
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
+  }
+
+  Future<bool> checkPos(String uid) async {
+    bool check = false;
+    final CollectionReference users =
+        FirebaseFirestore.instance.collection('users');
+    var snap = await users.doc(uid).get();
+    try {
+      UserModel getUserData = UserModel.fromMap(snap);
+      List positions = getUserData.positions!;
+      check = positions.contains(designationController.text.trim());
+      print("check ${getUserData.positions}");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "database error");
+    }
+
+    return check;
   }
 }

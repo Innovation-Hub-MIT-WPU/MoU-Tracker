@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   http: ^0.13.5
   badges: ^3.0.2
+  multi_select_flutter: ^4.1.3
 
 
 dev_dependencies:

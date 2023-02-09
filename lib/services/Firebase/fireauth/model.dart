@@ -4,8 +4,14 @@ class UserModel {
   String? lastName;
   String? designation;
   int? pos;
+  List? positions;
   UserModel(
-      {this.email, this.firstName, this.lastName, this.designation, this.pos});
+      {this.email,
+      this.firstName,
+      this.lastName,
+      this.designation,
+      this.pos,
+      this.positions});
 
   // receive data from server -> creating map
   factory UserModel.fromMap(map) {
@@ -14,6 +20,7 @@ class UserModel {
         email: map['email'],
         lastName: map['lastName'],
         firstName: map['firstName'],
+        positions: map['positions'] as List,
         designation: map['designation']);
   }
 
@@ -24,7 +31,8 @@ class UserModel {
       'email': email,
       'lastName': lastName,
       'firstName': firstName,
-      'designation': designation
+      'designation': designation,
+      'positions': positions
     };
   }
 }

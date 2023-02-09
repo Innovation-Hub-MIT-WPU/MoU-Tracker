@@ -7,6 +7,7 @@ import 'package:MouTracker/models/personalized_text.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import '/common_utils/utils.dart';
 import '/services/Firebase/fireauth/model.dart';
@@ -23,6 +24,8 @@ class _SignUpState extends State<SignUp> {
   //form key
   final _formKey = GlobalKey<FormState>();
 
+  final _multiSelectKey = GlobalKey<FormFieldState>();
+
   //Send Data to Firebase
   //editing controllers
   final TextEditingController emailController = TextEditingController();
@@ -35,6 +38,16 @@ class _SignUpState extends State<SignUp> {
   final _auth = FirebaseAuth.instance;
 
   String? designation;
+  final List<MultiSelectItem<String>> _list = [
+    MultiSelectItem('Initiator', "Initiator"),
+    MultiSelectItem('SPOC', "SPOC"),
+    MultiSelectItem('Head', "Head"),
+    MultiSelectItem('Directors', "Directors"),
+    MultiSelectItem('CEO', "CEO"),
+    MultiSelectItem('Dean', "Dean"),
+    MultiSelectItem('Vice Chancellor', "Vice Chancellor"),
+  ];
+  List selectedList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -103,11 +116,37 @@ class _SignUpState extends State<SignUp> {
                             fontSize: 12,
                             fontWeight: FontWeight.w400)),
                   ),
-                  FormAndDropDown(
-                    dropDownController: designationController,
-                    dropDownItem: designation,
-                    screenWidth: screenWidth,
-                    screenHeight: screenHeight,
+                  PText(
+                    "DESIGNATION",
+                    style: GoogleFonts.figtree(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: kFormSpacing / 2),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    child: MultiSelectDialogField(
+                      key: _multiSelectKey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        border: Border.all(color: Colors.white),
+                      ),
+                      items: _list,
+                      chipDisplay: MultiSelectChipDisplay(
+                        items: _list,
+                      ),
+                      onConfirm: (List<dynamic> list) {
+                        setState(() {
+                          selectedList = list;
+                        });
+                        print(selectedList);
+                        print(
+                            "_list.indexOf(selectedList[0]) ${designations.indexOf(selectedList[0])} \n selectedList.toString() ${selectedList.toString()} \n selectedList[0] ${selectedList[0]}");
+                      },
+                    ),
                   ),
                   SizedBox(height: screenHeight * 0.024),
                   Center(
@@ -124,13 +163,16 @@ class _SignUpState extends State<SignUp> {
   }
 
   void signupFunction(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() && selectedList.isNotEmpty) {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => postUserDetails())
-          .catchError((e) {
+          .then((value) {
+        postUserDetails();
+      }).catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
+    } else {
+      Fluttertoast.showToast(msg: "Select DESIGNATION ");
     }
   }
 
@@ -143,13 +185,15 @@ class _SignUpState extends State<SignUp> {
     User? user = _auth.currentUser;
 
     UserModel userModel = UserModel();
-
+    String positions = "";
+    for (String i in selectedList) positions += i + " ";
     //writing all the values
     userModel.email = user!.email;
     userModel.lastName = lastNameController.text;
     userModel.firstName = firstNameController.text;
-    userModel.designation = designationController.text;
-    userModel.pos = designations.indexOf(designationController.text);
+    userModel.designation = selectedList[0];
+    userModel.positions = selectedList;
+    userModel.pos = designations.indexOf(selectedList[0]);
     await firebaseFirestore
         .collection("users")
         .doc(user.uid)
