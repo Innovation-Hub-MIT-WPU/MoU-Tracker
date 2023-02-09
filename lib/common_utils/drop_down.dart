@@ -2,7 +2,73 @@ import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+class CreateDropDown extends StatefulWidget {
+  final String hintText;
+  TextEditingController dropDownController;
+  final List<String> dropDownItems;
+  final InputDecoration dropDownStyle;
+  CreateDropDown({
+    super.key,
+    required this.dropDownItems,
+    required this.hintText,
+    required this.dropDownStyle,
+    required this.dropDownController,
+  });
+
+  @override
+  State<CreateDropDown> createState() => _CreateDropDownState();
+}
+
+class _CreateDropDownState extends State<CreateDropDown> {
+  String? dropDownValue;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        DropdownButtonFormField<String>(
+          hint: PText(
+            widget.hintText,
+            style: GoogleFonts.figtree(color: Colors.black.withOpacity(0.5)),
+          ),
+          value: dropDownValue,
+          isExpanded: true,
+          items: widget.dropDownItems
+              .map((String item) => DropdownMenuItem(
+                    value: item,
+                    child: PText(item),
+                  ))
+              .toList(),
+          onChanged: (String? value) {
+            setState(() {
+              dropDownValue = value.toString();
+              widget.dropDownController.text = value.toString();
+            });
+          },
+          selectedItemBuilder: (_) {
+            return widget.dropDownItems
+                .map((e) => PText(e,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.figtree(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 18,
+                        color: Colors.black)))
+                .toList();
+          },
+          decoration: widget.dropDownStyle,
+        ),
+      ],
+    );
+  }
+}
 
 class FormAndDropDown extends StatefulWidget {
   String? dropDownItem;
@@ -18,6 +84,12 @@ class FormAndDropDown extends StatefulWidget {
 
   @override
   State<FormAndDropDown> createState() => _FormAndDropDownState();
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TextEditingController>(
+        'dropDownController', dropDownController));
+  }
 }
 
 class _FormAndDropDownState extends State<FormAndDropDown> {

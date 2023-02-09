@@ -1,12 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/completion.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/mou_card.dart';
-import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_utils/mou_card.dart';
+import 'package:MouTracker/screens/mou_details/mou_details_utils/completion.dart';
 
 /// Issues
 /*
@@ -195,36 +195,37 @@ class _TrackTabState extends State<TrackTab> {
   }
 
   cancel() async {
-    _currentStep > 0
-        ? setState(() {
-            _currentStep -= 2;
-            print('currentStep : $_currentStep');
-          })
-        : null;
-    setState(() => isLoading = true);
+    print('before deny, currentStep : $_currentStep');
+    if (_currentStep > 0) {
+      setState(() {
+        _currentStep -= 2;
+      });
+      print('after deny, currentStep : $_currentStep');
+      setState(() => isLoading = true);
 
-    await DataBaseService()
-        .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
-    setState(() => isLoading = false);
+      await DataBaseService()
+          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
+      setState(() => isLoading = false);
 
-    await DataBaseService().addNotification(
-        mouId: widget.mou.mouId,
-        body: "${widget.mou.docName} was denied by ${userData.firstName}",
-        title: "Mou Rejected!!",
-        doc_name: widget.mou.docName,
-        by: userData.firstName!,
-        due: widget.mou.due!,
-        on: DateTime.now());
-    ns.sendPushMessage(
-        "${widget.mou.docName} was denied by ${userData.firstName}",
-        "MoU Rejected!!",
-        widget.mou.mouId,
-        _userPos);
+      await DataBaseService().addNotification(
+          mouId: widget.mou.mouId,
+          body: "${widget.mou.docName} was denied by ${userData.firstName}",
+          title: "Mou Rejected!!",
+          doc_name: widget.mou.docName,
+          by: userData.firstName!,
+          due: widget.mou.due!,
+          on: DateTime.now());
+      ns.sendPushMessage(
+          "${widget.mou.docName} was denied by ${userData.firstName}",
+          "MoU Rejected!!",
+          widget.mou.mouId,
+          _userPos);
+    }
     Navigator.pop(context);
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(builder: (context) => const NewHomePage()),
-    // );
+    // )
   }
 
   ButtonStyle _buttonStyle(

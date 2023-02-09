@@ -7,13 +7,13 @@ class CreateMouField extends StatelessWidget {
   final TextInputType textInputType;
   final TextEditingController textEditingController;
 
-  const CreateMouField(
-      {Key? key,
-      required this.hintText,
-      required this.textInputType,
-      required this.textEditingController,
-      this.isEnabled = true})
-      : super(key: key);
+  const CreateMouField({
+    Key? key,
+    required this.hintText,
+    required this.textInputType,
+    required this.textEditingController,
+    this.isEnabled = true,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

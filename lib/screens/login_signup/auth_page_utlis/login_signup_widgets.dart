@@ -12,12 +12,10 @@ import '/common_utils/utils.dart';
 //" items: _designations.map(buildMenuItem).toList()"
 DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
       value: item,
-      child: Container(
-        child: PText(item,
-            style: GoogleFonts.figtree(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: Colors.black)),
+      child: PText(
+        item,
+        style: GoogleFonts.figtree(
+            fontWeight: FontWeight.w400, fontSize: 16, color: Colors.white),
       ),
     );
 
@@ -236,22 +234,23 @@ Widget footer(BuildContext context, double screenWidth) {
 //Clickable text used in above footer widget
 Widget footerText(String text, BuildContext context) {
   return InkWell(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: PText(
-            text,
-            textAlign: TextAlign.center,
-          ),
-          behavior: SnackBarBehavior.floating,
-          width: MediaQuery.of(context).size.width * 0.4,
-          duration: const Duration(milliseconds: 1000),
-          shape: const StadiumBorder(),
-        ));
-      },
-      child: PText(text,
-          style: GoogleFonts.figtree(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Colors.white,
-          )));
+    onTap: () {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: PText(
+          text,
+          textAlign: TextAlign.center,
+        ),
+        behavior: SnackBarBehavior.floating,
+        width: MediaQuery.of(context).size.width * 0.4,
+        duration: const Duration(milliseconds: 1000),
+        shape: const StadiumBorder(),
+      ));
+    },
+    child: PText(text,
+        style: GoogleFonts.figtree(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+        )),
+  );
 }

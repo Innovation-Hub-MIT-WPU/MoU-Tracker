@@ -1,12 +1,15 @@
+import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/get_started/get_started_page.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_page_utlis/report_bug.dart';
-import 'package:MouTracker/screens/home_page/main_tabs/profile_page/profile_tab.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/stats_page.dart';
 import 'package:MouTracker/screens/login_signup/login_signup_page.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/screens/mou_creation/submitted_page.dart';
 import 'package:MouTracker/screens/get_started/check_logged.dart';
-import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/advisory_boards_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/faculty_intern_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/internship_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/placement_form.dart';
 import 'package:MouTracker/test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -64,7 +67,17 @@ class MyApp extends StatelessWidget {
         '/create_mou': (_) => const CreateForm(),
         //'/home': (context) => const HomePage(),
         '/report_issues': (context) => const ReportIssues(),
-        //MyRoute.profileRoute: (context) => const ProfileTab(),
+
+        // Engagement Pages -
+
+        '/placement': (context) => PlacementForm(title: "Placement Data"),
+        '/internship': (context) => InternshipForm(title: "Internship Data"),
+        '/faculty internship': (context) =>
+            FacultyInternForm(title: "Faculty Internships"),
+        '/advisory boards': (context) =>
+            AdvisoryBoardsForm(title: "Advisory boards"),
+
+        // MyRoute.profileRoute: (context) => const ProfileTab(controller: null,),
         MyRoute.reportIssuesRoute: (context) => const ReportIssues(),
         MyRoute.statsPageRoute: (context) => const StatsPage(),
       },
