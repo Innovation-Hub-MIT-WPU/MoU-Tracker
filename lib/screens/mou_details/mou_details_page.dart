@@ -5,7 +5,7 @@ import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import '/screens/mou_details/Tabs/info.dart';
 import '/screens/mou_details/Tabs/track.dart';
-import '/screens/mou_details/Tabs/engagement.dart';
+import 'Tabs/engagements/engagement.dart';
 
 /* MOU Tracking Page
     This Page is supposed to -

@@ -123,8 +123,8 @@ class StatsPageState extends State<StatsPage> {
               child: lineChart(),
             ),
             Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.03),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.03),
               child: Container(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05,
