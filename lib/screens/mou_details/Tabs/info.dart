@@ -200,16 +200,17 @@ class _InfoTabState extends State<InfoTab> {
               icon: Icon(Icons.file_open, size: width * 0.06))
           : (downloadChecker[widget.mou.docName] == -1)
               ? const CircularProgressIndicator()
-              : Container(
-                // color: Colors.amber,
-                width: width * 0.15,
-                child: IconButton(
+              : SizedBox(
+                  // color: Colors.amber,
+                  width: width * 0.15,
+                  child: IconButton(
                     onPressed: () async {
                       await FirebaseApi.download(widget.mou.docName);
                     },
-                    icon: PText('OPEN', style: GoogleFonts.figtree(fontSize: width * 0.03)), 
+                    icon: PText('OPEN',
+                        style: GoogleFonts.figtree(fontSize: width * 0.03)),
                   ),
-              ),
+                ),
     );
   }
 }

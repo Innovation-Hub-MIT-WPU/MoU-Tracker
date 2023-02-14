@@ -1,10 +1,13 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/screens/Loading/loading_spinner.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActivityBottomSheet extends StatefulWidget {
-  const ActivityBottomSheet({super.key});
+  final String mouId;
+  const ActivityBottomSheet({super.key, required this.mouId});
 
   @override
   State<ActivityBottomSheet> createState() => ActivityBottomSheetState();
@@ -14,8 +17,29 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    return FutureBuilder<Object>(
+        future: DataBaseService().getEngagementData(widget.mouId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ActivityData(screenWidth: screenWidth);
+          } else {
+            return const Loading();
+          }
+        });
+  }
+}
+
+class ActivityData extends StatelessWidget {
+  const ActivityData({
+    super.key,
+    required this.screenWidth,
+  });
+
+  final double screenWidth;
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
-      // padding: const EdgeInsets.symmetric(vertical: 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -44,7 +68,6 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(
                   MediaQuery.of(context).size.width * 0.5),
-                   
             ),
             child: Container(
               alignment: Alignment.center,
@@ -74,7 +97,6 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 vertical: screenWidth * 0.02, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white,
-            
               borderRadius: BorderRadius.only(
                 topRight:
                     Radius.circular(MediaQuery.of(context).size.width * 0.05),

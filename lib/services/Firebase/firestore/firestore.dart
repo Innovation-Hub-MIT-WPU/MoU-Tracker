@@ -76,12 +76,15 @@ class DataBaseService {
     await users.doc(userId).update({'designation': designations[pos]});
   }
 
-  Future updateReferenceId(
-      {required String mouId,
-      required String refParam,
-      required String id}) async {
+  Future updateEngagementList({
+    required String mouId,
+    required String activityName,
+    required String activityDesc,
+  }) async {
     await mou.doc(mouId).update({
-      'activities': {refParam: id}
+      'activities': FieldValue.arrayUnion([
+        {'activity-name': activityName, 'activity-desc': activityDesc}
+      ])
     });
   }
 
@@ -89,12 +92,14 @@ class DataBaseService {
   // id is to be added as a reference in its MOU
   Future<String> uploadEngagementData(
       {required String activityName,
+      required String mouId,
       required Map<String, dynamic> data}) async {
-    DocumentReference activity = await db.collection(activityName).add(data);
+    DocumentReference activity = db.collection(activityName).doc(mouId);
+    await activity.set(data);
     return activity.id;
   }
 
-  Future<List> getEngagementData(String collId, String refId) async {
+  Future<List> getEngagementData(String collId) async {
     var querySnap = await db.collection(collId).get();
     final List activityList = querySnap.docs.map((doc) => doc).toList();
     return activityList;
