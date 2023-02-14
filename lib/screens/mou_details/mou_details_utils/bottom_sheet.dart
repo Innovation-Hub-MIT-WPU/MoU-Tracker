@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ActivityBottomSheet extends StatefulWidget {
   final String mouId;
-  const ActivityBottomSheet({super.key, required this.mouId});
+  final String activityName;
+  const ActivityBottomSheet(
+      {super.key, required this.mouId, required this.activityName});
 
   @override
   State<ActivityBottomSheet> createState() => ActivityBottomSheetState();
@@ -16,12 +18,15 @@ class ActivityBottomSheet extends StatefulWidget {
 class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     return FutureBuilder<Object>(
-        future: DataBaseService().getEngagementData(widget.mouId),
+        future: DataBaseService().getEngagementData(
+            docId: widget.mouId, collId: widget.activityName),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return ActivityData(screenWidth: screenWidth);
+            print(snapshot.data);
+            return ActivityData(
+              activityData: snapshot.data,
+            );
           } else {
             return const Loading();
           }
@@ -30,15 +35,15 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
 }
 
 class ActivityData extends StatelessWidget {
+  final activityData;
   const ActivityData({
     super.key,
-    required this.screenWidth,
+    this.activityData,
   });
-
-  final double screenWidth;
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

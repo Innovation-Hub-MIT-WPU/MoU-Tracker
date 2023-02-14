@@ -1,4 +1,5 @@
 import 'package:MouTracker/common_utils/utils.dart';
+import 'package:MouTracker/models/activity.dart';
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
@@ -83,7 +84,11 @@ class DataBaseService {
   }) async {
     await mou.doc(mouId).update({
       'activities': FieldValue.arrayUnion([
-        {'activity-name': activityName, 'activity-desc': activityDesc}
+        {
+          'activity-name': activityName,
+          'activity-desc': activityDesc,
+          'status': true
+        }
       ])
     });
   }
@@ -99,10 +104,27 @@ class DataBaseService {
     return activity.id;
   }
 
-  Future<List> getEngagementData(String collId) async {
-    var querySnap = await db.collection(collId).get();
-    final List activityList = querySnap.docs.map((doc) => doc).toList();
-    return activityList;
+  Future<Map> getEngagementData(
+      {required String collId, required String docId}) async {
+    var querySnap = await db.collection(collId).doc(docId).get();
+    final activityData = querySnap.data()!;
+    return activityData;
+  }
+
+  Future<List> getEngagementList({required String mouId}) async {
+    DocumentSnapshot docSnap = await mou.doc(mouId).get();
+    List snapList = docSnap.get('activities');
+    List<Activity> res = snapList.map((data) {
+      print(data['activity-name']);
+      return Activity(
+        name: data['activity-name'],
+        desc: data['activity-desc'],
+        status: data['status'],
+      );
+    }).toList();
+
+    print(res);
+    return res;
   }
 
   Future<List<MOU>> getmouData() async {

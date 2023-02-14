@@ -73,7 +73,7 @@ class AdvisoryBoardsForm extends StatelessWidget {
                       onPressed: () async {
                         await DataBaseService().uploadEngagementData(
                             mouId: mouId,
-                            activityName: 'advisory-boards',
+                            activityName: 'advisory boards',
                             data: {
                               'name': nameController.text,
                               'designation': designationController.text,

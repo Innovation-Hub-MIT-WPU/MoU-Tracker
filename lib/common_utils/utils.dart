@@ -1,3 +1,4 @@
+import 'package:MouTracker/models/activity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -87,3 +88,56 @@ hexStringToColor(String hexColor) {
   }
   return Color(int.parse(hexColor, radix: 16));
 }
+
+List<Activity> activities = [
+  Activity(
+    name: "Placement",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: true,
+  ),
+  Activity(
+    name: "Internship",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: true,
+  ),
+  Activity(
+    name: "Faculty Internships",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: true,
+  ),
+  Activity(
+    name: "Advisory boards",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: true,
+  ),
+  Activity(
+    name: "Curriculum design",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: true,
+  ),
+  Activity(
+    name: "Lab equipment",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: false,
+  ),
+  Activity(
+    name: "Center of Execellence",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: false,
+  ),
+  Activity(
+    name: "Guest Sessions / Seminars",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: false,
+  ),
+  Activity(
+    name: "Sponsorships",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: false,
+  ),
+  Activity(
+    name: "Consultancy Projects",
+    desc: "Lorem ipsum dolor sit amet, consectetur",
+    status: false,
+  ),
+];

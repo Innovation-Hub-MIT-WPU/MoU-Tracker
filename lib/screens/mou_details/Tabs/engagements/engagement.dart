@@ -12,74 +12,33 @@ import '../../../../models/activity.dart';
 
 class EngagementTab extends StatelessWidget {
   final MOU mou;
-  EngagementTab({required this.mou, Key? key}) : super(key: key);
-
-  // Receive Engagement information here
-  List<Activity> activities = [
-    Activity(
-      name: "Placement",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: true,
-    ),
-    Activity(
-      name: "Internship",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: true,
-    ),
-    Activity(
-      name: "Faculty Internships",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: true,
-    ),
-    Activity(
-      name: "Advisory boards",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: true,
-    ),
-    Activity(
-      name: "Curriculum design",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: true,
-    ),
-    Activity(
-      name: "Lab equipment",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: false,
-    ),
-    Activity(
-      name: "Center of Execellence",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: false,
-    ),
-    Activity(
-      name: "Guest Sessions / Seminars",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: false,
-    ),
-    Activity(
-      name: "Sponsorships",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: false,
-    ),
-    Activity(
-      name: "Consultancy Projects",
-      desc: "Lorem ipsum dolor sit amet, consectetur",
-      status: false,
-    ),
-  ];
+  const EngagementTab({required this.mou, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        // stream: null,
-        future: DataBaseService().getmouData(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return EngagementList(mouId: mou.mouId, activities: activities);
-          } else {
-            return const Loading();
-          }
-        });
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      floatingActionButton: floatingButtonUI(screenWidth, screenHeight, context,
+          title: "Add activity",
+          nextPage: AddActivity(
+            mouId: mou.mouId,
+          )),
+      body: FutureBuilder(
+          future: DataBaseService().getEngagementList(mouId: mou.mouId),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List activityList = snapshot.data as List;
+              print(activityList);
+              return EngagementList(mouId: mou.mouId, activities: activityList);
+            } else if (snapshot.hasError) {
+              print(snapshot.error);
+              return const Placeholder();
+            } else {
+              return const Loading();
+            }
+          }),
+    );
   }
 }
 
@@ -93,38 +52,31 @@ class EngagementList extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      floatingActionButton: floatingButtonUI(screenWidth, screenHeight, context,
-          title: "Add activity",
-          nextPage: AddActivity(
-            mouId: mouId,
-          )),
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: screenHeight * 0.04,
-          left: screenWidth * 0.04,
-          right: screenWidth * 0.04,
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                  itemBuilder: (_, i) => _buildListTile(context, mouId, i,
-                      activities[i], screenWidth, screenHeight),
-                  separatorBuilder: (_, i) => SizedBox(
-                      height: screenHeight * 0.015), // Use dynamic height here
-                  itemCount: activities.length),
-            )
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.only(
+        top: screenHeight * 0.04,
+        left: screenWidth * 0.04,
+        right: screenWidth * 0.04,
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+                itemBuilder: (_, i) => _buildListTile(
+                    context, mouId, activities[i], screenWidth, screenHeight),
+                separatorBuilder: (_, i) => SizedBox(
+                    height: screenHeight * 0.015), // Use dynamic height here
+                itemCount: activities.length),
+          )
+        ],
       ),
     );
   }
 }
 
 // Widget to build the List tile for a single activity
-Widget _buildListTile(BuildContext context, String mouId, int index,
-    Activity activity, double screenWidth, double screenHeight) {
+Widget _buildListTile(BuildContext context, String mouId, Activity activity,
+    double screenWidth, double screenHeight) {
   return Container(
     padding: EdgeInsets.symmetric(
         horizontal: screenWidth * 0.03, vertical: screenHeight * 0.01),
@@ -143,13 +95,19 @@ Widget _buildListTile(BuildContext context, String mouId, int index,
       subtitle: PText(activity.desc,
           style: GoogleFonts.figtree(
               color: Colors.grey, fontSize: screenWidth * 0.036)),
-      trailing: activity.status == true
-          ? _buildViewButton(context, mouId, "View", screenWidth, screenHeight)
-          : PText(
-              "Ongoing",
-              style: GoogleFonts.figtree(
-                  color: Colors.grey, fontSize: screenWidth * 0.036),
-            ), // view button is only for completed activities
+
+      trailing: _buildViewButton(
+          context, mouId, activity.name, screenWidth, screenHeight),
+
+      // trailing: activity.status == true ?
+      //      _buildViewButton(
+      //         context, mouId, activity.name, screenWidth, screenHeight)
+      //     : PText(
+      //         "Ongoing",
+      //         style: GoogleFonts.figtree(
+      //             color: Colors.grey, fontSize: screenWidth * 0.036),
+      //       ), // view button is only for completed activities
+      //todo: Implement Activity Status via forms
     ),
   );
 }
@@ -157,7 +115,7 @@ Widget _buildListTile(BuildContext context, String mouId, int index,
 // View button - To View all the details of an activity.
 // todo - Display full details of an activity.
 TextButton _buildViewButton(BuildContext context, String mouId,
-    String buttonTxt, double screenWidth, double screenHeight) {
+    String activityName, double screenWidth, double screenHeight) {
   return TextButton(
     onPressed: () {
       showModalBottomSheet(
@@ -169,10 +127,11 @@ TextButton _buildViewButton(BuildContext context, String mouId,
               topRight: Radius.circular(screenWidth * 0.08)),
         ),
         context: context,
-        builder: (context) => ActivityBottomSheet(mouId: mouId),
+        builder: (context) => ActivityBottomSheet(
+            mouId: mouId, activityName: activityName.toLowerCase()),
       );
     },
-    child: PText(buttonTxt,
+    child: PText("View",
         style: GoogleFonts.figtree(color: Colors.black, fontSize: 15)),
   );
 }
