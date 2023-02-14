@@ -229,8 +229,13 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               ),
             );
               },
-              child: const Text(
+              child: PText(
                 'More Details',
+                style: GoogleFonts.figtree(
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth * 0.035,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

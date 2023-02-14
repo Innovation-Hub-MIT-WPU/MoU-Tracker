@@ -14,17 +14,21 @@ class WebViewClass extends StatefulWidget {
 class WebViewState extends State<WebViewClass> {
   int position = 1;
 
+  var loadingProgress = 0;
   final key = UniqueKey();
 
   doneLoading(String A) {
     setState(() {
       position = 0;
+      loadingProgress = 100;
     });
   }
 
   startLoading(String A) {
     setState(() {
       position = 1;
+      print(widget.url);
+      loadingProgress = 0;
     });
   }
 
@@ -34,6 +38,7 @@ class WebViewState extends State<WebViewClass> {
       appBar: AppBar(
         title: PText(widget.url),
         centerTitle: true,
+        toolbarHeight: MediaQuery.of(context).size.height * 0.1,
       ),
       body: IndexedStack(index: position, children: <Widget>[
         SafeArea(
@@ -45,12 +50,20 @@ class WebViewState extends State<WebViewClass> {
             key: key,
             onPageFinished: doneLoading,
             onPageStarted: startLoading,
+            onProgress: (progress) {
+              setState(() {
+                loadingProgress = progress;
+                // print("$loadingProgress, $progress");
+              });
+            },
           ),
         ),
-        Container(
-          color: Colors.white,
-          child: const Center(child: CircularProgressIndicator()),
-        ),
+        if (loadingProgress < 100)
+          LinearProgressIndicator(
+            minHeight: MediaQuery.of(context).size.height * 0.005,
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
+            value: loadingProgress / 100.0,
+          ),
       ]),
     );
   }

@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, non_constant_identifier_names, deprecated_member_use, curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables, unnecessary_cast
 
+import 'dart:io';
+
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/globals.dart';
@@ -146,22 +148,21 @@ class ProfileTabState extends State<ProfileTab> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
-        // CircleAvatar(
-        //   //keep updating the image in firebase database
-        //   backgroundImage:
-        //   imageFile == null
-        //       ? NetworkImage(image_url)
-        //       : FileImage(File(imageFile.path)) as ImageProvider,
-        //   radius: 90,
-        // ),
-        ProfilePicture(
-          name: name,
-          role: position,
-          radius: 80,
-          fontsize: 28,
-          tooltip: true,
-          // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
-        ),
+        imageFile == null
+            ? ProfilePicture(
+                name: name,
+                role: position,
+                radius: 80,
+                fontsize: 28,
+                tooltip: true,
+                // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
+              )
+            : CircleAvatar(
+                //keep updating the image in firebase database
+                backgroundImage:
+                    FileImage(File(imageFile.path)) as ImageProvider,
+                radius: 90,
+              ),
         ClipOval(
           child: Container(
             padding: EdgeInsets.all(3),

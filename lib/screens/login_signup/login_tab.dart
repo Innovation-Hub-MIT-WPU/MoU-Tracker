@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../common_utils/drop_down.dart';
 import '../../services/Firebase/fireauth/fireauth.dart';
 import '../../services/Firebase/fireauth/model.dart';
-import '../../services/Firebase/firestore/firestore.dart';
 import 'auth_page_utlis/login_signup_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:MouTracker/models/personalized_text.dart';
