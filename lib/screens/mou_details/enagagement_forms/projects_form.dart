@@ -1,24 +1,22 @@
-import 'package:MouTracker/common_utils/upload_file.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:io' as io;
 
-class FacultyInternForm extends StatelessWidget {
+// ignore: must_be_immutable
+class ProjectsForm extends StatelessWidget {
+  final String mouId;
   final String title;
-  FacultyInternForm({this.title = "Engagement activity", super.key});
+  ProjectsForm(
+      {this.title = "Engagement activity", super.key, required this.mouId});
 
-  TextEditingController yearController = TextEditingController();
-  TextEditingController divisionController = TextEditingController();
-  TextEditingController schoolController = TextEditingController();
-  TextEditingController studentDetailsController = TextEditingController();
-  TextEditingController docController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController designationController = TextEditingController();
+  TextEditingController companyController = TextEditingController();
   GlobalKey formKey = GlobalKey();
-
-  static io.File? file;
 
   @override
   Widget build(BuildContext context) {
@@ -38,45 +36,59 @@ class FacultyInternForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   PText(
-                    "Year",
+                    "Name of Authority",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
                   CreateMouField(
-                      hintText: "Academic Year",
+                      hintText: "Enter the name",
                       textInputType: TextInputType.multiline,
-                      textEditingController: yearController),
+                      textEditingController: nameController),
                   PText(
-                    "Division",
+                    "Designation",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
                   CreateMouField(
-                      hintText: "Department Division",
+                      hintText: "Enter the Designation",
                       textInputType: TextInputType.text,
-                      textEditingController: divisionController),
+                      textEditingController: designationController),
                   PText(
-                    "School",
+                    "Company",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
                   CreateMouField(
-                      hintText: "School",
+                      hintText: "Enter company name",
                       textInputType: TextInputType.text,
-                      textEditingController: schoolController),
-
-                  fileName(file),
-                  Center(child: chooseFileButton(context, pickFile)),
-
+                      textEditingController: companyController),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
                         vertical: screenWidth * 0.05),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await DataBaseService().uploadEngagementData(
+                            mouId: mouId,
+                            activityName: 'advisory boards',
+                            data: {
+                              'name': nameController.text,
+                              'designation': designationController.text,
+                              'company': companyController.text
+                            });
+                        await DataBaseService().updateEngagementList(
+                          mouId: mouId,
+                          activityName: 'advisory boards',
+                          activityDesc:
+                              'Industry Advisory boards setted up for the company',
+                        );
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (_) => const NewHomePage()));
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         child: const PText("Submit"),

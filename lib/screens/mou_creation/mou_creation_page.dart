@@ -327,7 +327,7 @@ class CreateFormState extends State<CreateForm> {
                           hintText: "SPOC's mobile no.",
                           textInputType: TextInputType.phone,
                           textEditingController: spocNoController),
-                      fileName(),
+                      fileName(file),
                       chooseFileButton(context, pickFile),
                     ],
                   );

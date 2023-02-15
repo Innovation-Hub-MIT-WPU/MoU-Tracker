@@ -32,42 +32,61 @@ class _CreateDropDownState extends State<CreateDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DropdownButtonFormField<String>(
-          hint: PText(
-            widget.hintText,
-            style: GoogleFonts.figtree(color: Colors.black.withOpacity(0.5)),
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: screenWidth * 0.035),
+      child: Column(
+        children: [
+          DropdownButtonFormField<String>(
+            hint: PText(
+              widget.hintText,
+              style: GoogleFonts.figtree(color: Colors.black.withOpacity(0.5)),
+            ),
+            value: dropDownValue,
+            isExpanded: true,
+            items: widget.dropDownItems
+                .map((String item) => DropdownMenuItem(
+                      value: item,
+                      child: PText(item),
+                    ))
+                .toList(),
+            onChanged: (String? value) {
+              setState(() {
+                dropDownValue = value.toString();
+                widget.dropDownController.text = value.toString();
+              });
+            },
+            selectedItemBuilder: (_) {
+              return widget.dropDownItems
+                  .map((e) => PText(e,
+                      textAlign: TextAlign.start,
+                      style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          color: Colors.black)))
+                  .toList();
+            },
+            decoration: widget.dropDownStyle,
           ),
-          value: dropDownValue,
-          isExpanded: true,
-          items: widget.dropDownItems
-              .map((String item) => DropdownMenuItem(
-                    value: item,
-                    child: PText(item),
-                  ))
-              .toList(),
-          onChanged: (String? value) {
-            setState(() {
-              dropDownValue = value.toString();
-              widget.dropDownController.text = value.toString();
-            });
-          },
-          selectedItemBuilder: (_) {
-            return widget.dropDownItems
-                .map((e) => PText(e,
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.figtree(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 18,
-                        color: Colors.black)))
-                .toList();
-          },
-          decoration: widget.dropDownStyle,
-        ),
-      ],
+        ],
+      ),
     );
   }
+}
+
+InputDecoration dropDownDecoration() {
+  return InputDecoration(
+    border: dropDownBorder(),
+    enabledBorder: dropDownBorder(),
+    focusedBorder: dropDownBorder(),
+  );
+}
+
+OutlineInputBorder dropDownBorder() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(color: AppColors.darkBlue, width: 2),
+    borderRadius: BorderRadius.circular(12.0),
+  );
 }
 
 class FormAndDropDown extends StatefulWidget {

@@ -46,7 +46,7 @@ class FirebaseApi {
   static Future download(String path) async {
     final ref = FirebaseStorage.instance.ref('/$path');
     final result = await ref.listAll();
-    
+
     // print("hey${result.items[0].name}");
     final url = await result.items[0].getDownloadURL();
     print('url: $url');
@@ -54,7 +54,7 @@ class FirebaseApi {
     // print('${metaData.name} is ${metaData.size} bytes');
     // print('metaData.contentType: ${metaData.contentType}');
     String extensionName = metaData.contentType.toString().split('/').last;
-    
+
     if (extensionName ==
         'vnd.openxmlformats-officedocument.wordprocessingml.document') {
       extensionName = 'docx';
@@ -65,7 +65,7 @@ class FirebaseApi {
     final file = FirebaseFile(ref: ref2, name: name, url: url);
 
     // check if file already exists
-    if(File('$downloadPath/MoU-Tracker/$name').existsSync()){
+    if (File('$downloadPath/MoU-Tracker/$name').existsSync()) {
       print('File already exists');
       OpenFile.open('/storage/emulated/0/Download/MoU-Tracker/$name');
       return;

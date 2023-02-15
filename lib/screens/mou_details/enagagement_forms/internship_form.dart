@@ -6,6 +6,8 @@ import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'dart:io' as io;
+
 class InternshipForm extends StatelessWidget {
   final String title;
   InternshipForm({this.title = "Engagement activity", super.key});
@@ -16,6 +18,8 @@ class InternshipForm extends StatelessWidget {
   TextEditingController studentDetailsController = TextEditingController();
   TextEditingController docController = TextEditingController();
   GlobalKey formKey = GlobalKey();
+
+  static io.File? file;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +69,7 @@ class InternshipForm extends StatelessWidget {
                       textInputType: TextInputType.text,
                       textEditingController: schoolController),
 
-                  fileName(),
+                  fileName(file),
                   Center(child: chooseFileButton(context, pickFile)),
 
                   Padding(

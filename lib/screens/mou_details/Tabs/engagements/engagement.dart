@@ -29,11 +29,13 @@ class EngagementTab extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List activityList = snapshot.data as List;
-              print(activityList);
               return EngagementList(mouId: mou.mouId, activities: activityList);
             } else if (snapshot.hasError) {
-              print(snapshot.error);
-              return const Placeholder();
+              return Center(
+                  child: PText("No Engagement Data found",
+                      style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: screenWidth * 0.04)));
             } else {
               return const Loading();
             }

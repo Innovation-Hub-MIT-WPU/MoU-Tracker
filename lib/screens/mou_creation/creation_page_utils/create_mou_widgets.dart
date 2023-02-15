@@ -3,13 +3,11 @@ import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' as io;
 
-Widget fileName() {
+Widget fileName(io.File? file) {
   return Center(
-    child: PText(
-        CreateFormState.file == null
-            ? "No File Selected"
-            : CreateFormState.file!.path.split('/').last,
+    child: PText(file == null ? "No File Selected" : file.path.split('/').last,
         style: GoogleFonts.figtree(color: kBgClr2)),
   );
 }

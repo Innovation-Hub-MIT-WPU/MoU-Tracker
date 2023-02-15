@@ -1,11 +1,16 @@
 import 'package:MouTracker/common_utils/drop_down.dart';
-import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_details/enagagement_forms/advisory_boards_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/center_of_execellence.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/curriculum_design.dart';
 import 'package:MouTracker/screens/mou_details/enagagement_forms/faculty_intern_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/guest_session_form.dart';
 import 'package:MouTracker/screens/mou_details/enagagement_forms/internship_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/lab_equipment_form.dart';
 import 'package:MouTracker/screens/mou_details/enagagement_forms/placement_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/projects_form.dart';
+import 'package:MouTracker/screens/mou_details/enagagement_forms/sponsorship_form.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +32,8 @@ class AddActivity extends StatelessWidget {
       'Internship',
       'Faculty Internship',
       'Advisory boards',
-      'Cirriculum Design',
-      'Guest sessions / seminars',
+      'Curriculum Design',
+      'Guest sessions',
       'Lab equipment',
       'Center of excellence',
       'Sponsorships',
@@ -69,6 +74,18 @@ class AddActivity extends StatelessWidget {
                         formPage = FacultyInternForm();
                       } else if (newRoute == '/advisory boards') {
                         formPage = AdvisoryBoardsForm(mouId: mouId);
+                      } else if (newRoute == '/curriculum design') {
+                        formPage = CirriculumDesignForm(mouId: mouId);
+                      } else if (newRoute == '/lab equipment') {
+                        formPage = LabEquipForm(mouId: mouId);
+                      } else if (newRoute == '/center of execellence') {
+                        formPage = CenterForm(mouId: mouId);
+                      } else if (newRoute == '/sponorships') {
+                        formPage = SponsorshipForm(mouId: mouId);
+                      } else if (newRoute == '/consultancy projects') {
+                        formPage = ProjectsForm(mouId: mouId);
+                      } else if (newRoute == '/guest sessions') {
+                        formPage = GuestSessionForm(mouId: mouId);
                       } else {
                         formPage = const Placeholder();
                       }
@@ -85,19 +102,4 @@ class AddActivity extends StatelessWidget {
           ),
         ));
   }
-}
-
-InputDecoration dropDownDecoration() {
-  return InputDecoration(
-    border: dropDownBorder(),
-    enabledBorder: dropDownBorder(),
-    focusedBorder: dropDownBorder(),
-  );
-}
-
-OutlineInputBorder dropDownBorder() {
-  return OutlineInputBorder(
-    borderSide: const BorderSide(color: AppColors.darkBlue, width: 2),
-    borderRadius: BorderRadius.circular(12.0),
-  );
 }
