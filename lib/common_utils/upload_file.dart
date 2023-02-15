@@ -16,6 +16,7 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
       child: ElevatedButton(
         onPressed: () {
           pickFile();
+          print("tapped");
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(const Color(0xff64C636)),

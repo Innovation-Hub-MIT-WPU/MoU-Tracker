@@ -1,31 +1,57 @@
 import 'package:MouTracker/common_utils/upload_file.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:io' as io;
 
-class PlacementForm extends StatelessWidget {
+class PlacementForm extends StatefulWidget {
+  final String mouId;
   final String title;
-  PlacementForm({this.title = "Engagement activity", super.key});
 
+  const PlacementForm(
+      {this.title = "Engagement activity", super.key, required this.mouId});
+
+  @override
+  State<PlacementForm> createState() => _PlacementFormState();
+}
+
+class _PlacementFormState extends State<PlacementForm> {
   TextEditingController yearController = TextEditingController();
+
   TextEditingController divisionController = TextEditingController();
+
   TextEditingController schoolController = TextEditingController();
+
   TextEditingController studentDetailsController = TextEditingController();
+
   TextEditingController docController = TextEditingController();
-  GlobalKey formKey = GlobalKey();
 
   static io.File? file;
+  static UploadTask? task;
+
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    file = null;
+    task = null;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: appBar(title, context),
+      appBar: appBar(widget.title, context),
       body: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -71,12 +97,41 @@ class PlacementForm extends StatelessWidget {
                   fileName(file),
                   Center(child: chooseFileButton(context, pickFile)),
 
+                  // submitButton(screenWidth, screenHeight, context, formKey),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
                         vertical: screenWidth * 0.05),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        }
+                        formKey.currentState!.save();
+
+                        // try {
+                        //   await DataBaseService().uploadEngagementData(
+                        //       mouId: widget.mouId,
+                        //       activityName: 'placements',
+                        //       data: {
+                        //         'year': yearController.text,
+                        //         'division': divisionController.text,
+                        //         'school': schoolController.text,
+                        //         'doc-name': docController.text,
+                        //       });
+
+                        //   await DataBaseService().updateEngagementList(
+                        //       mouId: widget.mouId,
+                        //       activityName: 'placements',
+                        //       activityDesc: 'Details of yearwise placements');
+                        // } catch (err) {
+                        //   print("Error occurred - $err");
+                        // }
+
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (_) => const NewHomePage()));
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         child: const PText("Submit"),
@@ -90,8 +145,17 @@ class PlacementForm extends StatelessWidget {
           )),
     );
   }
-}
 
-Future pickFile() async {
-  return;
+  Future pickFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if (result == null) {
+      print("result null");
+      return;
+    } else {
+      final filepath = result.files.single.path!;
+      setState(() {
+        file = io.File(filepath);
+      });
+    }
+  }
 }

@@ -103,7 +103,3 @@ class ProjectsForm extends StatelessWidget {
     );
   }
 }
-
-Future pickFile() async {
-  return;
-}

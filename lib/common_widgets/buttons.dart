@@ -22,3 +22,31 @@ Widget floatingButtonUI(
     ),
   );
 }
+
+Widget submitButton(double screenWidth, double screenHeight,
+    BuildContext context, GlobalKey<FormState> formKey) {
+  return Padding(
+    padding: EdgeInsets.symmetric(
+        horizontal: screenWidth * 0.05, vertical: screenWidth * 0.05),
+    child: ElevatedButton(
+      onPressed: () {
+        if (!formKey.currentState!.validate()) {
+          return;
+        }
+        formKey.currentState!.save();
+
+        try {
+            
+
+        } catch (err) {
+          print("Error occurred - $err");
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.all(screenWidth * 0.05),
+        child: const PText("Submit"),
+      ),
+    ),
+  );
+}
+

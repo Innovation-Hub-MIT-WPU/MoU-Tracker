@@ -3,29 +3,43 @@ import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io' as io;
 
-class FacultyInternForm extends StatelessWidget {
+class FacultyInternForm extends StatefulWidget {
   final String title;
-  FacultyInternForm({this.title = "Engagement activity", super.key});
+  const FacultyInternForm({this.title = "Engagement activity", super.key});
 
+
+  @override
+  State<FacultyInternForm> createState() => _FacultyInternFormState();
+}
+
+class _FacultyInternFormState extends State<FacultyInternForm> {
   TextEditingController yearController = TextEditingController();
-  TextEditingController divisionController = TextEditingController();
-  TextEditingController schoolController = TextEditingController();
-  TextEditingController studentDetailsController = TextEditingController();
-  TextEditingController docController = TextEditingController();
-  GlobalKey formKey = GlobalKey();
 
-  static io.File? file;
+  TextEditingController divisionController = TextEditingController();
+
+  TextEditingController schoolController = TextEditingController();
+
+  TextEditingController studentDetailsController = TextEditingController();
+
+  TextEditingController docController = TextEditingController();
+
+   static io.File? file;
+  static UploadTask? task;
+
+  GlobalKey formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: appBar(title, context),
+      appBar: appBar(widget.title, context),
       body: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -90,8 +104,17 @@ class FacultyInternForm extends StatelessWidget {
           )),
     );
   }
-}
 
-Future pickFile() async {
-  return;
+  Future pickFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if (result == null) {
+      print("result null");
+      return;
+    } else {
+      final filepath = result.files.single.path!;
+      setState(() {
+        file = io.File(filepath);
+      });
+    }
+  }
 }

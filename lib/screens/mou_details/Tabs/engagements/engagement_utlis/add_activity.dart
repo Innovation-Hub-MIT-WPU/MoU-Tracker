@@ -67,9 +67,9 @@ class AddActivity extends StatelessWidget {
 
                       Widget? formPage;
                       if (newRoute == '/placement') {
-                        formPage = PlacementForm();
+                        formPage =  PlacementForm(mouId: mouId);
                       } else if (newRoute == '/internship') {
-                        formPage = InternshipForm();
+                        formPage = InternshipForm(mouId: mouId);
                       } else if (newRoute == '/faculty internship') {
                         formPage = FacultyInternForm();
                       } else if (newRoute == '/advisory boards') {

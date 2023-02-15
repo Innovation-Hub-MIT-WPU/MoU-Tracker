@@ -7,7 +7,6 @@ import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file_plus/open_file_plus.dart';
-import '../../../screens/mou_creation/mou_creation_page.dart';
 import 'dart:io' as io;
 
 class FirebaseApi {
@@ -17,21 +16,23 @@ class FirebaseApi {
   static late DownloaderUtils options;
   static late DownloaderCore core;
 
-  static Future fileUpload(String folder) async {
-    if (CreateFormState.file == null) {
+  static Future fileUpload(String folder, File? file, UploadTask? task) async {
+    if (file == null) {
       print("not done");
       return;
     } else {
-      String filename = (CreateFormState.file!.path).split('/').last;
+      String filename = (file.path).split('/').last;
       final location = '$folder/$filename';
 
-      CreateFormState.task =
-          FirebaseApi.uploadTask(location, CreateFormState.file!);
-      final snapshot = await CreateFormState.task!.whenComplete(() {});
+      task =
+          FirebaseApi.uploadTask(location, file);
+      final snapshot = await task!.whenComplete(() {});
       downloadUrl = await snapshot.ref.getDownloadURL();
       print("done");
     }
   }
+
+  
 
   static UploadTask? uploadTask(String location, io.File file) {
     try {
