@@ -1,4 +1,4 @@
-import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/track/track.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

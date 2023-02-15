@@ -1,16 +1,16 @@
 import 'package:MouTracker/common_utils/drop_down.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/advisory_boards_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/center_of_execellence.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/curriculum_design.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/faculty_intern_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/guest_session_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/internship_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/lab_equipment_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/placement_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/projects_form.dart';
-import 'package:MouTracker/screens/mou_details/enagagement_forms/sponsorship_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/advisory_boards_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/center_of_execellence.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/curriculum_design.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/faculty_intern_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/guest_session_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/internship_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/lab_equipment_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/placement_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/projects_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/sponsorship_form.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'package:MouTracker/screens/Loading/loading_spinner.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/activity_data/advisory.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/activity_data/lab_and_excellence.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/activity_data/not_found.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/activity_data/advisory.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/activity_data/lab_and_excellence.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/activity_data/not_found.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 

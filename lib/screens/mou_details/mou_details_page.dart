@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
-import '/screens/mou_details/Tabs/info.dart';
-import '/screens/mou_details/Tabs/track.dart';
+import 'Tabs/info/info.dart';
+import 'Tabs/track/track.dart';
 import 'Tabs/engagements/engagement.dart';
 
 /* MOU Tracking Page
@@ -94,7 +94,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                 ),
                 child: Center(
                     child: TabBar(
-                      physics: const NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         labelPadding: const EdgeInsets.all(1),
                         controller: _tabController,
                         isScrollable: false,

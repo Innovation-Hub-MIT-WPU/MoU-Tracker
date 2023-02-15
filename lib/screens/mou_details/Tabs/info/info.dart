@@ -2,7 +2,7 @@ import 'package:MouTracker/common_utils/webview.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../models/mou.dart';
+import '../../../../models/mou.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';

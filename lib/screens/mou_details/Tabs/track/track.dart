@@ -5,8 +5,8 @@ import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/mou_card.dart';
-import 'package:MouTracker/screens/mou_details/mou_details_utils/completion.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/track/mou_card.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/track/completion.dart';
 
 /// Issues
 /*

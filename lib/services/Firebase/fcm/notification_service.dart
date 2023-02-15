@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:MouTracker/models/mou.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/track.dart';
 import 'package:MouTracker/screens/mou_details/mou_details_page.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
