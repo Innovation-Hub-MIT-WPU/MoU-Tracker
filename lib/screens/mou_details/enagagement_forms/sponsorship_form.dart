@@ -1,29 +1,44 @@
+import 'package:MouTracker/common_utils/drop_down.dart';
+import 'package:MouTracker/common_utils/upload_file.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
+import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io' as io;
 
-// ignore: must_be_immutable
-class SponsorshipForm extends StatelessWidget {
+class SponsorshipForm extends StatefulWidget {
   final String mouId;
   final String title;
-  SponsorshipForm(
+  const SponsorshipForm(
       {this.title = "Engagement activity", super.key, required this.mouId});
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController designationController = TextEditingController();
-  TextEditingController companyController = TextEditingController();
-  GlobalKey formKey = GlobalKey();
+  @override
+  State<SponsorshipForm> createState() => _SponsorshipFormState();
+}
+
+class _SponsorshipFormState extends State<SponsorshipForm> {
+  final TextEditingController divisionController = TextEditingController();
+
+  final TextEditingController statusController = TextEditingController();
+
+  final TextEditingController changesController = TextEditingController();
+
+  final GlobalKey formKey = GlobalKey();
+
+  static io.File? file;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: appBar(title, context),
+      appBar: appBar(widget.title, context),
       body: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -36,7 +51,7 @@ class SponsorshipForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   PText(
-                    "Name of Authority",
+                    "Name of student / Faculty",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
@@ -44,27 +59,33 @@ class SponsorshipForm extends StatelessWidget {
                   CreateMouField(
                       hintText: "Enter the name",
                       textInputType: TextInputType.multiline,
-                      textEditingController: nameController),
+                      textEditingController: divisionController),
                   PText(
-                    "Designation",
+                    "Details of sponsorship",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
-                  CreateMouField(
-                      hintText: "Enter the Designation",
-                      textInputType: TextInputType.text,
-                      textEditingController: designationController),
+                  CreateDropDown(
+                      dropDownItems: const [
+                        'Event-related',
+                        'Advertising',
+                        'Organizing'
+                      ],
+                      hintText: "Select",
+                      dropDownStyle: dropDownDecoration(),
+                      dropDownController: statusController),
                   PText(
-                    "Company",
+                    "Changes suggested",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
-                  CreateMouField(
-                      hintText: "Enter company name",
-                      textInputType: TextInputType.text,
-                      textEditingController: companyController),
+                  Padding(
+                    padding: EdgeInsets.all(screenWidth * 0.05),
+                    child: fileName(file),
+                  ),
+                  chooseFileButton(context, pickFile),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
@@ -72,18 +93,17 @@ class SponsorshipForm extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         await DataBaseService().uploadEngagementData(
-                            mouId: mouId,
-                            activityName: 'advisory boards',
+                            mouId: widget.mouId,
+                            activityName: 'sponsorships',
                             data: {
-                              'name': nameController.text,
-                              'designation': designationController.text,
-                              'company': companyController.text
+                              'name': divisionController.text,
+                              'details': statusController.text,
                             });
                         await DataBaseService().updateEngagementList(
-                          mouId: mouId,
-                          activityName: 'advisory boards',
+                          mouId: widget.mouId,
+                          activityName: 'sponsorship',
                           activityDesc:
-                              'Industry Advisory boards setted up for the company',
+                              'Information about sponsorship agreements',
                         );
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
@@ -95,15 +115,23 @@ class SponsorshipForm extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // selectDueDate(context),
                 ],
               ),
             ),
           )),
     );
   }
-}
 
-Future pickFile() async {
-  return;
+  Future pickFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if (result == null) {
+      print("result null");
+      return;
+    } else {
+      final filepath = result.files.single.path!;
+      setState(() {
+        file = io.File(filepath);
+      });
+    }
+  }
 }

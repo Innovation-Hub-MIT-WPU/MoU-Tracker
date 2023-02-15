@@ -78,9 +78,9 @@ class AddActivity extends StatelessWidget {
                         formPage = CirriculumDesignForm(mouId: mouId);
                       } else if (newRoute == '/lab equipment') {
                         formPage = LabEquipForm(mouId: mouId);
-                      } else if (newRoute == '/center of execellence') {
+                      } else if (newRoute == '/center of excellence') {
                         formPage = CenterForm(mouId: mouId);
-                      } else if (newRoute == '/sponorships') {
+                      } else if (newRoute == '/sponsorships') {
                         formPage = SponsorshipForm(mouId: mouId);
                       } else if (newRoute == '/consultancy projects') {
                         formPage = ProjectsForm(mouId: mouId);

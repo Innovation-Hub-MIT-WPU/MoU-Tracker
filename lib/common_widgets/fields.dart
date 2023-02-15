@@ -59,7 +59,7 @@ class CreateMouField extends StatelessWidget {
   }
 }
 
-Padding selectDueDate(BuildContext context) {
+Padding selectDueDate(BuildContext context, DateTime selectedDate) {
   return Padding(
     padding: EdgeInsets.symmetric(
         vertical: MediaQuery.of(context).size.height * 0.02),
@@ -86,8 +86,7 @@ Padding selectDueDate(BuildContext context) {
         mode: CupertinoDatePickerMode.date,
         initialDateTime: DateTime.now(),
         onDateTimeChanged: (DateTime newDateTime) {
-          var selectedDate = newDateTime;
-          print(selectedDate);
+          selectedDate = newDateTime;
         },
       ),
     ),

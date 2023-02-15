@@ -13,9 +13,12 @@ class GuestSessionForm extends StatelessWidget {
   GuestSessionForm(
       {this.title = "Engagement activity", super.key, required this.mouId});
 
-  TextEditingController nameController = TextEditingController();
-  TextEditingController designationController = TextEditingController();
-  TextEditingController companyController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
+  final TextEditingController divisionController = TextEditingController();
+
+  final TextEditingController schoolController = TextEditingController();
+
+  final TextEditingController dateController = TextEditingController();
   GlobalKey formKey = GlobalKey();
 
   @override
@@ -36,35 +39,32 @@ class GuestSessionForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   PText(
-                    "Name of Authority",
+                    "Division",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
                   CreateMouField(
-                      hintText: "Enter the name",
+                      hintText: "Enter the division",
                       textInputType: TextInputType.multiline,
-                      textEditingController: nameController),
+                      textEditingController: divisionController),
                   PText(
-                    "Designation",
+                    "School",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
                   CreateMouField(
-                      hintText: "Enter the Designation",
+                      hintText: "Enter the School name",
                       textInputType: TextInputType.text,
-                      textEditingController: designationController),
+                      textEditingController: schoolController),
                   PText(
-                    "Company",
+                    "Date(s)",
                     style: GoogleFonts.figtree(
                         fontSize: screenWidth * 0.040,
                         fontWeight: FontWeight.bold),
                   ),
-                  CreateMouField(
-                      hintText: "Enter company name",
-                      textInputType: TextInputType.text,
-                      textEditingController: companyController),
+                  selectDueDate(context, selectedDate),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
@@ -73,17 +73,17 @@ class GuestSessionForm extends StatelessWidget {
                       onPressed: () async {
                         await DataBaseService().uploadEngagementData(
                             mouId: mouId,
-                            activityName: 'advisory boards',
+                            activityName: 'guest sessions',
                             data: {
-                              'name': nameController.text,
-                              'designation': designationController.text,
-                              'company': companyController.text
+                              'division': divisionController.text,
+                              'school': schoolController.text,
+                              'date': selectedDate
                             });
                         await DataBaseService().updateEngagementList(
                           mouId: mouId,
-                          activityName: 'advisory boards',
+                          activityName: 'guest sessions',
                           activityDesc:
-                              'Industry Advisory boards setted up for the company',
+                              'Record of Scheduled / conducted guest sessions & seminars',
                         );
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
@@ -95,15 +95,10 @@ class GuestSessionForm extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // selectDueDate(context),
                 ],
               ),
             ),
           )),
     );
   }
-}
-
-Future pickFile() async {
-  return;
 }
