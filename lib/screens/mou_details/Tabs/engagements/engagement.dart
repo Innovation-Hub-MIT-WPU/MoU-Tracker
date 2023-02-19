@@ -121,7 +121,8 @@ TextButton _buildViewButton(BuildContext context, String mouId,
   return TextButton(
     onPressed: () {
       showModalBottomSheet(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
         useRootNavigator: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
