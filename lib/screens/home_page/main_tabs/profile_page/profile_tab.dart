@@ -151,7 +151,7 @@ class ProfileTabState extends State<ProfileTab> {
         imageFile == null
             ? ProfilePicture(
                 name: name,
-                role: position,
+                // role: position,
                 radius: 80,
                 fontsize: 28,
                 tooltip: true,

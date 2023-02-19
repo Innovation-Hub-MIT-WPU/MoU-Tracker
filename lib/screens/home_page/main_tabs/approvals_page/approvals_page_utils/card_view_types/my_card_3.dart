@@ -62,14 +62,17 @@ class _MyCard3State extends State<MyCard3> {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
-          backgroundColor: Colors.white, 
+          backgroundColor: Colors.transparent, 
+          // Colors.white, 
+          isScrollControlled: true,
+          // anchorPoint: const Offset(0.5, 0.9),
           // const Color(0xff2D376E),
           useRootNavigator: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(screenWidth * 0.08),
-                topRight: Radius.circular(screenWidth * 0.08)),
-          ),
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.only(
+          //       topLeft: Radius.circular(screenWidth * 0.08),
+          //       topRight: Radius.circular(screenWidth * 0.08)),
+          // ),
           context: context,
           builder: (context) => BuildBottomSheet(index: widget.index, mou: mou),
         );

@@ -1,5 +1,4 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
-import 'package:MouTracker/common_utils/drop_down.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -186,7 +185,7 @@ class _SignUpState extends State<SignUp> {
 
     UserModel userModel = UserModel();
     String positions = "";
-    for (String i in selectedList) positions += i + " ";
+    for (String i in selectedList) {positions += "$i ";}
     //writing all the values
     userModel.email = user!.email;
     userModel.lastName = lastNameController.text;
