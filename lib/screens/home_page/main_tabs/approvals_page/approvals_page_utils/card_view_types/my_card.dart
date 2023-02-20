@@ -136,12 +136,13 @@ class _MyCardState extends State<MyCard> {
                         ),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.1,
+                        width: screenWidth * 0.4,
                         child: PText(
                           mou.companyName,
                           softWrap: false,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.right,
                           style:
                               GoogleFonts.figtree(fontSize: screenWidth * 0.03),
                         ),

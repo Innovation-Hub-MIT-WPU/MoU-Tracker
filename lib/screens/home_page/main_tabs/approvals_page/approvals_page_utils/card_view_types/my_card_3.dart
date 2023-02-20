@@ -111,7 +111,7 @@ class _MyCard3State extends State<MyCard3> {
                   '${mou.docName}  ',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.04),
+                      fontSize: screenWidth * 0.038),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +127,7 @@ class _MyCard3State extends State<MyCard3> {
                         'Before ${mou.dueDate} ',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: screenWidth * 0.035,
+                          fontSize: screenWidth * 0.03,
                         ),
                       ),
                     ),
@@ -156,14 +156,14 @@ class _MyCard3State extends State<MyCard3> {
                   PText(
                     'STATUS : ',
                     style: TextStyle(
-                        fontSize: screenWidth * 0.035,
+                        fontSize: screenWidth * 0.03,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
                   PText(
                     !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
                     style: TextStyle(
-                        fontSize: screenWidth * 0.035, color: Colors.white),
+                        fontSize: screenWidth * 0.03, color: Colors.white),
                   ),
                 ],
               ),
