@@ -139,6 +139,20 @@ class _InfoTabState extends State<InfoTab> {
       // onTap: () async {
       //   await FirebaseApi.download(widget.mou.docName);
       // },
+      onTap: () async {
+        // this is to show the circular progress indicator
+        setState(() {
+          downloadChecker[widget.mou.docName] = -1;
+        });
+
+        // Download MOU's PDF for firebase storage, or open it if exists already.
+        await FirebaseApi.download(widget.mou.docName);
+
+        // this is to show the downloaded icon
+        setState(() {
+          downloadChecker[widget.mou.docName] = 1;
+        });
+      },
       trailing: (downloadChecker[widget.mou.docName] == 0)
           ? IconButton(
               onPressed: () async {

@@ -22,10 +22,14 @@ class _MouStatusTabState extends State<MouStatusTab> {
   late List<MOU> delayedMouList;
   String dropdownvalue = "Detailed";
 
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+  var refreshKey2 = GlobalKey<RefreshIndicatorState>();
+
   late TextEditingController searchQueryController;
   @override
   void initState() {
     searchQueryController = TextEditingController();
+    // refreshList();
     super.initState();
   }
 
@@ -33,6 +37,16 @@ class _MouStatusTabState extends State<MouStatusTab> {
   void dispose() {
     searchQueryController.dispose();
     super.dispose();
+  }
+
+  Future<void> refreshList() async {
+    refreshKey.currentState?.show(atTop: false);
+    refreshKey2.currentState?.show(atTop: false);
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      DataBaseService().getmouData();
+    });
   }
 
   @override
@@ -51,10 +65,11 @@ class _MouStatusTabState extends State<MouStatusTab> {
           return Stack(
             children: [
               TabBarView(
+                physics: const BouncingScrollPhysics(),
                 controller: widget.tabController,
                 children: [
-                  mouCards(onTrackMouList),
-                  mouCards(delayedMouList),
+                  mouCards(onTrackMouList, 1),
+                  mouCards(delayedMouList, 2),
                 ],
               ),
               searchBox(),
@@ -69,11 +84,42 @@ class _MouStatusTabState extends State<MouStatusTab> {
     );
   }
 
-  Widget mouCards(List<MOU> mouList) {
+  Widget mouCards(List<MOU> mouList, int flag) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: buildList(mouList, dropdownvalue),
-    );
+        body: RefreshIndicator(
+      displacement: screenWidth * 0.15,
+      edgeOffset: screenWidth * 0.1,
+      key: flag == 1 ? refreshKey : refreshKey2,
+      onRefresh: refreshList,
+      // () async {
+      //   await Future.delayed(const Duration(seconds: 1));
+      //   setState(() {});
+      // },
+
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenWidth * 0.2),
+        physics: const BouncingScrollPhysics(),
+        itemCount: mouList.length,
+        itemBuilder: (context, index) {
+          if (dropdownvalue == "Detailed") {
+            return MyCard(
+              index: index,
+              mou: mouList[index],
+              key: UniqueKey(),
+            );
+          } else {
+            return MyCard3(
+              index: index,
+              mou: mouList[index],
+              key: UniqueKey(),
+            );
+          }
+        },
+      ),
+    )
+        // buildList(mouList, dropdownvalue, refreshKey),
+        );
   }
 
   Widget searchBox() {
@@ -223,25 +269,34 @@ class _MouStatusTabState extends State<MouStatusTab> {
   }
 }
 
-Widget buildList(List<MOU> mouList, String type) {
-  return ListView.builder(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 55),
-    // physics: const PageScrollPhysics(),
-    itemCount: mouList.length,
-    itemBuilder: (context, index) {
-      if (type == "Detailed") {
-        return MyCard(
-          index: index,
-          mou: mouList[index],
-          key: UniqueKey(),
-        );
-      } else {
-        return MyCard3(
-          index: index,
-          mou: mouList[index],
-          key: UniqueKey(),
-        );
-      }
-    },
-  );
-}
+// Widget buildList(List<MOU> mouList, String type, GlobalKey<RefreshIndicatorState> refreshKey) {
+//   return RefreshIndicator(
+//     key: refreshKey,
+//     onRefresh: () async {
+//       await Future.delayed(const Duration(seconds: 1));
+//       setState(() {});
+//     },
+
+//     child: ListView.builder(
+  
+//       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 55),
+//       physics: const BouncingScrollPhysics(),
+//       itemCount: mouList.length,
+//       itemBuilder: (context, index) {
+//         if (type == "Detailed") {
+//           return MyCard(
+//             index: index,
+//             mou: mouList[index],
+//             key: UniqueKey(),
+//           );
+//         } else {
+//           return MyCard3(
+//             index: index,
+//             mou: mouList[index],
+//             key: UniqueKey(),
+//           );
+//         }
+//       },
+//     ),
+//   );
+// }

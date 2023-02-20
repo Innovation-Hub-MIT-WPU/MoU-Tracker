@@ -23,6 +23,8 @@ class NotificationsState extends State<Notifications>
   static List<NotificationsData> delayedlist = [];
   static late List<NotificationsData> allData;
 
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -39,6 +41,14 @@ class NotificationsState extends State<Notifications>
     super.dispose();
     _tabController.dispose();
     searchQueryController.dispose();
+  }
+
+  Future<void> refreshList() async {
+    refreshKey.currentState?.show(atTop: false);
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      DataBaseService().getNotifications();
+    });
   }
 
   @override
@@ -78,8 +88,18 @@ class NotificationsState extends State<Notifications>
                     ontracklist.sort(((a, b) => b.on.compareTo(a.on)));
                     delayedlist.sort(((a, b) => b.on.compareTo(a.on)));
                     return Expanded(
-                        child: tabview(_tabController, screenHeight,
-                            screenWidth, context));
+                        child: TabBarView(
+                      controller: _tabController,
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        // first tab bar view widget
+                        makeOnTrack(screenHeight, screenWidth, context),
+                        // second tab bar view widget
+                        makeDelayed(screenHeight, screenWidth, context),
+                      ],
+                    ));
+                    // tabview(_tabController, screenHeight,
+                    //     screenWidth, context));
                   } else if (snapshot.hasError) {
                     return Center(child: PText(snapshot.error.toString()));
                   } else {
@@ -183,4 +203,100 @@ class NotificationsState extends State<Notifications>
     }
     return res;
   }
+
+  Widget makeOnTrack(double height, double width, BuildContext context) =>
+      RefreshIndicator(
+        displacement: width * 0.15,
+        // edgeOffset: width * 0.1,
+        // key: flag == 1 ? refreshKey : refreshKey2,
+        onRefresh: () async {
+          await NotificationsState().refreshList();
+          setState(() {});
+        },
+        // NotificationsState().refreshList,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: NotificationsState.ontracklist.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(width * 0.05),
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.symmetric(
+                  horizontal: width / 30, vertical: height / 80),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: notiCardColor1.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: makeListTile(NotificationsState.ontracklist[index],
+                    height, width, context),
+              ),
+            );
+
+            // makeCard(
+            //     NotificationsState.ontracklist[index], height, width, context);
+          },
+        ),
+      );
+
+  Widget makeDelayed(double height, double width, BuildContext context) =>
+      RefreshIndicator(
+        displacement: width * 0.15,
+        // edgeOffset: width * 0.05,
+        // key: flag == 1 ? refreshKey : refreshKey2,
+        onRefresh: () async {
+          await NotificationsState().refreshList();
+          setState(() {});
+        },
+        // NotificationsState().refreshList,
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: NotificationsState.delayedlist.length,
+          itemBuilder: (BuildContext context, int index) {
+            return InkWell(
+              onTap: () {
+                // Navigator.pushNamed(context, Details.routeName);
+              },
+              child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(width * 0.05),
+                boxShadow: [
+                  BoxShadow(
+                    color: black.withOpacity(0.1),
+                    spreadRadius: 2,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.symmetric(
+                  horizontal: width / 30, vertical: height / 80),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: notiCardColor1.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: makeListTile(NotificationsState.delayedlist[index],
+                    height, width, context),
+              ),
+            )
+              // makeCard(NotificationsState.delayedlist[index], height,
+              //     width, context),
+            );
+          },
+        ),
+      );
 }

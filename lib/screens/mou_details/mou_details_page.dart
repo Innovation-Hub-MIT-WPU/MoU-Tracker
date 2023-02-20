@@ -30,7 +30,8 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
   int _tabIndex = 0;
   List colors = [
     kTabBarGreen,
-    kTabBarYellow,
+    Colors.amber,
+    // kTabBarYellow,
     kTabBarBlue,
   ]; // Each Tab bar has a different color when selected
 
@@ -97,7 +98,7 @@ class _DetailsState extends State<Details> with SingleTickerProviderStateMixin {
                         physics: const NeverScrollableScrollPhysics(),
                         labelPadding: const EdgeInsets.all(1),
                         controller: _tabController,
-                        isScrollable: false,
+                        // isScrollable: false,
                         unselectedLabelColor: Colors.grey,
                         indicator:
                             const BoxDecoration(), // Keep empty, This Tab bar doesnt have indicator

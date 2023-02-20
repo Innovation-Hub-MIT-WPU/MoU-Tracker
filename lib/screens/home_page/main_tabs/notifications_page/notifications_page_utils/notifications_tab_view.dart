@@ -9,74 +9,47 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../models/notifications_data.dart';
 
-Widget tabview(TabController tabController, double height, double width,
-    BuildContext context) {
-  return TabBarView(
-    controller: tabController,
-    children: [
-      // first tab bar view widget
-      makeOnTrack(height, width, context),
-      // second tab bar view widget
-      makeDelayed(height, width, context),
-    ],
-  );
-}
+// Widget tabview(TabController tabController, double height, double width,
+//     BuildContext context) {
+//   return TabBarView(
+//     controller: tabController,
+//     physics: const BouncingScrollPhysics(),
+//     children: [
+//       // first tab bar view widget
+//       makeOnTrack(height, width, context),
+//       // second tab bar view widget
+//       makeDelayed(height, width, context),
+//     ],
+//   );
+// }
 
-Widget makeOnTrack(double height, double width, BuildContext context) =>
-    Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: NotificationsState.ontracklist.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(
-              NotificationsState.ontracklist[index], height, width, context);
-        },
-      ),
-    );
 
-Widget makeDelayed(double height, double width, BuildContext context) =>
-    Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: NotificationsState.delayedlist.length,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-              onTap: () {
-                // Navigator.pushNamed(context, Details.routeName);
-              },
-              child: makeCard(NotificationsState.delayedlist[index], height,
-                  width, context));
-        },
-      ),
-    );
 
 // Container makeCard(onTrack onTrack, double height, double width) => Container(
-Container makeCard(NotificationsData onTrack, double height, double width,
-        BuildContext context) =>
-    Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(width * 0.05),
-        boxShadow: [
-          BoxShadow(
-            color: black.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      margin:
-          EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 80),
-      child: Container(
-        decoration: BoxDecoration(
-          color: notiCardColor1.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: makeListTile(onTrack, height, width, context),
-      ),
-    );
+// Container makeCard(NotificationsData onTrack, double height, double width,
+//         BuildContext context) =>
+//     Container(
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(width * 0.05),
+//         boxShadow: [
+//           BoxShadow(
+//             color: black.withOpacity(0.1),
+//             spreadRadius: 2,
+//             blurRadius: 7,
+//             offset: const Offset(0, 3),
+//           ),
+//         ],
+//       ),
+//       margin:
+//           EdgeInsets.symmetric(horizontal: width / 30, vertical: height / 80),
+//       child: Container(
+//         decoration: BoxDecoration(
+//           color: notiCardColor1.withOpacity(0.2),
+//           borderRadius: BorderRadius.circular(15),
+//         ),
+//         child: makeListTile(onTrack, height, width, context),
+//       ),
+//     );
 
 // Column makeListTile(onTrack onTrack, double height, double width) =>
 
@@ -130,7 +103,7 @@ Widget makeListTile(NotificationsData onTrack, double height, double width,
                         color: kBgClr2.withOpacity(0.7)),
                   )),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: notiCardColor2,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15),
@@ -224,7 +197,7 @@ Widget Leading(
             ]),
         child: Padding(
           padding: EdgeInsets.all(width / 45),
-          child: Icon(
+          child: const Icon(
             color: kBgClr2,
             Icons.notifications,
           ),
