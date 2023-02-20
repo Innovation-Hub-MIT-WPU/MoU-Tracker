@@ -185,10 +185,27 @@ class _TrackTabState extends State<TrackTab> {
           widget.mou.mouId,
           _userPos);
       // setState(() => _currentStep += 1);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MOUApproved()),
-      );
+      showGeneralDialog(
+          context: context,
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return AlertDialog(
+              title: const PText("Success"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+
+                      setState(() {});
+                    },
+                    child: const PText("Close")),
+              ],
+              content: const PText("MoU Approved!"),
+            );
+          }));
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const MOUApproved()),
+      // );
     } else {
       print("You can't approve this MOU");
     }
