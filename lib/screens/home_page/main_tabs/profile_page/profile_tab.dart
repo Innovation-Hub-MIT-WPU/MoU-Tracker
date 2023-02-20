@@ -11,6 +11,9 @@ import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/services/Firebase/fireauth/fireauth.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +36,9 @@ class ProfileTabState extends State<ProfileTab> {
   static final ImagePicker picker = ImagePicker();
   static late TextEditingController _nameController;
   static var myKey = GlobalKey<FormState>();
+  String imageUrl = "";
   Future<UserModel> getUserData = DataBaseService().getuserData();
+  String user = FireAuth().getCurrentUser()!.uid;
   @override
   void initState() {
     super.initState();
@@ -56,20 +61,28 @@ class ProfileTabState extends State<ProfileTab> {
           name = "${userData.firstName} ${userData.lastName}";
           position = userData.designation!;
           email = userData.email!;
+          imageUrl = userData.profileImage!;
           return profilePage();
         } else if (snapshot.hasError) {
-          return TextButton(
-              //need to connect
-              onPressed: () async {
-                FireAuth().logOut();
-                NotificationService().deteleToken();
-                Navigator.of(context, rootNavigator: true)
-                    .popAndPushNamed('/login_signup');
-              },
-              child: PText(
-                "LOGOUT",
-                style: GoogleFonts.figtree(),
-              ));
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Error"),
+              Text("${snapshot.error}"),
+              TextButton(
+                  //need to connect
+                  onPressed: () async {
+                    FireAuth().logOut();
+                    NotificationService().deteleToken();
+                    Navigator.of(context, rootNavigator: true)
+                        .popAndPushNamed('/login_signup');
+                  },
+                  child: PText(
+                    "LOGOUT",
+                    style: GoogleFonts.figtree(),
+                  )),
+            ],
+          );
         } else {
           return Loading();
         }
@@ -167,16 +180,28 @@ class ProfileTabState extends State<ProfileTab> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
-        imageFile == null
+        imageFile == null && imageUrl == ""
             ? ProfilePicture(
                 name: name,
                 // role: position,
                 radius: 80,
                 fontsize: 28,
                 tooltip: true,
+                // img: imageUrl,
                 // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
               )
-            : CircleAvatar(
+            : imageUrl != ""
+                ? ProfilePicture(
+                    name: name,
+                    // role: position,
+                    radius: 80,
+                    fontsize: 28,
+                    tooltip: true,
+                    img: imageUrl,
+                    // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
+                  )
+                :
+             CircleAvatar(
                 //keep updating the image in firebase database
                 backgroundImage:
                     FileImage(File(imageFile.path)) as ImageProvider,
@@ -311,8 +336,22 @@ class ProfileTabState extends State<ProfileTab> {
 
   void takePhoto(ImageSource source) async {
     final pickedFile = await picker.getImage(source: source);
-    setState(() {
+    try {
+      final refer = FirebaseStorage.instance.ref("Profile/$name");
+      refer.putFile(File(pickedFile!.path));
+      final url = await refer.getDownloadURL();
+      User? user = FirebaseAuth.instance.currentUser;
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(user?.uid)
+          .update({"profile-picture": url});
+          setState(() {
       imageFile = pickedFile;
+      imageUrl = url;
     });
+    } on FirebaseException catch (e) {
+      print(e);
+    }
+    
   }
 }

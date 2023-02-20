@@ -3,6 +3,7 @@ class UserModel {
   String? firstName;
   String? lastName;
   String? designation;
+  String? profileImage;
   int? pos;
   List? positions;
   UserModel(
@@ -10,6 +11,7 @@ class UserModel {
       this.firstName,
       this.lastName,
       this.designation,
+      this.profileImage,
       this.pos,
       this.positions});
 
@@ -18,6 +20,7 @@ class UserModel {
     return UserModel(
         pos: map['pos'],
         email: map['email'],
+        profileImage: map['profile-picture'],
         lastName: map['lastName'],
         firstName: map['firstName'],
         positions: map['positions'] as List,
@@ -31,6 +34,7 @@ class UserModel {
       'email': email,
       'lastName': lastName,
       'firstName': firstName,
+      'profileImage': profileImage ?? "abc",
       'designation': designation,
       'positions': positions
     };
