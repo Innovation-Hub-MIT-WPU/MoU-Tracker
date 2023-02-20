@@ -57,6 +57,19 @@ class ProfileTabState extends State<ProfileTab> {
           position = userData.designation!;
           email = userData.email!;
           return profilePage();
+        } else if (snapshot.hasError) {
+          return TextButton(
+              //need to connect
+              onPressed: () async {
+                FireAuth().logOut();
+                NotificationService().deteleToken();
+                Navigator.of(context, rootNavigator: true)
+                    .popAndPushNamed('/login_signup');
+              },
+              child: PText(
+                "LOGOUT",
+                style: GoogleFonts.figtree(),
+              ));
         } else {
           return Loading();
         }
@@ -111,7 +124,13 @@ class ProfileTabState extends State<ProfileTab> {
                       0, MediaQuery.of(context).size.height * 0.07, 0, 0),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: TextButton(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: const Color(0XFFCD364E),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                         //need to connect
                         onPressed: () async {
                           FireAuth().logOut();
