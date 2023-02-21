@@ -16,9 +16,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../../../common_utils/drop_down.dart';
+import '../../new_nav_bar.dart';
+import '/common_utils/utils.dart';
 
 class ProfileTab extends StatefulWidget {
   final PersistentTabController controller;
@@ -33,8 +37,10 @@ class ProfileTabState extends State<ProfileTab> {
   String name = "";
   String position = "";
   String email = "";
+  String positionNum = "";
   static final ImagePicker picker = ImagePicker();
-  static late TextEditingController _nameController;
+  // static late TextEditingController _nameController;
+  static late TextEditingController designationController;
   static var myKey = GlobalKey<FormState>();
   String imageUrl = "";
   Future<UserModel> getUserData = DataBaseService().getuserData();
@@ -42,17 +48,21 @@ class ProfileTabState extends State<ProfileTab> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController();
+    // _nameController = TextEditingController();
+    designationController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
+    // _nameController.dispose();
+    designationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return FutureBuilder(
       future: getUserData,
       builder: ((context, snapshot) {
@@ -62,6 +72,7 @@ class ProfileTabState extends State<ProfileTab> {
           position = userData.designation!;
           email = userData.email!;
           imageUrl = userData.profileImage!;
+          positionNum = userData.pos.toString();
           return profilePage();
         } else if (snapshot.hasError) {
           return Column(
@@ -73,7 +84,6 @@ class ProfileTabState extends State<ProfileTab> {
                   //need to connect
                   onPressed: () async {
                     FireAuth().logOut();
-                    NotificationService().deteleToken();
                     Navigator.of(context, rootNavigator: true)
                         .popAndPushNamed('/login_signup');
                   },
@@ -119,15 +129,15 @@ class ProfileTabState extends State<ProfileTab> {
                     child: TextButton.icon(
                         onPressed: () async {
                           final Name = await openDialog();
-                          if (Name != null || Name!.isNotEmpty) {
-                            setState(() {
-                              name = Name;
-                            });
-                          }
+                          // if (Name != null || Name!.isNotEmpty) {
+                          //   setState(() {
+                          //     name = Name;
+                          //   });
+                          // }
                         },
                         icon: Icon(Icons.edit),
                         label: PText(
-                          "Edit",
+                          "Change Designation",
                           style: GoogleFonts.figtree(),
                         )),
                   ),
@@ -147,7 +157,7 @@ class ProfileTabState extends State<ProfileTab> {
                         //need to connect
                         onPressed: () async {
                           FireAuth().logOut();
-                          NotificationService().deteleToken();
+                          NotificationService().deteleToken(positionNum);
                           Navigator.of(context, rootNavigator: true)
                               .popAndPushNamed('/login_signup');
                         },
@@ -200,13 +210,12 @@ class ProfileTabState extends State<ProfileTab> {
                     img: imageUrl,
                     // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
                   )
-                :
-             CircleAvatar(
-                //keep updating the image in firebase database
-                backgroundImage:
-                    FileImage(File(imageFile.path)) as ImageProvider,
-                radius: 90,
-              ),
+                : CircleAvatar(
+                    //keep updating the image in firebase database
+                    backgroundImage:
+                        FileImage(File(imageFile.path)) as ImageProvider,
+                    radius: 90,
+                  ),
         ClipOval(
           child: Container(
             padding: EdgeInsets.all(3),
@@ -261,27 +270,51 @@ class ProfileTabState extends State<ProfileTab> {
   Future<String?> openDialog() => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
-          title: PText("Enter your name"),
+          title: PText("Select new Designation"),
           content: Form(
             key: myKey,
-            child: TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(hintText: "Enter your name"),
-              validator: (value) {
-                if (value!.isEmpty ||
-                    value.contains(RegExp(r'[A-Z]', caseSensitive: false)) ==
-                        false) {
-                  return "Please enter a valid name";
-                }
-                return null;
-              },
+            child:
+                // TextFormField(
+                //   controller: _nameController,
+                //   decoration: InputDecoration(hintText: "Enter your name"),
+                //   validator: (value) {
+                //     if (value!.isEmpty ||
+                //         value.contains(RegExp(r'[A-Z]', caseSensitive: false)) ==
+                //             false) {
+                //       return "Please enter a valid name";
+                //     }
+                //     return null;
+                //   },
+                // ),
+
+                Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: FormAndDropDown(
+                dropDownController: designationController,
+                dropDownItem: "Initiator",
+                screenHeight: MediaQuery.of(context).size.height * 0.5,
+                screenWidth: MediaQuery.of(context).size.width * 0.5,
+              ),
             ),
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                if (myKey.currentState?.validate() == true)
-                  Navigator.of(context).pop(_nameController.text);
+              onPressed: () async {
+                if (myKey.currentState?.validate() == true) {
+                  if (await checkPos(user)) {
+                    NotificationService().deteleToken(positionNum);
+                    DataBaseService().updateDesignation(
+                        userId: user,
+                        pos: designations.indexOf(designationController.text));
+
+                    Fluttertoast.showToast(msg: "designation changed");
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => NewHomePage()));
+                  } else {
+                    Navigator.of(context).pop();
+                    Fluttertoast.showToast(msg: "choose valid designation");
+                  }
+                }
               },
               child: PText("Done"),
             )
@@ -345,13 +378,29 @@ class ProfileTabState extends State<ProfileTab> {
           .collection("users")
           .doc(user?.uid)
           .update({"profile-picture": url});
-          setState(() {
-      imageFile = pickedFile;
-      imageUrl = url;
-    });
+      setState(() {
+        imageFile = pickedFile;
+        imageUrl = url;
+      });
     } on FirebaseException catch (e) {
       print(e);
     }
-    
+  }
+
+  Future<bool> checkPos(String uid) async {
+    bool check = false;
+    final CollectionReference users =
+        FirebaseFirestore.instance.collection('users');
+    var snap = await users.doc(uid).get();
+    try {
+      UserModel getUserData = UserModel.fromMap(snap);
+      List positions = getUserData.positions!;
+      check = positions.contains(designationController.text.trim());
+      print("check ${getUserData.positions}");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "database error");
+    }
+
+    return check;
   }
 }

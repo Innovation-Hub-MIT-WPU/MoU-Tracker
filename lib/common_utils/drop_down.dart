@@ -125,10 +125,11 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
         const SizedBox(height: kFormSpacing / 2),
         Container(
           decoration: const BoxDecoration(
+              color: Colors.grey,
               //border: Border.all(color: Colors.white, width: 1),
-              borderRadius: BorderRadius.all( Radius.circular(4))),
+              borderRadius: BorderRadius.all(Radius.circular(4))),
           child: DropdownButtonFormField(
-            dropdownColor: Colors.black,
+              dropdownColor: Colors.grey,
               hint: PText(
                 "Select a designation",
                 style:

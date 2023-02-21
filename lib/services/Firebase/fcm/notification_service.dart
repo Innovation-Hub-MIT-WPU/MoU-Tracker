@@ -45,14 +45,15 @@ class NotificationService {
         .update({"tokens": FieldValue.arrayUnion(list)});
   }
 
-  void deteleToken() async {
+  void deteleToken(String pos) async {
     var token = await messaging.getToken();
     print("delete token : $token");
-    UserModel model = await DataBaseService().getuserData();
     var list = [token];
+    print("token deleted $list from ${pos}");
+
     await FirebaseFirestore.instance
         .collection('deviceTokens')
-        .doc(model.pos.toString())
+        .doc(pos)
         .update({"tokens": FieldValue.arrayRemove(list)});
   }
 
