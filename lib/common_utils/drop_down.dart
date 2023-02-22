@@ -93,9 +93,11 @@ class FormAndDropDown extends StatefulWidget {
   String? dropDownItem;
   TextEditingController dropDownController;
   double screenHeight, screenWidth;
+  List<String> positionsList;
   FormAndDropDown(
       {Key? key,
       required this.dropDownController,
+      required this.positionsList,
       required this.dropDownItem,
       required this.screenHeight,
       required this.screenWidth})
@@ -137,7 +139,7 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
               ),
               value: widget.dropDownItem,
               selectedItemBuilder: (_) {
-                return designations
+                return widget.positionsList
                     .map((e) => Container(
                         child: PText(e,
                             textAlign: TextAlign.start,
@@ -148,7 +150,8 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
                     .toList();
               },
               isExpanded: true,
-              items: designations.map(buildMenuItem).toList(),
+              items: widget.positionsList.map(buildMenuItem).toList(),
+              // items: designations.map(buildMenuItem).toList(),
               onChanged: (value) {
                 setState(() {
                   widget.dropDownController.text = value.toString();

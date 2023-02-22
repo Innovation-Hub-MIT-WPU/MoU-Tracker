@@ -38,6 +38,7 @@ class ProfileTabState extends State<ProfileTab> {
   String position = "";
   String email = "";
   String positionNum = "";
+  List<String> positionsList = [];
   static final ImagePicker picker = ImagePicker();
   // static late TextEditingController _nameController;
   static late TextEditingController designationController;
@@ -73,6 +74,10 @@ class ProfileTabState extends State<ProfileTab> {
           email = userData.email!;
           imageUrl = userData.profileImage!;
           positionNum = userData.pos.toString();
+          positionsList = [];
+          for (String position in userData.positions!) {
+            positionsList.add(position);
+          }
           return profilePage();
         } else if (snapshot.hasError) {
           return Column(
@@ -288,10 +293,13 @@ class ProfileTabState extends State<ProfileTab> {
                 // ),
 
                 Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.05),
               height: MediaQuery.of(context).size.height * 0.4,
               child: FormAndDropDown(
+                positionsList: positionsList,
                 dropDownController: designationController,
-                dropDownItem: "Initiator",
+                dropDownItem: position,
                 screenHeight: MediaQuery.of(context).size.height * 0.5,
                 screenWidth: MediaQuery.of(context).size.width * 0.5,
               ),
@@ -312,7 +320,8 @@ class ProfileTabState extends State<ProfileTab> {
                         MaterialPageRoute(builder: (context) => NewHomePage()));
                   } else {
                     Navigator.of(context).pop();
-                    Fluttertoast.showToast(msg: "choose valid designation");
+                    Fluttertoast.showToast(
+                        msg: "something went wrong try again later!");
                   }
                 }
               },
