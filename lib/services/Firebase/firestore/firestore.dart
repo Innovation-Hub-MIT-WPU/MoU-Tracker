@@ -104,6 +104,17 @@ class DataBaseService {
     return activity.id;
   }
 
+  Future<String> uploadEngagementsWithSubcollectionData(
+      {required String activityName,
+      required String year,
+      required String mouId,
+      required Map<String, dynamic> data}) async {
+    CollectionReference activity =
+        db.collection(activityName).doc(mouId).collection(year);
+    await activity.add(data);
+    return activity.id;
+  }
+
   Future<Map> getEngagementData(
       {required String collId, required String docId}) async {
     var querySnap = await db.collection(collId).doc(docId).get();

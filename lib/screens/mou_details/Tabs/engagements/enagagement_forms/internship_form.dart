@@ -1,8 +1,10 @@
 import 'package:MouTracker/common_utils/upload_file.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +15,8 @@ import 'dart:io' as io;
 class InternshipForm extends StatefulWidget {
   final String title;
   final String mouId;
-  const InternshipForm({this.title = "Engagement activity", super.key, required this.mouId});
+  const InternshipForm(
+      {this.title = "Engagement activity", super.key, required this.mouId});
 
   static io.File? file;
 
@@ -35,7 +38,7 @@ class _InternshipFormState extends State<InternshipForm> {
   static io.File? file;
   static UploadTask? task;
 
-  GlobalKey formKey = GlobalKey();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +96,37 @@ class _InternshipFormState extends State<InternshipForm> {
                         horizontal: screenWidth * 0.05,
                         vertical: screenWidth * 0.05),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        }
+                        formKey.currentState!.save();
+
+                        try {
+                          await DataBaseService()
+                              .uploadEngagementsWithSubcollectionData(
+                                  year: yearController.text,
+                                  mouId: widget.mouId,
+                                  activityName: 'internships',
+                                  data: {
+                                'year': yearController.text,
+                                'division': divisionController.text,
+                                'school': schoolController.text,
+                                'doc-name': docController.text,
+                              });
+
+                          await DataBaseService().updateEngagementList(
+                              mouId: widget.mouId,
+                              activityName: 'internships',
+                              activityDesc: 'Details of yearwise internships');
+                        } catch (err) {
+                          print("Error occurred - $err");
+                        }
+
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacement(MaterialPageRoute(
+                                builder: (_) => const NewHomePage()));
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         child: const PText("Submit"),

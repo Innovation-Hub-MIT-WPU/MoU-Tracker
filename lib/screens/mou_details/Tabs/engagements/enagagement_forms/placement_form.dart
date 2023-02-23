@@ -109,24 +109,26 @@ class _PlacementFormState extends State<PlacementForm> {
                         }
                         formKey.currentState!.save();
 
-                        // try {
-                        //   await DataBaseService().uploadEngagementData(
-                        //       mouId: widget.mouId,
-                        //       activityName: 'placements',
-                        //       data: {
-                        //         'year': yearController.text,
-                        //         'division': divisionController.text,
-                        //         'school': schoolController.text,
-                        //         'doc-name': docController.text,
-                        //       });
+                        try {
+                          await DataBaseService()
+                              .uploadEngagementsWithSubcollectionData(
+                                  year: yearController.text,
+                                  mouId: widget.mouId,
+                                  activityName: 'placements',
+                                  data: {
+                                'year': yearController.text,
+                                'division': divisionController.text,
+                                'school': schoolController.text,
+                                'doc-name': docController.text,
+                              });
 
-                        //   await DataBaseService().updateEngagementList(
-                        //       mouId: widget.mouId,
-                        //       activityName: 'placements',
-                        //       activityDesc: 'Details of yearwise placements');
-                        // } catch (err) {
-                        //   print("Error occurred - $err");
-                        // }
+                          await DataBaseService().updateEngagementList(
+                              mouId: widget.mouId,
+                              activityName: 'placements',
+                              activityDesc: 'Details of yearwise placements');
+                        } catch (err) {
+                          print("Error occurred - $err");
+                        }
 
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
