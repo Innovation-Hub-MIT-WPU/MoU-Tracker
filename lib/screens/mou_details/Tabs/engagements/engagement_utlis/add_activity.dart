@@ -67,11 +67,11 @@ class AddActivity extends StatelessWidget {
 
                       Widget? formPage;
                       if (newRoute == '/placement') {
-                        formPage =  PlacementForm(mouId: mouId);
+                        formPage = PlacementForm(mouId: mouId);
                       } else if (newRoute == '/internship') {
                         formPage = InternshipForm(mouId: mouId);
                       } else if (newRoute == '/faculty internship') {
-                        formPage = FacultyInternForm();
+                        formPage = FacultyInternForm(mouId: mouId);
                       } else if (newRoute == '/advisory boards') {
                         formPage = AdvisoryBoardsForm(mouId: mouId);
                       } else if (newRoute == '/curriculum design') {
