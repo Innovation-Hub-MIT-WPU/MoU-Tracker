@@ -124,11 +124,12 @@ class _NewHomePageState extends State<NewHomePage> {
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
+        curve: Curves.easeInBack,
       ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
+      screenTransitionAnimation: 
+      const ScreenTransitionAnimation(
         animateTabTransition: true,
-        curve: Curves.ease,
+        curve: Curves.easeInOut,
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style8,
