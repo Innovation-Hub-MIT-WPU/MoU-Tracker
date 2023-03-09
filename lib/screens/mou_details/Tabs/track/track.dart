@@ -194,9 +194,9 @@ class _TrackTabState extends State<TrackTab> {
   }
 
   continued() async {
-    if (_currentStep == 6 && _userPos == 7) {
-      await DataBaseService()
-          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
+    if (_currentStep == 6 && _userPos == 6) {
+      await DataBaseService().updateApprovalLvl(
+          mouId: widget.mou.mouId, appLvl: widget.mou.appLvl + 1);
       DataBaseService().addNotification(
           mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",

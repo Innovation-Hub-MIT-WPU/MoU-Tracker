@@ -218,7 +218,7 @@ class _MyCardState extends State<MyCard> {
                         PText(
                           mou.appLvl == widget.userPos
                               ? 'IN FOR APPROVAL'
-                              : 'APPROVED BY YOU',
+                              : 'APPROVED',
                           style: GoogleFonts.figtree(
                               fontSize: screenWidth * 0.03,
                               color: Colors.white),

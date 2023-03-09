@@ -165,7 +165,7 @@ class _MyCard3State extends State<MyCard3> {
                   PText(
                     mou.appLvl == widget.userPos
                         ? 'IN FOR APPROVAL'
-                        : 'APPROVED BY YOU',
+                        : 'APPROVED',
                     style: TextStyle(
                         fontSize: screenWidth * 0.03, color: Colors.white),
                   ),
