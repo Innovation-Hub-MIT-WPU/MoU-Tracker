@@ -407,7 +407,7 @@ class CreateFormState extends State<CreateForm> {
         isApproved: false,
       );
       // If text field uploading is successful, Move to File uploading
-      FirebaseApi.fileUpload(docName, file, task);
+      FirebaseApi.fileUpload(docName, file);
       db.addNotification(
           mouId: mouId.toString(),
           body: "$docName was created by $authName",
@@ -417,7 +417,7 @@ class CreateFormState extends State<CreateForm> {
           due: dueDate,
           on: DateTime.now());
       ns.sendPushMessage("$docName was created by $authName", "Mou Created!!",
-          mouId.toString(), 5);
+          mouId.toString(), 6);
       showDialog(
           barrierDismissible: false,
           context: context,

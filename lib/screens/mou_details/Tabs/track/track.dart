@@ -8,6 +8,8 @@ import 'package:MouTracker/services/Firebase/fcm/notification_service.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/track/mou_card.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/track/completion.dart';
 
+import '../../../home_page/new_nav_bar.dart';
+
 /// Issues
 /*
     Approval Level takes time to update need to play an animation until the database is updated.
@@ -26,17 +28,23 @@ class _TrackTabState extends State<TrackTab> {
     return MediaQuery.of(context).size;
   }
 
-  Future<UserModel> getUserData = DataBaseService().getuserData();
+  late Future<UserModel> getUserData;
   NotificationService ns = NotificationService();
-  int _currentStep = 1;
-  int _userPos = 1;
+  late int _currentStep;
+  late int _userPos;
   bool isLoading = false;
   StepperType stepperType = StepperType.vertical;
   late UserModel userData;
   @override
+  void initState() {
+    getUserData = DataBaseService().getuserData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getUserData,
+      future: DataBaseService().getuserData(),
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           userData = snapshot.data as UserModel;
@@ -74,33 +82,36 @@ class _TrackTabState extends State<TrackTab> {
                     onStepContinue: continued,
                     onStepCancel: cancel,
                     controlsBuilder: ((context, details) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: _buttonStyle(0, 0, 22, 0),
-                                      onPressed: details.onStepContinue,
-                                      child: details.currentStep == 1
-                                          ? const PText("Initiate MOU")
-                                          : const PText("Approve")),
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                      style: _buttonStyle(0, 0, 0, 22).copyWith(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.red)),
-                                      onPressed: details.onStepCancel,
-                                      child: const PText("Deny")),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
+                      return _currentStep != 6
+                          ? Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                            style: _buttonStyle(0, 0, 22, 0),
+                                            onPressed: details.onStepContinue,
+                                            child: details.currentStep == 1
+                                                ? const PText("Initiate MOU")
+                                                : const PText("Approve")),
+                                      ),
+                                      Expanded(
+                                        child: ElevatedButton(
+                                            style: _buttonStyle(0, 0, 0, 22)
+                                                .copyWith(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.red)),
+                                            onPressed: details.onStepCancel,
+                                            child: const PText("Deny")),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container();
                     }),
                     steps: getStepsList())),
           ),
@@ -143,15 +154,23 @@ class _TrackTabState extends State<TrackTab> {
       ),
       Step(
         state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-        title: const PText('Process Completed'),
+        title: const PText('Final Approval'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 5,
+      ),
+      Step(
+        state: _currentStep > 6 ? StepState.complete : StepState.indexed,
+        title: const PText('Process Completed'),
+        content: Container(),
+        isActive: _currentStep >= 6,
       ),
     ];
   }
 
   continued() async {
-    if (_currentStep == 5) {
+    if (_currentStep == 5 && _userPos == 7) {
+      await DataBaseService()
+          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
       DataBaseService().addNotification(
           mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",
@@ -161,16 +180,21 @@ class _TrackTabState extends State<TrackTab> {
           due: widget.mou.due!,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
-          "Final Approval", widget.mou.mouId, 5);
+          "Final Approval", widget.mou.mouId, _userPos);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
       );
-    } else if (_currentStep <= _userPos) {
-      setState(() => isLoading = true);
+    } else if ((_currentStep == 1 && _userPos == 1) || //for initiator
+            (_currentStep == 2 && _userPos == 3) || //for Head
+            (_currentStep == 3 && _userPos == 4) || // for Directors
+            (_currentStep == 4 && _userPos == 5) // for CEO
+
+        ) {
+      // setState(() => isLoading = true);
       await DataBaseService()
           .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
-      setState(() => isLoading = false);
+      // setState(() => isLoading = false);
       DataBaseService().addNotification(
           mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",
@@ -184,7 +208,6 @@ class _TrackTabState extends State<TrackTab> {
           "MoU Approved",
           widget.mou.mouId,
           _userPos);
-      // setState(() => _currentStep += 1);
       showGeneralDialog(
           context: context,
           pageBuilder: ((context, animation, secondaryAnimation) {
@@ -193,36 +216,67 @@ class _TrackTabState extends State<TrackTab> {
               actions: [
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-
-                      setState(() {});
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NewHomePage()),
+                      );
                     },
                     child: const PText("Close")),
               ],
               content: const PText("MoU Approved!"),
             );
           }));
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const MOUApproved()),
-      // );
     } else {
-      print("You can't approve this MOU");
+      showGeneralDialog(
+          context: context,
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return AlertDialog(
+              title: const PText("Alert"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const PText("Close")),
+              ],
+              content: const PText("You cannot approve this MoU"),
+            );
+          }));
     }
   }
 
   cancel() async {
-    print('before deny, currentStep : $_currentStep');
-    if (_currentStep > 0) {
+    if (_currentStep == 1) {
+      showGeneralDialog(
+          context: context,
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return AlertDialog(
+              title: const PText("Alert"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const PText("Close")),
+              ],
+              content: const PText("You cannot deny MoU at this stage"),
+            );
+          }));
+    } else if ((_currentStep == 5 && _userPos == 7) || //for Vice Chance.
+            (_currentStep == 2 && _userPos == 3) || //for Head
+            (_currentStep == 3 && _userPos == 4) || // for Directors
+            (_currentStep == 4 && _userPos == 5) // for CEO
+        ) {
       setState(() {
         _currentStep -= 2;
       });
       print('after deny, currentStep : $_currentStep');
-      setState(() => isLoading = true);
+      // setState(() => isLoading = true);
 
       await DataBaseService()
           .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
-      setState(() => isLoading = false);
+      // setState(() => isLoading = false);
 
       await DataBaseService().addNotification(
           mouId: widget.mou.mouId,
@@ -237,12 +291,43 @@ class _TrackTabState extends State<TrackTab> {
           "MoU Rejected!!",
           widget.mou.mouId,
           _userPos);
+
+      showGeneralDialog(
+          context: context,
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return AlertDialog(
+              title: const PText("Denied"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NewHomePage()),
+                      );
+                    },
+                    child: const PText("Close")),
+              ],
+              content: const PText("MoU Denied!"),
+            );
+          }));
+    } else {
+      showGeneralDialog(
+          context: context,
+          pageBuilder: ((context, animation, secondaryAnimation) {
+            return AlertDialog(
+              title: const PText("Alert"),
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const PText("Close")),
+              ],
+              content: const PText("You cannot deny this MoU"),
+            );
+          }));
     }
-    Navigator.pop(context);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const NewHomePage()),
-    // )
   }
 
   ButtonStyle _buttonStyle(

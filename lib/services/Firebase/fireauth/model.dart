@@ -34,7 +34,7 @@ class UserModel {
       'email': email,
       'lastName': lastName,
       'firstName': firstName,
-      'profileImage': profileImage ?? "abc",
+      'profile-picture': profileImage ?? "abc",
       'designation': designation,
       'positions': positions
     };

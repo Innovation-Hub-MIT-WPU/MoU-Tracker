@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'dart:io' as io;
 
+import '../../../screens/mou_creation/mou_creation_page.dart';
+
 class FirebaseApi {
   static var downloadUrl;
 
@@ -16,7 +18,7 @@ class FirebaseApi {
   static late DownloaderUtils options;
   static late DownloaderCore core;
 
-  static Future fileUpload(String folder, File? file, UploadTask? task) async {
+  static Future fileUpload(String folder, File? file) async {
     if (file == null) {
       print("not done");
       return;
@@ -24,15 +26,12 @@ class FirebaseApi {
       String filename = (file.path).split('/').last;
       final location = '$folder/$filename';
 
-      task =
-          FirebaseApi.uploadTask(location, file);
-      final snapshot = await task!.whenComplete(() {});
+      CreateFormState.task = FirebaseApi.uploadTask(location, file);
+      final snapshot = await CreateFormState.task!.whenComplete(() {});
       downloadUrl = await snapshot.ref.getDownloadURL();
       print("done");
     }
   }
-
-  
 
   static UploadTask? uploadTask(String location, io.File file) {
     try {
