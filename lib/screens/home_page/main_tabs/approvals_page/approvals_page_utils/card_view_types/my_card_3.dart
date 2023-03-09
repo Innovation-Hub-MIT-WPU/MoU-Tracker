@@ -14,6 +14,7 @@ class MyCard3 extends StatefulWidget {
   // final date;
   final int index;
   final MOU mou;
+  final int userPos;
   // bool isApproved;
 
   const MyCard3(
@@ -26,7 +27,8 @@ class MyCard3 extends StatefulWidget {
       required this.index,
       required this.mou,
       // required this.isApproved
-      Key? key})
+      Key? key,
+      required this.userPos})
       : super(key: key);
 
   @override
@@ -62,8 +64,8 @@ class _MyCard3State extends State<MyCard3> {
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
-          backgroundColor: Colors.transparent, 
-          // Colors.white, 
+          backgroundColor: Colors.transparent,
+          // Colors.white,
           isScrollControlled: true,
           // anchorPoint: const Offset(0.5, 0.9),
           // const Color(0xff2D376E),
@@ -145,7 +147,7 @@ class _MyCard3State extends State<MyCard3> {
             Container(
               height: screenWidth * 0.09,
               decoration: BoxDecoration(
-                color: mou.isApproved ? kCardRed : kTabBarGreen,
+                color: mou.appLvl == widget.userPos ? kCardRed : kTabBarGreen,
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15)),
@@ -161,7 +163,9 @@ class _MyCard3State extends State<MyCard3> {
                         color: Colors.white),
                   ),
                   PText(
-                    !mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                    mou.appLvl == widget.userPos
+                        ? 'IN FOR APPROVAL'
+                        : 'APPROVED BY YOU',
                     style: TextStyle(
                         fontSize: screenWidth * 0.03, color: Colors.white),
                   ),

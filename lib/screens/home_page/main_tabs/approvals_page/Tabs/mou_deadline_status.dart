@@ -8,6 +8,8 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../services/Firebase/fireauth/model.dart';
+
 class MouStatusTab extends StatefulWidget {
   final TabController tabController;
   const MouStatusTab({required this.tabController, Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
   late List<MOU> onTrackMouList;
   late List<MOU> delayedMouList;
   String dropdownvalue = "Detailed";
-
+  late UserModel userData;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   var refreshKey2 = GlobalKey<RefreshIndicatorState>();
 
@@ -29,8 +31,13 @@ class _MouStatusTabState extends State<MouStatusTab> {
   @override
   void initState() {
     searchQueryController = TextEditingController();
+    getUserData();
     // refreshList();
     super.initState();
+  }
+
+  void getUserData() async {
+    userData = await DataBaseService().getuserData() as UserModel;
   }
 
   @override
@@ -68,8 +75,22 @@ class _MouStatusTabState extends State<MouStatusTab> {
                 physics: const BouncingScrollPhysics(),
                 controller: widget.tabController,
                 children: [
-                  mouCards(onTrackMouList, 1),
-                  mouCards(delayedMouList, 2),
+                  onTrackMouList.isEmpty
+                      ? Center(
+                          child:
+                              PText("You currently have no MoUs for approval",
+                                  style: GoogleFonts.figtree(
+                                    fontWeight: FontWeight.bold,
+                                  )))
+                      : mouCards(onTrackMouList, 1),
+                  delayedMouList.isEmpty
+                      ? Center(
+                          child:
+                              PText("You currently have no MoUs for approval",
+                                  style: GoogleFonts.figtree(
+                                    fontWeight: FontWeight.bold,
+                                  )))
+                      : mouCards(delayedMouList, 2),
                 ],
               ),
               searchBox(),
@@ -98,7 +119,8 @@ class _MouStatusTabState extends State<MouStatusTab> {
       // },
 
       child: ListView.builder(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenWidth * 0.2),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.02, vertical: screenWidth * 0.2),
         physics: const BouncingScrollPhysics(),
         itemCount: mouList.length,
         itemBuilder: (context, index) {
@@ -106,12 +128,14 @@ class _MouStatusTabState extends State<MouStatusTab> {
             return MyCard(
               index: index,
               mou: mouList[index],
+              userPos: userData.pos!,
               key: UniqueKey(),
             );
           } else {
             return MyCard3(
               index: index,
               mou: mouList[index],
+              userPos: userData.pos!,
               key: UniqueKey(),
             );
           }
@@ -179,8 +203,11 @@ class _MouStatusTabState extends State<MouStatusTab> {
 
   List<MOU> delayedSort(List<MOU> allData) {
     List<MOU> res = [];
+
     for (MOU data in allData) {
-      if ((data.due)!.difference(DateTime.now()).isNegative) {
+      bool condition1 = (data.due)!.difference(DateTime.now()).isNegative;
+      bool condition2 = data.appLvl >= userData.pos!;
+      if (condition1 && condition2) {
         res.add(data);
       }
     }
@@ -188,14 +215,15 @@ class _MouStatusTabState extends State<MouStatusTab> {
   }
 
   List<MOU> onTrackSort(List<MOU> allData) {
-    List<MOU> res = [];
+    List<MOU> res2 = [];
     for (MOU data in allData) {
-      if ((data.due)!.difference(DateTime.now()).isNegative) {
-      } else {
-        res.add(data);
+      bool condition1 = (data.due)!.difference(DateTime.now()).isNegative;
+      bool condition2 = data.appLvl >= userData.pos!;
+      if (!(condition1) && condition2) {
+        res2.add(data);
       }
     }
-    return res;
+    return res2;
   }
 
   List<MOU> _runFilter(String value) {

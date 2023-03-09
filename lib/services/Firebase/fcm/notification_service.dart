@@ -160,7 +160,7 @@ class NotificationService {
   }
 
   void sendPushMessage(String body, String title, String mouId, int pos) async {
-    if (pos == 1 || pos == 5) pos++;
+    pos == 1 ? pos++ : pos;
     for (var position = 0; position <= pos; position++) {
       var query = await FirebaseFirestore.instance
           .collection('deviceTokens')

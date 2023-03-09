@@ -8,10 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 class MyCard extends StatefulWidget {
   final MOU mou;
   final int index;
+  final int userPos;
   const MyCard({
     required this.mou,
     required this.index,
     Key? key,
+    required this.userPos,
   }) : super(key: key);
 
   @override
@@ -196,7 +198,9 @@ class _MyCardState extends State<MyCard> {
                   child: Container(
                     height: screenHeight * 0.06,
                     decoration: BoxDecoration(
-                      color: mou.isApproved ? kTabBarGreen : kCardRed,
+                      color: mou.appLvl == widget.userPos
+                          ? kCardRed
+                          : kTabBarGreen,
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(15),
                           bottomRight: Radius.circular(15)),
@@ -212,7 +216,9 @@ class _MyCardState extends State<MyCard> {
                               color: Colors.white),
                         ),
                         PText(
-                          mou.isApproved ? 'APPROVED' : 'IN FOR APPROVAL',
+                          mou.appLvl == widget.userPos
+                              ? 'IN FOR APPROVAL'
+                              : 'APPROVED BY YOU',
                           style: GoogleFonts.figtree(
                               fontSize: screenWidth * 0.03,
                               color: Colors.white),

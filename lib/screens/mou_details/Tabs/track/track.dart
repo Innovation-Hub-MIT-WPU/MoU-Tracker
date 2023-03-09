@@ -49,7 +49,7 @@ class _TrackTabState extends State<TrackTab> {
         if (snapshot.hasData) {
           userData = snapshot.data as UserModel;
           _currentStep = (widget.mou.appLvl + 1);
-          _userPos = userData.pos! + 1;
+          _userPos = userData.pos!;
 
           print('before operation');
           print('approval lvl - ${widget.mou.appLvl}');
@@ -82,8 +82,18 @@ class _TrackTabState extends State<TrackTab> {
                     onStepContinue: continued,
                     onStepCancel: cancel,
                     controlsBuilder: ((context, details) {
-                      return _currentStep != 6
+                      return _currentStep == 7 || _currentStep == 1
                           ? Container(
+                              child: ElevatedButton(
+                                  style: _buttonStyle(0, 0, 0, 0),
+                                  onPressed: details.currentStep == 1
+                                      ? details.onStepContinue
+                                      : () {},
+                                  child: details.currentStep == 1
+                                      ? const PText("Initiate MOU")
+                                      : const PText("Final Approval Done")),
+                            )
+                          : Container(
                               child: Column(
                                 children: [
                                   Row(
@@ -110,8 +120,7 @@ class _TrackTabState extends State<TrackTab> {
                                   ),
                                 ],
                               ),
-                            )
-                          : Container();
+                            );
                     }),
                     steps: getStepsList())),
           ),
@@ -154,21 +163,27 @@ class _TrackTabState extends State<TrackTab> {
       ),
       Step(
         state: _currentStep > 5 ? StepState.complete : StepState.indexed,
-        title: const PText('Final Approval'),
+        title: const PText('Approved by Dean'),
         content: MouCard(widget: widget),
         isActive: _currentStep >= 5,
       ),
       Step(
         state: _currentStep > 6 ? StepState.complete : StepState.indexed,
+        title: const PText('Final Approval'),
+        content: MouCard(widget: widget),
+        isActive: _currentStep >= 6,
+      ),
+      Step(
+        state: _currentStep > 7 ? StepState.complete : StepState.indexed,
         title: const PText('Process Completed'),
         content: Container(),
-        isActive: _currentStep >= 6,
+        isActive: _currentStep >= 7,
       ),
     ];
   }
 
   continued() async {
-    if (_currentStep == 5 && _userPos == 7) {
+    if (_currentStep == 6 && _userPos == 7) {
       await DataBaseService()
           .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
       DataBaseService().addNotification(
@@ -180,20 +195,16 @@ class _TrackTabState extends State<TrackTab> {
           due: widget.mou.due!,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
-          "Final Approval", widget.mou.mouId, _userPos);
+          "Final Approval", widget.mou.mouId, 6);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),
       );
-    } else if ((_currentStep == 1 && _userPos == 1) || //for initiator
-            (_currentStep == 2 && _userPos == 3) || //for Head
-            (_currentStep == 3 && _userPos == 4) || // for Directors
-            (_currentStep == 4 && _userPos == 5) // for CEO
-
-        ) {
+    } else if (widget.mou.appLvl == _userPos) {
       // setState(() => isLoading = true);
-      await DataBaseService()
-          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: _currentStep);
+      await DataBaseService().updateApprovalLvl(
+          mouId: widget.mou.mouId,
+          appLvl: widget.mou.appLvl == 0 ? 2 : widget.mou.appLvl + 1);
       // setState(() => isLoading = false);
       DataBaseService().addNotification(
           mouId: widget.mou.mouId,
@@ -240,42 +251,21 @@ class _TrackTabState extends State<TrackTab> {
                     },
                     child: const PText("Close")),
               ],
-              content: const PText("You cannot approve this MoU"),
+              content: widget.mou.appLvl == 0
+                  ? const PText("You cannot Initiate this MoU")
+                  : const PText("You cannot approve this MoU"),
             );
           }));
     }
   }
 
   cancel() async {
-    if (_currentStep == 1) {
-      showGeneralDialog(
-          context: context,
-          pageBuilder: ((context, animation, secondaryAnimation) {
-            return AlertDialog(
-              title: const PText("Alert"),
-              actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const PText("Close")),
-              ],
-              content: const PText("You cannot deny MoU at this stage"),
-            );
-          }));
-    } else if ((_currentStep == 5 && _userPos == 7) || //for Vice Chance.
-            (_currentStep == 2 && _userPos == 3) || //for Head
-            (_currentStep == 3 && _userPos == 4) || // for Directors
-            (_currentStep == 4 && _userPos == 5) // for CEO
-        ) {
-      setState(() {
-        _currentStep -= 2;
-      });
-      print('after deny, currentStep : $_currentStep');
+    if (widget.mou.appLvl == _userPos) {
       // setState(() => isLoading = true);
 
-      await DataBaseService()
-          .updateApprovalLvl(mouId: widget.mou.mouId, appLvl: (_currentStep));
+      await DataBaseService().updateApprovalLvl(
+          mouId: widget.mou.mouId,
+          appLvl: widget.mou.appLvl == 2 ? 0 : widget.mou.appLvl - 1);
       // setState(() => isLoading = false);
 
       await DataBaseService().addNotification(

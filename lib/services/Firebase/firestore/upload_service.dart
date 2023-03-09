@@ -13,7 +13,7 @@ import '../../../screens/mou_creation/mou_creation_page.dart';
 
 class FirebaseApi {
   static var downloadUrl;
-
+  static UploadTask? task;
   static String downloadPath = '/storage/emulated/0/Download';
   static late DownloaderUtils options;
   static late DownloaderCore core;
@@ -26,8 +26,8 @@ class FirebaseApi {
       String filename = (file.path).split('/').last;
       final location = '$folder/$filename';
 
-      CreateFormState.task = FirebaseApi.uploadTask(location, file);
-      final snapshot = await CreateFormState.task!.whenComplete(() {});
+      task = FirebaseApi.uploadTask(location, file);
+      final snapshot = await task!.whenComplete(() {});
       downloadUrl = await snapshot.ref.getDownloadURL();
       print("done");
     }

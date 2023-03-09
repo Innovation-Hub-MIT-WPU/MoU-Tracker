@@ -57,8 +57,8 @@ Widget dialog(BuildContext cntx) {
     contentPadding: EdgeInsets.all(width * 0.025),
     // contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
     children: <Widget>[
-      CreateFormState.task != null
-          ? buildUploadStatus(CreateFormState.task!)
+      FirebaseApi.task != null
+          ? buildUploadStatus(FirebaseApi.task!)
           : PText(
               "You haven't selected any file",
               style: GoogleFonts.figtree(color: Colors.white),
