@@ -48,7 +48,7 @@ class _TrackTabState extends State<TrackTab> {
       builder: ((context, snapshot) {
         if (snapshot.hasData) {
           userData = snapshot.data as UserModel;
-          _currentStep = (widget.mou.appLvl + 1);
+          _currentStep = widget.mou.appLvl == 0 ? 1 : widget.mou.appLvl;
           _userPos = userData.pos!;
 
           print('before operation');
@@ -84,14 +84,23 @@ class _TrackTabState extends State<TrackTab> {
                     controlsBuilder: ((context, details) {
                       return _currentStep == 7 || _currentStep == 1
                           ? Container(
-                              child: ElevatedButton(
-                                  style: _buttonStyle(0, 0, 0, 0),
-                                  onPressed: details.currentStep == 1
-                                      ? details.onStepContinue
-                                      : () {},
-                                  child: details.currentStep == 1
-                                      ? const PText("Initiate MOU")
-                                      : const PText("Final Approval Done")),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: ElevatedButton(
+                                            style: _buttonStyle(0, 0, 22, 22),
+                                            onPressed: details.onStepContinue,
+                                            child: details.currentStep == 1
+                                                ? const PText("Initiate MOU")
+                                                : const PText(
+                                                    "Final Approval Done")),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             )
                           : Container(
                               child: Column(
