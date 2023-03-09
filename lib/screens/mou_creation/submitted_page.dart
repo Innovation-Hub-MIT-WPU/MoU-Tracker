@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../home_page/new_nav_bar.dart';
 import 'creation_page_utils/created_logo.dart';
 
 class SubmittedPage extends StatefulWidget {
@@ -117,7 +118,10 @@ class _TrackButtonState extends State<TrackButton> {
     return InkWell(
       onTap: () {
         print('Inkwell Tap Registered');
-        Navigator.of(context).pushReplacementNamed('/home');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const NewHomePage()),
+        );
       },
       splashColor: Colors.teal,
       borderRadius: BorderRadius.circular(10),

@@ -374,7 +374,14 @@ class CreateFormState extends State<CreateForm> {
   }
 
   void submitMOU() async {
-    if (!_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate() || file == null) {
+      if (file == null)
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return dialog(context);
+            });
       return;
     }
     _formKey.currentState!.save();
@@ -392,7 +399,7 @@ class CreateFormState extends State<CreateForm> {
       // tracking details
       // DateTime dueDate = dueDateController.text;
       String desc = descController.text;
-      DateTime dueDate = DateTime(2022, 03, 02);
+      DateTime dueDate = selectedDate;
       DataBaseService db = DataBaseService();
       NotificationService ns = NotificationService();
       final mouId = await db.createMou(

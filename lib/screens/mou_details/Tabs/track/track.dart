@@ -91,7 +91,9 @@ class _TrackTabState extends State<TrackTab> {
                                       Expanded(
                                         child: ElevatedButton(
                                             style: _buttonStyle(0, 0, 22, 22),
-                                            onPressed: details.onStepContinue,
+                                            onPressed: details.currentStep == 1
+                                                ? details.onStepContinue
+                                                : () {},
                                             child: details.currentStep == 1
                                                 ? const PText("Initiate MOU")
                                                 : const PText(

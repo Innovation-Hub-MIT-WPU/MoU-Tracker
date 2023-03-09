@@ -75,7 +75,8 @@ Widget dialog(BuildContext cntx) {
               // CreationDetails.addData();
 
               Navigator.pop(cntx);
-              Navigator.of(cntx).pushReplacementNamed('/submitted');
+              if (CreateFormState.file != null)
+                Navigator.of(cntx).pushReplacementNamed('/submitted');
             },
             child: PText(
               "Next",
