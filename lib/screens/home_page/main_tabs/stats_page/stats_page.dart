@@ -2,6 +2,7 @@
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/stats_page/preview_screen.dart';
+import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../../common_widgets/widgets.dart';
+import '../../../../globals.dart';
 
 class StatsPage extends StatefulWidget {
   const StatsPage({Key? key}) : super(key: key);
@@ -25,6 +27,9 @@ class StatsPageState extends State<StatsPage> {
   static late GlobalKey<SfCartesianChartState> cartesianChartKey3;
   late List<SalesData> _chartData1;
   late List<ChartData> _chartData2;
+  late num totalInitiated, totalApproved;
+  late double rate;
+  String year = DateTime.now().year.toString();
   late TooltipBehavior _tooltipBehavior;
 
   @override
@@ -33,8 +38,8 @@ class StatsPageState extends State<StatsPage> {
     cartesianChartKey1 = GlobalKey();
     cartesianChartKey2 = GlobalKey();
     cartesianChartKey3 = GlobalKey();
-    _chartData1 = getChartData1();
-    _chartData2 = getChartData2();
+    // _chartData1 = getChartData1();
+    // _chartData2 = getChartData2();
     _tooltipBehavior = TooltipBehavior(enable: true);
     super.initState();
   }
@@ -77,7 +82,7 @@ class StatsPageState extends State<StatsPage> {
 
   List<ChartData> getChartData2() {
     final List<ChartData> chartData2 = [
-      ChartData('Approved', 12.5, Colors.black),
+      ChartData('Approved', 12.5, COLOR_THEME['primary']!),
       ChartData('Not  Approved', 100 - 12.5, hexStringToColor("C4C4C4")),
     ];
     return chartData2;
@@ -111,7 +116,7 @@ class StatsPageState extends State<StatsPage> {
         child: SavePDF(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      appBar: appBar("Report", context),
+      appBar: appBar("Report-$year", context),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -120,7 +125,23 @@ class StatsPageState extends State<StatsPage> {
                   top: MediaQuery.of(context).size.height * 0.03,
                   left: MediaQuery.of(context).size.width * 0.05,
                   right: MediaQuery.of(context).size.width * 0.05),
-              child: lineChart(),
+              child: FutureBuilder(
+                  future: DataBaseService().getStats("total_approved", "2023"),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      var data = snapshot.data as List;
+                      _chartData1 = [];
+                      totalApproved = 0;
+                      for (int i = 0; i < 11; i++) {
+                        _chartData1.add(SalesData(monthsName[i], data[i]));
+                        totalApproved += data[i];
+                      }
+                      return lineChart();
+                    } else
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                  }),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -131,7 +152,30 @@ class StatsPageState extends State<StatsPage> {
                     right: MediaQuery.of(context).size.width * 0.05),
                 height: MediaQuery.of(context).size.height * 0.35,
                 width: MediaQuery.of(context).size.width,
-                child: approvalRate(),
+                child: FutureBuilder(
+                    future:
+                        DataBaseService().getStats("total_initiated", "2023"),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        var data = snapshot.data as List;
+                        totalInitiated = 0;
+                        _chartData2 = [];
+                        for (int i = 0; i < 11; i++) {
+                          totalInitiated += data[i];
+                        }
+                        rate = (totalApproved / totalInitiated) * 100;
+                        print(rate);
+                        _chartData2.add(ChartData(
+                            'Approved', rate, COLOR_THEME['primary']!));
+                        _chartData2.add(ChartData('Not  Approved', 100 - rate,
+                            hexStringToColor("C4C4C4")));
+
+                        return approvalRate();
+                      } else
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                    }),
               ),
             )
           ],
@@ -154,7 +198,7 @@ class StatsPageState extends State<StatsPage> {
           CircularChartAnnotation(
             widget: Container(
               child: PText(
-                '12.5%',
+                '${rate.toString().substring(0, 4)}%',
                 style: GoogleFonts.figtree(
                     color: Color.fromRGBO(0, 0, 0, 0.5),
                     fontSize: 25,
@@ -223,7 +267,7 @@ class StatsPageState extends State<StatsPage> {
 class SalesData {
   SalesData(this.month, this.sales);
   final String month;
-  final double sales;
+  final int sales;
 }
 
 class ChartData {

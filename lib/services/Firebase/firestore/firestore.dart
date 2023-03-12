@@ -203,4 +203,23 @@ class DataBaseService {
       print("error - $err");
     }
   }
+
+  Future<List> getStats(String type, String year) async {
+    var querySnap = await db
+        .collection('stats')
+        .doc(type)
+        .get()
+        .then((value) => value.data());
+    final stats = querySnap![year] as List;
+    print("$type :- $stats");
+    return stats;
+  }
+
+  Future addDataToStats(String type, String year, int month) async {
+    List stats = await getStats(type, year);
+    stats[month + 1] = stats[month + 1] + 1;
+    var querySnap =
+        await db.collection('stats').doc(type).update({year: stats});
+    print("$type :- $stats");
+  }
 }

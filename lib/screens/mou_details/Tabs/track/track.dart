@@ -197,6 +197,8 @@ class _TrackTabState extends State<TrackTab> {
     if (_currentStep == 6 && _userPos == 6) {
       await DataBaseService().updateApprovalLvl(
           mouId: widget.mou.mouId, appLvl: widget.mou.appLvl + 1);
+      await DataBaseService().addDataToStats("total_approved",
+          DateTime.now().year.toString(), DateTime.now().month);
       DataBaseService().addNotification(
           mouId: widget.mou.mouId,
           body: "${widget.mou.docName} was approved by  ${userData.firstName}",
@@ -213,6 +215,7 @@ class _TrackTabState extends State<TrackTab> {
       );
     } else if (widget.mou.appLvl == _userPos) {
       // setState(() => isLoading = true);
+
       await DataBaseService().updateApprovalLvl(
           mouId: widget.mou.mouId,
           appLvl: widget.mou.appLvl == 0 ? 2 : widget.mou.appLvl + 1);

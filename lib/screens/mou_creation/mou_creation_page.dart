@@ -380,7 +380,7 @@ class CreateFormState extends State<CreateForm> {
             barrierDismissible: false,
             context: context,
             builder: (BuildContext context) {
-              return dialog(context);
+              return dialog(context, file, '/submitted');
             });
       return;
     }
@@ -425,11 +425,13 @@ class CreateFormState extends State<CreateForm> {
           on: DateTime.now());
       ns.sendPushMessage("$docName was created by $authName", "Mou Created!!",
           mouId.toString(), 6);
+      await DataBaseService().addDataToStats("total_initiated",
+          DateTime.now().year.toString(), DateTime.now().month);
       showDialog(
           barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
-            return dialog(context);
+            return dialog(context, file, '/submitted');
           });
     } catch (err) {
       print("Error occurred - $err");

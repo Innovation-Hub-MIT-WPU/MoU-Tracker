@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
@@ -31,7 +33,7 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
   );
 }
 
-Widget dialog(BuildContext cntx) {
+Widget dialog(BuildContext cntx, File? file, String nextPage) {
   double width = MediaQuery.of(cntx).size.width;
   return SimpleDialog(
     backgroundColor: const Color(0xFF2D376E),
@@ -75,8 +77,8 @@ Widget dialog(BuildContext cntx) {
               // CreationDetails.addData();
 
               Navigator.pop(cntx);
-              if (CreateFormState.file != null)
-                Navigator.of(cntx).pushReplacementNamed('/submitted');
+              if (file != null)
+                Navigator.of(cntx).pushReplacementNamed(nextPage);
             },
             child: PText(
               "Next",
