@@ -386,30 +386,45 @@ class CreateFormState extends State<CreateForm> {
     }
     _formKey.currentState!.save();
     try {
-      // document details
+      // MOU details
       String docName = docNameController.text;
-      // String authName = authNameController.text;
-      String authName = initiatorName;
-      String spocName = spocNameController.text;
+      String tenure = tenureController.text;
 
-      // company details
+      // SPOC Details
+      String spocName = spocNameController.text;
+      String spocNo = spocNoController.text;
+      String spocDesignation = spocDesignationController.text;
+
+      // Company details
       String companyName = companyNameController.text;
       String companyWebsite = companyWebController.text;
+      String companyTurnOver = turnoverController.text;
+      String companyAddress = addressController.text;
+      String companyEmployees = employeeController.text;
+      String companyDomain = domainController.text;
 
-      // tracking details
-      // DateTime dueDate = dueDateController.text;
+      // Tracking details
       String desc = descController.text;
       DateTime dueDate = selectedDate;
+
       DataBaseService db = DataBaseService();
       NotificationService ns = NotificationService();
       final mouId = await db.createMou(
         approved: 0,
-        desc: desc,
-        authName: authName,
-        spocName: spocName,
+        authName: initiatorName,
+        authDesignation: initiatorDesignation,
         docName: docName,
+        tenure: tenure,
+        spocName: spocName,
+        spocNo: spocNo,
+        spocDesignation: spocDesignation,
         companyName: companyName,
+        companyTurnOver: companyTurnOver,
+        companyAddress: companyAddress,
+        companyEmployees: companyEmployees,
+        companyDomain: companyDomain,
         companyWebsite: companyWebsite,
+        desc: desc,
         dueDate: dueDate,
         isApproved: false,
       );
@@ -417,14 +432,14 @@ class CreateFormState extends State<CreateForm> {
       FirebaseApi.fileUpload(docName, file);
       db.addNotification(
           mouId: mouId.toString(),
-          body: "$docName was created by $authName",
+          body: "$docName was created by $initiatorName",
           title: "Mou Created!!",
           doc_name: docName,
           by: spocName,
           due: dueDate,
           on: DateTime.now());
-      ns.sendPushMessage("$docName was created by $authName", "Mou Created!!",
-          mouId.toString(), 6);
+      ns.sendPushMessage("$docName was created by $initiatorName",
+          "Mou Created!!", mouId.toString(), 6);
       await DataBaseService().addDataToStats("total_initiated",
           DateTime.now().year.toString(), DateTime.now().month);
       showDialog(

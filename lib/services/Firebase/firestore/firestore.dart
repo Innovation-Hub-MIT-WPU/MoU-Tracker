@@ -39,28 +39,44 @@ class DataBaseService {
 
   // Function to create MOU doc on Firebase, returns the id of created MOU
   Future createMou({
-    required DateTime dueDate,
     required int approved,
+    required DateTime dueDate,
     required String desc,
     required String docName,
-    required String companyName,
+    required String tenure,
     required String authName,
+    required String authDesignation,
     required String spocName,
+    required String spocNo,
+    required String spocDesignation,
+    required String companyName,
     required String companyWebsite,
+    required String companyEmployees,
+    required String companyAddress,
+    required String companyDomain,
+    required String companyTurnOver,
     required bool isApproved,
   }) async {
     try {
       mouData = await db.collection('mou').add({
         'approval-lvl': approved,
         'spoc-name': spocName,
+        'spoc-no': spocNo,
+        'spoc-designation': spocDesignation,
         'auth-name': authName,
-        'description': desc,
+        'auth-designation': authDesignation,
         'doc-name': docName,
+        'tenure': tenure,
         'company-name': companyName,
+        'company-employees': companyEmployees,
+        'company-address': companyAddress,
+        'company-domain': companyDomain,
+        'company-turnover': companyTurnOver,
         'company-website': companyWebsite,
         'status': isApproved,
-        'creation-date': DateTime.now(),
+        'description': desc,
         'due-date': dueDate,
+        'creation-date': DateTime.now(),
       });
     } catch (err) {
       // print("error - $err");
@@ -122,12 +138,17 @@ class DataBaseService {
     return activityData;
   }
 
-  Future<Map<String, dynamic>> getPlacementData(
+  Future<List<Map>> getPlacementData(
       {required String collId,
       required String docId,
       required String year}) async {
-    var querySnap = await db.collection(collId).doc(docId).get();
-    final activityData = querySnap.data()!;
+    var querySnap =
+        await db.collection(collId).doc(docId).collection(year).get();
+    var docs = querySnap.docs;
+    List<Map<String, dynamic>> activityData = [];
+    docs.forEach((doc) {
+      activityData.add(doc.data());
+    });
     return activityData;
   }
 
@@ -152,19 +173,33 @@ class DataBaseService {
     final List<MOU> mouList = querySnap.docs.map((doc) {
       String mouId = doc.id;
       DateTime date = doc['due-date'].toDate();
+      DateTime creationDate = doc['creation-date'].toDate();
+      String createdOn =
+          "${creationDate.year}-${creationDate.month}-${creationDate.day}";
       String dueDate = "${date.year}-${date.month}-${date.day}";
       return MOU(
-          mouId: mouId,
-          docName: doc['doc-name'],
-          authName: doc['auth-name'],
-          companyName: doc['company-name'],
-          companyWebsite: doc['company-website'],
-          description: doc['description'],
-          isApproved: doc['status'],
-          appLvl: doc['approval-lvl'],
-          dueDate: dueDate,
-          due: date,
-          createdOn: doc['creation-date'].toDate());
+        mouId: mouId,
+        docName: doc['doc-name'],
+        authName: doc['auth-name'],
+        companyName: doc['company-name'],
+        companyWebsite: doc['company-website'],
+        description: doc['description'],
+        isApproved: doc['status'],
+        appLvl: doc['approval-lvl'],
+        createdDate: createdOn,
+        spocDesignation: doc['spoc-designation'],
+        spocName: doc['spoc-name'],
+        spocNo: doc['spoc-no'],
+        authDesignation: doc['auth-designation'],
+        companyAddress: doc['company-address'],
+        companyDomain: doc['company-domain'],
+        companyEmployees: doc['company-employees'],
+        companyTurnOver: doc['company-turnover'],
+        tenure: doc['tenure'],
+        dueDate: dueDate,
+        due: date,
+        createdOn: creationDate,
+      );
     }).toList();
     return mouList;
   }
@@ -221,6 +256,7 @@ class DataBaseService {
         .then((value) => value.data());
     final stats = querySnap![year] as List;
     // print("$type :- $stats");
+    await Future.delayed(const Duration(seconds: 2));
     return stats;
   }
 

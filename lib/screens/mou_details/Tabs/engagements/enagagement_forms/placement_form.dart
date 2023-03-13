@@ -32,8 +32,6 @@ class _PlacementFormState extends State<PlacementForm> {
 
   TextEditingController studentDetailsController = TextEditingController();
 
-  TextEditingController docController = TextEditingController();
-
   static io.File? file;
   static UploadTask? task;
 
@@ -119,7 +117,6 @@ class _PlacementFormState extends State<PlacementForm> {
                                 'year': yearController.text,
                                 'division': divisionController.text,
                                 'school': schoolController.text,
-                                'doc-name': docController.text,
                               });
 
                           await DataBaseService().updateEngagementList(

@@ -130,8 +130,13 @@ TextButton _buildViewButton(BuildContext context, String mouId,
               topRight: Radius.circular(screenWidth * 0.08)),
         ),
         context: context,
-        builder: (context) => ActivityBottomSheet(
-            mouId: mouId, activityName: activityName.toLowerCase()),
+        builder: (context) => activityName.toLowerCase() == "placement"
+            ? ActivityBottomSheet(
+                mouId: mouId,
+                activityName: activityName.toLowerCase(),
+              )
+            : ActivityBottomSheet(
+                mouId: mouId, activityName: activityName.toLowerCase()),
       );
     },
     child: PText("View",

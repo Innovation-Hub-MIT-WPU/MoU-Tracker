@@ -371,21 +371,35 @@ class NotificationsState extends State<Notifications>
                           .get();
 
                       final data = query.data();
+
                       DateTime date = data!['due-date'].toDate();
                       String dueDate = "${date.year}-${date.month}-${date.day}";
-
+                      DateTime creationDate = data['creation-date'].toDate();
+                      String createdOn =
+                          "${creationDate.year}-${creationDate.month}-${creationDate.day}";
                       MOU mou = MOU(
-                          mouId: onTrack.mouId.trim(),
-                          docName: data['doc-name'],
-                          authName: data['auth-name'],
-                          companyName: data['company-name'],
-                          companyWebsite: data['company-website'],
-                          description: data['description'],
-                          isApproved: data['status'],
-                          appLvl: data['approval-lvl'],
-                          due: date,
-                          dueDate: dueDate);
-
+                        mouId: onTrack.mouId.trim(),
+                        docName: data['doc-name'],
+                        authName: data['auth-name'],
+                        companyName: data['company-name'],
+                        companyWebsite: data['company-website'],
+                        description: data['description'],
+                        isApproved: data['status'],
+                        appLvl: data['approval-lvl'],
+                        createdDate: createdOn,
+                        spocDesignation: data['spoc-designation'],
+                        spocName: data['spoc-name'],
+                        spocNo: data['spoc-no'],
+                        authDesignation: data['auth-designation'],
+                        companyAddress: data['company-address'],
+                        companyDomain: data['company-domain'],
+                        companyEmployees: data['company-employees'],
+                        companyTurnOver: data['company-turnover'],
+                        tenure: data['tenure'],
+                        dueDate: dueDate,
+                        due: date,
+                        createdOn: creationDate,
+                      );
                       Navigator.push(
                           context,
                           MaterialPageRoute(

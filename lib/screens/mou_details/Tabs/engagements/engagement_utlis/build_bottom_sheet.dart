@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 class ActivityBottomSheet extends StatefulWidget {
   final String mouId;
   final String activityName;
-  final bool fetchSubCollection;
-  const ActivityBottomSheet(
-      {super.key,
-      required this.mouId,
-      required this.activityName,
-      this.fetchSubCollection = false});
+  const ActivityBottomSheet({
+    super.key,
+    required this.mouId,
+    required this.activityName,
+  });
 
   @override
   State<ActivityBottomSheet> createState() => ActivityBottomSheetState();
@@ -21,17 +20,21 @@ class ActivityBottomSheet extends StatefulWidget {
 class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    return widget.fetchSubCollection
+    bool fetchSubCollection = widget.activityName == 'placements';
+
+    print(fetchSubCollection);
+    return fetchSubCollection
         ? FutureBuilder<Object>(
             future: DataBaseService().getPlacementData(
                 docId: widget.mouId, collId: widget.activityName, year: '2023'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 print(snapshot.data);
-                Map<String, dynamic> activity =
-                    snapshot.data as Map<String, dynamic>;
+                List placementactivity =
+                    snapshot.data as List<Map<String, dynamic>>;
                 return ActivityData(
-                    activity: activity, activityName: widget.activityName);
+                    activity: placementactivity[0],
+                    activityName: widget.activityName);
               } else if (snapshot.hasError) {
                 return NotFound(activityName: widget.activityName);
               } else {

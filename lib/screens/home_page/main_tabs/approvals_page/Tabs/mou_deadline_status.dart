@@ -67,8 +67,10 @@ class _MouStatusTabState extends State<MouStatusTab> {
           onTrackMouList = onTrackSort(mouList);
           delayedMouList = delayedSort(mouList);
 
-          onTrackMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
-          delayedMouList.sort(((a, b) => b.createdOn!.compareTo(a.createdOn!)));
+          onTrackMouList
+              .sort(((a, b) => b.createdDate!.compareTo(a.createdDate!)));
+          delayedMouList
+              .sort(((a, b) => b.createdDate!.compareTo(a.createdDate!)));
           return Stack(
             children: [
               TabBarView(
