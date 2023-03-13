@@ -184,6 +184,7 @@ class _SignUpState extends State<SignUp> {
     User? user = _auth.currentUser;
 
     UserModel userModel = UserModel();
+    // ignore: unused_local_variable
     String positions = "";
     for (String i in selectedList) {
       positions += "$i ";
@@ -201,6 +202,7 @@ class _SignUpState extends State<SignUp> {
         .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully !");
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => NewHomePage()));
     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => NewNavBar()));

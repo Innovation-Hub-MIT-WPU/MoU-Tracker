@@ -22,6 +22,7 @@ class Details extends StatefulWidget {
   static const routeName = '/mou_details';
 
   @override
+  // ignore: library_private_types_in_public_api
   _DetailsState createState() => _DetailsState();
 }
 

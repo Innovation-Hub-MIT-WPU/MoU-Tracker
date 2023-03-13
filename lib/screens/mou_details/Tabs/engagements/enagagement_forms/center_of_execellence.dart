@@ -112,6 +112,7 @@ class _CenterFormState extends State<CenterForm> {
                             activityName: 'center of excellence',
                             activityDesc:
                                 'Details of agreements & transactions for Center of Excellence');
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

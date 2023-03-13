@@ -14,11 +14,13 @@ import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_form
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AddActivity extends StatelessWidget {
   final String mouId;
   AddActivity({super.key, required this.mouId});
 
   // static io.File? file;
+  // ignore: unused_field
   final _formKey = GlobalKey<FormState>();
 
   late UserModel userData;

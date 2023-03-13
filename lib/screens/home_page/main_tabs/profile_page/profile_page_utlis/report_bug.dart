@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
-import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
@@ -16,7 +15,6 @@ class ReportIssues extends StatefulWidget {
 class _ReportIssuesState extends State<ReportIssues> {
   static var reportKey = GlobalKey<FormState>();
   static late TextEditingController _issueController;
-  static late String issue;
 
   @override
   void initState() {
@@ -111,7 +109,6 @@ class _ReportIssuesState extends State<ReportIssues> {
                   child: TextButton(
                       onPressed: () {
                         if (reportKey.currentState?.validate() == true) {
-                          issue = _issueController.text;
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: PText("Issue Submitted"),
                             duration: Duration(seconds: 2),

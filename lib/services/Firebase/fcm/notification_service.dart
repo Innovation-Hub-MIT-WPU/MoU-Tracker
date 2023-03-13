@@ -199,6 +199,7 @@ class NotificationService {
       List tokens = doc!['tokens'];
       for (var i = 0; i < tokens.length; i++) {
         try {
+          // ignore: unused_local_variable
           var responce =
               await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
                   headers: <String, String>{

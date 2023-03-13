@@ -85,6 +85,7 @@ class AdvisoryBoardsForm extends StatelessWidget {
                           activityDesc:
                               'Industry Advisory boards setted up for the company',
                         );
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

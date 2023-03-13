@@ -19,7 +19,7 @@ class ActivityData extends StatelessWidget {
 
     List<Widget> values = [];
 
-    activity.keys.forEach((key) {
+    for (var key in activity.keys) {
       fields.add(PText(
         key,
         textAlign: TextAlign.left,
@@ -51,7 +51,7 @@ class ActivityData extends StatelessWidget {
         ),
       ));
       values.add(SizedBox(height: screenHeight * 0.05));
-    });
+    }
 
     return DraggableScrollableSheet(
       initialChildSize: 0.5,

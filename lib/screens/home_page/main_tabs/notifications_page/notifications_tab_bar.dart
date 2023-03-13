@@ -400,7 +400,7 @@ class NotificationsState extends State<Notifications>
       BuildContext context) {
     String title = onTrack.title;
     String docName = onTrack.docName.toUpperCase();
-    Color bottomColor = title.contains("Rejected") ? kCardRed : kTabBarGreen;
+    // Color bottomColor = title.contains("Rejected") ? kCardRed : kTabBarGreen;
     String state = title.contains("Approved")
         ? "Approved"
         : title.contains("Rejected")
@@ -494,6 +494,7 @@ class NotificationsState extends State<Notifications>
                         due: date,
                         createdOn: creationDate,
                       );
+                      // ignore: use_build_context_synchronously
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -535,6 +536,7 @@ class NotificationsState extends State<Notifications>
   }
 // );
 
+  // ignore: non_constant_identifier_names
   Widget Leading(
     double height,
     double width,

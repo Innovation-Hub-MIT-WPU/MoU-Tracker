@@ -35,7 +35,9 @@ class _InternshipFormState extends State<InternshipForm> {
 
   TextEditingController docController = TextEditingController();
 
+  // ignore: unused_field
   static io.File? file;
+  // ignore: unused_field
   static UploadTask? task;
 
   final formKey = GlobalKey<FormState>();
@@ -123,6 +125,7 @@ class _InternshipFormState extends State<InternshipForm> {
                           // print("Error occurred - $err");
                         }
 
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

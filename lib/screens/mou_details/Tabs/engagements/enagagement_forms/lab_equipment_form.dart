@@ -122,6 +122,7 @@ class _LabEquipFormState extends State<LabEquipForm> {
                             activityName: 'lab equipment',
                             activityDesc:
                                 'Details of agreements & transactions for getting Lab equipments');
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));
