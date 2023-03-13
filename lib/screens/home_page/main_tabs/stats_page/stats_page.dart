@@ -164,7 +164,7 @@ class StatsPageState extends State<StatsPage> {
                           totalInitiated += data[i];
                         }
                         rate = (totalApproved / totalInitiated) * 100;
-                        print(rate);
+                        // print(rate);
                         _chartData2.add(ChartData(
                             'Approved', rate, COLOR_THEME['primary']!));
                         _chartData2.add(ChartData('Not  Approved', 100 - rate,

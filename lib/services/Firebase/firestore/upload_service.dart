@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:MouTracker/models/file.dart';
@@ -9,8 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'dart:io' as io;
 
-import '../../../screens/mou_creation/mou_creation_page.dart';
-
 class FirebaseApi {
   static var downloadUrl;
   static UploadTask? task;
@@ -20,7 +19,7 @@ class FirebaseApi {
 
   static Future fileUpload(String folder, File? file) async {
     if (file == null) {
-      print("not done");
+      // print("not done");
       return;
     } else {
       String filename = (file.path).split('/').last;
@@ -29,7 +28,7 @@ class FirebaseApi {
       task = FirebaseApi.uploadTask(location, file);
       final snapshot = await task!.whenComplete(() {});
       downloadUrl = await snapshot.ref.getDownloadURL();
-      print("done");
+      // print("done");
     }
   }
 
@@ -38,7 +37,7 @@ class FirebaseApi {
       final refer = FirebaseStorage.instance.ref(location);
       return refer.putFile(file);
     } on FirebaseException catch (e) {
-      print(e);
+      // print(e);
     }
     return null;
   }
@@ -47,26 +46,26 @@ class FirebaseApi {
     final ref = FirebaseStorage.instance.ref('/$path');
     final result = await ref.listAll();
 
-    // print("hey${result.items[0].name}");
+    // // print("hey${result.items[0].name}");
     final url = await result.items[0].getDownloadURL();
-    print('url: $url');
+    // print('url: $url');
     final FullMetadata metaData = await result.items[0].getMetadata();
-    // print('${metaData.name} is ${metaData.size} bytes');
-    // print('metaData.contentType: ${metaData.contentType}');
+    // // print('${metaData.name} is ${metaData.size} bytes');
+    // // print('metaData.contentType: ${metaData.contentType}');
     String extensionName = metaData.contentType.toString().split('/').last;
 
     if (extensionName ==
         'vnd.openxmlformats-officedocument.wordprocessingml.document') {
       extensionName = 'docx';
     }
-    print('extensionName: $extensionName');
+    log('extensionName: $extensionName');
     final ref2 = result.items[0];
     final name = ref2.name;
     final file = FirebaseFile(ref: ref2, name: name, url: url);
 
     // check if file already exists
     if (File('$downloadPath/MoU-Tracker/$name').existsSync()) {
-      print('File already exists');
+      // print('File already exists');
       OpenFile.open('/storage/emulated/0/Download/MoU-Tracker/$name');
       return;
     }
@@ -74,8 +73,8 @@ class FirebaseApi {
     options = DownloaderUtils(
       progressCallback: (current, total) {
         final progress = (current / total) * 100;
-        // print('Downloading: $progress');
-        // print('$path/$fileName.pdf');
+        // // print('Downloading: $progress');
+        // // print('$path/$fileName.pdf');
       },
 
       // folder struucture to save the file
@@ -83,8 +82,8 @@ class FirebaseApi {
       progress: ProgressImplementation(),
       onDone: () {
         OpenFile.open('/storage/emulated/0/Download/MoU-Tracker/$name');
-        print(
-            'Download completed. File saved at /storage/emulated/0/Download/MoU-Tracker/$name');
+        // print(
+        // 'Download completed. File saved at /storage/emulated/0/Download/MoU-Tracker/$name');
       },
       deleteOnCancel: true,
     );

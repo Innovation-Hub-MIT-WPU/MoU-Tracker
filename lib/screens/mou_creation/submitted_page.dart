@@ -117,7 +117,7 @@ class _TrackButtonState extends State<TrackButton> {
     double w = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
-        print('Inkwell Tap Registered');
+        // print('Inkwell Tap Registered');
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const NewHomePage()),

@@ -63,7 +63,7 @@ class AddActivity extends StatelessWidget {
                     onPressed: () {
                       String newRoute =
                           '/${dropDownController.text.toLowerCase()}';
-                      print('drop down value - $newRoute');
+                      // print('drop down value - $newRoute');
 
                       Widget? formPage;
                       if (newRoute == '/placement') {

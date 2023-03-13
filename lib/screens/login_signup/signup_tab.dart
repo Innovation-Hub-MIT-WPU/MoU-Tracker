@@ -141,9 +141,9 @@ class _SignUpState extends State<SignUp> {
                         setState(() {
                           selectedList = list;
                         });
-                        print(selectedList);
-                        print(
-                            "_list.indexOf(selectedList[0]) ${designations.indexOf(selectedList[0])} \n selectedList.toString() ${selectedList.toString()} \n selectedList[0] ${selectedList[0]}");
+                        // print(selectedList);
+                        // print(
+                        // "_list.indexOf(selectedList[0]) ${designations.indexOf(selectedList[0])} \n selectedList.toString() ${selectedList.toString()} \n selectedList[0] ${selectedList[0]}");
                       },
                     ),
                   ),
@@ -185,7 +185,9 @@ class _SignUpState extends State<SignUp> {
 
     UserModel userModel = UserModel();
     String positions = "";
-    for (String i in selectedList) {positions += "$i ";}
+    for (String i in selectedList) {
+      positions += "$i ";
+    }
     //writing all the values
     userModel.email = user!.email;
     userModel.lastName = lastNameController.text;

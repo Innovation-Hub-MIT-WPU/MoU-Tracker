@@ -37,7 +37,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
   }
 
   void getUserData() async {
-    userData = await DataBaseService().getuserData() as UserModel;
+    userData = await DataBaseService().getuserData();
   }
 
   @override
@@ -121,7 +121,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
       child: ListView.builder(
         padding: EdgeInsets.symmetric(
             horizontal: screenWidth * 0.02, vertical: screenWidth * 0.2),
-        physics: const BouncingScrollPhysics(),
+        // physics: const BouncingScrollPhysics(),
         itemCount: mouList.length,
         itemBuilder: (context, index) {
           if (dropdownvalue == "Detailed") {

@@ -27,7 +27,7 @@ class _InfoTabState extends State<InfoTab> {
     setState(() {
       // default value to show download iconbutton
       downloadChecker[widget.mou.docName] = 0;
-      print(downloadChecker[widget.mou.docName]);
+      // print(downloadChecker[widget.mou.docName]);
     });
   }
 

@@ -41,10 +41,10 @@ class PreviewScreen extends StatelessWidget {
       toolbarHeight: screenWidth * 0.15,
       // shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(screenWidth * 0.05),
-          ),
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(screenWidth * 0.05),
         ),
+      ),
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back,

@@ -1,22 +1,60 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
-class NotFound extends StatelessWidget {
+class ActivityData extends StatelessWidget {
   final String activityName;
-
-  const NotFound({
-    super.key,
-    required this.activityName,
-  });
+  final Map<String, dynamic> activity;
+  const ActivityData(
+      {super.key, required this.activity, required this.activityName});
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    List<Widget> fields = [];
+    List<Widget> colons = [];
+
+    List<Widget> values = [];
+
+    activity.keys.forEach((key) {
+      fields.add(PText(
+        key,
+        textAlign: TextAlign.left,
+        style: GoogleFonts.figtree(
+          fontWeight: FontWeight.w600,
+          fontSize: MediaQuery.of(context).size.width * 0.04,
+          color: Colors.black,
+        ),
+      ));
+      fields.add(SizedBox(height: screenHeight * 0.05));
+
+      colons.add(PText(
+        ":",
+        style: GoogleFonts.figtree(
+          fontWeight: FontWeight.w600,
+          fontSize: MediaQuery.of(context).size.width * 0.04,
+          color: Colors.black,
+        ),
+      ));
+      colons.add(SizedBox(height: screenHeight * 0.05));
+
+      values.add(PText(
+        activity[key],
+        textAlign: TextAlign.right,
+        style: GoogleFonts.figtree(
+          fontWeight: FontWeight.w600,
+          fontSize: MediaQuery.of(context).size.width * 0.04,
+          color: Colors.black,
+        ),
+      ));
+      values.add(SizedBox(height: screenHeight * 0.05));
+    });
+
     return DraggableScrollableSheet(
-      initialChildSize: 0.6,
+      initialChildSize: 0.5,
       builder: (context, scrollController) => Container(
         height: screenHeight * 0.8,
         decoration: BoxDecoration(
@@ -98,16 +136,35 @@ class NotFound extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   width: MediaQuery.of(context).size.width - 100,
                   child: PText(
-                    'Data not Found',
+                    'Description',
                     textAlign: TextAlign.left,
                     style: GoogleFonts.figtree(
                       fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.04,
+                      fontSize: screenWidth * 0.035,
                       color: Colors.black,
                     ),
                   ),
                 ),
               ),
+
+              // Field 1
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: fields,
+                    ),
+                    Column(
+                      children: colons,
+                    ),
+                    Column(
+                      children: values,
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),

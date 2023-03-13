@@ -25,18 +25,18 @@ class NotificationService {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      // print('User granted permission');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
-      print('User granted provisional permission');
+      // print('User granted provisional permission');
     } else {
-      print('User declined or has not accepted permission');
+      // print('User declined or has not accepted permission');
     }
   }
 
   void addToken() async {
     var token = await messaging.getToken();
-    print("get token : $token");
+    // print("get token : $token");
     UserModel model = await DataBaseService().getuserData();
     var list = [token];
     await FirebaseFirestore.instance
@@ -47,9 +47,9 @@ class NotificationService {
 
   void deteleToken(String pos) async {
     var token = await messaging.getToken();
-    print("delete token : $token");
+    // print("delete token : $token");
     var list = [token];
-    print("token deleted $list from ${pos}");
+    // print("token deleted $list from ${pos}");
 
     await FirebaseFirestore.instance
         .collection('deviceTokens')
@@ -73,7 +73,7 @@ class NotificationService {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print("onMessage: $message.notification");
+      // print("onMessage: $message.notification");
 
       AndroidNotificationDetails androidPlatformChannelSpecifics =
           const AndroidNotificationDetails(
@@ -90,13 +90,13 @@ class NotificationService {
       await localNotifPlugin.show(0, message.notification?.title,
           message.notification?.body, platformChannelSpecifics,
           payload: message.data['mou_id']);
-      print("payload ${message.data['mou_id']}");
+      // print("payload ${message.data['mou_id']}");
     });
   }
 
   void onOpenBackNotification(BuildContext context) async {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      print("onMessageOpenedApp: $message");
+      // print("onMessageOpenedApp: $message");
       var mouId = message.data['mou_id'];
       var query = await FirebaseFirestore.instance
           .collection('mou')
@@ -195,7 +195,7 @@ class NotificationService {
                     }
                   }));
         } catch (e) {
-          print(e);
+          // print(e);
         }
       }
     }

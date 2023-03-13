@@ -127,7 +127,7 @@ class _PlacementFormState extends State<PlacementForm> {
                               activityName: 'placements',
                               activityDesc: 'Details of yearwise placements');
                         } catch (err) {
-                          print("Error occurred - $err");
+                          // print("Error occurred - $err");
                         }
 
                         Navigator.of(context, rootNavigator: true)
@@ -151,7 +151,7 @@ class _PlacementFormState extends State<PlacementForm> {
   Future pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) {
-      print("result null");
+      // print("result null");
       return;
     } else {
       final filepath = result.files.single.path!;

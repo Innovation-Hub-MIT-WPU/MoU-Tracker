@@ -142,7 +142,7 @@ class _LabEquipFormState extends State<LabEquipForm> {
   Future pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) {
-      print("result null");
+      // print("result null");
       return;
     } else {
       final filepath = result.files.single.path!;

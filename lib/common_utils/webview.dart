@@ -27,7 +27,7 @@ class WebViewState extends State<WebViewClass> {
   startLoading(String A) {
     setState(() {
       position = 1;
-      print(widget.url);
+      // print(widget.url);
       loadingProgress = 0;
     });
   }
@@ -53,7 +53,7 @@ class WebViewState extends State<WebViewClass> {
             onProgress: (progress) {
               setState(() {
                 loadingProgress = progress;
-                // print("$loadingProgress, $progress");
+                // // print("$loadingProgress, $progress");
               });
             },
           ),

@@ -392,7 +392,7 @@ class ProfileTabState extends State<ProfileTab> {
         imageUrl = url;
       });
     } on FirebaseException catch (e) {
-      print(e);
+      // print(e);
     }
   }
 
@@ -405,7 +405,7 @@ class ProfileTabState extends State<ProfileTab> {
       UserModel getUserData = UserModel.fromMap(snap);
       List positions = getUserData.positions!;
       check = positions.contains(designationController.text.trim());
-      print("check ${getUserData.positions}");
+      // print("check ${getUserData.positions}");
     } catch (e) {
       Fluttertoast.showToast(msg: "database error");
     }

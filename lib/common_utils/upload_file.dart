@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_creation/mou_creation_page.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +17,7 @@ Widget chooseFileButton(BuildContext context, Future Function() pickFile) {
       child: ElevatedButton(
         onPressed: () {
           pickFile();
-          print("tapped");
+          // print("tapped");
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(const Color(0xff64C636)),

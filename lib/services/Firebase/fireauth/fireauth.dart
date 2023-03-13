@@ -16,7 +16,7 @@ class FireAuth {
     try {
       await _auth.signOut();
     } catch (err) {
-      print("Error in signing-out : $err");
+      // print("Error in signing-out : $err");
     }
   }
 }

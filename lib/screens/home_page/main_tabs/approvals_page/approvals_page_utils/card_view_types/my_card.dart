@@ -42,7 +42,7 @@ class _MyCardState extends State<MyCard> {
       child: GestureDetector(
           onTap: () {
             // Navigator.pushNamed(context, '/mou_details');
-            // print('Tapped card {${widget.index}}');
+            // // print('Tapped card {${widget.index}}');
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => Details(
@@ -51,7 +51,7 @@ class _MyCardState extends State<MyCard> {
                 ),
               ),
             );
-            // print('Tapped card ${mou.index}');
+            // // print('Tapped card ${mou.index}');
           },
           child: Container(
             margin: EdgeInsets.symmetric(

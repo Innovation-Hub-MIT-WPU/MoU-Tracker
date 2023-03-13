@@ -63,7 +63,7 @@ class DataBaseService {
         'due-date': dueDate,
       });
     } catch (err) {
-      print("error - $err");
+      // print("error - $err");
     }
     return mouData.id;
   }
@@ -116,7 +116,16 @@ class DataBaseService {
   }
 
   Future<Map> getEngagementData(
-      {required String collId, required String docId}) async {
+      {required String collId, required String docId, String? year}) async {
+    var querySnap = await db.collection(collId).doc(docId).get();
+    final activityData = querySnap.data()!;
+    return activityData;
+  }
+
+  Future<Map<String, dynamic>> getPlacementData(
+      {required String collId,
+      required String docId,
+      required String year}) async {
     var querySnap = await db.collection(collId).doc(docId).get();
     final activityData = querySnap.data()!;
     return activityData;
@@ -126,7 +135,7 @@ class DataBaseService {
     DocumentSnapshot docSnap = await mou.doc(mouId).get();
     List snapList = docSnap.get('activities');
     List<Activity> res = snapList.map((data) {
-      print(data['activity-name']);
+      // print(data['activity-name']);
       return Activity(
         name: data['activity-name'],
         desc: data['activity-desc'],
@@ -134,7 +143,7 @@ class DataBaseService {
       );
     }).toList();
 
-    print(res);
+    // print(res);
     return res;
   }
 
@@ -200,7 +209,7 @@ class DataBaseService {
         'mou_id': mouId
       });
     } catch (err) {
-      print("error - $err");
+      // print("error - $err");
     }
   }
 
@@ -211,7 +220,7 @@ class DataBaseService {
         .get()
         .then((value) => value.data());
     final stats = querySnap![year] as List;
-    print("$type :- $stats");
+    // print("$type :- $stats");
     return stats;
   }
 
@@ -220,6 +229,6 @@ class DataBaseService {
     stats[month + 1] = stats[month + 1] + 1;
     var querySnap =
         await db.collection('stats').doc(type).update({year: stats});
-    print("$type :- $stats");
+    // print("$type :- $stats");
   }
 }

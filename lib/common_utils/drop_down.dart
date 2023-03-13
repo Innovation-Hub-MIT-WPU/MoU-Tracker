@@ -1,6 +1,5 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/login_signup/auth_page_utlis/login_signup_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,34 +118,26 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        PText(
-          "DESIGNATION",
-          style: GoogleFonts.figtree(
-              color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16),
-        ),
-        const SizedBox(height: kFormSpacing / 2),
         Container(
           decoration: const BoxDecoration(
-              color: Colors.grey,
+              color: Colors.white,
               //border: Border.all(color: Colors.white, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(4))),
           child: DropdownButtonFormField(
-              dropdownColor: Colors.grey,
+              dropdownColor: Colors.white,
               hint: PText(
                 "Select a designation",
-                style:
-                    GoogleFonts.figtree(color: Colors.white.withOpacity(0.5)),
+                style: GoogleFonts.figtree(color: Colors.white),
               ),
               value: widget.dropDownItem,
               selectedItemBuilder: (_) {
                 return widget.positionsList
-                    .map((e) => Container(
-                        child: PText(e,
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.figtree(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 18,
-                                color: Colors.white))))
+                    .map((e) => PText(e,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.figtree(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            color: Colors.black)))
                     .toList();
               },
               isExpanded: true,
@@ -168,13 +159,13 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
                 contentPadding: EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.white, width: kBorderWidth)),
+                        BorderSide(color: Colors.black, width: kBorderWidth)),
                 border: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.white, width: kBorderWidth)),
+                        BorderSide(color: Colors.black, width: kBorderWidth)),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: AppColors.buttonYellow, width: kBorderWidth),
+                  borderSide:
+                      BorderSide(color: Colors.black, width: kBorderWidth),
                 ),
               )),
         )
@@ -182,3 +173,12 @@ class _FormAndDropDownState extends State<FormAndDropDown> {
     );
   }
 }
+
+DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+      value: item,
+      child: PText(
+        item,
+        style: GoogleFonts.figtree(
+            fontWeight: FontWeight.w400, fontSize: 16, color: Colors.black),
+      ),
+    );

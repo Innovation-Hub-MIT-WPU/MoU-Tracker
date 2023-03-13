@@ -118,7 +118,7 @@ class _FacultyInternFormState extends State<FacultyInternForm> {
                               activityDesc:
                                   'Details of yearwise Faculty Internships');
                         } catch (err) {
-                          print("Error occurred - $err");
+                          // print("Error occurred - $err");
                         }
 
                         Navigator.of(context, rootNavigator: true)
@@ -142,7 +142,7 @@ class _FacultyInternFormState extends State<FacultyInternForm> {
   Future pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) {
-      print("result null");
+      // print("result null");
       return;
     } else {
       final filepath = result.files.single.path!;

@@ -35,11 +35,8 @@ Widget submitButton(double screenWidth, double screenHeight,
         }
         formKey.currentState!.save();
 
-        try {
-            
-
-        } catch (err) {
-          print("Error occurred - $err");
+        try {} catch (err) {
+          // print("Error occurred - $err");
         }
       },
       child: Padding(
@@ -49,4 +46,3 @@ Widget submitButton(double screenWidth, double screenHeight,
     ),
   );
 }
-
