@@ -7,6 +7,7 @@ import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../services/Firebase/fireauth/model.dart';
 
@@ -68,9 +69,9 @@ class _MouStatusTabState extends State<MouStatusTab> {
           delayedMouList = delayedSort(mouList);
 
           onTrackMouList
-              .sort(((a, b) => b.createdDate!.compareTo(a.createdDate!)));
+              .sort(((a, b) => b.createdDate.compareTo(a.createdDate)));
           delayedMouList
-              .sort(((a, b) => b.createdDate!.compareTo(a.createdDate!)));
+              .sort(((a, b) => b.createdDate.compareTo(a.createdDate)));
           return Stack(
             children: [
               TabBarView(
@@ -101,7 +102,58 @@ class _MouStatusTabState extends State<MouStatusTab> {
         } else if (snapshot.hasError) {
           return Center(child: PText(snapshot.error.toString()));
         } else {
-          return const Loading();
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            loop: 5,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                      MediaQuery.of(context).size.width * 0.05,
+                      MediaQuery.of(context).size.height * 0.05,
+                      MediaQuery.of(context).size.width * 0.05,
+                      MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Colors.lightBlueAccent.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                        vertical: MediaQuery.of(context).size.height * 0.02),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Colors.lightBlueAccent.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         }
       },
     );
@@ -207,7 +259,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
     List<MOU> res = [];
 
     for (MOU data in allData) {
-      bool condition1 = (data.due)!.difference(DateTime.now()).isNegative;
+      bool condition1 = (data.due).difference(DateTime.now()).isNegative;
       bool condition2 = data.appLvl >= userData.pos!;
       if (condition1 && condition2) {
         res.add(data);
@@ -219,7 +271,7 @@ class _MouStatusTabState extends State<MouStatusTab> {
   List<MOU> onTrackSort(List<MOU> allData) {
     List<MOU> res2 = [];
     for (MOU data in allData) {
-      bool condition1 = (data.due)!.difference(DateTime.now()).isNegative;
+      bool condition1 = (data.due).difference(DateTime.now()).isNegative;
       bool condition2 = data.appLvl >= userData.pos!;
       if (!(condition1) && condition2) {
         res2.add(data);

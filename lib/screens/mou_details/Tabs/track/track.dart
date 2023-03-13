@@ -51,10 +51,10 @@ class _TrackTabState extends State<TrackTab> {
           _currentStep = widget.mou.appLvl == 0 ? 1 : widget.mou.appLvl;
           _userPos = userData.pos!;
 
-          // print('before operation');
-          // print('approval lvl - ${widget.mou.appLvl}');
-          // print('User pos - $_userPos');
-          // print('currentStep : $_currentStep');
+          print('before operation');
+          print('approval lvl - ${widget.mou.appLvl}');
+          print('User pos - $_userPos');
+          print('currentStep : $_currentStep');
           // current Step -> next Step in approval
 
           return isLoading ? const Loading() : trackApproval();
@@ -205,7 +205,7 @@ class _TrackTabState extends State<TrackTab> {
           title: "Final Approval",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
-          due: widget.mou.due!,
+          due: widget.mou.due,
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
           "Final Approval", widget.mou.mouId, 6);
@@ -226,7 +226,7 @@ class _TrackTabState extends State<TrackTab> {
           title: "MoU Approved",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
-          due: widget.mou.due!,
+          due: widget.mou.due,
           on: DateTime.now());
       ns.sendPushMessage(
           "${widget.mou.docName} was approved by ${userData.firstName}",
@@ -288,7 +288,7 @@ class _TrackTabState extends State<TrackTab> {
           title: "Mou Rejected!!",
           doc_name: widget.mou.docName,
           by: userData.firstName!,
-          due: widget.mou.due!,
+          due: widget.mou.due,
           on: DateTime.now());
       ns.sendPushMessage(
           "${widget.mou.docName} was denied by ${userData.firstName}",
