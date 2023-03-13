@@ -221,6 +221,7 @@ class DataBaseService {
         .then((value) => value.data());
     final stats = querySnap![year] as List;
     // print("$type :- $stats");
+    await Future.delayed(const Duration(milliseconds: 1500));
     return stats;
   }
 

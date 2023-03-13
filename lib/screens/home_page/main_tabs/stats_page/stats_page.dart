@@ -139,6 +139,7 @@ class StatsPageState extends State<StatsPage> {
                       }
                       return lineChart();
                     } else {
+                      Future.delayed(Duration(seconds: 5), () {});
                       return Center(
                         child: Shimmer.fromColors(
                           baseColor: Colors.grey[300]!,
@@ -187,6 +188,7 @@ class StatsPageState extends State<StatsPage> {
 
                         return approvalRate();
                       } else {
+
                         return Center(
                           child: Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
@@ -198,7 +200,8 @@ class StatsPageState extends State<StatsPage> {
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(
-                                      MediaQuery.of(context).size.width * 0.05)),
+                                      MediaQuery.of(context).size.width *
+                                          0.05)),
                               // color: Colors.white,
                             ),
                           ),

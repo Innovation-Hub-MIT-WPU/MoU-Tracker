@@ -7,6 +7,7 @@ import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../services/Firebase/fireauth/model.dart';
 
@@ -99,7 +100,57 @@ class _MouStatusTabState extends State<MouStatusTab> {
         } else if (snapshot.hasError) {
           return Center(child: PText(snapshot.error.toString()));
         } else {
-          return const Loading();
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            loop: 5,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(
+                        MediaQuery.of(context).size.width * 0.05,
+                        MediaQuery.of(context).size.height * 0.05, 
+                        MediaQuery.of(context).size.width * 0.05,
+                        MediaQuery.of(context).size.height * 0.02, ),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Colors.lightBlueAccent.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                        vertical: MediaQuery.of(context).size.height * 0.02),
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // Colors.lightBlueAccent.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         }
       },
     );
