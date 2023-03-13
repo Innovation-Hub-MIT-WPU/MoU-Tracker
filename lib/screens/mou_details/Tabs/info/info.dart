@@ -58,7 +58,7 @@ class _InfoTabState extends State<InfoTab> {
                     fontSize: screenWidth * 0.033,
                     fontWeight: FontWeight.w500)),
             _writeDesc(screenWidth, screenHeight),
-            PText("Date", style: subtitleStyle(screenWidth * 0.033)),
+            PText("Due Date", style: subtitleStyle(screenWidth * 0.033)),
             _displayText(
                 date,
                 screenHeight,

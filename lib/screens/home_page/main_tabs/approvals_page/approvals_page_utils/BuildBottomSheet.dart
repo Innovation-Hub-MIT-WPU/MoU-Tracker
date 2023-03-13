@@ -133,49 +133,49 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               ),
     
               // Amount
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PText(
-                        'Amount ',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                      PText(
-                        ' : ',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                      PText(
-                        '₹ 10000',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              //   decoration: const BoxDecoration(
+              //     color: Colors.white,
+              //   ),
+              //   child: Container(
+              //     alignment: Alignment.centerLeft,
+              //     padding: const EdgeInsets.symmetric(vertical: 10),
+              //     width: MediaQuery.of(context).size.width - 100,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         PText(
+              //           'Amount ',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         PText(
+              //           ' : ',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         PText(
+              //           '₹ 10000',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
     
               // Author
               Container(
