@@ -24,6 +24,9 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data);
+
+            // TODO: instead of individual bottom sheets, we can use a single bottom sheet and pass the data to it
+
             if (widget.activityName == 'advisory boards') {
               return ActivityData1(
                 activityName: widget.activityName,
