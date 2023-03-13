@@ -159,7 +159,7 @@ class _InfoTabState extends State<InfoTab> {
 
 // Card to download MOU's PDF file
   Future<ListTile> _fileDownload(double width, double height) async {
-    final ref = FirebaseStorage.instance.ref('/${widget.mou.docName}');
+    final ref = FirebaseStorage.instance.ref('/${widget.mou.mouId}');
     final result = await ref.listAll();
     final url = await result.items[0].getDownloadURL();
     // print('url: $url');
@@ -177,36 +177,36 @@ class _InfoTabState extends State<InfoTab> {
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),
       // onTap: () async {
-      //   await FirebaseApi.download(widget.mou.docName);
+      //   await FirebaseApi.download(widget.mou.mouId);
       // },
       onTap: () async {
         // this is to show the circular progress indicator
         setState(() {
-          downloadChecker[widget.mou.docName] = -1;
+          downloadChecker[widget.mou.mouId] = -1;
         });
 
         // Download MOU's PDF for firebase storage, or open it if exists already.
-        await FirebaseApi.download(widget.mou.docName);
+        await FirebaseApi.download(widget.mou.mouId);
 
         // this is to show the downloaded icon
         setState(() {
-          downloadChecker[widget.mou.docName] = 1;
+          downloadChecker[widget.mou.mouId] = 1;
         });
       },
-      trailing: (downloadChecker[widget.mou.docName] == 0)
+      trailing: (downloadChecker[widget.mou.mouId] == 0)
           ? IconButton(
               onPressed: () async {
                 // this is to show the circular progress indicator
                 setState(() {
-                  downloadChecker[widget.mou.docName] = -1;
+                  downloadChecker[widget.mou.mouId] = -1;
                 });
 
                 // Download MOU's PDF for firebase storage, or open it if exists already.
-                await FirebaseApi.download(widget.mou.docName);
+                await FirebaseApi.download(widget.mou.mouId);
 
                 // this is to show the downloaded icon
                 setState(() {
-                  downloadChecker[widget.mou.docName] = 1;
+                  downloadChecker[widget.mou.mouId] = 1;
                 });
 
                 // showDialog(
@@ -252,14 +252,14 @@ class _InfoTabState extends State<InfoTab> {
                 //     });
               },
               icon: Icon(Icons.file_open, size: width * 0.06))
-          : (downloadChecker[widget.mou.docName] == -1)
+          : (downloadChecker[widget.mou.mouId] == -1)
               ? const CircularProgressIndicator()
               : SizedBox(
                   // color: Colors.amber,
                   width: width * 0.15,
                   child: IconButton(
                     onPressed: () async {
-                      await FirebaseApi.download(widget.mou.docName);
+                      await FirebaseApi.download(widget.mou.mouId);
                     },
                     icon: PText('OPEN',
                         style: GoogleFonts.figtree(fontSize: width * 0.03)),

@@ -430,7 +430,7 @@ class CreateFormState extends State<CreateForm> {
         isApproved: false,
       );
       // If text field uploading is successful, Move to File uploading
-      FirebaseApi.fileUpload(docName, file);
+      FirebaseApi.fileUpload(mouId, file);
       db.addNotification(
           mouId: mouId.toString(),
           body: "$docName was created by $initiatorName",
