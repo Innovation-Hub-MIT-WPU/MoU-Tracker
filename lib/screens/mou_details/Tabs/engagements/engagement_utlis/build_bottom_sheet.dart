@@ -20,7 +20,9 @@ class ActivityBottomSheet extends StatefulWidget {
 class ActivityBottomSheetState extends State<ActivityBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    bool fetchSubCollection = widget.activityName == 'placements';
+    bool fetchSubCollection = widget.activityName == 'placements' ||
+        widget.activityName == 'internships' ||
+        widget.activityName == 'faculty internships';
 
     print(fetchSubCollection);
     return fetchSubCollection

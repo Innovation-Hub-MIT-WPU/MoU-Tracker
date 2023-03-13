@@ -104,7 +104,7 @@ class _FacultyInternFormState extends State<FacultyInternForm> {
                               .uploadEngagementsWithSubcollectionData(
                                   year: yearController.text,
                                   mouId: widget.mouId,
-                                  activityName: 'faculty-internships',
+                                  activityName: 'faculty internships',
                                   data: {
                                 'year': yearController.text,
                                 'division': divisionController.text,
@@ -114,7 +114,7 @@ class _FacultyInternFormState extends State<FacultyInternForm> {
 
                           await DataBaseService().updateEngagementList(
                               mouId: widget.mouId,
-                              activityName: 'faculty-internships',
+                              activityName: 'faculty internships',
                               activityDesc:
                                   'Details of yearwise Faculty Internships');
                         } catch (err) {

@@ -5,6 +5,7 @@ import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +109,8 @@ class _PlacementFormState extends State<PlacementForm> {
                         formKey.currentState!.save();
 
                         try {
+                          FirebaseApi.uploadTask(
+                              "${widget.mouId}/Activities", file!);
                           await DataBaseService()
                               .uploadEngagementsWithSubcollectionData(
                                   year: yearController.text,
