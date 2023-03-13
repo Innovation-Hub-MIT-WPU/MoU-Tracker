@@ -85,6 +85,7 @@ class GuestSessionForm extends StatelessWidget {
                           activityDesc:
                               'Record of Scheduled / conducted guest sessions & seminars',
                         );
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

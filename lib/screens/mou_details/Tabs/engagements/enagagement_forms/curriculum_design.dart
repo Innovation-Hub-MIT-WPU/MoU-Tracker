@@ -100,6 +100,7 @@ class _CirriculumDesignFormState extends State<CirriculumDesignForm> {
                           activityName: 'curriculum design',
                           activityDesc: 'Curriculum design documents & status',
                         );
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

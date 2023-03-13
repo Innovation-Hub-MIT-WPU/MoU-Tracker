@@ -24,6 +24,7 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
         widget.activityName == 'internships' ||
         widget.activityName == 'faculty internships';
 
+    // ignore: avoid_print
     print(fetchSubCollection);
     return fetchSubCollection
         ? FutureBuilder<Object>(
@@ -31,6 +32,7 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 docId: widget.mouId, collId: widget.activityName, year: '2023'),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                // ignore: avoid_print
                 print(snapshot.data);
                 List placementactivity =
                     snapshot.data as List<Map<String, dynamic>>;
@@ -48,6 +50,7 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 docId: widget.mouId, collId: widget.activityName),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                // ignore: avoid_print
                 print(snapshot.data);
                 Map<String, dynamic> activity =
                     snapshot.data as Map<String, dynamic>;

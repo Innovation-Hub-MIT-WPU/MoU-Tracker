@@ -20,6 +20,7 @@ class TrackTab extends StatefulWidget {
   const TrackTab({required this.mou, Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TrackTabState createState() => _TrackTabState();
 }
 
@@ -83,6 +84,7 @@ class _TrackTabState extends State<TrackTab> {
                     onStepCancel: cancel,
                     controlsBuilder: ((context, details) {
                       return _currentStep == 7 || _currentStep == 1
+                          // ignore: avoid_unnecessary_containers
                           ? Container(
                               child: Column(
                                 children: [
@@ -104,6 +106,7 @@ class _TrackTabState extends State<TrackTab> {
                                 ],
                               ),
                             )
+                          // ignore: avoid_unnecessary_containers
                           : Container(
                               child: Column(
                                 children: [

@@ -34,6 +34,7 @@ class _PlacementFormState extends State<PlacementForm> {
   TextEditingController studentDetailsController = TextEditingController();
 
   static io.File? file;
+  // ignore: unused_field
   static UploadTask? task;
 
   final formKey = GlobalKey<FormState>();
@@ -130,6 +131,7 @@ class _PlacementFormState extends State<PlacementForm> {
                           // print("Error occurred - $err");
                         }
 
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

@@ -375,13 +375,14 @@ class CreateFormState extends State<CreateForm> {
 
   void submitMOU() async {
     if (!_formKey.currentState!.validate() || file == null) {
-      if (file == null)
+      if (file == null) {
         showDialog(
             barrierDismissible: false,
             context: context,
             builder: (BuildContext context) {
               return dialog(context, file, '/submitted');
             });
+      }
       return;
     }
     _formKey.currentState!.save();

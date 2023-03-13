@@ -1,7 +1,9 @@
 import 'package:MouTracker/common_utils/webview.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../models/mou.dart';
 import '/common_utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ class InfoTab extends StatefulWidget {
   const InfoTab({Key? key, required this.mou, this.heroTag}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _InfoTabState createState() => _InfoTabState();
 }
 
@@ -85,7 +88,35 @@ class _InfoTabState extends State<InfoTab> {
               padding: EdgeInsets.symmetric(
                   horizontal: screenWidth * 0.05,
                   vertical: screenHeight * 0.02),
-              child: _fileDownload(screenWidth, screenHeight),
+              child: FutureBuilder<Widget>(
+                future: _fileDownload(screenWidth, screenHeight),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return snapshot.data!;
+                  } else {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      loop: 5,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.01,
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.003),
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          // Colors.lightBlueAccent.withOpacity(0.1),
+                          // borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -127,13 +158,22 @@ class _InfoTabState extends State<InfoTab> {
   }
 
 // Card to download MOU's PDF file
-  ListTile _fileDownload(double width, double height) {
+  Future<ListTile> _fileDownload(double width, double height) async {
+    final ref = FirebaseStorage.instance.ref('/${widget.mou.docName}');
+    final result = await ref.listAll();
+    final url = await result.items[0].getDownloadURL();
+    // print('url: $url');
+    final FullMetadata metaData = await result.items[0].getMetadata();
+    String extensionName = metaData.contentType.toString().split('/').last;
     return ListTile(
-      title: PText("${widget.mou.docName}.pdf",
+      title: PText("${widget.mou.docName}.$extensionName",
           style: GoogleFonts.figtree(
               fontSize: width * 0.038, color: Colors.black)),
-      subtitle:
-          PText("10.0 MB", style: GoogleFonts.figtree(fontSize: width * 0.03)),
+      subtitle: (metaData.size! / 1000 > 100)
+          ? PText("${metaData.size! / 1000000} MB",
+              style: GoogleFonts.figtree(fontSize: width * 0.03))
+          : PText("${metaData.size! / 1000} KB",
+              style: GoogleFonts.figtree(fontSize: width * 0.03)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),
       // onTap: () async {

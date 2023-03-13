@@ -105,6 +105,7 @@ class _SponsorshipFormState extends State<SponsorshipForm> {
                           activityDesc:
                               'Information about sponsorship agreements',
                         );
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(
                                 builder: (_) => const NewHomePage()));

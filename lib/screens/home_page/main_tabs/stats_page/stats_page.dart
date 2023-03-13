@@ -10,7 +10,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+// ignore: depend_on_referenced_packages
 import 'package:pdf/pdf.dart';
+// ignore: depend_on_referenced_packages
 import 'package:pdf/widgets.dart' as pw;
 
 import '../../../../common_widgets/widgets.dart';
@@ -228,14 +230,12 @@ class StatsPageState extends State<StatsPage> {
             textStyle: GoogleFonts.figtree(fontWeight: FontWeight.bold)),
         annotations: <CircularChartAnnotation>[
           CircularChartAnnotation(
-            widget: Container(
-              child: PText(
-                '${rate.toString().substring(0, 4)}%',
-                style: GoogleFonts.figtree(
-                    color: Color.fromRGBO(0, 0, 0, 0.5),
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
+            widget: PText(
+              '${rate.toString().substring(0, 4)}%',
+              style: GoogleFonts.figtree(
+                  color: Color.fromRGBO(0, 0, 0, 0.5),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ],

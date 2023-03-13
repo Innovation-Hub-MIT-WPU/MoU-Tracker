@@ -22,7 +22,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../common_utils/drop_down.dart';
 import '../../new_nav_bar.dart';
-import '/common_utils/utils.dart';
 
 class ProfileTab extends StatefulWidget {
   final PersistentTabController controller;
@@ -62,8 +61,8 @@ class ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return FutureBuilder(
       future: getUserData,
       builder: ((context, snapshot) {
@@ -134,6 +133,7 @@ class ProfileTabState extends State<ProfileTab> {
                     alignment: Alignment.centerLeft,
                     child: TextButton.icon(
                         onPressed: () async {
+                          // ignore: unused_local_variable
                           final Name = await openDialog();
                           // if (Name != null || Name!.isNotEmpty) {
                           //   setState(() {
@@ -392,6 +392,7 @@ class ProfileTabState extends State<ProfileTab> {
         imageFile = pickedFile;
         imageUrl = url;
       });
+    // ignore: unused_catch_clause
     } on FirebaseException catch (e) {
       // print(e);
     }

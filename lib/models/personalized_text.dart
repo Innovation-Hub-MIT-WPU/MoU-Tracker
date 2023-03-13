@@ -21,6 +21,7 @@ class PText extends StatelessWidget {
 
   final String data;
   @override
+  // ignore: overridden_fields
   final Key? key;
   final TextStyle? style;
   final StrutStyle? strutStyle;
