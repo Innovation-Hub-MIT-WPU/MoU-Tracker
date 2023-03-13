@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../models/notifications_data.dart';
 import '../../../../services/Firebase/firestore/firestore.dart';
 import 'notifications_page_utils/notifications_tab.dart';
@@ -105,8 +106,101 @@ class NotificationsState extends State<Notifications>
                   } else if (snapshot.hasError) {
                     return Center(child: PText(snapshot.error.toString()));
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      loop: 5,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.height * 0.05,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.height * 0.02,
+                              ),
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                // Colors.lightBlueAccent.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 4,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3)),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.02),
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                // Colors.lightBlueAccent.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 4,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3)),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.02),
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                // Colors.lightBlueAccent.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 4,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3)),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.02),
+                              height: MediaQuery.of(context).size.height * 0.1,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                // Colors.lightBlueAccent.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(15),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      spreadRadius: 4,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   }
                 }),

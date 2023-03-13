@@ -187,6 +187,7 @@ class DataBaseService {
           body: doc['body'],
           by: doc['by']);
     }).toList();
+    await Future.delayed(const Duration(seconds: 2));
     return notificationsList;
   }
 
