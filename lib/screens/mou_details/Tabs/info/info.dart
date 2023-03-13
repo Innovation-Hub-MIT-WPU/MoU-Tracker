@@ -50,7 +50,7 @@ class _InfoTabState extends State<InfoTab> {
           children: [
             PText("Information", style: titleStyle(screenWidth * 0.04)),
             _buildDivider(screenWidth, screenHeight),
-            PText("Title", style: subtitleStyle(screenWidth * 0.035)),
+            PText("Title", style: titleStyle(screenWidth * 0.035)),
             _displayText(widget.mou.docName, screenHeight,
                 titleStyle(screenWidth * 0.038)),
             PText("Description",
@@ -58,36 +58,114 @@ class _InfoTabState extends State<InfoTab> {
                     fontSize: screenWidth * 0.033,
                     fontWeight: FontWeight.w500)),
             _writeDesc(screenWidth, screenHeight),
-            PText("Due Date", style: subtitleStyle(screenWidth * 0.033)),
+            PText("Tenure", style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                '${widget.mou.tenure} years',
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("Due Date", style: titleStyle(screenWidth * 0.033)),
             _displayText(
                 date,
                 screenHeight,
                 GoogleFonts.figtree(
                     fontSize: screenWidth * 0.033,
                     fontWeight: FontWeight.normal)),
-            ElevatedButton(
-              onPressed: () async {
-                String link = widget.mou.companyWebsite;
-                Navigator.of(context, rootNavigator: true).push(
-                  MaterialPageRoute(
-                    builder: (context) => WebViewClass(url: link),
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.green),
-              ),
-              child: PText("Company Website",
-                  style: GoogleFonts.figtree(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.038,
-                      fontWeight: FontWeight.w600)),
-            ),
             _buildDivider(screenWidth, screenHeight),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.05,
-                  vertical: screenHeight * 0.02),
+              padding: EdgeInsets.only(bottom: screenWidth * 0.05),
+              child: ElevatedButton(
+                onPressed: () async {
+                  String link = widget.mou.companyWebsite;
+                  Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                      builder: (context) => WebViewClass(url: link),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                ),
+                child: PText("Company Website",
+                    style: GoogleFonts.figtree(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.038,
+                        fontWeight: FontWeight.w600)),
+              ),
+            ),
+            PText("Company Name", style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.companyName.split('').first.toUpperCase() +
+                    widget.mou.companyName.split('').sublist(1).join(),
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("Company Address", style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.companyAddress,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("Company Employees",
+                style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.companyEmployees,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("Company Domain", style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.companyDomain,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("Company Turnover",
+                style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.companyTurnOver,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            _buildDivider(screenWidth, screenHeight),
+            PText("SPOC Name",
+                style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.spocName,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("SPOC Phone", style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.spocNo,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            PText("SPOC Desgination",
+                style: titleStyle(screenWidth * 0.033)),
+            _displayText(
+                widget.mou.spocDesignation,
+                screenHeight,
+                GoogleFonts.figtree(
+                    fontSize: screenWidth * 0.033,
+                    fontWeight: FontWeight.normal)),
+            _buildDivider(screenWidth, screenHeight),
+            PText("MOU Document",
+                style: titleStyle(screenWidth * 0.033)),
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                screenWidth * 0.05,
+                screenHeight * 0.02,
+                screenWidth * 0.05,
+                screenHeight * 0.05,
+              ),
               child: FutureBuilder<Widget>(
                 future: _fileDownload(screenWidth, screenHeight),
                 builder: (context, snapshot) {
