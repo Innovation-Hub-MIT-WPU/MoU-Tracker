@@ -117,7 +117,8 @@ class ProfileTabState extends State<ProfileTab> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                profile_image(DEFAULT_PROFILE_PICTURE),
+                profile_image(
+                    DEFAULT_PROFILE_PICTURE, MediaQuery.of(context).size.width),
                 SizedBox(
                   height: 20,
                 ),
@@ -191,7 +192,7 @@ class ProfileTabState extends State<ProfileTab> {
     );
   }
 
-  Stack profile_image(String image_url) {
+  Stack profile_image(String image_url, double width) {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
@@ -223,24 +224,24 @@ class ProfileTabState extends State<ProfileTab> {
                   ),
         ClipOval(
           child: Container(
-            padding: EdgeInsets.all(3),
+            padding: EdgeInsets.all(width * 0.01),
             color: Colors.white,
             child: CircleAvatar(
               backgroundColor: hexStringToColor("FDC743"),
-              radius: 30,
+              radius: width * 0.05,
             ),
           ),
         ),
         Positioned(
-          right: 13.5,
-          bottom: 12,
+          right: width * 0.002,
+          bottom: width * 0.002,
           child: IconButton(
             onPressed: () {
               bottomSheet();
             },
             icon: Icon(
               Icons.camera_alt_outlined,
-              size: 40,
+              size: width * 0.05,
               color: Colors.white,
             ),
           ),

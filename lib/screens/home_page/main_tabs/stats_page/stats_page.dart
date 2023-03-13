@@ -6,6 +6,7 @@ import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -137,10 +138,24 @@ class StatsPageState extends State<StatsPage> {
                         totalApproved += data[i];
                       }
                       return lineChart();
-                    } else
+                    } else {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          loop: 5,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.width * 0.05)),
+                            // color: Colors.white,
+                          ),
+                        ),
                       );
+                    }
                   }),
             ),
             Padding(
@@ -171,10 +186,24 @@ class StatsPageState extends State<StatsPage> {
                             hexStringToColor("C4C4C4")));
 
                         return approvalRate();
-                      } else
+                      } else {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            loop: 5,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(
+                                      MediaQuery.of(context).size.width * 0.05)),
+                              // color: Colors.white,
+                            ),
+                          ),
                         );
+                      }
                     }),
               ),
             )
