@@ -224,24 +224,24 @@ class ProfileTabState extends State<ProfileTab> {
                   ),
         ClipOval(
           child: Container(
-            padding: EdgeInsets.all(width * 0.033),
+            padding: EdgeInsets.all(width * 0.01),
             color: Colors.white,
             child: CircleAvatar(
               backgroundColor: hexStringToColor("FDC743"),
-              radius: 30,
+              radius: width * 0.05,
             ),
           ),
         ),
         Positioned(
-          right: width * 0.033,
-          bottom: width * 0.033,
+          right: width * 0.002,
+          bottom: width * 0.002,
           child: IconButton(
             onPressed: () {
               bottomSheet();
             },
             icon: Icon(
               Icons.camera_alt_outlined,
-              size: width * 0.1,
+              size: width * 0.05,
               color: Colors.white,
             ),
           ),
