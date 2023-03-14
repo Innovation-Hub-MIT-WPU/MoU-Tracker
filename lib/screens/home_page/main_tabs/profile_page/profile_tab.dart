@@ -20,6 +20,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../common_utils/drop_down.dart';
 import '../../new_nav_bar.dart';
 
@@ -216,7 +217,16 @@ class ProfileTabState extends State<ProfileTab> {
                     img: imageUrl,
                     // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
                   )
-                : CircleAvatar(
+                : 
+                // Shimmer.fromColors(
+                //     baseColor: Colors.grey[300]!,
+                //     highlightColor: Colors.grey[100]!,
+                //     child: CircleAvatar(
+                //       radius: 80,
+                //       backgroundColor: Colors.grey,
+                //     ),
+                //   ),
+                CircleAvatar(
                     //keep updating the image in firebase database
                     backgroundImage:
                         FileImage(File(imageFile.path)) as ImageProvider,

@@ -248,9 +248,9 @@ class _InfoTabState extends State<InfoTab> {
           style: GoogleFonts.figtree(
               fontSize: width * 0.038, color: Colors.black)),
       subtitle: (metaData.size! / 1000 > 100)
-          ? PText("${metaData.size! / 1000000} MB",
+          ? PText("${(metaData.size! / 1000000).toString().substring(0,5)} MB",
               style: GoogleFonts.figtree(fontSize: width * 0.03))
-          : PText("${metaData.size! / 1000} KB",
+          : PText("${(metaData.size! / 1000).toString().substring(0,5)} KB",
               style: GoogleFonts.figtree(fontSize: width * 0.03)),
       tileColor: kTileClr,
       leading: const Icon(Icons.file_present, size: 22),

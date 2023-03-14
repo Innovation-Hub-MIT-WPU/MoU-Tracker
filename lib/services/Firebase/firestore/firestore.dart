@@ -222,7 +222,7 @@ class DataBaseService {
           body: doc['body'],
           by: doc['by']);
     }).toList();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return notificationsList;
   }
 
@@ -257,7 +257,7 @@ class DataBaseService {
         .then((value) => value.data());
     final stats = querySnap![year] as List;
     // print("$type :- $stats");
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return stats;
   }
 

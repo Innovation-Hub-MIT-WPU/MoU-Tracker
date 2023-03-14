@@ -120,77 +120,37 @@ class StatsPageState extends State<StatsPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       appBar: appBar("Report-$year", context),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.03,
-                  left: MediaQuery.of(context).size.width * 0.05,
-                  right: MediaQuery.of(context).size.width * 0.05),
-              child: FutureBuilder(
-                  future: DataBaseService().getStats("total_approved", "2023"),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var data = snapshot.data as List;
-                      _chartData1 = [];
-                      totalApproved = 0;
-                      for (int i = 0; i < 11; i++) {
-                        _chartData1.add(SalesData(monthsName[i], data[i]));
-                        totalApproved += data[i];
-                      }
-                      return lineChart();
-                    } else {
-                      Future.delayed(Duration(seconds: 5), () {});
-                      return Center(
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          loop: 5,
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width * 0.05)),
-                            // color: Colors.white,
-                          ),
-                        ),
-                      );
-                    }
-                  }),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.03),
-              child: Container(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 1));
+          setState(() {
+            DataBaseService().getStats("total_approved", "2023");
+            DataBaseService().getStats("total_initiated", "2023");
+          });
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
                 padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.03,
                     left: MediaQuery.of(context).size.width * 0.05,
                     right: MediaQuery.of(context).size.width * 0.05),
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: MediaQuery.of(context).size.width,
                 child: FutureBuilder(
                     future:
-                        DataBaseService().getStats("total_initiated", "2023"),
+                        DataBaseService().getStats("total_approved", "2023"),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         var data = snapshot.data as List;
-                        totalInitiated = 0;
-                        _chartData2 = [];
+                        _chartData1 = [];
+                        totalApproved = 0;
                         for (int i = 0; i < 11; i++) {
-                          totalInitiated += data[i];
+                          _chartData1.add(SalesData(monthsName[i], data[i]));
+                          totalApproved += data[i];
                         }
-                        rate = (totalApproved / totalInitiated) * 100;
-                        // print(rate);
-                        _chartData2.add(ChartData(
-                            'Approved', rate, COLOR_THEME['primary']!));
-                        _chartData2.add(ChartData('Not  Approved', 100 - rate,
-                            hexStringToColor("C4C4C4")));
-
-                        return approvalRate();
+                        return lineChart();
                       } else {
-
+                        Future.delayed(Duration(seconds: 5), () {});
                         return Center(
                           child: Shimmer.fromColors(
                             baseColor: Colors.grey[300]!,
@@ -211,8 +171,59 @@ class StatsPageState extends State<StatsPage> {
                       }
                     }),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.03),
+                child: Container(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05,
+                      right: MediaQuery.of(context).size.width * 0.05),
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  width: MediaQuery.of(context).size.width,
+                  child: FutureBuilder(
+                      future:
+                          DataBaseService().getStats("total_initiated", "2023"),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          var data = snapshot.data as List;
+                          totalInitiated = 0;
+                          _chartData2 = [];
+                          for (int i = 0; i < 11; i++) {
+                            totalInitiated += data[i];
+                          }
+                          rate = (totalApproved / totalInitiated) * 100;
+                          // print(rate);
+                          _chartData2.add(ChartData(
+                              'Approved', rate, COLOR_THEME['primary']!));
+                          _chartData2.add(ChartData('Not  Approved', 100 - rate,
+                              hexStringToColor("C4C4C4")));
+
+                          return approvalRate();
+                        } else {
+                          return Center(
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              loop: 5,
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.3,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(
+                                        MediaQuery.of(context).size.width *
+                                            0.05)),
+                                // color: Colors.white,
+                              ),
+                            ),
+                          );
+                        }
+                      }),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
