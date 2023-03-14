@@ -10,17 +10,23 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io' as io;
 
-class CenterForm extends StatefulWidget {
+// Center of Execellence & Lab Equipment
+class EngagementFormWithBudget extends StatefulWidget {
+  final String desc;
   final String mouId;
   final String title;
-  const CenterForm(
-      {this.title = "Engagement activity", super.key, required this.mouId});
+  const EngagementFormWithBudget(
+      {this.title = "Engagement activity",
+      super.key,
+      required this.mouId,
+      required this.desc});
 
   @override
-  State<CenterForm> createState() => _CenterFormState();
+  State<EngagementFormWithBudget> createState() =>
+      _EngagementFormWithBudgetState();
 }
 
-class _CenterFormState extends State<CenterForm> {
+class _EngagementFormWithBudgetState extends State<EngagementFormWithBudget> {
   final TextEditingController divisionController = TextEditingController();
 
   final TextEditingController schoolController = TextEditingController();
@@ -108,10 +114,10 @@ class _CenterFormState extends State<CenterForm> {
                               'budget': budgetController.text
                             });
                         await DataBaseService().updateEngagementList(
-                            mouId: widget.mouId,
-                            activityName: 'center of excellence',
-                            activityDesc:
-                                'Details of agreements & transactions for Center of Excellence');
+                          mouId: widget.mouId,
+                          activityName: widget.title,
+                          activityDesc: widget.desc,
+                        );
                         // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)
                             .pushReplacement(MaterialPageRoute(

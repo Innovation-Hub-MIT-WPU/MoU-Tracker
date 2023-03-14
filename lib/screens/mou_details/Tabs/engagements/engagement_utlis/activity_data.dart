@@ -1,6 +1,7 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,20 @@ class ActivityData extends StatefulWidget {
   State<ActivityData> createState() => _ActivityDataState();
 }
 
+addToListSeparated(List<Widget> list, String val, TextAlign textAlign,
+    double screenWidth, double screenHeight) {
+  list.add(PText(
+    val,
+    textAlign: TextAlign.left,
+    style: GoogleFonts.figtree(
+      fontWeight: FontWeight.w600,
+      fontSize: screenWidth * 0.04,
+      color: Colors.black,
+    ),
+  ));
+  list.add(SizedBox(height: screenHeight * 0.05));
+}
+
 class _ActivityDataState extends State<ActivityData> {
   @override
   Widget build(BuildContext context) {
@@ -32,41 +47,29 @@ class _ActivityDataState extends State<ActivityData> {
     List<Widget> values = [];
 
     for (var key in widget.activity.keys) {
-      fields.add(PText(
-        key,
-        textAlign: TextAlign.left,
-        style: GoogleFonts.figtree(
-          fontWeight: FontWeight.w600,
-          fontSize: MediaQuery.of(context).size.width * 0.04,
-          color: Colors.black,
-        ),
-      ));
-      fields.add(SizedBox(height: screenHeight * 0.05));
+      var value = widget.activity[key];
 
-      colons.add(PText(
-        ":",
-        style: GoogleFonts.figtree(
-          fontWeight: FontWeight.w600,
-          fontSize: MediaQuery.of(context).size.width * 0.04,
-          color: Colors.black,
-        ),
-      ));
-      colons.add(SizedBox(height: screenHeight * 0.05));
+      // Key
+      addToListSeparated(
+          fields, key, TextAlign.left, screenWidth, screenHeight);
 
-      values.add(PText(
-        widget.activity[key],
-        textAlign: TextAlign.right,
-        style: GoogleFonts.figtree(
-          fontWeight: FontWeight.w600,
-          fontSize: MediaQuery.of(context).size.width * 0.04,
-          color: Colors.black,
-        ),
-      ));
-      values.add(SizedBox(height: screenHeight * 0.05));
+      // Colon
+      addToListSeparated(
+          colons, ":", TextAlign.center, screenWidth, screenHeight);
+
+      // Value
+
+      // TODO: Write Utility Function to Convert DateTime to String
+      if (value.runtimeType == Timestamp) {
+        DateTime date = value.toDate();
+        value = "${date.year}-${date.month}-${date.day}";
+      }
+      addToListSeparated(
+          values, value, TextAlign.right, screenWidth, screenHeight);
     }
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.5,
+      initialChildSize: 0.7,
       builder: (context, scrollController) => Container(
         height: screenHeight * 0.8,
         decoration: BoxDecoration(

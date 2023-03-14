@@ -11,17 +11,24 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io' as io;
 
-class CurriculumDesignForm extends StatefulWidget {
+// Curriculum Design
+// Sponsorships
+class EngagementFormWithStatus extends StatefulWidget {
+  final String desc;
   final String mouId;
   final String title;
-  const CurriculumDesignForm(
-      {this.title = "Engagement activity", super.key, required this.mouId});
+  const EngagementFormWithStatus(
+      {this.title = "Engagement activity",
+      super.key,
+      required this.mouId,
+      required this.desc});
 
   @override
-  State<CurriculumDesignForm> createState() => _CurriculumDesignFormState();
+  State<EngagementFormWithStatus> createState() =>
+      _EngagementFormWithStatusState();
 }
 
-class _CurriculumDesignFormState extends State<CurriculumDesignForm> {
+class _EngagementFormWithStatusState extends State<EngagementFormWithStatus> {
   final TextEditingController divisionController = TextEditingController();
 
   final TextEditingController statusController = TextEditingController();
@@ -67,7 +74,13 @@ class _CurriculumDesignFormState extends State<CurriculumDesignForm> {
                         fontWeight: FontWeight.bold),
                   ),
                   CreateDropDown(
-                      dropDownItems: const ['Completed', 'Ongoing', 'Delayed'],
+                      dropDownItems: widget.title == 'curriculum design'
+                          ? const ['Completed', 'Ongoing', 'Delayed']
+                          : const [
+                              'Event-related',
+                              'Advertising',
+                              'Organizing'
+                            ],
                       hintText: "Select",
                       dropDownStyle: dropDownDecoration(),
                       dropDownController: statusController),
@@ -97,8 +110,8 @@ class _CurriculumDesignFormState extends State<CurriculumDesignForm> {
                             });
                         await DataBaseService().updateEngagementList(
                           mouId: widget.mouId,
-                          activityName: 'curriculum design',
-                          activityDesc: 'Curriculum design documents & status',
+                          activityName: widget.title,
+                          activityDesc: widget.desc,
                         );
                         // ignore: use_build_context_synchronously
                         Navigator.of(context, rootNavigator: true)

@@ -51,8 +51,8 @@ class EngagementForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   title == 'guest sessions'
-                      ? GuestSessionForm(context, screenWidth, screenHeight)
-                      : ProjectsForm(screenWidth, screenHeight),
+                      ? guestSessionForm(context, screenWidth, screenHeight)
+                      : projectsForm(screenWidth, screenHeight),
                   Padding(
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth * 0.05,
@@ -103,7 +103,7 @@ class EngagementForm extends StatelessWidget {
     );
   }
 
-  Widget ProjectsForm(double screenWidth, double screenHeight) {
+  Widget projectsForm(double screenWidth, double screenHeight) {
     return Column(
       children: [
         PText(
@@ -137,7 +137,7 @@ class EngagementForm extends StatelessWidget {
     );
   }
 
-  Widget GuestSessionForm(
+  Widget guestSessionForm(
       BuildContext context, double screenWidth, double screenHeight) {
     return Column(
       children: [

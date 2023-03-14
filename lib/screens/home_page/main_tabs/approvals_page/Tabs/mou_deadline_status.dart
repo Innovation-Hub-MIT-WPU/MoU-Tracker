@@ -1,7 +1,6 @@
 import 'package:MouTracker/models/mou.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
-import 'package:MouTracker/screens/Loading/loading_spinner.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card.dart';
 import 'package:MouTracker/screens/home_page/main_tabs/approvals_page/approvals_page_utils/card_view_types/my_card_3.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';

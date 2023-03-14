@@ -76,8 +76,9 @@ Widget dialog(BuildContext cntx, File? file, String nextPage) {
               // CreationDetails.addData();
 
               Navigator.pop(cntx);
-              if (file != null)
+              if (file != null) {
                 Navigator.of(cntx).pushReplacementNamed(nextPage);
+              }
             },
             child: PText(
               "Next",

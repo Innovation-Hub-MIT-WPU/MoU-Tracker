@@ -11,7 +11,7 @@ import 'package:open_file_plus/open_file_plus.dart';
 import 'dart:io' as io;
 
 class FirebaseApi {
-  static var downloadUrl;
+  static late String downloadUrl;
   static UploadTask? task;
   static String downloadPath = '/storage/emulated/0/Download';
   static late DownloaderUtils options;

@@ -1,14 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:MouTracker/common_utils/drop_down.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/center_of_execellence.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/curriculum_design.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/engagement_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/lab_equipment_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/placement_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/sponsorship_form.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
-import 'package:flutter/material.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/placement_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/engagement_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/engagemnt_forms_with_budget.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/engagement_forms_with_status.dart';
 
 // ignore: must_be_immutable
 class AddActivity extends StatelessWidget {
@@ -39,12 +37,23 @@ class AddActivity extends StatelessWidget {
     ];
 
     Map<String, String> desc = {
-      'placements': 'Details of yearwise placement',
+      //  Placement Desc is handled
+
+      // desc for w/o file upload
       'advisory boards': 'Industry Advisory boards setted up for the company',
       'consultancy projects':
           'Industry Consultancy Projects conducted by the company',
       'guest sessions':
           'Record of Scheduled / conducted guest sessions & seminars',
+
+      // desc for with file upload
+      'lab equipment': '',
+      'curriculum design': 'Curriculum design documents & status',
+
+      // w/o budget
+      'sponsorships': 'Information about sponsorship agreements',
+      'center of execellence':
+          'Details of agreements & transactions for Center of Excellence',
     };
     double screenWidth = MediaQuery.of(context).size.width;
 
@@ -69,14 +78,18 @@ class AddActivity extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       String newRoute = dropDownController.text.toLowerCase();
-                      // print('drop down value - $newRoute');
 
                       Widget? formPage;
+
+                      // Engagement Forms regarding placements
                       if (newRoute == 'placement' ||
                           newRoute == 'internship' ||
                           newRoute == 'faculty internships') {
                         formPage = PlacementForm(mouId: mouId, title: newRoute);
-                      } else if (newRoute == 'guest sessions' ||
+                      }
+
+                      // Engagement without file uplaods
+                      else if (newRoute == 'guest sessions' ||
                           newRoute == 'consultancy projects' ||
                           newRoute == 'advisory boards') {
                         formPage = EngagementForm(
@@ -84,18 +97,25 @@ class AddActivity extends StatelessWidget {
                           title: newRoute,
                           desc: desc[newRoute]!,
                         );
-                      } else if (newRoute == 'curriculum design') {
-                        formPage = CurriculumDesignForm(
-                            mouId: mouId, title: 'curriculum design');
-                      } else if (newRoute == 'lab equipment') {
-                        formPage =
-                            LabEquipForm(mouId: mouId, title: 'lab equipment');
-                      } else if (newRoute == 'center of excellence') {
-                        formPage = CenterForm(
-                            mouId: mouId, title: 'center of execellence');
-                      } else if (newRoute == 'sponsorships') {
-                        formPage = SponsorshipForm(
-                            mouId: mouId, title: 'sponsorships');
+                      }
+
+                      // Engagement Forms with Status
+                      else if (newRoute == 'curriculum design' ||
+                          newRoute == 'sponsorships') {
+                        formPage = EngagementFormWithStatus(
+                            mouId: mouId,
+                            title: newRoute,
+                            desc: desc[newRoute]!);
+                      }
+
+                      // Engagement Forms with Budget
+                      else if (newRoute == 'center of execellence' ||
+                          newRoute == 'lab equipment') {
+                        formPage = EngagementFormWithBudget(
+                          mouId: mouId,
+                          title: newRoute,
+                          desc: desc[newRoute]!,
+                        );
                       } else {
                         formPage = const Placeholder();
                       }
@@ -104,8 +124,12 @@ class AddActivity extends StatelessWidget {
                           .push(MaterialPageRoute(builder: (_) => formPage!));
                     },
                     child: const Text("Select")),
-                const Expanded(
-                  child: Center(child: PText("Select an Activity")),
+                Expanded(
+                  child: Center(
+                      child: PText(
+                    "Select an Activity",
+                    style: TextStyle(fontSize: screenWidth * 0.06),
+                  )),
                 ),
               ],
             ),
