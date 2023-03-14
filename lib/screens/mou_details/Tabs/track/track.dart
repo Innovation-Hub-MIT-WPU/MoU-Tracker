@@ -212,6 +212,7 @@ class _TrackTabState extends State<TrackTab> {
           on: DateTime.now());
       ns.sendPushMessage("${widget.mou.docName} was approved sucessfully",
           "Final Approval", widget.mou.mouId, 6);
+      // ignore: use_build_context_synchronously
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const MOUApproved()),

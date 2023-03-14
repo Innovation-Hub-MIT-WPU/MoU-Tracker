@@ -36,6 +36,7 @@ class FirebaseApi {
     try {
       final refer = FirebaseStorage.instance.ref(location);
       return refer.putFile(file);
+    // ignore: unused_catch_clause
     } on FirebaseException catch (e) {
       // print(e);
     }
@@ -61,6 +62,7 @@ class FirebaseApi {
     log('extensionName: $extensionName');
     final ref2 = result.items[0];
     final name = ref2.name;
+    // ignore: unused_local_variable
     final file = FirebaseFile(ref: ref2, name: name, url: url);
 
     // check if file already exists
@@ -72,7 +74,6 @@ class FirebaseApi {
 
     options = DownloaderUtils(
       progressCallback: (current, total) {
-        final progress = (current / total) * 100;
         // // print('Downloading: $progress');
         // // print('$path/$fileName.pdf');
       },

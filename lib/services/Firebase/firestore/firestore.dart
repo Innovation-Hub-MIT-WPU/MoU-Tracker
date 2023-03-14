@@ -146,9 +146,9 @@ class DataBaseService {
         await db.collection(collId).doc(docId).collection(year).get();
     var docs = querySnap.docs;
     List<Map<String, dynamic>> activityData = [];
-    docs.forEach((doc) {
+    for (var doc in docs) {
       activityData.add(doc.data());
-    });
+    }
     return activityData;
   }
 
@@ -232,6 +232,7 @@ class DataBaseService {
       required String mouId,
       required String body,
       required String by,
+      // ignore: non_constant_identifier_names
       required String doc_name,
       required String title}) async {
     try {
@@ -264,6 +265,7 @@ class DataBaseService {
   Future addDataToStats(String type, String year, int month) async {
     List stats = await getStats(type, year);
     stats[month + 1] = stats[month + 1] + 1;
+    // ignore: unused_local_variable
     var querySnap =
         await db.collection('stats').doc(type).update({year: stats});
     // print("$type :- $stats");

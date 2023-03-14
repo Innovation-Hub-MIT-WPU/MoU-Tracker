@@ -133,6 +133,7 @@ class NotificationService {
         due: date,
         createdOn: creationDate,
       );
+      // ignore: use_build_context_synchronously
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -179,6 +180,7 @@ class NotificationService {
       createdOn: creationDate,
     );
 
+    // ignore: use_build_context_synchronously
     Navigator.push(
         context,
         MaterialPageRoute(

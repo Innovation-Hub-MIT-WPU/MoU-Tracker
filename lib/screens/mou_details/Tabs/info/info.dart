@@ -239,6 +239,7 @@ class _InfoTabState extends State<InfoTab> {
   Future<ListTile> _fileDownload(double width, double height) async {
     final ref = FirebaseStorage.instance.ref('/${widget.mou.mouId}');
     final result = await ref.listAll();
+    // ignore: unused_local_variable
     final url = await result.items[0].getDownloadURL();
     // print('url: $url');
     final FullMetadata metaData = await result.items[0].getMetadata();

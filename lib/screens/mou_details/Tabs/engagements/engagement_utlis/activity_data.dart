@@ -219,6 +219,7 @@ class _ActivityDataState extends State<ActivityData> {
   Future<ListTile> _fileDownload(double width, double height) async {
     final ref = FirebaseStorage.instance.ref('/${widget.mouId}');
     final result = await ref.listAll();
+    // ignore: unused_local_variable
     final url = await result.items[0].getDownloadURL();
     // print('url: $url');
     final FullMetadata metaData = await result.items[0].getMetadata();

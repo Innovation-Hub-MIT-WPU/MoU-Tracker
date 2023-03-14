@@ -15,6 +15,7 @@ class MouStatusTab extends StatefulWidget {
   const MouStatusTab({required this.tabController, Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _MouStatusTabState createState() => _MouStatusTabState();
 }
 

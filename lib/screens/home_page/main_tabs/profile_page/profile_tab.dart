@@ -20,7 +20,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:shimmer/shimmer.dart';
 import '../../../../common_utils/drop_down.dart';
 import '../../new_nav_bar.dart';
 
