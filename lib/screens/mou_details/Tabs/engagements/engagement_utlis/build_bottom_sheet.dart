@@ -37,8 +37,10 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 List placementactivity =
                     snapshot.data as List<Map<String, dynamic>>;
                 return ActivityData(
-                    activity: placementactivity[0],
-                    activityName: widget.activityName);
+                  activity: placementactivity[0],
+                  activityName: widget.activityName,
+                  mouId: widget.mouId,
+                );
               } else if (snapshot.hasError) {
                 return NotFound(activityName: widget.activityName);
               } else {
@@ -55,7 +57,10 @@ class ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 Map<String, dynamic> activity =
                     snapshot.data as Map<String, dynamic>;
                 return ActivityData(
-                    activity: activity, activityName: widget.activityName);
+                  activity: activity,
+                  activityName: widget.activityName,
+                  mouId: widget.mouId,
+                );
               } else if (snapshot.hasError) {
                 return NotFound(activityName: widget.activityName);
               } else {

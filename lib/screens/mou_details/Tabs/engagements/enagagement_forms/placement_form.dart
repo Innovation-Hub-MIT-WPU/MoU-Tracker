@@ -110,13 +110,14 @@ class _PlacementFormState extends State<PlacementForm> {
                         formKey.currentState!.save();
 
                         try {
-                          FirebaseApi.uploadTask(
-                              "${widget.mouId}/Activities", file!);
+                          FirebaseApi.fileUpload(
+                              "${widget.mouId}/Activities/${widget.title}",
+                              file!);
                           await DataBaseService()
                               .uploadEngagementsWithSubcollectionData(
                                   year: yearController.text,
                                   mouId: widget.mouId,
-                                  activityName: 'placements',
+                                  activityName: widget.title,
                                   data: {
                                 'year': yearController.text,
                                 'division': divisionController.text,
@@ -125,8 +126,9 @@ class _PlacementFormState extends State<PlacementForm> {
 
                           await DataBaseService().updateEngagementList(
                               mouId: widget.mouId,
-                              activityName: 'placements',
-                              activityDesc: 'Details of yearwise placements');
+                              activityName: widget.title,
+                              activityDesc:
+                                  'Details of yearwise ${widget.title}');
                         } catch (err) {
                           // print("Error occurred - $err");
                         }

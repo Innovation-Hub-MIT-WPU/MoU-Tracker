@@ -1,15 +1,11 @@
 import 'package:MouTracker/common_utils/drop_down.dart';
 import 'package:MouTracker/common_widgets/widgets.dart';
 import 'package:MouTracker/models/personalized_text.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/advisory_boards_form.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/center_of_execellence.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/curriculum_design.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/faculty_intern_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/guest_session_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/internship_form.dart';
+import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/engagement_form.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/lab_equipment_form.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/placement_form.dart';
-import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/projects_form.dart';
 import 'package:MouTracker/screens/mou_details/Tabs/engagements/enagagement_forms/sponsorship_form.dart';
 import 'package:MouTracker/services/Firebase/fireauth/model.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +33,19 @@ class AddActivity extends StatelessWidget {
       'Curriculum Design',
       'Guest sessions',
       'Lab equipment',
-      'Center of excellence',
+      'Center of execellence',
       'Sponsorships',
       'Consultancy projects'
     ];
+
+    Map<String, String> desc = {
+      'placements': 'Details of yearwise placement',
+      'advisory boards': 'Industry Advisory boards setted up for the company',
+      'consultancy projects':
+          'Industry Consultancy Projects conducted by the company',
+      'guest sessions':
+          'Record of Scheduled / conducted guest sessions & seminars',
+    };
     double screenWidth = MediaQuery.of(context).size.width;
 
     dropDownController.text = "";
@@ -63,31 +68,34 @@ class AddActivity extends StatelessWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      String newRoute =
-                          '/${dropDownController.text.toLowerCase()}';
+                      String newRoute = dropDownController.text.toLowerCase();
                       // print('drop down value - $newRoute');
 
                       Widget? formPage;
-                      if (newRoute == '/placement') {
-                        formPage = PlacementForm(mouId: mouId);
-                      } else if (newRoute == '/internship') {
-                        formPage = InternshipForm(mouId: mouId);
-                      } else if (newRoute == '/faculty internship') {
-                        formPage = FacultyInternForm(mouId: mouId);
-                      } else if (newRoute == '/advisory boards') {
-                        formPage = AdvisoryBoardsForm(mouId: mouId);
-                      } else if (newRoute == '/curriculum design') {
-                        formPage = CirriculumDesignForm(mouId: mouId);
-                      } else if (newRoute == '/lab equipment') {
-                        formPage = LabEquipForm(mouId: mouId);
-                      } else if (newRoute == '/center of excellence') {
-                        formPage = CenterForm(mouId: mouId);
-                      } else if (newRoute == '/sponsorships') {
-                        formPage = SponsorshipForm(mouId: mouId);
-                      } else if (newRoute == '/consultancy projects') {
-                        formPage = ProjectsForm(mouId: mouId);
-                      } else if (newRoute == '/guest sessions') {
-                        formPage = GuestSessionForm(mouId: mouId);
+                      if (newRoute == 'placement' ||
+                          newRoute == 'internship' ||
+                          newRoute == 'faculty internships') {
+                        formPage = PlacementForm(mouId: mouId, title: newRoute);
+                      } else if (newRoute == 'guest sessions' ||
+                          newRoute == 'consultancy projects' ||
+                          newRoute == 'advisory boards') {
+                        formPage = EngagementForm(
+                          mouId: mouId,
+                          title: newRoute,
+                          desc: desc[newRoute]!,
+                        );
+                      } else if (newRoute == 'curriculum design') {
+                        formPage = CurriculumDesignForm(
+                            mouId: mouId, title: 'curriculum design');
+                      } else if (newRoute == 'lab equipment') {
+                        formPage =
+                            LabEquipForm(mouId: mouId, title: 'lab equipment');
+                      } else if (newRoute == 'center of excellence') {
+                        formPage = CenterForm(
+                            mouId: mouId, title: 'center of execellence');
+                      } else if (newRoute == 'sponsorships') {
+                        formPage = SponsorshipForm(
+                            mouId: mouId, title: 'sponsorships');
                       } else {
                         formPage = const Placeholder();
                       }

@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io' as io;
 
-class CirriculumDesignForm extends StatefulWidget {
+class CurriculumDesignForm extends StatefulWidget {
   final String mouId;
   final String title;
-  const CirriculumDesignForm(
+  const CurriculumDesignForm(
       {this.title = "Engagement activity", super.key, required this.mouId});
 
   @override
-  State<CirriculumDesignForm> createState() => _CirriculumDesignFormState();
+  State<CurriculumDesignForm> createState() => _CurriculumDesignFormState();
 }
 
-class _CirriculumDesignFormState extends State<CirriculumDesignForm> {
+class _CurriculumDesignFormState extends State<CurriculumDesignForm> {
   final TextEditingController divisionController = TextEditingController();
 
   final TextEditingController statusController = TextEditingController();

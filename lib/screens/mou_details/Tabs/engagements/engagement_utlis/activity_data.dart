@@ -1,14 +1,26 @@
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:MouTracker/models/personalized_text.dart';
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-class ActivityData extends StatelessWidget {
+class ActivityData extends StatefulWidget {
+  final String mouId;
   final String activityName;
   final Map<String, dynamic> activity;
   const ActivityData(
-      {super.key, required this.activity, required this.activityName});
+      {super.key,
+      required this.activity,
+      required this.activityName,
+      required this.mouId});
 
+  @override
+  State<ActivityData> createState() => _ActivityDataState();
+}
+
+class _ActivityDataState extends State<ActivityData> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -19,7 +31,7 @@ class ActivityData extends StatelessWidget {
 
     List<Widget> values = [];
 
-    for (var key in activity.keys) {
+    for (var key in widget.activity.keys) {
       fields.add(PText(
         key,
         textAlign: TextAlign.left,
@@ -42,7 +54,7 @@ class ActivityData extends StatelessWidget {
       colons.add(SizedBox(height: screenHeight * 0.05));
 
       values.add(PText(
-        activity[key],
+        widget.activity[key],
         textAlign: TextAlign.right,
         style: GoogleFonts.figtree(
           fontWeight: FontWeight.w600,
@@ -105,7 +117,7 @@ class ActivityData extends StatelessWidget {
                     borderRadius: BorderRadius.circular(screenWidth * 0.5),
                   ),
                   child: PText(
-                    activityName,
+                    widget.activityName,
                     style: GoogleFonts.figtree(
                       fontWeight: FontWeight.bold,
                       fontSize: screenWidth * 0.05,
@@ -161,14 +173,154 @@ class ActivityData extends StatelessWidget {
                     ),
                     Column(
                       children: values,
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
+              FutureBuilder<Widget>(
+                future: _fileDownload(screenWidth, screenHeight),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData) {
+                    return snapshot.data!;
+                  } else {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      loop: 5,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.01,
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.003),
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          // Colors.lightBlueAccent.withOpacity(0.1),
+                          // borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Future<ListTile> _fileDownload(double width, double height) async {
+    final ref = FirebaseStorage.instance.ref('/${widget.mouId}');
+    final result = await ref.listAll();
+    final url = await result.items[0].getDownloadURL();
+    // print('url: $url');
+    final FullMetadata metaData = await result.items[0].getMetadata();
+    String extensionName = metaData.contentType.toString().split('/').last;
+    return ListTile(
+      title: PText("${widget.activityName}.$extensionName",
+          style: GoogleFonts.figtree(
+              fontSize: width * 0.038, color: Colors.black)),
+      subtitle: (metaData.size! / 1000 > 100)
+          ? PText("${metaData.size! / 1000000} MB",
+              style: GoogleFonts.figtree(fontSize: width * 0.03))
+          : PText("${metaData.size! / 1000} KB",
+              style: GoogleFonts.figtree(fontSize: width * 0.03)),
+      tileColor: kTileClr,
+      leading: const Icon(Icons.file_present, size: 22),
+      // onTap: () async {
+      //   await FirebaseApi.download(widget.mou.mouId);
+      // },
+      onTap: () async {
+        // this is to show the circular progress indicator
+        setState(() {
+          downloadChecker[widget.mouId] = -1;
+        });
+
+        // Download MOU's PDF for firebase storage, or open it if exists already.
+        await FirebaseApi.download(widget.mouId);
+
+        // this is to show the downloaded icon
+        setState(() {
+          downloadChecker[widget.mouId] = 1;
+        });
+      },
+      trailing: (downloadChecker[widget.mouId] == 0)
+          ? IconButton(
+              onPressed: () async {
+                // this is to show the circular progress indicator
+                setState(() {
+                  downloadChecker[widget.mouId] = -1;
+                });
+
+                // Download MOU's PDF for firebase storage, or open it if exists already.
+                await FirebaseApi.download(
+                    "$widget.mouId/Activities/${widget.activityName}/");
+
+                // this is to show the downloaded icon
+                setState(() {
+                  downloadChecker[widget.mouId] = 1;
+                });
+
+                // showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       return AlertDialog(
+                //         backgroundColor: kBgClr2,
+                //         title: Row(
+                //           children: const <Widget>[
+                //             Padding(
+                //               padding: EdgeInsets.only(right: 8.0),
+                //               child: Icon(
+                //                 Icons.done,
+                //                 color: Color(0xFFF2C32C),
+                //               ),
+                //             ),
+                //             Flexible(
+                //               child: PaTaTa(
+                //                 "Downloaded",
+                //                 style: GoogleFonts.figtree(
+                //                     fontWeight: FontWeight.w600,
+                //                     color: Colors.white),
+                //               ),
+                //             )
+                //           ],
+                //         ),
+                //         content: const PaTaTa(
+                //           'saved in your device\'s downloads folder',
+                //           style: GoogleFonts.figtree(color: kBgClr1),
+                //         ),
+                //         actions: <Widget>[
+                //           TextButton(
+                //             style: ButtonStyle(
+                //                 backgroundColor: MaterialStateProperty.all(
+                //                     const Color(0xFFF2C32C))),
+                //             child: const PaTaTa('Ok'),
+                //             onPressed: () {
+                //               Navigator.pop(context);
+                //             },
+                //           ),
+                //         ],
+                //       );
+                //     });
+              },
+              icon: Icon(Icons.file_open, size: width * 0.06))
+          : (downloadChecker[widget.mouId] == -1)
+              ? const CircularProgressIndicator()
+              : SizedBox(
+                  // color: Colors.amber,
+                  width: width * 0.15,
+                  child: IconButton(
+                    onPressed: () async {
+                      await FirebaseApi.download(widget.mouId);
+                    },
+                    icon: PText('OPEN',
+                        style: GoogleFonts.figtree(fontSize: width * 0.03)),
+                  ),
+                ),
     );
   }
 }
