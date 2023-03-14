@@ -5,6 +5,7 @@ import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -106,13 +107,16 @@ class _EngagementFormWithBudgetState extends State<EngagementFormWithBudget> {
                       onPressed: () async {
                         await DataBaseService().uploadEngagementData(
                             mouId: widget.mouId,
-                            activityName: 'center of excellence',
+                            activityName: widget.title,
                             data: {
                               'division': divisionController.text,
                               'school': schoolController.text,
                               'lab-name': labController.text,
                               'budget': budgetController.text
                             });
+                        FirebaseApi.fileUpload(
+                            "${widget.mouId}/Activities/${widget.title}",
+                            file!);
                         await DataBaseService().updateEngagementList(
                           mouId: widget.mouId,
                           activityName: widget.title,

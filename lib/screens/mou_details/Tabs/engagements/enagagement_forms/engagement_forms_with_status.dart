@@ -6,6 +6,7 @@ import 'package:MouTracker/common_widgets/fields.dart';
 import 'package:MouTracker/screens/home_page/new_nav_bar.dart';
 import 'package:MouTracker/screens/mou_creation/creation_page_utils/create_mou_widgets.dart';
 import 'package:MouTracker/services/Firebase/firestore/firestore.dart';
+import 'package:MouTracker/services/Firebase/firestore/upload_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,11 +104,14 @@ class _EngagementFormWithStatusState extends State<EngagementFormWithStatus> {
                       onPressed: () async {
                         await DataBaseService().uploadEngagementData(
                             mouId: widget.mouId,
-                            activityName: 'curriculum design',
+                            activityName: widget.title,
                             data: {
                               'division': divisionController.text,
                               'completion-status': statusController.text,
                             });
+                        FirebaseApi.fileUpload(
+                            "${widget.mouId}/Activities/${widget.title}",
+                            file!);
                         await DataBaseService().updateEngagementList(
                           mouId: widget.mouId,
                           activityName: widget.title,
