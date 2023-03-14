@@ -36,7 +36,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return DraggableScrollableSheet(
-      initialChildSize: 0.6,
+      initialChildSize: 0.7,
       builder: (context, scrollController) =>  Container(
         height: screenHeight * 0.8,
         decoration: BoxDecoration(
@@ -133,49 +133,49 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               ),
     
               // Amount
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width - 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      PText(
-                        'Amount ',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                      PText(
-                        ' : ',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                      PText(
-                        '₹ 10000',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.figtree(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.04,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+              //   decoration: const BoxDecoration(
+              //     color: Colors.white,
+              //   ),
+              //   child: Container(
+              //     alignment: Alignment.centerLeft,
+              //     padding: const EdgeInsets.symmetric(vertical: 10),
+              //     width: MediaQuery.of(context).size.width - 100,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         PText(
+              //           'Amount ',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         PText(
+              //           ' : ',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //         PText(
+              //           '₹ 10000',
+              //           textAlign: TextAlign.center,
+              //           style: GoogleFonts.figtree(
+              //             fontWeight: FontWeight.bold,
+              //             fontSize: MediaQuery.of(context).size.width * 0.04,
+              //             color: Colors.black,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
     
               // Author
               Container(
@@ -200,7 +200,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PText(
-                        'Authour ',
+                        'SPOC Name ',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.figtree(
                           fontWeight: FontWeight.bold,
@@ -218,7 +218,113 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                         ),
                       ),
                       PText(
-                        mou.authName,
+                        mou.spocName,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+               Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: screenWidth * 0.008,
+                    horizontal: screenWidth * 0.05),
+                margin: EdgeInsets.only(bottom: screenWidth * 0.04),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomRight:
+                        Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                    bottomLeft:
+                        Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PText(
+                        'SPOC Designation ',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                      PText(
+                        ' : ',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                      PText(
+                        mou.spocDesignation,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+               Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: screenWidth * 0.008,
+                    horizontal: screenWidth * 0.05),
+                margin: EdgeInsets.only(bottom: screenWidth * 0.04),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomRight:
+                        Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                    bottomLeft:
+                        Radius.circular(MediaQuery.of(context).size.width * 0.05),
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PText(
+                        'SPOC Phone ',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                      PText(
+                        ' : ',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.figtree(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.04,
+                          color: Colors.black,
+                        ),
+                      ),
+                      PText(
+                        mou.spocNo,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.figtree(
                           fontWeight: FontWeight.bold,

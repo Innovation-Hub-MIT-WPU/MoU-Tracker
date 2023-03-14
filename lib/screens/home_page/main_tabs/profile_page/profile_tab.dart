@@ -196,7 +196,7 @@ class ProfileTabState extends State<ProfileTab> {
     return Stack(
       alignment: AlignmentDirectional.bottomEnd,
       children: [
-        imageFile == null && imageUrl == ""
+        imageFile == null && imageUrl == "abc"
             ? ProfilePicture(
                 name: name,
                 // role: position,
@@ -206,7 +206,7 @@ class ProfileTabState extends State<ProfileTab> {
                 // img: imageUrl,
                 // img: 'https://avatars.githubusercontent.com/u/37553901?v=4',
               )
-            : imageUrl != ""
+            : imageUrl != "abc"
                 ? ProfilePicture(
                     name: name,
                     // role: position,
