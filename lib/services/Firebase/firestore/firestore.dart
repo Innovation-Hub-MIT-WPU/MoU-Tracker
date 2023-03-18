@@ -264,7 +264,7 @@ class DataBaseService {
 
   Future addDataToStats(String type, String year, int month) async {
     List stats = await getStats(type, year);
-    stats[month + 1] = stats[month + 1] + 1;
+    stats[month - 1] = stats[month - 1] + 1;
     // ignore: unused_local_variable
     var querySnap =
         await db.collection('stats').doc(type).update({year: stats});
