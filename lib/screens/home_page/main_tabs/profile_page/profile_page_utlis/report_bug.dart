@@ -1,9 +1,13 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, deprecated_member_use
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:MouTracker/models/personalized_text.dart';
 import 'package:MouTracker/common_utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../../services/Firebase/fireauth/model.dart';
 
 class ReportIssues extends StatefulWidget {
   const ReportIssues({Key? key}) : super(key: key);
@@ -107,8 +111,41 @@ class _ReportIssuesState extends State<ReportIssues> {
                   padding: EdgeInsets.fromLTRB(
                       0, MediaQuery.of(context).size.height * 0.2, 0, 0),
                   child: TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (reportKey.currentState?.validate() == true) {
+                          final CollectionReference users =
+                              FirebaseFirestore.instance.collection('users');
+                          User? user = FirebaseAuth.instance.currentUser!;
+                          var snap = await users.doc(user.uid).get();
+                          UserModel getUserData = UserModel.fromMap(snap);
+
+                          bool docExists = await checkIfDocExists(user.uid);
+
+                          (docExists)
+                              ? FirebaseFirestore.instance
+                                  .collection("issues")
+                                  .doc(user.uid)
+                                  .update({
+                                  'email': getUserData.email,
+                                  'position': getUserData.designation,
+                                  'name': getUserData.firstName,
+                                  'issue': FieldValue.arrayUnion([
+                                    _issueController.text,
+                                  ]),
+                                  'time': DateTime.now().toString(),
+                                })
+                              : FirebaseFirestore.instance
+                                  .collection("issues")
+                                  .doc(user.uid)
+                                  .set({
+                                  'email': getUserData.email,
+                                  'position': getUserData.designation,
+                                  'name': getUserData.firstName,
+                                  'issue': FieldValue.arrayUnion([
+                                    _issueController.text,
+                                  ]),
+                                  'time': DateTime.now().toString(),
+                                });
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: PText("Issue Submitted"),
                             duration: Duration(seconds: 2),
@@ -127,6 +164,16 @@ class _ReportIssuesState extends State<ReportIssues> {
         ),
       ),
     );
+  }
+
+  Future<bool> checkIfDocExists(String docId) async {
+    try {
+      var collectionRef = FirebaseFirestore.instance.collection('issues');
+      var doc = await collectionRef.doc(docId).get();
+      return doc.exists;
+    } catch (e) {
+      throw e;
+    }
   }
 
   Widget textBox(String labelText, String intialValue) {

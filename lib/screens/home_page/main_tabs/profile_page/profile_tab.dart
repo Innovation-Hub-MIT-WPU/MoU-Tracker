@@ -242,15 +242,15 @@ class ProfileTabState extends State<ProfileTab> {
           ),
         ),
         Positioned(
-          right: width * 0.002,
-          bottom: width * 0.002,
+          right: width * 0.0005,
+          bottom: width * 0.0005,
           child: IconButton(
             onPressed: () {
               bottomSheet();
             },
             icon: Icon(
               Icons.camera_alt_outlined,
-              size: width * 0.05,
+              size: width * 0.053,
               color: Colors.white,
             ),
           ),
@@ -392,6 +392,7 @@ class ProfileTabState extends State<ProfileTab> {
       final refer = FirebaseStorage.instance.ref("Profile/$name");
       refer.putFile(File(pickedFile!.path));
       final url = await refer.getDownloadURL();
+      print('url: $url');
       User? user = FirebaseAuth.instance.currentUser;
       FirebaseFirestore.instance
           .collection("users")
@@ -401,7 +402,6 @@ class ProfileTabState extends State<ProfileTab> {
         imageFile = pickedFile;
         imageUrl = url;
       });
-    // ignore: unused_catch_clause
     } on FirebaseException catch (e) {
       // print(e);
     }
